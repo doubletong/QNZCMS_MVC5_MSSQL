@@ -1,0 +1,164 @@
+﻿@model EmailTemplateIM
+@{
+    ViewBag.Title = "编辑" + EntityNames.EmailTemplate;
+    ViewBag.PageTitle = ViewBag.Title + "_内容";
+}
+
+
+@section Header{
+
+}
+
+
+@using (Ajax.BeginForm("Edit", null, new AjaxOptions
+{
+
+    HttpMethod = "POST",
+    OnBegin = "onBeginSave",
+    OnComplete = "onCompleteSave",
+    OnSuccess = "updateSuccess"
+
+}, new { @class = "form-horizontal", role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+
+
+    <div class="panel panel-default">
+        <header class="panel-heading">
+            <span class="glyphicon glyphicon-edit"></span> @ViewBag.Title
+        </header>
+
+        <section class="panel-body">
+
+            <div class="form-group">
+                <label class="col-md-2 control-label">参数说明</label>
+                <div class="col-md-10">
+                    @Html.Partial("_Parm")
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Subject, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Subject, new { @class = "form-control", placeholder = Labels.Subject })
+                    @Html.ValidationMessageFor(model => model.Subject)
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TemplateNo, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.TemplateNo, new { @class = "form-control", placeholder = Labels.TemplateNo })
+                    @Html.ValidationMessageFor(model => model.TemplateNo)
+                </div>
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Body, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Body, new { @class = "form-control", placeholder = "内容" })
+                    @Html.ValidationMessageFor(model => model.Body)
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmailAccountId, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.EmailAccountId, (SelectList)ViewBag.Categories, new { @class = "form-control", placeholder = Labels.EmailAccount })
+                    @Html.ValidationMessageFor(model => model.EmailAccountId)
+                </div>
+
+            </div>
+
+
+        </section>
+        <footer class="panel-footer text-center">
+            <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save fa-fw"></i>  @Buttons.Update </button>
+            <a href="@Url.Action("Index")" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> @Buttons.Back</a>
+        </footer>
+
+    </div>
+}
+
+
+@Html.Action("PopuFinder", "File")
+
+@section Footer {
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+
+    <script src="~/plugins/tinymce/tinymce.min.js"></script>
+    <script src="~/plugins/tinymce/langs/zh_CN.js"></script>
+
+    <script>
+      
+
+        function onBeginSave() {
+            $("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin");
+        }
+        function onCompleteSave() {
+            $("#btnSave i").removeClass("fa-spinner fa-spin").addClass("fa-save");
+        }
+
+    function updateSuccess(data) {
+        var title = '@ViewBag.Title';
+        Common.ShowBox(data.Status, data.Message, title);
+    }
+
+        tinymce.init({
+            selector: '#Body',  // change this value according to your HTML
+            height: 350,
+            language: 'zh_CN',
+            theme: 'modern',
+            convert_urls: false,
+            plugins: [
+              'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+              'searchreplace wordcount visualblocks visualchars code fullscreen',
+              'insertdatetime media nonbreaking save table contextmenu directionality',
+              'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+            ],
+            toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image print preview media | forecolor backcolor emoticons | codesample',
+            image_advtab: true,
+            templates: [
+              { title: 'Test template 1', content: 'Test 1' },
+              { title: 'Test template 2', content: 'Test 2' }
+            ],
+            //picture manager
+            file_browser_callback: callSigFinder,
+            templates: [
+        { title: 'Some title 1', description: 'Some desc 1', content: 'My content' },
+        { title: 'Some title 2', description: 'Some desc 2', url: 'development.html' }
+            ]
+
+        });
+        function callSigFinder(field_name, url, type, win) {
+            var roxyFileman = '@Url.Action("FinderForTinyMCE","File",new { area="Admin"})';
+            tinyMCE.activeEditor.windowManager.open({
+                file: roxyFileman,
+                title: 'SigFinder',
+                width: 850,
+                height: 655,
+                resizable: "yes",
+                plugins: "media",
+                inline: "yes",
+                close_previous: "no"
+            }, { window: win, input: field_name });
+            return false;
+
+        }
+
+        $(function () {
+           
+        })
+
+    </script>
+}
+
+
+
+

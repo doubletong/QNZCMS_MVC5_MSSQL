@@ -1,0 +1,43 @@
+﻿@model EmailAccount
+<tr class="item-container " id="@string.Format("container{0}",Model.Id)">  
+
+    <td>
+        @Model.Email
+    </td>
+    <td>@Model.CreatedDate.ToShortDateString()</td>
+   
+    <td>
+        @if (Model.IsDefault)
+        {
+            <a href="#" data-url="@Url.Action("IsDefault", new {aid = Model.Id})" class="active-item" title="默认" data-action="取消默认">
+                <i class="fa fa-check text-success"></i>
+            </a>
+
+        }
+        else
+        {
+            <a href="#" data-url="@Url.Action("IsDefault", new {aid = Model.Id})" class="active-item" title="无默认" data-action="设置默认">
+                <i class="fa fa-remove text-danger"></i>
+            </a>
+        }
+    </td>
+    <td>
+        @Ajax.RawActionLink("<i class='fa fa-send'></i>",
+                        "Test", "EmailAccount",
+                        new { id = Model.Id },
+                        new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
+                        new { @class = "btn btn-default btn-sm", title = Titles.TestEmailAccount })
+
+        @Ajax.RawActionLink("<i class='fa fa-edit'></i>",
+                        "Edit", "EmailAccount",
+                        new { id = Model.Id },
+                        new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
+                        new { @class = "btn btn-primary btn-sm", title = Buttons.Edit })
+
+      
+        <a href="#" data-url="@Url.Action("Delete", new {id = Model.Id})" class="btn btn-danger btn-sm delete-item" title="@Buttons.Delete">
+            <i class="fa fa-trash-o fa-fw"></i>
+        </a>
+
+    </td>
+</tr>

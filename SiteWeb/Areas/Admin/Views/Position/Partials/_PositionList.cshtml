@@ -1,0 +1,5 @@
+﻿@model IEnumerable<Position>
+@foreach (var item in Model)
+{
+    Html.RenderPartial("_PositionItem", item);
+}

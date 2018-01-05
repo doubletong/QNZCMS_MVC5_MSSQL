@@ -1,0 +1,136 @@
+﻿@model ContactIM
+
+@using (Ajax.BeginForm("Contact", null, new AjaxOptions()
+            {
+                OnBegin = "onBegin",
+                OnComplete = "onComplete",
+                //   Confirm = "Are you sure you want to save this User?"
+                OnSuccess = "onSuccess"
+
+            }, new { @class = "form-horizontal", role = "form" }))
+            {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CompanyName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-5">
+            @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control", placeholder = "公司名称" })
+            @Html.ValidationMessageFor(model => model.CompanyName)
+        </div>
+
+    </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CompanyShortName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(model => model.CompanyShortName, new { @class = "form-control", placeholder = "公司简称" })
+                        @Html.ValidationMessageFor(model => model.CompanyShortName)
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Address, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-5">
+                        @Html.TextAreaFor(model => model.Address, new { @class = "form-control", placeholder = "公司地址" })
+                        @Html.ValidationMessageFor(model => model.Address)
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Coordinate, new { @class = "col-md-2 control-label" })
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.Coordinate, new { @class = "form-control", placeholder = ModelMetadata.FromLambdaExpression(x => x.Coordinate, ViewData).Watermark })
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-map-marker"></span> 坐标拾取</button>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Coordinate)
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ContactMan, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(model => model.ContactMan, new { @class = "form-control", placeholder = "联系人" })
+                        @Html.ValidationMessageFor(model => model.ContactMan)
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Mobile, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control", placeholder = "手机" })
+                        @Html.ValidationMessageFor(model => model.Mobile)
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Phone, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "电话" })
+                        @Html.ValidationMessageFor(model => model.Phone)
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Fax, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(model => model.Fax, new { @class = "form-control", placeholder = "传真" })
+                        @Html.ValidationMessageFor(model => model.Fax)
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ZipCode, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(model => model.ZipCode, new { @class = "form-control", placeholder = "邮政编码" })
+                        @Html.ValidationMessageFor(model => model.ZipCode)
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MailTo, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(model => model.MailTo, new { @class = "form-control", placeholder = "邮箱" })
+                        @Html.ValidationMessageFor(model => model.MailTo)
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MailCC, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(model => model.MailCC, new { @class = "form-control", placeholder = "备用邮箱" })
+                        @Html.ValidationMessageFor(model => model.MailCC)
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-md-3">
+                        <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save fa-fw"></i>保存</button>
+                    </div>
+                    @*<div class="col-md-7">
+                            @TempData["message"]
+                        </div>*@
+                </div>
+}

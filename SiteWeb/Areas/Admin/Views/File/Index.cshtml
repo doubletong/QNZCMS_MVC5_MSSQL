@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "媒体库";
+}
+@section Header{
+
+<link href="~/plugins/SigFinder/SigFinder.min.css" rel="stylesheet" />
+<link href="~/plugins/webuploader/webuploader.css" rel="stylesheet" />
+}
+
+
+@Html.Action("SigFinder")
+
+@section Footer {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="/Plugins/webuploader/webuploader.min.js"></script>
+    <script src="/Plugins/SigFinder/FileManager.js"></script>
+
+
+}

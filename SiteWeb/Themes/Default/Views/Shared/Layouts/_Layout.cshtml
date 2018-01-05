@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <title>@ViewBag.Title - @SettingsManager.Contact.CompanyShortName</title>
+
+    @RenderSection("header", required: false)
+    <link href="~/Themes/Default/Content/css/iconfont/iconfont.css" rel="stylesheet" />
+    <link href="~/Themes/Default/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Themes/Default/Content/css/animate.min.css" rel="stylesheet" />
+    <link href="~/Themes/Default/Content/css/main.min.css" rel="stylesheet" />
+    <script src="~/Scripts/compatibility/modernizr-2.8.3.min.js"></script>
+    
+</head>
+<body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">
+        您使用的是<strong>老旧</strong>的浏览器，会对您的计算机安全造成威胁。请<a href="http://browsehappy.com/">升级您的浏览器</a>来提高您的用户体验。
+        </p>
+    <![endif]-->
+
+
+
+    @RenderBody()
+
+    <!-- The Scripts -->
+    <!--[if lte IE 8]>
+    <script src="~/scripts/lib/jqueryForIE/jquery-1.11.3.min.js"></script>
+    <![endif]-->
+    <!--[if gte IE 9]><!-->
+    <script src="~/scripts/lib/jquery/jquery-2.2.0.min.js"></script>
+    <!--<![endif]-->
+
+    @RenderSection("footer", required: false)
+
+    <script src="~/Themes/Default/Content/js/app.min.js"></script>
+
+</body> 
+</html>

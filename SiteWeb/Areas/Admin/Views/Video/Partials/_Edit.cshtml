@@ -1,0 +1,166 @@
+﻿
+@model VideoIM
+
+@using (Ajax.BeginForm("Edit", "Video",
+                            new AjaxOptions()
+                            {
+                                HttpMethod = "POST",
+                                OnBegin = "onBegin",
+                                OnComplete = "onComplete",
+                                OnSuccess = "updateSuccess",
+                                //OnFailure = "handleError",
+                                //UpdateTargetId = "tr" + Model.Id
+
+                            }, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+   
+
+    <!-- 添加菜单 Modal -->
+    <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">@string.Format("编辑{0}", EntityNames.Video)</h4>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#product" aria-controls="product" role="tab" data-toggle="tab">@EntityNames.Video</a></li>
+                        <li role="presentation"><a href="#seo" aria-controls="seo" role="tab" data-toggle="tab">SEO设置</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content" style="padding-top:30px;">
+                        <div role="tabpanel" class="tab-pane active" id="product">
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Title, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = Labels.Title })
+                                    @Html.ValidationMessageFor(model => model.Title)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Summary, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.Summary, new { @class = "form-control", placeholder = Labels.Summary })
+                                    @Html.ValidationMessageFor(model => model.Summary)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CategoryId, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Categories, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.CategoryId)
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.VideoUrl, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.VideoUrl, new { @class = "form-control", placeholder = "直播网址" })
+                                    @Html.ValidationMessageFor(model => model.VideoUrl)
+                                </div>
+                            </div>
+                           
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Thumbnail, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.Thumbnail, new { @class = "form-control", placeholder = Labels.Thumbnail })
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" id="btnThumbnail" type="button">浏览…</button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                    <span class="help-block">图像大小：712 x 398 像素</span>
+                                </div>
+                                <div class="col-md-5">
+                                    @Html.ValidationMessageFor(model => model.Thumbnail)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.StartDate, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", placeholder = Labels.StartDate })
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.StartDate)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EndDate, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    <div class='input-group date' id='datetimepicker2'>
+                                        @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control", placeholder = Labels.EndDate })
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.EndDate)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-5 col-md-offset-2">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(model => model.Active)  @Html.DisplayNameFor(model => model.Active)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    @Html.ValidationMessageFor(model => model.Active)
+                                </div>
+                            </div>
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="seo">
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Keywords, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.Keywords, new { @class = "form-control", placeholder = "关键字(SEO)" })
+
+                                    @Html.ValidationMessageFor(model => model.Keywords)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Description, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "描述(SEO)" })
+
+                                    @Html.ValidationMessageFor(model => model.Description)
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button class="btn btn-primary" type="submit" id="btnSave"><i class="fa fa-save fa-fw"></i>保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
+
+
+</script>

@@ -1,0 +1,148 @@
+﻿@model EmailTemplateListVM
+
+@{
+    ViewBag.Title = EntityNames.EmailTemplate;
+    ViewBag.PageTitle = ViewBag.Title + "_内容";
+}
+@section Header{
+<link href="~/Content/Plugins/lightbox/ekko-lightbox.min.css" rel="stylesheet" />
+
+    <script src="~/Content/plugins/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/plugins/ckfinder/ckfinder.js"></script>
+}
+    <div class="panel panel-default">
+        <header class="panel-heading">
+            <a class="btn btn-primary pull-right" href="@Url.Action("Add")"><i class="glyphicon glyphicon-plus"></i> @string.Format("{0}{1}", Buttons.Add, ViewBag.Title)</a>
+
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="Keyword">关键字</label>
+                    @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.AccountId, (IEnumerable<SelectListItem>)ViewBag.Categories, EntityNames.EmailAccount + "过滤", new { @class = "form-control" })
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-search fa-fw"></i>查找</button>
+            </form>
+        </header>
+
+            <table class="table table-hover table-vmiddle">
+                <thead>
+                    <tr>  
+                        <th>
+                            主题
+                        </th>
+                        <th>
+                            模板编号
+                        </th>
+                        <th>
+                            发送帐号
+                        </th>
+                        <th>
+                            创建日期
+                        </th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.EmailTemplates)
+                    {
+                        Html.RenderPartial("_EmailTemplateItem", item);
+                    }
+
+                </tbody>
+
+            </table>
+        
+        <footer class="panel-footer">
+            <div class="row">
+                <div class="col-sm-7">
+                    @Html.PagedListPager(Model.EmailTemplates, page => Url.Action("Index", new { page = page, categoryId = Model.AccountId,keyword = Model.Keyword }))
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-inline text-right">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
+                            @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+         
+        </footer>
+
+
+    </div>
+
+<!-- end main container -->
+
+<div id="edit-container">
+</div>
+
+<form id="anti-form" method="post">
+    @Html.AntiForgeryToken()
+</form>
+
+
+@section footer {
+@Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+<script src="~/Content/Plugins/lightbox/ekko-lightbox.min.js"></script>
+    <script>
+
+
+        $(function () {
+
+            //lightbox events
+            $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+
+
+            $(document).on("change", '#PageSize', function (e) {
+                e.preventDefault();
+
+                var url = "@Url.Action("PageSizeSet")", title = "分页设置", pageSize = $(this).val();
+                Common.PageSizeSet(url, title, pageSize, setPageSizeFunc);
+
+            });
+
+            function setPageSizeFunc() {
+                location.reload();
+            }
+
+           
+            $(document).on("click", '.active-item','.recommend-item', function (e) {
+            //$('.recommend-item,.active-item').click(function (e) {
+                e.preventDefault();
+                var url = $(this).attr('data-url'), title = $(this).attr('data-action'), that = $(this);
+                Common.SingleActionWithFuncBack(url, title, that, submitFunc);
+              //  Common.SingleAction(url, title, true);
+            });
+
+            function submitFunc(that, data) {
+                var tr = that.closest('.item-container').replaceWith(data);
+            }
+
+            //delete
+            $(document).on("click", '.delete-item', function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('data-url');
+                var that = $(this);
+                bootbox.setLocale("zh_CN");
+                bootbox.confirm("你确定要删除此项吗？", function (result) {
+                    /*DELETE*/
+                    if (result) {
+                        var title = "@ViewBag.Title";
+                        Common.DeleteItem(url, title, that);
+                    }
+
+                });
+
+            });
+
+           
+
+        });
+    </script>
+
+}

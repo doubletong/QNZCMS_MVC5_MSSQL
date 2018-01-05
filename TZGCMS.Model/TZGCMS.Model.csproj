@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{49E36179-28A4-4A5A-B8B3-790CE3CB9BC4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TZGCMS.Model</RootNamespace>
+    <AssemblyName>TZGCMS.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\InputModel\Ads\CarouselIM.cs" />
+    <Compile Include="Admin\InputModel\Ads\PositionIM.cs" />
+    <Compile Include="Admin\InputModel\Articles\AcquisitionIM.cs" />
+    <Compile Include="Admin\InputModel\Articles\ArticleCategoryIM.cs" />
+    <Compile Include="Admin\InputModel\Articles\ArticleIM.cs" />
+    <Compile Include="Admin\InputModel\Articles\FilterTemplateIM.cs" />
+    <Compile Include="Admin\InputModel\CompanyInfoIM.cs" />
+    <Compile Include="Admin\InputModel\Emails\EmailAccountIM.cs" />
+    <Compile Include="Admin\InputModel\Emails\EmailIM.cs" />
+    <Compile Include="Admin\InputModel\Emails\EmailTemplateIM.cs" />
+    <Compile Include="Admin\InputModel\Emails\TestEmailIM.cs" />
+    <Compile Include="Admin\InputModel\Identity\ProfileIM.cs" />
+    <Compile Include="Admin\InputModel\Identity\RegisterIM.cs" />
+    <Compile Include="Admin\InputModel\Identity\SetPasswordIM.cs" />
+    <Compile Include="Admin\InputModel\Identity\UserIM.cs" />
+    <Compile Include="Admin\InputModel\LuceneSearch\SearchDataIM.cs" />
+    <Compile Include="Admin\InputModel\Menus\FrontMenuIM.cs" />
+    <Compile Include="Admin\InputModel\Menus\MenuCategoryIM.cs" />
+    <Compile Include="Admin\InputModel\Menus\MenuIM.cs" />
+    <Compile Include="Admin\InputModel\ModuleSet.cs" />
+    <Compile Include="Admin\InputModel\Pages\PageIM.cs" />
+    <Compile Include="Admin\InputModel\Videos\VideoCategoryIM.cs" />
+    <Compile Include="Admin\InputModel\Videos\VideoIM.cs" />
+    <Compile Include="Admin\ViewModel\Ads\CarouselListVM.cs" />
+    <Compile Include="Admin\ViewModel\Ads\CarouselVM.cs" />
+    <Compile Include="Admin\ViewModel\Ads\PageCarouselListVM.cs" />
+    <Compile Include="Admin\ViewModel\Ads\PositionListVM.cs" />
+    <Compile Include="Admin\ViewModel\Ads\PositionVM.cs" />
+    <Compile Include="Admin\ViewModel\Articles\ArticleCategoryListVM.cs" />
+    <Compile Include="Admin\ViewModel\Articles\ArticleCategoryVM.cs" />
+    <Compile Include="Admin\ViewModel\Articles\CommentListVM.cs" />
+    <Compile Include="Admin\ViewModel\Articles\ArticleListVM.cs" />
+    <Compile Include="Admin\ViewModel\Articles\ArticleVM.cs" />
+    <Compile Include="Admin\ViewModel\Articles\FilterTemplateListVM.cs" />
+    <Compile Include="Admin\ViewModel\Articles\FilterTemplateVM.cs" />
+    <Compile Include="Admin\ViewModel\Emails\EmailAccountListVM.cs" />
+    <Compile Include="Admin\ViewModel\Emails\EmailAccountVM.cs" />
+    <Compile Include="Admin\ViewModel\Emails\EmailListVM.cs" />
+    <Compile Include="Admin\ViewModel\Emails\EmailTemplateListVM.cs" />
+    <Compile Include="Admin\ViewModel\Emails\EmailTemplateVM.cs" />
+    <Compile Include="Admin\ViewModel\Emails\EmailVM.cs" />
+    <Compile Include="Admin\ViewModel\FileManager\FileManager.cs" />
+    <Compile Include="Admin\ViewModel\Identity\SetRoleMenusVM.cs" />
+    <Compile Include="Admin\ViewModel\Identity\SetUserRolesVM.cs" />
+    <Compile Include="Admin\ViewModel\Identity\UserListVM.cs" />
+    <Compile Include="Admin\ViewModel\LuceneSearch\SearchData.cs" />
+    <Compile Include="Admin\ViewModel\LuceneSearch\SelectedList.cs" />
+    <Compile Include="Admin\ViewModel\Menus\MoveMenuVM.cs" />
+    <Compile Include="Admin\ViewModel\Pages\PageListVM.cs" />
+    <Compile Include="Admin\ViewModel\Pages\PageVM.cs" />
+    <Compile Include="Admin\ViewModel\System\BakFileVM.cs" />
+    <Compile Include="Admin\ViewModel\System\LogSearchVM.cs" />
+    <Compile Include="Admin\ViewModel\System\LogVM.cs" />
+    <Compile Include="Admin\ViewModel\Menus\LeftNavVM.cs" />
+    <Compile Include="Admin\ViewModel\Videos\ReservationListVM.cs" />
+    <Compile Include="Admin\ViewModel\Videos\VideoCategoryListVM.cs" />
+    <Compile Include="Admin\ViewModel\Videos\VideoCategoryVM.cs" />
+    <Compile Include="Admin\ViewModel\Videos\VideoListVM.cs" />
+    <Compile Include="Admin\ViewModel\Videos\VideoVM.cs" />
+    <Compile Include="Front\InputModel\Articles\CommentFIM.cs" />
+    <Compile Include="Front\InputModel\Emails\EmailIM.cs" />
+    <Compile Include="Front\InputModel\Identity\LoginIM.cs" />
+    <Compile Include="Front\ViewModel\Ads\CarouselFVM.cs" />
+    <Compile Include="Front\ViewModel\AjaxResultVM.cs" />
+    <Compile Include="Front\ViewModel\Articles\ArticleFVM.cs" />
+    <Compile Include="Front\ViewModel\Articles\ArticleDetailFVM.cs" />
+    <Compile Include="Front\ViewModel\Articles\CommentFVM.cs" />
+    <Compile Include="Front\ViewModel\Pages\PageFVM.cs" />
+    <Compile Include="Front\ViewModel\Videos\VideoCategoryFVM.cs" />
+    <Compile Include="Front\ViewModel\Videos\VideoFVM.cs" />
+    <Compile Include="Inputs\Articles\ArticleIM.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Admin\ViewModel\AjaxResultVM.cs" />
+    <Compile Include="Validation\ChinaMobileAttribute.cs" />
+    <Compile Include="Validation\ChinaPhoneAttribute.cs" />
+    <Compile Include="Validation\CNAndENAttribute.cs" />
+    <Compile Include="Validation\CoordinateAttribute.cs" />
+    <Compile Include="Validation\DateRangeAttribute.cs" />
+    <Compile Include="Validation\IdentityCardAttribute.cs" />
+    <Compile Include="Validation\QQAttribute.cs" />
+    <Compile Include="Validation\ValidateAgeAttribute.cs" />
+    <Compile Include="Views\Articles\ArticleVM.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TZGCMS.Data\TZGCMS.Data.csproj">
+      <Project>{f6de0fc8-17c2-4c73-8161-ec1ae4cf13da}</Project>
+      <Name>TZGCMS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TZGCMS.Infrastructure\TZGCMS.Infrastructure.csproj">
+      <Project>{A590A572-9B6A-475D-9E92-2553A87C7822}</Project>
+      <Name>TZGCMS.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TZGCMS.Resources\TZGCMS.Resources.csproj">
+      <Project>{11c428c6-da60-4ffa-b72e-8bd791d78c82}</Project>
+      <Name>TZGCMS.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,24 @@
+﻿@model EmailTemplate
+<tr class="item-container">
+
+    
+    <td>
+        @Model.Subject
+    </td>
+    <td>
+        @Model.TemplateNo
+    </td>
+    <td>
+        @Model.Email
+    </td> 
+
+    <td>@Model.CreatedDate.ToShortDateString()</td>
+   
+    <td>
+        <a href="@Url.Action("Edit",new {id = Model.Id})" class="btn btn-primary btn-sm" title="@Buttons.Edit"><i class='fa fa-edit fa-fw'></i></a>
+        <a href="#" data-url="@Url.Action("Delete", new {id = Model.Id})" class="btn btn-danger btn-sm delete-item" title="@Buttons.Delete">
+            <i class="fa fa-trash-o fa-fw"></i>
+        </a>
+
+    </td>
+</tr>

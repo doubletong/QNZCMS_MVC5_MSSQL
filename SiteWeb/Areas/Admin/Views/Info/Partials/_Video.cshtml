@@ -1,0 +1,59 @@
+﻿@model VideoSetIM
+
+@using (Ajax.BeginForm("VideoSet", null, new AjaxOptions()
+{
+    OnBegin = "onBegin",
+    OnComplete = "onComplete",
+    //   Confirm = "Are you sure you want to save this User?"
+    OnSuccess = "onSuccess"
+
+}, new { @class = "form-horizontal", role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FrontPageSize, new { @class = "col-md-2 control-label" })
+        <div class="col-md-5">
+            @Html.TextBoxFor(model => model.FrontPageSize, new { @class = "form-control", type="number", placeholder = Labels.PageSize })
+            @Html.ValidationMessageFor(model => model.FrontPageSize)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ThumbWidth, new { @class = "col-md-2 control-label" })
+        <div class="col-md-5">
+            @Html.TextBoxFor(model => model.ThumbWidth, new { @class = "form-control", type = "number", placeholder = Labels.ThumbWidth })
+            @Html.ValidationMessageFor(model => model.ThumbWidth)
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ThumbHeight, new { @class = "col-md-2 control-label" })
+        <div class="col-md-5">
+            @Html.TextBoxFor(model => model.ThumbHeight, new { @class = "form-control", type = "number", placeholder = Labels.ThumbHeight })
+            @Html.ValidationMessageFor(model => model.ThumbHeight)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Timer, new { @class = "col-md-2 control-label" })
+        <div class="col-md-5">
+            @Html.TextBoxFor(model => model.Timer, new { @class = "form-control", type = "number", placeholder = "设置每隔一段时间就检测一次，并发送预约播放消息" })
+            @Html.ValidationMessageFor(model => model.Timer)
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-md-3">
+            <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save fa-fw"></i>保存</button>
+        </div>
+        @*<div class="col-md-7">
+                @TempData["message"]
+            </div>*@
+    </div>
+}

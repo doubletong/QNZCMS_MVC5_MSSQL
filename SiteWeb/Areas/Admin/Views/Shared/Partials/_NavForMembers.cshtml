@@ -1,0 +1,33 @@
+﻿
+<aside>
+    <nav id="menu">
+        <h3>导航</h3>
+        <ul class="list-unstyled mainmenu">
+            <li class="liitem down-nav nav-open">
+                <a href="#"><i class="glyphicon glyphicon-user"></i> 个人中心 <span class="badge">2</span></a>
+                <ul class="list-unstyled submenu">
+                    <li>
+                        @Html.ActionLink("我的工作日志", "MyDiaries", "Diaries")
+                    </li>
+                    <li>@Html.ActionLink("日志时间线", "MyTimeline", "Diaries")</li>
+                    <li>@Html.ActionLink("撰写日志", "Create", "Diaries")</li>
+                </ul>
+            </li>
+
+            <li class="liitem down-nav">
+                <a href="#"><i class="glyphicon glyphicon-cutlery"></i> 安全 <span class="badge">2</span></a>
+                <ul class="list-unstyled submenu">
+                    @*<li>@Html.ActionLink("我的资料", "Profile", "Users")</li>*@
+                    <li>@Html.ActionLink("修改密码", "ChangePassword", "User")</li>                         
+                </ul>
+            </li>
+
+        </ul>
+
+
+    </nav>
+
+    <div class="closemenu">
+        <a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    </div>
+</aside>

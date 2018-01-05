@@ -1,0 +1,127 @@
+﻿@using TZGCMS.Infrastructure.UI;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title _ @SettingsManager.Site.SiteName</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--开启对web app的支持-->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--主要是正对苹果手机将数字自动识别为号码-->
+    <meta name="format-detection" content="telephone=no" />
+    <!-- 忽略识别邮箱，主要是针对安卓手机会自动将符合邮箱格式的字符串识别为邮箱地址-->
+    <meta content="email=no" name="format-detection" />
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    @Html.RenderStyles()   
+    <link href="~/Areas/Admin/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Content/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Plugins/toastr/toastr.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Content/css/Style.min.css" rel="stylesheet" />
+
+    @*@Styles.Render("~/Content/Admin/css/SigStyle")*@       
+    @RenderSection("Header", required: false)
+   
+    <script src="~/scripts/compatibility/modernizr-2.8.3.min.js"></script>
+    <!--[if lt IE 9]>
+        <script src="~/scripts/compatibility/respond.min.js"></script>
+     <![endif]-->
+
+
+</head>
+<body>
+
+
+    <div id="wrapper" class="wrapper">
+        @Html.Action("LeftNavs", "Nav", new { categoryId = 1 })
+
+        <div id="rightcol" class="rightcol">
+            <!-- navbar start -->
+            <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                       
+                        <a class="navbar-brand" href="#">@SettingsManager.Site.SiteName</a>
+                    </div>
+                  
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                       
+                       
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="user-avater"><img src="@((User as CustomPrincipal).Avatar)" alt="@User.Identity.Name" class="img-circle" /></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">你好，@User.Identity.Name <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    @*<li><a href="@Url.Action("ChangePassword", "User")">修改密码</a></li>*@
+                                </ul>
+                            </li>
+                            @*<li><a href="/" title="返回首页"><i class="fa fa-home"></i> 返回首页</a></li>*@
+                           
+                            <li><a href="@Url.Action("LogOut", "Account", new { area = "" })"><i class="fa fa-sign-out"></i> 退出系统</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div>
+            </nav>
+          
+                    
+            @Html.Action("Crumbs", "Nav", new { areaName = Html.Area(), controller = Html.Controller(), action = Html.Action() })
+            <div class="main-content">
+                @RenderBody()
+            </div>
+            
+            <footer id="pagefooter" class="page-footer">
+                Copyright &copy; 2012 <a id="hlSiteInfo" href="@SettingsManager.Site.DeveloperDomainName">@SettingsManager.Site.Developer</a> All Rights  Reserved
+                Powered by @SettingsManager.Site.Version
+            </footer>
+
+
+        </div>
+    </div>
+
+    <!-- The Scripts -->
+    <!--[if lte IE 8]>
+        <script src="~/scripts/lib/jqueryForIE/jquery-1.11.3.min.js"></script>
+    <![endif]-->
+    <!--[if gte IE 9]><!-->
+    <script src="~/scripts/lib/jquery/jquery-2.2.0.min.js"></script>
+    <!--<![endif]-->
+
+    <script src="~/Areas/Admin/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Areas/Admin/Content/js/App.min.js"></script>
+    <script src="~/Plugins/bootbox/bootbox.min.js"></script>
+    <script src="~/Plugins/toastr/toastr.min.js"></script>
+
+    @Html.RenderJavaScripts()
+
+    @RenderSection("Footer", required: false)
+</body>
+</html>

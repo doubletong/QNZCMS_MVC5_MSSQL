@@ -1,0 +1,98 @@
+﻿@model EmailAccountIM
+
+@using (Ajax.BeginForm("Add", "EmailAccount",
+                new AjaxOptions()
+                {
+                    HttpMethod = "POST",
+                    OnBegin = "onBegin",
+                    OnComplete = "onComplete",
+                    OnSuccess = "updateSuccess",
+                    //OnFailure = "handleError",
+                    //  UpdateTargetId = "RoleList"
+
+                }, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+
+
+    <!-- 添加菜单 Modal -->
+    <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">@string.Format("创建{0}", EntityNames.EmailAccount)</h4>
+                </div>
+                <div class="modal-body">
+
+                  
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = Labels.Email })
+                                    @Html.ValidationMessageFor(model => model.Email)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SmtpServer, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.SmtpServer, new { @class = "form-control", placeholder = Labels.SmtpServer })
+                                    @Html.ValidationMessageFor(model => model.SmtpServer)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Port, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.Port, new { @class = "form-control", Type="number", placeholder = Labels.Port })
+                                    @Html.ValidationMessageFor(model => model.Port)
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserName, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = Labels.UserName })
+                                    @Html.ValidationMessageFor(model => model.UserName)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Password, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = Labels.Password })
+                                    @Html.ValidationMessageFor(model => model.Password)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-5 col-md-offset-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(model => model.EnableSsl)  @Html.DisplayNameFor(model => model.EnableSsl)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.ValidationMessageFor(model => model.EnableSsl)
+                                </div>
+                            </div>
+
+                 
+                </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button class="btn btn-primary" type="submit" id="btnSave"><i class="fa fa-save fa-fw"></i>保存</button>
+                        </div>
+                    </div>
+                </div>
+    </div>
+}
+
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
+
+    
+</script>

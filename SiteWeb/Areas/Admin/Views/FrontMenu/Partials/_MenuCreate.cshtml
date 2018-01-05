@@ -1,0 +1,131 @@
+﻿@model FrontMenuIM
+
+@using (Ajax.BeginForm("CreateMenu", "FrontMenu",
+                            new AjaxOptions()
+                            {
+                                HttpMethod = "POST",
+                                OnBegin = "onBeginSave",
+                                OnComplete = "onCompleteSave",
+                                OnSuccess = "onSuccess",
+                                //UpdateTargetId =$"menu{Model.CategoryId}"
+
+                            }, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+<!-- 添加菜单 Modal -->
+<div class="modal fade" id="ModalMenuForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">创建菜单</h4>
+            </div>
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.CategoryId)
+                @Html.HiddenFor(model => model.ParentId)
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#product" aria-controls="product" role="tab" data-toggle="tab">@EntityNames.Menu</a></li>
+                    <li role="presentation"><a href="#seo" aria-controls="seo" role="tab" data-toggle="tab">SEO设置</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content" style="padding-top:30px;">
+                    <div role="tabpanel" class="tab-pane active" id="product">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Title, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = ModelMetadata.FromLambdaExpression(x => x.Title, ViewData).Watermark })
+                                @Html.ValidationMessageFor(model => model.Title)
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MenuType, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.EnumDropDownListFor(model => model.MenuType, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.MenuType)
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Url, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.Url, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Url)
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Iconfont, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.Iconfont, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Iconfont)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Active, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.CheckBoxFor(model => model.Active) [*控制菜单是否显示]
+                                    </label>
+                                </div>
+
+                                @Html.ValidationMessageFor(model => model.Active)
+                            </div>
+                        </div>
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="seo">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SEOTitle, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.SEOTitle, new { @class = "form-control", placeholder = Labels.Title })
+                                @Html.ValidationMessageFor(model => model.SEOTitle)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Keywords, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.Keywords, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Keywords)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SEODescription, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.SEODescription, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.SEODescription)
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button class="btn btn-primary" type="submit" id="btnSave"><i class="fa fa-save fa-fw"></i>保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
+</script>

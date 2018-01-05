@@ -1,0 +1,24 @@
+﻿@model Reservation
+<tr class="item-container">
+    <td>
+        @Model.VideoTitle
+    </td>  
+    <td>
+        @Model.OpenId
+    </td>  
+    <td>
+        @Model.Status
+    </td>
+    <td>
+        @($"{Model.NoticedDate:d}")
+    </td>
+    <td>
+        @($"{Model.CreatedDate:d}")
+    </td>
+    <td>     
+        <a href="#" data-url="@Url.Action("Delete", new {videoId = Model.VideoId,openId = Model.OpenId})" class="btn btn-danger btn-sm delete-item" title="@Buttons.Delete">
+            <i class="fa fa-trash-o fa-fw"></i>
+        </a>
+
+    </td>
+</tr>

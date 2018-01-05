@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MenuCategory>
+@foreach (var item in Model)
+{
+
+    <div class="col-sm-4 item-container">
+        <div class="panel panel-default">
+            <header class="panel-heading">
+                <div class="pull-right">
+                    @Ajax.RawActionLink("<i class='fa fa-plus'></i>",
+                        "CreateMenu", "FrontMenu",
+                        new { categoryId = item.Id },
+                        new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
+                        new { @class = "btn btn-primary btn-xs", title = Buttons.Add })
+
+                    @Ajax.RawActionLink("<i class='fa fa-edit'></i>",
+                        "EditCategory", "FrontMenu",
+                        new { id = item.Id },
+                        new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
+                        new { @class = "btn btn-primary btn-xs", title = Buttons.Edit })
+
+                    <a href="#" data-url="@Url.Action("DeleteCategory", new {id = item.Id})" class="btn btn-danger btn-xs delete-item" title="@Buttons.Delete">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+
+                    <button type="button" class="btn btn-info btn-xs btn-refresh" data-id="@item.Id"
+                            data-url="@Url.Action("resetSort",new { id=item.Id})">
+                        <i class="fa fa-sort-numeric-asc"></i>
+                    </button>
+                </div>
+                <i class="fa fa-navicon"></i> @item.Title
+              
+            </header>
+            <section class="panel-body" id="@string.Format("menu{0}",item.Id)">
+                @Html.Action("GetMenus", new { categoryId = item.Id })
+            </section>
+            <footer class="panel-footer"></footer>
+        </div>
+    </div>
+}

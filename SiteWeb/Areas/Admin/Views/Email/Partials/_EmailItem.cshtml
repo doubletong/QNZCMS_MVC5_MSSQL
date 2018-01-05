@@ -1,0 +1,24 @@
+﻿@model Email
+<tr class="item-container" id="@string.Format("container{0}",Model.Id)">  
+    <td style="width:40px;">
+        <input type="checkbox" name="emailCheck" value="@Model.Id" />
+    </td>    
+    <td>
+        @Model.CreatedBy
+    </td>
+    <td>
+    @if (Model.Readed)
+    {
+        <a href="@Url.Action("Detail",new { id = Model.Id })">@Model.Subject</a>
+    }
+    else
+    {
+        <a href="@Url.Action("Detail",new { id = Model.Id })"><strong>@Model.Subject</strong></a>
+    }
+        
+</td>  
+
+    <td>
+        @Model.CreatedDate
+    </td>
+</tr>

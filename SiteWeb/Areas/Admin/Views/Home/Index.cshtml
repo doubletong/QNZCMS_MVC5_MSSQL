@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "控制台";
+}
+<div class="page-header">
+    <h3>@ViewBag.Title</h3>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-info-sign"></span> 网站信息</h3>
+            </div>
+
+            <!-- List group -->
+            <ul class="list-group">
+                <li class="list-group-item">网站名称：@SettingsManager.Site.SiteName</li>
+                <li class="list-group-item">公司名称：@SettingsManager.Contact.CompanyName</li>
+                <li class="list-group-item">联系电话：@SettingsManager.Contact.Phone</li>
+                <li class="list-group-item">网站域名：@SettingsManager.Site.SiteDomainName</li>
+                <li class="list-group-item">工信部备案：@SettingsManager.Site.WebNumber</li>
+                <li class="list-group-item">系统版本：@SettingsManager.Site.Version</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> 当前帐号</h3>
+            </div>
+
+            <!-- List group -->
+            <ul class="list-group">
+                <li class="list-group-item">帐号名：@User.Identity.Name</li>
+                <li class="list-group-item">角色：@ViewBag.Roles</li>
+                <li class="list-group-item">当前主机名称：@System.Net.Dns.GetHostName()</li>
+                <li class="list-group-item">服务器IIS版本：@Request.ServerVariables["SERVER_SOFTWARE"]</li>
+
+                <li class="list-group-item">当前浏览器：@Request.Browser.Browser  @Request.Browser.Version</li>
+                <li class="list-group-item">IP地址：@Request.UserHostAddress</li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+﻿<div class="list-group" id="leftNav">
+    <a href="#" class="list-group-item  disabled">
+        <i class="glyphicon glyphicon-picture"></i>  轮播图 <span class="badge">2</span>
+    </a>
+    @Html.ActionLink("列表", "Index", "Carousel", null, new { @class = "list-group-item" })
+    @Html.ActionLink("新增", "AddCarousel", "Carousel", null, new { @class = "list-group-item" })
+    <a href="#" class="list-group-item disabled">
+        <i class="glyphicon glyphicon-menu-hamburger"></i> 菜单 <span class="badge">1</span>
+    </a>
+    @Html.ActionLink("列表", "Index", "Menu", null, new { @class = "list-group-item" })
+    @Html.ActionLink("新增", "Add", "Menu", null, new { @class = "list-group-item" })
+    <a href="#" class="list-group-item disabled">
+        <i class="@SettingsManager.File.IconClass"></i> @SettingsManager.File.ModuleName <span class="badge">1</span>
+    </a>
+    @Html.ActionLink("列表", "Index", "FileManager", null, new { @class = "list-group-item" })
+    @Html.ActionLink("上传新文件", "Upload", "FileManager", null, new { @class = "list-group-item" })
+</div>
+
+

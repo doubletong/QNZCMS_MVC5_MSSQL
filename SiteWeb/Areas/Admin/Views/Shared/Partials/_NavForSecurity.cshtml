@@ -1,0 +1,12 @@
+﻿
+<div class="list-group" id="leftNav">
+    <a href="#" class="list-group-item  disabled">
+        <i class="glyphicon glyphicon-user"></i>  用户 <span class="badge">2</span>
+    </a>
+    @Html.ActionLink("用户管理", "Index", "User",null,new { @class = "list-group-item" })
+    @Html.ActionLink("权限", "Index", "Role", null, new { @class = "list-group-item" })
+    <a href="#" class="list-group-item disabled">
+        <i class="glyphicon glyphicon-tint"></i> 日志 <span class="badge">1</span>
+    </a>
+    @Html.ActionLink("系统日志", "Index", "Logs", null, new { @class = "list-group-item" })   
+</div>

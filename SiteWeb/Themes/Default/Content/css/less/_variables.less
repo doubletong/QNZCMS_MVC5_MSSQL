@@ -1,0 +1,53 @@
+﻿@color_text: #666;
+@color_link: #666; //链接色
+@color_hover: #f0851a; //链接经过色
+@color_main: #2e7be7; //主色
+@color_title: #121212; //内页标题颜色
+
+
+//## Gray and
+
+@gray-darker: lighten(#000, 13.5%); // #222
+@gray-dark: lighten(#000, 20%); // #333
+@gray: lighten(#000, 33.5%); // #555
+@gray-light: lighten(#000, 46.7%); // #777
+@gray-lighter: lighten(#000, 93.5%); // #eee
+
+
+
+//## brand colors
+@brand-primary: #428bca;
+@brand-success: #5cb85c;
+@brand-info: #5bc0de;
+@brand-warning: #ffbd0f;
+@brand-danger: #ff6577;
+
+
+
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+@font-family-sans-serif: 'Microsoft YaHei', Tahoma, Geneva, Verdana, sans-serif;
+@font-family-serif: Georgia, "Times New Roman", Times, serif;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+@font-family-monospace: Menlo, Monaco, Consolas, "Courier New", monospace;
+@font-family-base: 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, sans-serif;
+
+
+// rem unit
+@base_font_size: 16;
+@base_font_size_ems: unit(@base_font_size / 16, em);
+@px: unit(1 / @base_font_size, rem);
+@px_em: unit(1 / @base_font_size, em);
+
+// use
+/*.button {
+    font-size: 16 * @px;
+    border-radius: 3 * @px solid #000;
+}*/
+
+
+
+

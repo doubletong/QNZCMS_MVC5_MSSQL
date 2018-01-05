@@ -1,0 +1,132 @@
+﻿@model ReservationListVM
+
+@{
+    ViewBag.Title = EntityNames.Reservation;
+    ViewBag.PageTitle = ViewBag.Title + "_内容";
+}
+@section Header{
+
+}
+    <div class="panel panel-default">
+        <header class="panel-heading">
+            @*<form class="form-inline">
+                <div class="form-group">
+                    <label for="Keyword">关键字</label>
+                    @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
+                    @Html.HiddenFor(model => model.ArticleId)
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-search fa-fw"></i>查找</button>
+            </form>*@
+        </header>
+
+            <table class="table table-hover table-vmiddle">
+                <thead>
+                    <tr>
+                       
+                        <th>
+                            视频主题
+                        </th>
+                        <th>
+                            用户
+                        </th>
+                        <th>
+                            是否通知
+                        </th>
+                        <th>
+                            通知时间
+                        </th>
+                        <th>
+                            创建时间
+                        </th>
+                        
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Reservations)
+                    {
+                        Html.RenderPartial("_ReservationItem", item);
+                    }
+
+                </tbody>
+
+            </table>
+        
+        <footer class="panel-footer">
+            <div class="row">
+                <div class="col-sm-7">
+                    @Html.PagedListPager(Model.Reservations, page => Url.Action("Index", new { page = page, video = Model.VideoId}))
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-inline text-right">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
+                            @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+         
+        </footer>
+
+
+    </div>
+
+<!-- end main container -->
+
+<div id="edit-container">
+</div>
+
+<form id="anti-form" method="post">
+    @Html.AntiForgeryToken()
+</form>
+
+
+@section footer {
+@Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+
+    <script>
+
+
+        $(function () {
+
+           
+
+            $(document).on("change", '#PageSize', function (e) {
+                e.preventDefault();
+
+                var url = "@Url.Action("PageSizeSet")", title = "分页设置", pageSize = $(this).val();
+                Common.PageSizeSet(url, title, pageSize, setPageSizeFunc);
+
+            });
+
+            function setPageSizeFunc() {
+                location.reload();
+            }
+
+
+
+            //delete
+            $(document).on("click", '.delete-item', function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('data-url');
+                var that = $(this);
+                bootbox.setLocale("zh_CN");
+                bootbox.confirm("你确定要删除此项吗？", function (result) {
+                    /*DELETE*/
+                    if (result) {
+                        var title = "@ViewBag.Title";
+                        Common.DeleteItem(url, title, that);
+                    }
+
+                });
+
+            });
+
+
+
+        });
+    </script>
+
+}

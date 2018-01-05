@@ -1,0 +1,5 @@
+﻿@model IEnumerable<SolutionVM>
+@foreach (var item in Model)
+{
+    Html.RenderPartial("_SolutionItem", item);
+}

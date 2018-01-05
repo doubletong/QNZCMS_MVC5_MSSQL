@@ -1,0 +1,98 @@
+﻿
+@model PositionIM
+
+@using (Ajax.BeginForm("Add", "Position",
+    new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        OnBegin = "onBegin",
+        OnComplete = "onComplete",
+        OnSuccess = "updateSuccess",
+        //OnFailure = "handleError",
+        //  UpdateTargetId = "RoleList"
+
+    }, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+
+    <!-- 添加菜单 Modal -->
+    <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">创建分类</h4>
+                </div>
+                <div class="modal-body">
+
+                
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Title, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = Labels.Title })
+                                    @Html.ValidationMessageFor(model => model.Title)
+                                </div>
+                            </div>                    
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Code, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.Code, new { @class = "form-control", placeholder = Labels.Code })
+                                    @Html.ValidationMessageFor(model => model.Code)
+                                </div>
+                            </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Sketch, new { @class = "col-sm-2 control-label" })
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.Sketch, new { @class = "form-control", placeholder = Labels.Sketch })
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" id="btnSketch" type="button"><i class="fa fa-picture-o"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                            <span class="help-block">图片尺寸：350x*像素</span>
+                            @Html.ValidationMessageFor(model => model.Sketch)
+                        </div>
+                    </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Importance, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.Importance, new { @class = "form-control", type = "number", placeholder = Labels.Importance })
+
+                                    @Html.ValidationMessageFor(model => model.Importance)
+                                </div>
+                            </div>
+
+                           
+
+                            <div class="form-group">
+                                <div class="col-md-5 col-md-offset-2">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(model => model.Active)  @Html.DisplayNameFor(model => model.Active)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    @Html.ValidationMessageFor(model => model.Active)
+                                </div>
+                            </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button class="btn btn-primary" type="submit" id="btnSave"><i class="fa fa-save fa-fw"></i>保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
+</script>

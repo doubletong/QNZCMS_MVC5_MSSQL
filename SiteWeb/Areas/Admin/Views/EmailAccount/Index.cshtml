@@ -1,0 +1,231 @@
+﻿@model EmailAccountListVM
+
+
+@{
+    ViewBag.Title = EntityNames.EmailAccount;
+    ViewBag.PageTitle = ViewBag.Title + "_内容";
+
+}
+
+@section header{
+<link href="~/Content/Plugins/lightbox/ekko-lightbox.min.css" rel="stylesheet" />
+<link href="~/plugins/SigFinder/SigFinder.min.css" rel="stylesheet" />
+<link href="~/plugins/webuploader/webuploader.css" rel="stylesheet" />
+
+
+}
+
+<div class="panel panel-default">
+    <header class="panel-heading">
+        <div class="pull-right">
+            @Ajax.RawActionLink("<i class='fa fa-plus fa-fw'></i>" + Buttons.Add,
+                        "Add","EmailAccount", new {},
+                        new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
+                        new { @class = "btn btn-primary" })       
+        </div>
+
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="Keyword">关键字</label>
+                @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-search fa-fw"></i>查找</button>
+        </form>
+    </header>
+
+
+    <table class="table table-hover table-vmiddle">
+        <thead>
+            <tr>        
+                <th>
+                    邮箱
+                </th>
+                <th>
+                    创建日期
+                </th>            
+                <th>
+                    默认？
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tbList">
+            @foreach (var item in Model.EmailAccounts)
+            {
+                Html.RenderPartial("_EmailAccountItem", item);
+            }
+
+        </tbody>
+
+    </table>
+
+    <footer class="panel-footer">
+        <div class="row">
+            <div class="col-sm-7">
+                @Html.PagedListPager(Model.EmailAccounts, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }))
+            </div>
+            <div class="col-sm-5">
+                <div class="form-inline text-right">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
+                        @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+  
+
+</div>
+
+<!-- end main container -->
+
+<div id="edit-container">
+</div>
+
+<form id="anti-form" method="post">
+    @Html.AntiForgeryToken()
+</form>
+
+@Html.Action("PopuFinder", "File")
+
+@section footer {
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+<script src="~/Content/Plugins/lightbox/ekko-lightbox.min.js"></script>
+<script src="/Plugins/webuploader/webuploader.min.js"></script>
+<script src="/Plugins/SigFinder/FileManager.js"></script>
+<script src="~/plugins/tinymce/tinymce.min.js"></script>
+<script src="~/plugins/tinymce/langs/zh_CN.js"></script>
+
+    <script>
+        function SetThumbnail() {
+            var fileUrl = $("#fileList .item.active").attr("data-file");
+            $('#Thumbnail').val(fileUrl);
+            $('#fileManagerModal').modal('hide');
+        }
+
+        function SetEmailAccountUrl() {
+            var fileUrl = $("#fileList .item.active").attr("data-file");
+            $('#EmailAccountUrl').val(fileUrl);
+            $('#fileManagerModal').modal('hide');
+        }
+
+
+        function OnSuccessLink(data) {
+            Common.ShowBox(data.Status, data.Message, "操作")
+        }
+
+        function onAjaxComplete() {
+            $('#ModalEdit').modal();
+
+            $(document).on("click", "#btnThumbnail", function () {
+                $('#fileManagerModal').modal();
+                $("#selectImage").unbind('click');
+                $("#selectImage").bind("click", function () {
+                    SetThumbnail();
+                });
+            });
+
+            $(document).on("click", "#btnEmailAccount", function () {
+                $('#fileManagerModal').modal();
+                $("#selectImage").unbind('click');
+                $("#selectImage").bind("click", function () {
+                    SetEmailAccountUrl();
+                });
+            });
+
+
+        }
+        function onBegin() {
+            $("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin")
+        }
+        function onComplete() {
+            $("#btnSave i").removeClass("fa-spinner fa-spin").addClass("fa-save")
+            // tinymce.remove();
+        }
+
+
+        function updateSuccess(data) {
+            var title = '@ViewBag.Title';
+            Common.ShowBoxWithFuncBack(data, title, submitSuccess);
+        }
+
+        function submitSuccess(id, htmlData) {
+            $('#ModalEdit').modal('hide');          
+            if (id > 0) {
+                var cid = "container" + id;
+                $("#" + cid).replaceWith(htmlData);
+            }
+            else {
+                $("#tbList").html(htmlData);
+            }
+        }
+
+        function TestSuccess(data) {
+            var title = '测试帐号';
+            Common.ShowBox(data.Status,data.Message, title);
+        }
+
+
+        $(function () {
+
+            //lightbox events
+            $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+
+
+
+            //pagging set
+            $(document).on("change", '#PageSize', function (e) {
+                e.preventDefault();
+
+                var url = "@Url.Action("PageSizeSet")", title = "分页设置", pageSize = $(this).val();
+                Common.PageSizeSet(url, title, pageSize, setPageSizeFunc);
+
+            });
+
+            function setPageSizeFunc() {
+                location.reload();
+            }
+
+            //active
+            $(document).on("click", '.active-item', function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('data-url') + "&pageIndex=@Model.PageIndex&keyword=@Model.Keyword";
+                var title = $(this).attr('data-action'), that = $(this);
+                Common.SingleActionWithFuncBack(url, title, that, submitFunc);
+
+            });
+
+            function submitFunc(that, htmlData) {
+                // var tr = that.closest('.item-container').replaceWith(htmlData);
+                $("#tbList").html(htmlData);
+            }
+
+
+            //delete
+            $(document).on("click", '.delete-item', function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('data-url');
+                var that = $(this);
+                bootbox.setLocale("zh_CN");
+                bootbox.confirm("你确定要删除此项吗？", function (result) {
+                    if (result) {
+                        /*DELETE*/
+                        var title = "@ViewBag.Title";
+                        Common.DeleteItem(url, title, that);
+                    }
+                });
+
+            });
+
+
+        });
+    </script>
+
+}

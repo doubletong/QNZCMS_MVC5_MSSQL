@@ -1,0 +1,155 @@
+﻿.menu-cover {
+    position: fixed;
+    top: 8px;
+    right: 8px;
+    z-index: 9999;
+    transition: all 200ms;
+
+}
+
+
+.menu-button {
+    position: relative;
+    border: rem(3px) $color_main solid;
+    background-color: transparent;
+    padding: 0;
+    outline-style: none;
+    width: rem(45px);
+    height: rem(45px);
+    border-radius: 50%;
+
+    &.is_active {
+        border-color: #fff;
+    }
+}
+
+.menu-button__bar {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 3px;
+    width: rem(28px);
+    margin-left: rem(-14px);
+    transform: translateY(-50%);
+}
+
+.menu-button__bar:before, .menu-button__bar:after {
+    content: '';
+    display: block;
+    background: $color_main;
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    transition: left .3s ease, right .3s ease, transform .3s ease, opacity .3s ease;
+}
+
+.menu-button__bar:before {
+    left: 0;
+    transform-origin: left center;
+}
+
+.menu-button__bar:after {
+    right: 0;
+    transform-origin: right center;
+}
+
+.menu-button__bar:nth-child(1) {
+    margin-top: rem(-8px);
+    
+}
+
+.is_active .menu-button__bar:nth-child(1):before {
+    left: rem(6px);
+    transform: translateX(0%) rotate(45deg);
+    background: #fff;
+}
+
+.is_active .menu-button__bar:nth-child(1):after {
+    right: rem(6px);
+    transform: translateX(0%) rotate(-45deg);
+    background: #fff;
+}
+
+.menu-button__bar:nth-child(2) {
+    overflow: hidden;
+}
+
+.is_active .menu-button__bar:nth-child(2):before {
+    transform: translateX(-100%);
+    opacity: 0;
+    background: #fff;
+}
+
+.is_active .menu-button__bar:nth-child(2):after {
+    transform: translateX(100%);
+    opacity: 0;
+    background: #fff;
+}
+
+.menu-button__bar:nth-child(3) {
+    margin-top: rem(8px);
+}
+
+.is_active .menu-button__bar:nth-child(3):before {
+    left: rem(6px);
+    transform: translateX(0%) rotate(-45deg);
+    background: #fff;
+}
+
+.is_active .menu-button__bar:nth-child(3):after {
+    right: rem(6px);
+    transform: translateX(0%) rotate(45deg);
+    background: #fff;
+}
+
+
+.mainav {
+    position:fixed;left:-100%;top:0;width:100%;z-index:910;
+    transition:all .25s;
+    &.openav{
+        left:0;
+    }
+
+    .item {
+        display: block;
+        text-decoration: none;
+        text-align: center;
+        color: #fff;
+        height: 33.333333%;
+        position: relative;
+        transition:all .25s;
+        &:hover{
+            transform:scale(1.1);
+        }
+
+        .txt {
+            font-size: rem(24px);
+            line-height: 1.1;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            margin-top: rem(-50px);
+            width: 100%;
+
+            .en {
+                font-family: 'Baloo Paaji', cursive;
+                font-size: rem(56px);
+                font-style: italic;
+                line-height: 1.1;
+            }
+        }
+
+        &.about {
+            background-color: $color_main;
+        }
+
+        &.celebs {
+            background-color: $color_sub;
+        }
+
+        &.contact {
+            background-color: $color_sub2;
+        }
+    }
+}

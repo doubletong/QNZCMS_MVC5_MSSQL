@@ -1,0 +1,135 @@
+﻿@model MenuIM
+
+@using (Ajax.BeginForm("EditMenu", "Menu",
+        new AjaxOptions()
+        {
+            HttpMethod = "POST",
+            OnBegin = "onBeginSave",
+            OnComplete = "onCompleteSave",
+            // OnSuccess = "updateSuccess",
+            OnSuccess = "onSuccess",
+            //UpdateTargetId =$"menu{Model.CategoryId}"
+
+        }, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+<!-- 添加菜单 Modal -->
+<div class="modal fade" id="ModalMenuForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">编辑菜单</h4>
+            </div>
+            <div class="modal-body">
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.CategoryId)
+                @Html.HiddenFor(model => model.ParentId)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = ModelMetadata.FromLambdaExpression(x => x.Title, ViewData).Watermark })
+                        @Html.ValidationMessageFor(model => model.Title)
+                     </div>
+                   
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MenuType, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(model => model.MenuType, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MenuType)
+                    </div>
+                   
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Url, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Url, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Url)
+                    </div>
+                
+                </div>
+
+                @if (Model.CanEdit)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Area, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Area, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Area)
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Controller, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Controller, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Controller)
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Action, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Action, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Action)
+                        </div>
+                    </div>
+
+                }
+                
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Iconfont, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Iconfont, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Iconfont)
+                    </div>                  
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Active, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-5">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(model => model.Active) [*控制菜单是否显示]
+                            </label>
+                        </div>
+                       
+                        @Html.ValidationMessageFor(model => model.Active)
+                    </div>
+                </div>
+
+
+
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.Importance, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(model => model.Importance, new { @class = "form-control", type = "number", placeholder = "排序" })
+                    </div>
+                    <div class="col-md-5">
+                        @Html.ValidationMessageFor(model => model.Importance)
+                    </div>
+                </div>*@
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button class="btn btn-primary" type="submit" id="btnSave"><i class="fa fa-save fa-fw"></i>保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
+</script>

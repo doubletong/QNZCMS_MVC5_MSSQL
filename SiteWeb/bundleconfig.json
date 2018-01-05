@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "Areas/Admin/Content/js/App.min.js",
+    "inputFiles": [
+      "Areas/Admin/Content/js/App.js"
+    ]
+  },
+  {
+    "outputFileName": "Themes/Default/Content/js/app.min.js",
+    "inputFiles": [
+      "Themes/Default/Content/js/app.js"
+    ]
+  }
+]

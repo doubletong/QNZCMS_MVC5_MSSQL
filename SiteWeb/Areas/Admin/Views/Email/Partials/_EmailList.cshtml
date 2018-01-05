@@ -1,0 +1,5 @@
+﻿@model IEnumerable<EmailVM>
+@foreach (var item in Model)
+{
+    Html.RenderPartial("_EmailItem", item);
+}

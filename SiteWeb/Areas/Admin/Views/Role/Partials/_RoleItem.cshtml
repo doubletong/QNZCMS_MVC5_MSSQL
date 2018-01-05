@@ -1,0 +1,41 @@
+﻿@model Role
+<tr class="item-container" id="@string.Format("container{0}",Model.Id)">
+
+    <td>
+        @Html.DisplayFor(modelItem => Model.RoleName)
+        @if (Model.IsSys)
+        {
+            <span class="badge badge-primary">系统</span>
+        }
+
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Description)
+    </td>
+    <td>
+        @Ajax.RawActionLink("<i class='fa fa-user-secret fa-fw'></i>权限",
+                        "SetRoleMenus", "Role",
+                        new { id = Model.Id },
+                        new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "menus-container", OnComplete = "onAjaxCompleteRoleMenus" },
+                        new { title = "编辑权限", @class = "btn btn-primary" })
+
+        @if (!Model.IsSys)
+        {
+            
+                @Ajax.RawActionLink("<i class='fa fa-edit fa-fw'></i>编辑",
+                        "EditRole", "Role",
+                        new { id = Model.Id },
+                        new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete" },
+                        new { title = "编辑角色",@class="btn btn-primary" })
+           
+        }
+        @if (!Model.IsSys)
+        {
+           
+                <a href="@Url.Action("Delete", new { id = Model.Id })" data-confirm="你确定要删除此 @Model.RoleName 吗？" class="delete-item btn btn-danger" data-toggle="tooltip" data-placement="top" title="删除">
+                    <i class="fa fa-trash-o fa-fw"></i> 删除
+                </a>
+          
+        }
+    </td>
+</tr>

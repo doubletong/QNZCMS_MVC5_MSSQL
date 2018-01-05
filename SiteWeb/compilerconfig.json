@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Themes/Default/Content/css/main.css",
+    "inputFile": "Themes/Default/Content/css/main.scss"
+  },
+  {
+    "outputFile": "Themes/Default/Content/css/mainmobile.css",
+    "inputFile": "Themes/Default/Content/css/mainmobile.scss"
+  }
+]

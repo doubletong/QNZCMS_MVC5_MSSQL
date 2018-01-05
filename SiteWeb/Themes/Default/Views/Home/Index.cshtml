@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "首页";
+}
+
+
+<p>@ViewBag.Url</p>
+
+<a href="@ViewBag.Url">授权地址</a>
+@Html.ActionLink("基本授权","OAuthSnsApiBase", "WeiXin");
+@Html.ActionLink("高级授权", "OAuthSnsApiUserInfo", "WeiXin");
+
+@Html.ActionLink("AccessTokenGet", "TestA", "WeiXin");

@@ -1,0 +1,336 @@
+﻿@model EmailListVM
+
+
+@{
+    ViewBag.Title = EntityNames.Email;
+    ViewBag.PageTitle = ViewBag.Title + "_内容";
+
+}
+
+@section header{
+
+<link href="~/plugins/SigFinder/SigFinder.min.css" rel="stylesheet" />
+<link href="~/plugins/webuploader/webuploader.css" rel="stylesheet" />
+
+
+}
+
+<div class="m-b-15">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="@Url.Action("Index")"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> 收件箱</a></li>
+        <li role="presentation"><a href="@Url.Action("Trash")"><span class="glyphicon glyphicon-trash"></span> 垃圾箱</a></li>     
+    </ul>
+</div>
+
+<div class="panel panel-default">
+    <header class="panel-heading">
+      
+        <div class="pull-right">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="Keyword">关键字</label>
+                    @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-search fa-fw"></i>查找</button>
+            </form>
+           
+        </div>
+        <button type="button" id="btnDelete" class="btn btn-default"><i class="fa fa-trash fa-fw"></i>删除</button>
+        <button type="button" id="btnRemove" class="btn btn-danger"><i class="fa fa-remove fa-fw"></i>彻底删除</button>
+
+       
+    </header>
+
+
+    <table class="table table-hover table-vmiddle">
+        <thead>
+            <tr class="AdminListHeader">
+                <th>
+                    <input type="checkbox" id="ckbAll" />
+                </th>
+                <th>
+                    发件人
+                </th>
+                <th>
+                    主题
+                </th>
+
+                <th>
+                    时间
+                </th>
+
+            </tr>
+        </thead>
+        <tbody id="tbList">
+            @foreach (var item in Model.Emails)
+            {
+                Html.RenderPartial("_EmailItem", item);
+            }
+
+        </tbody>
+
+    </table>
+
+    <footer class="panel-footer">
+        <div class="row">
+            <div class="col-sm-7">
+                @Html.PagedListPager(Model.Emails, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }))
+            </div>
+            <div class="col-sm-5">
+                <div class="form-inline text-right">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
+                        @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+  
+
+</div>
+
+<!-- end main container -->
+
+<div id="edit-container">
+</div>
+
+<form id="anti-form" method="post">
+    @Html.AntiForgeryToken()
+</form>
+
+@Html.Action("PopuFinder", "File")
+
+@section footer {
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+
+<script src="/Plugins/webuploader/webuploader.min.js"></script>
+<script src="/Plugins/SigFinder/FileManager.js"></script>
+<script src="~/plugins/tinymce/tinymce.min.js"></script>
+<script src="~/plugins/tinymce/langs/zh_CN.js"></script>
+
+    <script>
+        function SetThumbnail() {
+            var fileUrl = $("#fileList .item.active").attr("data-file");
+            $('#Thumbnail').val(fileUrl);
+            $('#fileManagerModal').modal('hide');
+        }
+
+        function SetEmailUrl() {
+            var fileUrl = $("#fileList .item.active").attr("data-file");
+            $('#EmailUrl').val(fileUrl);
+            $('#fileManagerModal').modal('hide');
+        }
+
+
+        function OnSuccessLink(data) {
+            Common.ShowBox(data.Status, data.Message, "操作")
+        }
+
+        function onAjaxComplete() {
+            $('#ModalEdit').modal();
+
+            $(document).on("click", "#btnThumbnail", function () {
+                $('#fileManagerModal').modal();
+                $("#selectImage").unbind('click');
+                $("#selectImage").bind("click", function () {
+                    SetThumbnail();
+                });
+            });
+
+            $(document).on("click", "#btnEmail", function () {
+                $('#fileManagerModal').modal();
+                $("#selectImage").unbind('click');
+                $("#selectImage").bind("click", function () {
+                    SetEmailUrl();
+                });
+            });
+
+       
+
+
+
+        }
+        function onBegin() {
+            $("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin")
+        }
+        function onComplete() {
+            $("#btnSave i").removeClass("fa-spinner fa-spin").addClass("fa-save")
+           // tinymce.remove();
+        }
+
+
+        function updateSuccess(data) {
+            var title = '@ViewBag.PageTitle';
+            Common.ShowBoxWithFuncBack(data, title, submitSuccess);
+        }
+
+        function submitSuccess(id,htmlData) {
+            $('#ModalEdit').modal('hide');
+          //  alert(id);
+         //   console.log(id);
+            if(id>0){
+                var cid = "container" + id;
+                $("#" + cid).replaceWith(htmlData);
+            }
+            else {
+                $("#tbList").html(htmlData);
+
+            }
+        }
+
+ 
+
+        $(function () {
+
+            //全选/不选
+            $(document).on("change", '#ckbAll', function (e) {         
+                if ($(this).is(':checked')) {
+                    $("input[name='emailCheck']").prop('checked', true);
+                }
+                else {
+                    $("input[name='emailCheck']").prop('checked', false);
+                }
+            });
+
+         
+
+            //pagging set
+            $(document).on("change", '#PageSize', function (e) {
+                e.preventDefault();
+
+                var url = "@Url.Action("PageSizeSet")", title = "分页设置", pageSize = $(this).val();
+                Common.PageSizeSet(url, title, pageSize, setPageSizeFunc);
+
+            });
+
+            function setPageSizeFunc() {
+                location.reload();
+            }
+
+            //active
+            $(document).on("click", '.active-item', function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('data-url'), title = $(this).attr('title'), that = $(this);
+                Common.SingleActionWithFuncBack(url, title, that, submitFunc);
+
+            });
+
+            function submitFunc(that,data) {
+                var tr = that.closest('.item-container').replaceWith(data);
+            }
+
+
+            ////删除
+            //$("#btnDelete").click(function () {
+            //    var postData = new Array();
+            //    $("input[name='emailCheck']:checked").each(function () {
+            //        postData.push(this.value);
+            //    });
+
+            //    if (postData.length > 0) {
+            //        PageMethods.DeleteEmails(postData, function (result) {
+            //            if (result) {
+            //                toastr.success('邮件已成功删除！', '删除')
+            //                $("input[name='emailCheck']:checked").closest("tr").remove();
+            //            } else {
+            //                toastr.error('邮件删除失败！', '删除')
+            //            }
+            //        });
+            //    } else {
+            //        toastr.info('请先选择要删除的项！', '删除')
+            //    }
+
+            //})
+
+
+            //delete
+            $(document).on("click", '#btnDelete', function (e) {
+              //  e.preventDefault();
+
+                var postData = new Array();
+                $("input[name='emailCheck']:checked").each(function () {
+                    postData.push(this.value);
+                });
+
+                var url = "@Url.Action("BulkTrash")";
+                var that = $(this);
+                bootbox.setLocale("zh_CN");
+                bootbox.confirm("你确定要删除此项吗？", function (result) {
+                    if (result) {
+                        /*DELETE*/
+                        var title = "@ViewBag.Title";
+                        //Common.DeleteItem(url, title, that);
+
+
+                        $.post(url, { ids: postData }, function (data) {                          
+
+                            switch (data.Status) {
+                                case 1:
+                                    toastr.success(data.Message, title);
+                                    $("input[name='emailCheck']:checked").closest("tr").remove();
+                                    break;
+                                case 2:
+                                    toastr.error(data.Message, title);
+                                    break;
+                                case 3:
+                                    toastr.info(data.Message, title);
+                                    break;
+                                case 4:
+                                    toastr.warning(data.Message, title);
+                                    break;
+                            }
+                        });
+
+                    }
+                });
+
+            });
+
+            //彻底删除
+            $(document).on("click", '#btnRemove', function (e) {
+                //  e.preventDefault();
+
+                var postData = new Array();
+                $("input[name='emailCheck']:checked").each(function () {
+                    postData.push(this.value);
+                });
+
+                var url = "@Url.Action("BulkRemove")";
+                var that = $(this);
+                bootbox.setLocale("zh_CN");
+                bootbox.confirm("你确定要彻底删除所选项吗？", function (result) {
+                    if (result) {
+                        /*DELETE*/
+                        var title = "@ViewBag.Title";
+                        //Common.DeleteItem(url, title, that);
+
+                        $.post(url, { ids: postData }, function (data) {
+                            switch (data.Status) {
+                                case 1:
+                                    toastr.success(data.Message, title);
+                                    $("input[name='emailCheck']:checked").closest("tr").remove();
+                                    break;
+                                case 2:
+                                    toastr.error(data.Message, title);
+                                    break;
+                                case 3:
+                                    toastr.info(data.Message, title);
+                                    break;
+                                case 4:
+                                    toastr.warning(data.Message, title);
+                                    break;
+                            }
+                        });
+
+                    }
+                });
+            });
+
+
+        });
+    </script>
+
+}

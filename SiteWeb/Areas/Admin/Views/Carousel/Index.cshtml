@@ -1,0 +1,214 @@
+﻿@model CarouselListVM
+
+@{
+    ViewBag.Title = EntityNames.Carousel;
+    ViewBag.PageTitle = ViewBag.Title + "_组件";
+}
+
+
+@section header{   
+<link href="~/Plugins/lightbox/ekko-lightbox.min.css" rel="stylesheet" />
+<link href="~/plugins/SigFinder/SigFinder.min.css" rel="stylesheet" />
+<link href="~/plugins/webuploader/webuploader.css" rel="stylesheet" />
+}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">           
+                @Ajax.RawActionLink("<i class='fa fa-picture-o fa-fw'></i>添加图片",
+                        "AddCarousel", "Carousel",
+                        new {},
+                        new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
+                        new { title = "创建新用户", @class = "btn btn-primary pull-right" })  
+            
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="Keyword">关键字</label>
+                    @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.PositionId, (IEnumerable<SelectListItem>)ViewBag.Positions, string.Format("--{0}过滤--",EntityNames.Position)  , new { @class = "form-control" })
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-search fa-fw"></i>查找</button>
+            </form>        
+        </div>       
+          
+        <table class="table table-hover table-vmiddle">
+            <thead>
+                <tr>
+                   
+                    <th>
+                        缩略图
+                    </th>
+                    <th>
+                        广告位
+                    </th>
+                    <th>
+                        主题
+                    </th>
+                    <th>
+                        网站链接
+                    </th>                    
+                    <th>
+                        激活？
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tbList">
+                @Html.Partial("_CarouselList",Model.Carousels)
+            </tbody>
+        </table>
+
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-sm-7">
+                    @Html.PagedListPager(Model.Carousels, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }))
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-inline text-right">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
+                            @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+<!-- end main container -->
+
+<div id="edit-container">
+</div>
+
+<form id="anti-form" method="post">
+    @Html.AntiForgeryToken()
+</form>
+
+
+@Html.Action("PopuFinder", "File")
+
+@section Footer {
+
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+   
+<script src="~/Plugins/lightbox/ekko-lightbox.min.js"></script>
+
+<script src="/Plugins/webuploader/webuploader.min.js"></script>
+<script src="/Plugins/SigFinder/FileManager.js"></script>
+
+
+
+    <script>
+        function SetImageUrl() {
+            var fileUrl = $("#fileList .item.active").attr("data-file");
+            $('#ImageUrl').val(fileUrl);
+            $('#fileManagerModal').modal('hide');
+        }
+
+        function SetImageUrlMobile() {
+            var fileUrl = $("#fileList .item.active").attr("data-file");
+            $('#ImageUrlMobile').val(fileUrl);
+            $('#fileManagerModal').modal('hide');
+        }
+
+        function OnSuccessLink(data) {
+            Common.ShowBox(data.Status, data.Message, "操作")
+        }
+
+        function onAjaxComplete() {
+            $('#ModalEdit').modal();
+
+            $(document).on("click", "#btnImageUrl", function () {
+                $('#fileManagerModal').modal();
+                $("#selectImage").unbind('click');
+                $("#selectImage").bind("click", function () {
+                    SetImageUrl();
+                });
+            });
+
+            $(document).on("click", "#btnImageUrlMobile", function () {
+                $('#fileManagerModal').modal();
+                $("#selectImage").unbind('click');
+                $("#selectImage").bind("click", function () {
+                    SetImageUrlMobile();
+                });
+            });
+        }
+        function onBegin() {
+            $("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin")
+        }
+        function onComplete() {
+            $("#btnSave i").removeClass("fa-spinner fa-spin").addClass("fa-save")
+        }
+
+        function updateSuccess(data) {
+            var title = '@ViewBag.Title';
+            Common.ShowBoxWithFuncBack(data, title, submitSuccess);
+        }
+
+        function submitSuccess(id, htmlData) {
+            $('#ModalEdit').modal('hide');
+
+            if (id > 0) {
+                var cid = "container" + id;
+                $("#" + cid).replaceWith(htmlData);
+            }
+            else {
+                $("#tbList").html(htmlData);
+            }
+        }
+
+        $(function () {
+
+            //lightbox events
+            $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+
+            //确认框默认语言
+            bootbox.setDefaults({
+                locale: "zh_CN"
+            });
+
+                      //delete
+            $(document).on("click", '.delete-item', function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('data-url');
+                var that = $(this);
+                bootbox.setLocale("zh_CN");
+                bootbox.confirm("你确定要删除此项吗？", function (result) {
+                    if (result) {
+                        /*DELETE*/
+                        var title = "@ViewBag.Title";
+                        Common.DeleteItem(url, title, that);
+                    }
+                });
+
+            });
+
+
+            //active
+            $(document).on("click", '.active-item', function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('data-url'), title = $(this).attr('title'), that = $(this);
+                Common.SingleActionWithFuncBack(url, title, that, submitFunc);
+
+            });
+
+            function submitFunc(that, data) {
+                var tr = that.closest('.item-container').replaceWith(data);
+            }
+
+
+
+
+
+
+        });
+    </script>
+
+}

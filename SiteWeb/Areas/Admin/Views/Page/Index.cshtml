@@ -1,0 +1,251 @@
+﻿@model PageListVM
+@{   
+    ViewBag.Title = EntityNames.Page + "_内容";
+}
+
+@section Header{
+
+}
+
+    <div class="panel panel-default">
+        <header class="panel-heading">
+            <div class="row">
+                <div class="col-sm-8">
+                    @using (Html.BeginForm("Index", "Page", FormMethod.Get, new { @class = "form-inline" }))
+                    {
+                        <div class="form-group">
+                            @Html.EditorFor(model => model.Keyword, new { htmlAttributes = new { @class = "form-control", placeholder = Labels.KeyWords } })
+                        </div>
+
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> 搜索</button>
+                    }
+                </div>
+                <div class="col-sm-4 text-right">
+                    @Ajax.RawActionLink("<i class='fa fa-plus fa-fw'></i>新增页面",
+                        "Create", "Page",
+                        new { },
+                        new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
+                        new { title = "创建新页面", @class = "btn btn-primary" })
+                    <a class="btn btn-default createIndex" href="#" data-url="@Url.Action("CreateIndex")"><i class="fa fa-server"></i> @Buttons.CreateIndex</a>  
+                </div>
+            </div>
+          
+        </header>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        主题
+                    </th>
+                    <th>
+                        Seo网址
+                    </th>
+                    <th>
+                        查看
+                    </th>
+                    <th>创建日期</th>
+                    <th>
+                        激活？
+                    </th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="tbList">
+                @foreach (var item in Model.Pages)
+                {                   
+                    Html.RenderPartial("_PageItem", item);
+                }
+                </tbody>
+
+</table>
+        <footer class="panel-footer">
+            <div class="row">
+                <div class="col-sm-7">
+                    @Html.PagedListPager(Model.Pages, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }))
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-inline text-right">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
+                            @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+      
+    </div>
+
+
+<div id="edit-container">
+</div>
+
+<form id="anti-form" method="post">
+    @Html.AntiForgeryToken()
+</form>
+
+@section Footer {
+  @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+<script src="~/plugins/tinymce/tinymce.min.js"></script>
+<script src="~/plugins/tinymce/langs/zh_CN.js"></script>
+
+    <script>
+
+        function OnSuccessLink(data) {
+            Common.ShowBox(data.Status, data.Message, "操作")
+        }
+
+        function onAjaxComplete() {
+            $('#ModalEdit').modal();
+
+            tinymce.init({
+                selector: '#Body',  // change this value according to your HTML
+                height: 250,
+                language: 'zh_CN',
+                theme: 'modern',
+                convert_urls: false,
+                extended_valid_elements: 'main[class|id]',
+                custom_elements: 'main',
+                verify_html: false,
+                plugins: [
+                  'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                  'searchreplace wordcount visualblocks visualchars code fullscreen',
+                  'insertdatetime media nonbreaking save table contextmenu directionality',
+                  'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+                ],
+                toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image print preview media | forecolor backcolor emoticons | codesample',
+                image_advtab: true,
+                templates: [
+                  { title: 'Test template 1', content: 'Test 1' },
+                  { title: 'Test template 2', content: 'Test 2' }
+                ],
+                //picture manager
+                file_browser_callback: callSigFinder,
+                templates: [
+            { title: 'Some title 1', description: 'Some desc 1', content: 'My content' },
+            { title: 'Some title 2', description: 'Some desc 2', url: 'development.html' }
+                ]
+
+            });
+            function callSigFinder(field_name, url, type, win) {
+                var roxyFileman = '@Url.Action("FinderForTinyMCE","File",new { area="Admin"})';
+                tinyMCE.activeEditor.windowManager.open({
+                    file: roxyFileman,
+                    title: 'SigFinder',
+                    width: 850,
+                    height: 655,
+                    resizable: "yes",
+                    plugins: "media",
+                    inline: "yes",
+                    close_previous: "no"
+                }, { window: win, input: field_name });
+                return false;
+
+            }
+        }
+        function onBegin() {
+            $("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin")
+        }
+        function onComplete() {
+            $("#btnSave i").removeClass("fa-spinner fa-spin").addClass("fa-save")
+        }
+
+
+         function updateSuccess(data) {
+            var title = '@ViewBag.PageTitle';
+            Common.ShowBoxWithFuncBack(data, title, submitSuccess);
+        }
+
+        function submitSuccess(id,htmlData) {
+            $('#ModalEdit').modal('hide');
+
+            if(id>0){
+                var cid = "container" + id;
+                $("#" + cid).replaceWith(htmlData);
+            }
+            else {
+                $("#tbList").html(htmlData);
+
+            }
+        }
+
+        $(function () {
+            //解决弹窗里tinymce 里的弹窗编辑失效问题。
+            $(document).on('focusin', function (e) {
+                if ($(e.target).closest(".mce-window").length) {
+                    e.stopImmediatePropagation();
+                }
+            });
+
+            $(document).on('hidden.bs.modal', '#ModalEdit', function (e) {
+                tinymce.remove();
+            })
+
+            //pagging set
+            $(document).on("change", '#PageSize', function (e) {
+                e.preventDefault();
+
+                var url = "@Url.Action("PageSizeSet")", title = "分页设置", pageSize = $(this).val();
+                Common.PageSizeSet(url, title, pageSize, setPageSizeFunc);
+
+            });
+
+            function setPageSizeFunc() {
+                location.reload();
+            }
+
+            //active
+            $(document).on("click", '.active-item', function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('data-url'), title = $(this).attr('title'), that = $(this);
+                Common.SingleActionWithFuncBack(url, title, that, submitFunc);
+
+            });
+
+            function submitFunc(that,data) {
+                var tr = that.closest('.item-container').replaceWith(data);
+            }
+
+
+            //delete
+            $(document).on("click", '.delete-item', function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('data-url');
+                var that = $(this);
+                bootbox.setLocale("zh_CN");
+                bootbox.confirm("你确定要删除此项吗？", function (result) {
+                    if (result) {
+                        /*DELETE*/
+                        var title = "@ViewBag.Title";
+                        Common.DeleteItem(url, title, that);
+                    }
+                });
+            });
+
+            // create index
+            $(document).on("click", '.createIndex', function (e) {
+                e.preventDefault();
+                var url = $(this).attr('data-url');
+                var that = $(this);
+                bootbox.setLocale("zh_CN");
+                bootbox.confirm("你确定要创建索引目录吗？", function (result) {
+                    if (result) {
+                        var title = "创建索引目录";
+                        $.post(url, function (data) {
+                            Common.ShowBox(data.Status, data.Message, title);
+                        })
+                    }
+                });
+
+            });
+
+
+
+
+        });
+    </script>
+
+}

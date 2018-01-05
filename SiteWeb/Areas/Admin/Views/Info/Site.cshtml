@@ -1,0 +1,122 @@
+﻿@model ModuleSetIM
+@{
+    ViewBag.Title = "全局设置";
+    ViewBag.PageTitle = ViewBag.Title + "_常规设置";
+
+}
+
+
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">全局</a></li>
+                @*<li role="presentation"><a href="#productSet" aria-controls="blog" role="tab" data-toggle="tab">产品</a></li>*@
+                <li role="presentation"><a href="#videoSet" aria-controls="videoSet" role="tab" data-toggle="tab">视频直播</a></li>
+                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">新闻</a></li>
+                @*<li role="presentation"><a href="#blog" aria-controls="blog" role="tab" data-toggle="tab">博客</a></li>
+                <li role="presentation"><a href="#caseSet" aria-controls="blog" role="tab" data-toggle="tab">案例</a></li>
+                <li role="presentation"><a href="#photoSet" aria-controls="blog" role="tab" data-toggle="tab">相册</a></li>*@
+                <li role="presentation"><a href="#weixinSet" aria-controls="weixin" role="tab" data-toggle="tab">微信公众号</a></li>
+            </ul>
+
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+               
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <br />
+                    @Html.Partial("_Site", Model.SiteInfo)
+                </div>
+                @*<div role="tabpanel" class="tab-pane" id="productSet">
+                    <br />
+                    @Html.Partial("_Product", Model.ProductSet)
+                </div>*@
+                <div role="tabpanel" class="tab-pane" id="videoSet">
+                    <br />
+                    @Html.Partial("_Video", Model.VideoSet)
+                </div>
+                <div role="tabpanel" class="tab-pane" id="profile">
+                    <br />
+                    @Html.Partial("_Article", Model.ArticleSet)
+                </div>
+                @*<div role="tabpanel" class="tab-pane" id="blog">
+                    <br />
+                    @Html.Partial("_Post", Model.PostSet)
+                </div>
+                <div role="tabpanel" class="tab-pane" id="caseSet">
+                    <br />
+                    @Html.Partial("_Case", Model.CaseSet)
+                </div>
+                <div role="tabpanel" class="tab-pane" id="photoSet">
+                    <br />
+                    @Html.Partial("_Photo", Model.PhotoSet)
+                </div>*@
+                <div role="tabpanel" class="tab-pane" id="weixinSet">
+                    <br />
+                    @Html.Partial("_WeiXin", Model.WeiXinSet)
+                </div>
+            </div>
+           
+        </div>
+    </div>
+
+@Html.Action("PopuFinder", "File")
+
+@section Header{
+    <link href="~/plugins/SigFinder/SigFinder.min.css" rel="stylesheet" />
+    <link href="~/plugins/webuploader/webuploader.css" rel="stylesheet" />
+}
+
+@section footer {
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+<script src="/Plugins/webuploader/webuploader.min.js"></script>
+<script src="/Plugins/SigFinder/FileManager.js"></script>
+    <script>
+        function onBegin() {
+            $("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin")
+        }
+        function onComplete() {
+            $("#btnSave i").removeClass("fa-spinner fa-spin").addClass("fa-save")
+        }
+        function onSuccess(data) {
+        Common.ShowBox(data.Status, data.Message, "@ViewBag.Title");
+        //  debugger;
+        }
+
+        function SetThumbnail() {
+            var fileUrl = $("#fileList .item.active").attr("data-file");
+            $('#DashboardLogo').val(fileUrl);
+            $("#imgDashboardLogo").attr("src", fileUrl);
+            $('#fileManagerModal').modal('hide');
+        }
+        function SetLoginLogo() {
+            var fileUrl = $("#fileList .item.active").attr("data-file");
+            $('#LoginLogo').val(fileUrl);
+            $("#imgLoginLogo").attr("src", fileUrl);
+            $('#fileManagerModal').modal('hide');
+        }
+
+        $(function () {
+
+            $("#btnDashboardLogo").on("click", function () {
+                $('#fileManagerModal').modal();
+                $("#selectImage").unbind('click');
+                $("#selectImage").bind("click", function () {
+                    SetThumbnail();
+                });
+            });
+
+            $("#btnLoginLogo").on("click", function () {
+                $('#fileManagerModal').modal();
+                $("#selectImage").unbind('click');
+                $("#selectImage").bind("click", function () {
+                    SetLoginLogo();
+                });
+            });
+            
+        })
+    </script>
+}

@@ -1,0 +1,61 @@
+﻿@model LeftNavVM
+
+@{ 
+    int i = 0;
+}
+@helper ShowTree(IEnumerable<MenuVM> menus, int i)
+{
+i++;
+string className = (i == 1) ? "mainmenu" : "submenu";
+
+    <ul class="list-unstyled @className">
+        @foreach (var item in menus)
+        {
+
+            string downNav = item.ChildMenus.Where(m => m.Active && m.MenuType == SIG.Model.Enum.MenuType.PAGE).Any() ? "down-nav" : "";
+            string url = string.IsNullOrEmpty(item.Url) ? "#" : item.Url;
+
+            string navOpen = Model.CurrentMenu!=null ? (item.Id == Model.CurrentMenu.ParentId ? "nav-open" : "") :"";
+            string linkActive = Model.CurrentMenu != null ? (item.Id == Model.CurrentMenu.Id ? "active" : "") : "";
+
+            <li class="liitem @downNav @navOpen">
+                <a href="@url" class="@linkActive">                
+                    <i class="@item.Iconfont fa-fw"></i>@item.Title 
+                    @{
+                        if (item.ChildMenus.Where(m => m.Active && m.MenuType == SIG.Model.Enum.MenuType.PAGE).Any())
+                        {
+                            <span class="badge">@item.ChildMenus.Where(m => m.Active).Count()</span>
+                        }
+                    }
+                </a>
+                @if (item.ChildMenus.Where(m => m.Active && m.MenuType == SIG.Model.Enum.MenuType.PAGE).Any())
+                {
+                    @ShowTree(item.ChildMenus.Where(m => m.Active && m.MenuType == SIG.Model.Enum.MenuType.PAGE).OrderByDescending(c => c.Importance), i)
+                }
+            </li>
+            }
+
+    </ul>   
+
+}
+
+
+<div id="sidebar-nav" class="leftcol">
+   <aside class="logo">
+       <img src="~/Areas/Admin/Content/img/logo.png" class="img-responsive" />
+   </aside>
+    <aside>
+        <nav id="menu">
+            <h3>导航</h3>          
+
+    @ShowTree(Model.Menus, i)
+
+
+        </nav>
+
+        <div class="closemenu">
+            <a href="#"><i class="fa fa-chevron-circle-left"></i></a>
+        </div>
+    </aside>
+
+</div>

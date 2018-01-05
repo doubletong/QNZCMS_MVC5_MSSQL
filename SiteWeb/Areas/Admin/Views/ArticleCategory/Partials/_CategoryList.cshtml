@@ -1,0 +1,5 @@
+﻿@model IEnumerable<ArticleCategory>
+@foreach (var item in Model)
+{
+    Html.RenderPartial("_CategoryItem", item);
+}

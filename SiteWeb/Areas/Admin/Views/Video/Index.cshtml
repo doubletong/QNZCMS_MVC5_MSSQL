@@ -1,0 +1,253 @@
+﻿@model VideoListVM
+
+
+@{
+    ViewBag.Title = EntityNames.Video;
+    ViewBag.PageTitle = ViewBag.Title + "_内容";
+
+}
+
+@section header{
+
+    <link href="~/plugins/SigFinder/SigFinder.min.css" rel="stylesheet" />
+    <link href="~/plugins/webuploader/webuploader.css" rel="stylesheet" />
+
+    <link href="~/plugins/mediaelement/build/mediaelementplayer.min.css" rel="stylesheet" />
+    <link href="~/plugins/colorbox-master/example3/colorbox.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Content/bootstrap/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+}
+
+<div class="panel panel-default">
+    <header class="panel-heading">
+        <div class="pull-right">
+            @Ajax.RawActionLink("<i class='fa fa-plus fa-fw'></i>" + Buttons.Add,
+                        "Add", "Video", new { },
+                        new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
+                        new { @class = "btn btn-primary" })
+        </div>
+
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="Keyword">关键字</label>
+                @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Categories, Labels.Category + "过滤", new { @class = "form-control" })
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-search fa-fw"></i>查找</button>
+        </form>
+    </header>
+
+
+    <table class="table table-hover table-vmiddle">
+        <thead>
+            <tr>
+                <th>缩略图</th>
+                <th>
+                    主题
+                </th>
+                <th>
+                    开播时间
+                </th>
+                <th>
+                    分类
+                </th>
+                <th>
+                    创建日期
+                </th>
+                <th>
+                    显示？
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tbList">
+            @foreach (var item in Model.Videos)
+            {
+                Html.RenderPartial("_VideoItem", item);
+            }
+
+        </tbody>
+
+    </table>
+
+    <footer class="panel-footer">
+        <div class="row">
+            <div class="col-sm-7">
+                @Html.PagedListPager(Model.Videos, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }))
+            </div>
+            <div class="col-sm-5">
+                <div class="form-inline text-right">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
+                        @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+
+</div>
+
+<!-- end main container -->
+
+<div id="edit-container">
+</div>
+
+<form id="anti-form" method="post">
+    @Html.AntiForgeryToken()
+</form>
+
+@Html.Action("PopuFinder", "File")
+
+@section footer {
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+
+    <script src="/Plugins/webuploader/webuploader.min.js"></script>
+    <script src="/Plugins/SigFinder/FileManager.js"></script>
+    <script src="~/plugins/tinymce/tinymce.min.js"></script>
+    <script src="~/plugins/tinymce/langs/zh_CN.js"></script>
+
+    <script src="~/plugins/mediaelement/build/mediaelement-and-player.min.js"></script>
+    <script src="~/plugins/mediaelement/build/lang/zh-cn.js"></script>
+    <script src="~/plugins/colorbox-master/jquery.colorbox-min.js"></script>
+    <script src="~/plugins/colorbox-master/i18n/jquery.colorbox-zh-CN.js"></script>
+<script src="~/scripts/lib/moment/moment-with-locales.min.js"></script>
+<script src="~/Areas/Admin/Content/bootstrap/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+
+    <script>
+        function SetThumbnail() {
+            var fileUrl = $("#fileList .item.active").attr("data-file");
+            $('#Thumbnail').val(fileUrl);
+            $('#fileManagerModal').modal('hide');
+        }
+
+       
+
+
+
+        function OnSuccessLink(data) {
+            Common.ShowBox(data.Status, data.Message, "操作");
+        }
+
+        function onAjaxComplete() {
+            $('#ModalEdit').modal();
+
+            $(document).on("click", "#btnThumbnail", function () {
+                $('#fileManagerModal').modal();
+                $("#selectImage").unbind('click');
+                $("#selectImage").bind("click", function () {
+                    SetThumbnail();
+                });
+            });
+
+
+            $('#datetimepicker1,#datetimepicker2').datetimepicker({
+                locale: 'zh-CN',
+                format: 'YYYY-MM-DD HH:mm'
+            });
+
+
+
+        }
+        function onBegin() {
+            $("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin")
+        }
+        function onComplete() {
+            $("#btnSave i").removeClass("fa-spinner fa-spin").addClass("fa-save")
+           // tinymce.remove();
+        }
+
+
+        function updateSuccess(data) {
+            var title = '@ViewBag.PageTitle';
+            Common.ShowBoxWithFuncBack(data, title, submitSuccess);
+        }
+
+        function submitSuccess(id,htmlData) {
+            $('#ModalEdit').modal('hide');
+          //  alert(id);
+         //   console.log(id);
+            if(id>0){
+                var cid = "container" + id;
+                $("#" + cid).replaceWith(htmlData);
+            }
+            else {
+                $("#tbList").html(htmlData);
+
+            }
+        }
+
+
+
+
+        $(function () {
+
+
+            $(document).on("click",".openVideo",function (e) {
+                e.preventDefault();
+                var videoUrl = $(this).attr("data-video");
+                var coverUrl = $(this).attr("data-cover");
+
+                var videoHtml = '<video width="640" height="360" poster="' + coverUrl + '" controls="controls" preload="none">' +
+                      '<source type="video/mp4" src="' + videoUrl + '" /><object width="640" height="320" type="application/x-shockwave-flash" data="/plugins/mediaelement/build/flashmediaelement.swf">' +
+                      '<param name="movie" value="/plugins/mediaelement/build/flashmediaelement.swf" />' +
+                      '<param name="flashvars" value="controls=true&file=' + videoUrl + '" /><img src="' + coverUrl + '" width="640" height="320" title="No video playback capabilities" /></object></video>'
+
+                $.colorbox({ html: videoHtml, innerWidth: 640, innerHeight: 360, scrolling: false });
+                $('video,audio').mediaelementplayer(/* Options */);
+            })
+
+
+
+            //pagging set
+            $(document).on("change", '#PageSize', function (e) {
+                e.preventDefault();
+
+                var url = "@Url.Action("PageSizeSet")", title = "分页设置", pageSize = $(this).val();
+                Common.PageSizeSet(url, title, pageSize, setPageSizeFunc);
+
+            });
+
+            function setPageSizeFunc() {
+                location.reload();
+            }
+
+            //active
+            $(document).on("click", '.active-item', function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('data-url'), title = $(this).attr('title'), that = $(this);
+                Common.SingleActionWithFuncBack(url, title, that, submitFunc);
+
+            });
+
+            function submitFunc(that,data) {
+                var tr = that.closest('.item-container').replaceWith(data);
+            }
+
+
+            //delete
+            $(document).on("click", '.delete-item', function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('data-url');
+                var that = $(this);
+                bootbox.setLocale("zh_CN");
+                bootbox.confirm("你确定要删除此项吗？", function (result) {
+                    if (result) {
+                        /*DELETE*/
+                        var title = "@ViewBag.Title";
+                        Common.DeleteItem(url, title, that);
+                    }
+                });
+
+            });
+
+
+        });
+    </script>
+
+}
