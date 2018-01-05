@@ -43,7 +43,6 @@ namespace SiteWeb
             log4net.GlobalContext.Properties["user"] = new HttpContextUserNameProvider();
 
             DependencyRegistrar.Register();
-
             //定时任务
             JobManager.Initialize(new JobRegistry());
 
