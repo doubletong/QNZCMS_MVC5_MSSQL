@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>@ViewBag.Title - @SettingsManager.Contact.CompanyShortName</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!--开启对web app的支持-->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="date=no">
+    <meta name="format-detection" content="address=no">
+    <meta name="format-detection" content="email=no">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    @RenderSection("header", required: false)
+
+    <link href="~/Themes/XiPin/Content/iconfont/iconfont.css" rel="stylesheet" />
+    <link href="~/Themes/XiPin/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Themes/XiPin/Content/css/animate.min.css" rel="stylesheet" />
+    <link href="~/Themes/XiPin/Content/css/Main.min.css" rel="stylesheet" />
+    <script src="~/Scripts/compatibility/modernizr-2.8.3.min.js"></script>
+    <!--[if lt IE 9]>
+        <script src='https://cdn.jsdelivr.net/nwmatcher/1.2.5/nwmatcher.min.js'></script>
+        <script src='https://cdn.jsdelivr.net/json2/0.2/json2.min.js'></script>
+        <script src='https://cdn.rawgit.com/gisu/selectivizr/1.0.3/selectivizr.js'></script>
+        <script src='https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js'></script>
+        <script src='https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js'></script>
+        <script src='https://cdn.jsdelivr.net/es5.shim/4.4.1/es5-shim.min.js'></script>
+    <![endif]-->
+
+</head>
+<body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">
+        您使用的是<strong>老旧</strong>的浏览器，会对您的计算机安全造成威胁。请<a href="http://browsehappy.com/">升级您的浏览器</a>来提高您的用户体验。
+        </p>
+    <![endif]-->
+
+    <div class="topcol">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-3 col-sm-6">
+                    <a href="tel:@SettingsManager.Contact.Phone">
+                        <i class="icon-telephone37"></i> <span class="hidden-xs">@SettingsManager.Contact.Phone</span>
+                    </a>
+                </div>
+                <div class="col-xs-9 col-sm-6 loginbox text-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        <div class="logined">
+                            <span>你好，@Site.CurrentUserName</span>
+                            @if (User.IsInRole("系统管理,创始人"))
+                            {
+                                <a href="@Url.Action("Index","Home",new { area="Admin"})"><i class="glyphicon glyphicon-cog"></i> 系统管理</a>
+                            }
+                            <a href="javascript:document.getElementById('logoutForm').submit()"><i class="glyphicon glyphicon-log-out"></i> 退出</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="unlogin">@Html.ActionLink("登录", "Login", "Account") @Html.ActionLink("注册", "Register", "Account")</div>
+                    }
+                    <!-- navbar end -->
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <header id="pageHeader" class="pageHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6 col-sm-2">
+                    <a href="@Url.Action("Index", "Home")" class="logo">
+                        <i class="iconfont icon-logo"></i>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-10">
+                    <div class="openmenu">
+                        <a href="#"><i class="iconfont">&#xe611;</i></a>
+                    </div>
+
+                    <nav class="navbar hidden-xs hidden-sm" role="navigation">
+                        @Html.Action("SiteNav", "Menu")
+                    </nav>
+
+
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    @RenderBody()
+
+
+
+
+    <!-- footer start ================================================== -->
+    <footer class="page-footer">
+        <div class="container mb30 hidden-xs hidden-sm">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2 class="title">网站<span class="colortext">导航</span></h2>
+                    <aside class="nav">
+                        @Html.Action("SiteNav", "Menu")
+                    </aside>
+                </div>
+                <!-- BEGIN CALL TO ACTION PANEL ================================================== -->
+
+                <div class="col-md-4">
+                    <figure class="android">
+                        <a href="http://nobleorange.co/Content/Uploads/files/NobleOrange.apk">
+                            <img src="/Content/Public/img/androidAPK.png" />
+                        </a>
+                        <figcaption>
+                            <i class="icon-android"></i>  安卓应用下载
+                        </figcaption>
+                    </figure>
+
+
+                </div>
+
+                <!-- /. end call to action-->
+                <div class="col-md-4">
+                    <h2 class="title">联系<span class="colortext">我们</span></h2>
+                    <aside class="contactbox">
+                        <ul>
+                            <li><i class="iconfont">&#xe603;</i> @SettingsManager.Contact.Address</li>
+                            <li><i class="iconfont">&#xe602;</i> 电话：@SettingsManager.Contact.Phone</li>
+                            <li><i class="iconfont">&#xe600;</i> 传真：@SettingsManager.Contact.Fax</li>
+                            <li><i class="iconfont">&#xe601;</i> 邮箱：<a href="mailto:@SettingsManager.Contact.MailTo">@SettingsManager.Contact.MailTo</a> </li>
+                        </ul>
+
+                        <!-- /.social start-->
+                        <div class="social">
+                            <a class="animated" href="@SettingsManager.Social.SinaWeibo"><i class="icon-sina-weibo"></i></a>
+                            <a class="animated" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=@SettingsManager.Social.Oicq&site=@SettingsManager.Site.SiteName&menu=yes"><i class="icon-qq"></i></a>
+                            <a class="weixin" href="#">
+                                <i class="icon-wechat"></i>
+                                <div class="qrcode">
+                                    <img src="@SettingsManager.Social.WeiXingCode" alt="@SettingsManager.Social.WeiXing" />
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- /.social end-->
+
+                    </aside>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="copyright">
+            &copy; Copyright @DateTime.Now.Year @SettingsManager.Contact.CompanyName，工信部备案号：<a href="http://www.miitbeian.gov.cn/">@SettingsManager.Site.WebNumber</a>
+        </div>
+    </footer>
+    <!-- /footer section end-->
+
+    <div id="pusher" class="pusher">
+        <div id="rightnav" class="rightnav" aria-hidden="true">
+            @Html.Action("SiteNav", "Menu")
+        </div>
+    </div>
+
+    <!-- The Scripts -->
+    <!--[if lte IE 8]>
+    <script src="~/scripts/lib/jqueryForIE/jquery-1.11.3.min.js"></script>
+    <![endif]-->
+    <!--[if gte IE 9]><!-->
+    <script src="~/scripts/lib/jquery/jquery-2.2.0.min.js"></script>
+    <!--<![endif]-->
+
+    @RenderSection("footer", required: false)
+    <script src="~/Themes/XiPin/Content/js/app.js"></script>
+
+
+</body> 
+</html>

@@ -12,6 +12,7 @@ namespace TZGCMS.Service.Ads
       
         IEnumerable<Carousel> GetAll();
         IEnumerable<Carousel> GetActiveElements();
+        IEnumerable<Carousel> GetActiveElements(string code);
         List<Carousel> GetPagedElements(int pageIndex, int pageSize, string keyword, int positionId, out int totalCount);
         Carousel GetById(int id);
       
@@ -33,6 +34,10 @@ namespace TZGCMS.Service.Ads
         public IEnumerable<Carousel> GetActiveElements()
         {
             return _unitOfWork.CarouselRepository.GetMany(d => d.Active);
+        }
+        public IEnumerable<Carousel> GetActiveElements(string code)
+        {
+           return _unitOfWork.PositionRepository.GetFirstOrDefault(filter: d => d.Code == code, includes: d => d.Carousels)?.Carousels;
         }
         public List<Carousel> GetPagedElements(int pageIndex, int pageSize, string keyword, int positionId, out int totalCount)
         {

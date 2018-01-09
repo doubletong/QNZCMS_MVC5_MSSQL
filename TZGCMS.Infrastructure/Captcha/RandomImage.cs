@@ -106,7 +106,7 @@ namespace TZGCMS.Infrastructure.Captcha
             Matrix matrix = new Matrix();
             matrix.Translate(0F, 0F);
             path.Warp(points, rect, matrix, WarpMode.Perspective, 0F);
-            hatchBrush = new HatchBrush(HatchStyle.Percent10, Color.Black, Color.SkyBlue);
+            hatchBrush = new HatchBrush(HatchStyle.Percent10, Color.Black, Color.Aqua);
             g.FillPath(hatchBrush, path);
             int m = Math.Max(rect.Width, rect.Height);
             for (int i = 0; i < (int)(rect.Width * rect.Height / 30F); i++)

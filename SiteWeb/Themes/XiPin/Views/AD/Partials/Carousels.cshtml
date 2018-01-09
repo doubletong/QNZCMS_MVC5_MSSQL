@@ -1,0 +1,16 @@
+﻿@model  IEnumerable<Carousel>
+<!-- slider start -->
+<div class="home-carousel">
+    <div class="owl-carousel">
+        @if (Model != null)
+        {
+            foreach (var ad in Model)
+            {
+                <div class="item"><a href="@ad.WebLink"><img src="@ad.ImageUrl" alt="@ad.Title" /></a></div>
+
+            }
+        }
+
+    </div>
+</div>
+<!-- slider end -->

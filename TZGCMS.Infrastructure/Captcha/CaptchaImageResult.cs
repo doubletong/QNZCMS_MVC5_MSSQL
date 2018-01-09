@@ -56,8 +56,8 @@ namespace TZGCMS.Infrastructure.Captcha
         {
             int intZero = '1';
             int intNine = '9';
-            int intA = 'A';
-            int intZ = 'Z';
+            //int intA = 'A';
+            //int intZ = 'Z';
             int intCount = 0;
             int intRandomNumber = 0;
             string strCaptchaString = "";
@@ -66,8 +66,8 @@ namespace TZGCMS.Infrastructure.Captcha
 
             while (intCount < length)
             {
-                intRandomNumber = random.Next(intZero, intZ);
-                if (((intRandomNumber >= intZero) && (intRandomNumber <= intNine) || (intRandomNumber >= intA) && (intRandomNumber <= intZ)))
+                intRandomNumber = random.Next(intZero, intNine);
+                if (((intRandomNumber >= intZero) && (intRandomNumber <= intNine) /*|| (intRandomNumber >= intA) && (intRandomNumber <= intZ)*/))
                 {
                     strCaptchaString = strCaptchaString + (char)intRandomNumber;
                     intCount = intCount + 1;
@@ -80,7 +80,7 @@ namespace TZGCMS.Infrastructure.Captcha
         {
 
           
-            string randomString = GenerateRandomCode();
+            string randomString = GetCaptchaString(4);
             context.HttpContext.Session["SigCaptcha"] = randomString;     
          
              RandomImage ci = new RandomImage(context.HttpContext.Session["SigCaptcha"].ToString(),120, 38);          

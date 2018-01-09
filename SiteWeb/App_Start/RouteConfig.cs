@@ -18,7 +18,7 @@ namespace SiteWeb
                name: "Default",
                url: "{controller}/{action}/{id}",
                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-               namespaces: new string[] { "SiteWeb.Controllers" }
+               namespaces: new string[] { "TZGCMS.SiteWeb.Controllers" }
            );
         }
     }

@@ -1,0 +1,104 @@
+﻿.owl-controls {
+    height: 50px;
+    width: 100%;
+    
+   
+    .owl-nav {
+        float: left;
+        padding-top: 10px;
+         @media only screen and (max-width: 767px) {
+            display:none;
+        }
+
+        .owl-next, .owl-prev {
+            display: inline-block;
+            height:26px;
+            width: 26px;
+            border-radius: 3px;
+            background-color: #f1f1f1;
+            text-align: center;
+            margin-right: 6px;line-height:26px;
+        }
+    }
+
+    .owl-dots {
+        float: right;
+
+        .owl-dot {
+            display: inline-block;
+            margin: 15px 0 15px 10px;
+
+            span {
+                display: block;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background-color: #666;
+            }
+
+            &.active {
+                span {
+                    background-color: #ff6a00;
+                }
+            }
+        }
+    }
+}
+
+.home-carousel{
+    position:relative;
+
+    .owl-controls{
+        height:auto;
+         .owl-nav {
+        position:absolute;left:0;width:100%;top:50%;      z-index:5000;margin-top:-40px;
+         @media only screen and (max-width: 767px) {
+            display:none;
+        }
+
+        .owl-next, .owl-prev {
+            display: inline-block;float:left;
+            height:70px;
+            width: 70px;color:#fff;
+            border-radius: 0 6px 6px 0;
+          background-color: rgba(255,255,255,.3);
+            text-align: center;margin-right: 0;
+           line-height:70px;
+           .iconfont{
+               font-size:24px;
+           }
+        }
+        .owl-prev{
+            float:right;   border-radius:  6px 0 0 6px ;
+        }
+    }
+          .owl-dots{
+                bottom:15px;z-index:9000;position:absolute;left:0;width:100%;
+            float:none;text-align:center;
+                   .owl-dot {
+                    display: inline-block;
+                    margin: 15px 0 15px 10px;
+
+                    span {
+                        display: block;
+                        width: 50px;
+                        height: 5px;
+                        border-radius: 0;
+                        background-color: rgba(255,255,255,.3);
+                         @media only screen and (max-width: 767px) {
+            display:none;
+        }
+                    }
+
+                    &.active {
+                        span {
+                            background-color: #ff6a00;
+                        }
+                    }
+                }
+        }
+    }
+    
+   
+  
+}

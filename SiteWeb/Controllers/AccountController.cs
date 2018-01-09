@@ -8,9 +8,9 @@ using TZGCMS.Infrastructure.Captcha;
 using TZGCMS.Model.Front.InputModel.Identity;
 using TZGCMS.Service.Identity;
 
-namespace SiteWeb.Controllers
+namespace TZGCMS.SiteWeb.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly IUserServices _userServices;
 

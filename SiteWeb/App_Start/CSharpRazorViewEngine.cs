@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.UI;
 
 namespace SiteWeb.App_Start
@@ -157,7 +158,7 @@ namespace SiteWeb.App_Start
 
         private static string GetThemeToUse(ControllerContext controllerContext)
         {
-            var themeName = controllerContext.HttpContext.Items["themeName"] as string ?? "Default";
+            var themeName = controllerContext.HttpContext.Items["themeName"] as string ?? SettingsManager.Site.Theme;
             return themeName;
         }
 

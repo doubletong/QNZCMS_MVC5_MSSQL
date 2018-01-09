@@ -168,7 +168,8 @@ namespace SiteWeb.Areas.Admin.Controllers
         [AllowAnonymous]
         public ActionResult GetMenus(int categoryId)
         {
-            var menus = _menuService.GetLevelMenusByCategoryId(categoryId);
+            // var menus = _menuService.GetLevelMenusByCategoryId(categoryId);
+            var menus = _menuService.GetMenusByCategoryId(categoryId);
             return PartialView("_MenuList", menus);
         }
 
@@ -235,7 +236,7 @@ namespace SiteWeb.Areas.Admin.Controllers
                   
                 }
 
-                var menus = _menuService.GetLevelMenusByCategoryId(vMenu.CategoryId);
+                var menus = _menuService.GetMenusByCategoryId(vMenu.CategoryId);
                 AR.Id = vm.CategoryId;
                 AR.Data = RenderPartialViewToString("_MenuList", menus);
 
@@ -337,7 +338,7 @@ namespace SiteWeb.Areas.Admin.Controllers
 
                 // _menuService.ResetSort(orgMenu.CategoryId);
 
-                var menus = _menuService.GetLevelMenusByCategoryId(vMenu.CategoryId);
+                var menus = _menuService.GetMenusByCategoryId(vMenu.CategoryId);
                 AR.Id = vMenu.CategoryId;
                 AR.Data = RenderPartialViewToString("_MenuList", menus);
 
@@ -420,7 +421,7 @@ namespace SiteWeb.Areas.Admin.Controllers
 
             }
 
-            var menus = _menuService.GetLevelMenusByCategoryId(categoryId);
+            var menus = _menuService.GetMenusByCategoryId(categoryId);
             AR.Id = categoryId;
             AR.Data = RenderPartialViewToString("_MenuList", menus);
 
@@ -476,7 +477,7 @@ namespace SiteWeb.Areas.Admin.Controllers
             {
                 _menuService.ResetSort(id);
 
-                var menus = _menuService.GetLevelMenusByCategoryId(id);
+                var menus = _menuService.GetMenusByCategoryId(id);
                 AR.Id = id;
                 AR.Data = RenderPartialViewToString("_MenuList", menus);
 
@@ -498,7 +499,7 @@ namespace SiteWeb.Areas.Admin.Controllers
         public ActionResult MoveMenu(int id)
         {
             var menu = _menuService.GetById(id);
-            var menus = _menuService.GetLevelMenusByCategoryId(menu.CategoryId);
+            var menus = _menuService.GetMenusByCategoryId(menu.CategoryId);
             MoveMenuVM vm = new MoveMenuVM
             {
                 Id = id,
@@ -523,7 +524,7 @@ namespace SiteWeb.Areas.Admin.Controllers
                 _menuService.Update(menu);
                 _menuService.ResetSort(menu.CategoryId);
 
-                var menus = _menuService.GetLevelMenusByCategoryId(menu.CategoryId);
+                var menus = _menuService.GetMenusByCategoryId(menu.CategoryId);
                 AR.Id = menu.CategoryId;
                 AR.Data = RenderPartialViewToString("_MenuList", menus);
 

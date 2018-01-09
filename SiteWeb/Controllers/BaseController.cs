@@ -5,7 +5,7 @@ using TZGCMS.Data.Entity.Identity;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Model.Front.ViewModel;
 
-namespace SiteWeb.Controllers
+namespace TZGCMS.SiteWeb.Controllers
 {
     public class BaseController : Controller
     {

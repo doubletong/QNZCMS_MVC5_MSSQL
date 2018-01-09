@@ -6,5 +6,9 @@
   {
     "outputFile": "Themes/Default/Content/css/mainmobile.css",
     "inputFile": "Themes/Default/Content/css/mainmobile.scss"
+  },
+  {
+    "outputFile": "Themes/XiPin/Content/css/Main.css",
+    "inputFile": "Themes/XiPin/Content/css/Main.less"
   }
 ]

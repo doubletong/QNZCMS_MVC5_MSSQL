@@ -36,7 +36,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\WebApiSwagger.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -239,7 +240,9 @@
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Controllers\VideoController.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ADController.cs" />
     <Compile Include="Controllers\api\ArticlesController.cs" />
     <Compile Include="Controllers\api\CarouselsController.cs" />
     <Compile Include="Controllers\api\PagesController.cs" />
@@ -248,7 +251,10 @@
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\WeiXinController.cs" />
     <Compile Include="DependencyRegistrar.cs" />
     <Compile Include="Filters\SIGAuthAttribute.cs" />
@@ -670,6 +676,9 @@
     <Content Include="Plugins\mediaelement\test\unit\mediaelement.spec.js" />
     <Content Include="Plugins\mediaelement\test\unit\renderer.spec.js" />
     <Content Include="Plugins\mediaelement\test\unit\utils.spec.js" />
+    <Content Include="Plugins\owl.carousel\assets\owl.carousel.css" />
+    <Content Include="Plugins\owl.carousel\owl.carousel.js" />
+    <Content Include="Plugins\owl.carousel\owl.carousel.min.js" />
     <Content Include="Plugins\scrollbar\examples\ajax.html" />
     <Content Include="Plugins\scrollbar\examples\ajax_example.html" />
     <Content Include="Plugins\scrollbar\examples\auto_hide_scrollbar_demo.html" />
@@ -1544,6 +1553,42 @@
     <Content Include="Themes\Default\Content\js\jQuery\jquery.slim.js" />
     <Content Include="Themes\Default\Content\js\jQuery\jquery.slim.min.js" />
     <Content Include="Themes\Default\Content\js\modernizr-2.8.3.js" />
+    <Content Include="Themes\XiPin\Content\css\animate.css" />
+    <Content Include="Themes\XiPin\Content\css\animate.min.css" />
+    <Content Include="Themes\XiPin\Content\css\backgroundsize.htc" />
+    <Content Include="Themes\XiPin\Content\css\backgroundsize.min.htc" />
+    <Content Include="Themes\XiPin\Content\css\bootstrap.css" />
+    <Content Include="Themes\XiPin\Content\css\bootstrap.min.css" />
+    <Content Include="Themes\XiPin\Content\css\Main.css" />
+    <Content Include="Themes\XiPin\Content\css\Main.min.css" />
+    <Content Include="Themes\XiPin\Content\css\mixins.css" />
+    <Content Include="Themes\XiPin\Content\css\mixins.min.css" />
+    <Content Include="Themes\XiPin\Content\css\variables.css" />
+    <Content Include="Themes\XiPin\Content\css\variables.min.css" />
+    <Content Include="Themes\XiPin\Content\iconfont\iconfont.css" />
+    <Content Include="Themes\XiPin\Content\iconfont\iconfont.js" />
+    <Content Include="Themes\XiPin\Content\iconfont\iconfont.svg" />
+    <Content Include="Themes\XiPin\Content\img\about.jpg" />
+    <Content Include="Themes\XiPin\Content\img\androidAPK.png" />
+    <Content Include="Themes\XiPin\Content\img\article_no_thumb.png" />
+    <Content Include="Themes\XiPin\Content\img\bendiyinle.svg" />
+    <Content Include="Themes\XiPin\Content\img\bois-7.jpg" />
+    <Content Include="Themes\XiPin\Content\img\ebook\usb_charger\Page_1_SC120.jpg" />
+    <Content Include="Themes\XiPin\Content\img\ebook\usb_charger\Page_2_SC220.jpg" />
+    <Content Include="Themes\XiPin\Content\img\ebook\usb_charger\Page_3_SC100.jpg" />
+    <Content Include="Themes\XiPin\Content\img\geometric-bg.jpg" />
+    <Content Include="Themes\XiPin\Content\img\loading.gif" />
+    <Content Include="Themes\XiPin\Content\img\logo.svg" />
+    <Content Include="Themes\XiPin\Content\img\marker.png" />
+    <Content Include="Themes\XiPin\Content\img\pattern-2.png" />
+    <Content Include="Themes\XiPin\Content\img\logo.png" />
+    <Content Include="Themes\XiPin\Content\img\zhuanti\newyear\s1-1.png" />
+    <Content Include="Themes\XiPin\Content\img\zhuanti\newyear\s1-2.png" />
+    <Content Include="Themes\XiPin\Content\img\zhuanti\newyear\s2-1.png" />
+    <Content Include="Themes\XiPin\Content\img\zhuanti\newyear\s2-2.png" />
+    <Content Include="Themes\XiPin\Content\img\zhuanti\newyear\s3-1.png" />
+    <Content Include="Themes\XiPin\Content\img\zhuanti\newyear\s3-2.png" />
+    <Content Include="Themes\XiPin\Content\js\app.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1587,6 +1632,46 @@
     <Content Include="Themes\Default\Views\Contact\Index.mobile.cshtml" />
     <Content Include="Themes\Default\Views\WeiXin\OAuthSnsApiBase.cshtml" />
     <Content Include="Themes\Default\Views\WeiXin\OAuthSnsApiUserInfo.cshtml" />
+    <Content Include="Themes\XiPin\Views\_ViewStart.cshtml" />
+    <Content Include="Themes\XiPin\Views\Account\Login.cshtml" />
+    <Content Include="Themes\XiPin\Views\Contact\Index.cshtml" />
+    <Content Include="Themes\XiPin\Views\Contact\Index.mobile.cshtml" />
+    <Content Include="Themes\XiPin\Views\Home\About.cshtml" />
+    <Content Include="Themes\XiPin\Views\Home\About.mobile.cshtml" />
+    <Content Include="Themes\XiPin\Views\Home\Celebs.cshtml" />
+    <Content Include="Themes\XiPin\Views\Home\Celebs.mobile.cshtml" />
+    <Content Include="Themes\XiPin\Views\Home\Index.cshtml" />
+    <Content Include="Themes\XiPin\Views\Home\P1.cshtml" />
+    <Content Include="Themes\XiPin\Views\Home\P1.mobile.cshtml" />
+    <Content Include="Themes\XiPin\Views\Shared\Error.cshtml" />
+    <Content Include="Themes\XiPin\Views\Shared\Layouts\_Layout.cshtml" />
+    <Content Include="Themes\XiPin\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Themes\XiPin\Views\WeiXin\OAuthSnsApiBase.cshtml" />
+    <Content Include="Themes\XiPin\Views\WeiXin\OAuthSnsApiUserInfo.cshtml" />
+    <Content Include="Themes\XiPin\Content\css\Main.css.map" />
+    <Content Include="Themes\XiPin\Content\css\Main.less" />
+    <Content Include="Themes\XiPin\Content\css\mixins.css.map" />
+    <Content Include="Themes\XiPin\Content\css\_mixins.less" />
+    <Content Include="Themes\XiPin\Content\css\_variables.less" />
+    <Content Include="Themes\XiPin\Content\css\_common.less" />
+    <Content Include="Themes\XiPin\Content\css\_customBootstrap.less" />
+    <Content Include="Themes\XiPin\Content\css\_nav.less" />
+    <Content Include="Themes\XiPin\Content\css\_owl.less" />
+    <Content Include="Themes\XiPin\Content\css\_slider.less" />
+    <Content Include="Themes\XiPin\Content\css\_table.less" />
+    <Content Include="Themes\XiPin\Content\iconfont\iconfont.eot" />
+    <Content Include="Themes\XiPin\Content\iconfont\iconfont.ttf" />
+    <Content Include="Themes\XiPin\Content\iconfont\iconfont.woff" />
+    <Content Include="Themes\XiPin\Views\Menu\Partials\_SiteNav.cshtml" />
+    <Content Include="Themes\XiPin\Views\AD\Partials\Carousels.cshtml" />
+    <Content Include="Themes\XiPin\Views\Article\Index.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Themes\XiPin\Views\About\Index.cshtml" />
+    <Content Include="Themes\XiPin\Views\Download\Index.cshtml" />
+    <Content Include="Themes\XiPin\Views\Product\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

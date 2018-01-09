@@ -13,7 +13,7 @@ using TZGCMS.Infrastructure.Helper;
 using TZGCMS.WeiXin;
 using TZGCMS.WeiXin.Model;
 
-namespace SiteWeb.Controllers
+namespace TZGCMS.SiteWeb.Controllers
 {
 
     // GET: WeiXin

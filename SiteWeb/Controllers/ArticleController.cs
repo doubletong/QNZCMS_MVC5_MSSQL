@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using TZGCMS.Service.Articles;
 
-namespace SiteWeb.Controllers
+namespace TZGCMS.SiteWeb.Controllers
 {
     public class ArticleController : Controller
     {

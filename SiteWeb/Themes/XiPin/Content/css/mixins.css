@@ -1,0 +1,25 @@
+﻿.mplnone {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pagebg {
+  background-image: url(../img/bg.png);
+  background-repeat: no-repeat;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.tc {
+  text-align: center;
+}
+.tl {
+  text-align: left;
+}
+.tr {
+  text-align: right;
+}
+/*# sourceMappingURL=mixins.css.map */

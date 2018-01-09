@@ -1,11 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Security.Principal;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -13,13 +6,9 @@ using Newtonsoft.Json;
 using TZGCMS.Data.Entity.Identity;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.Helper;
-using TZGCMS.WeiXin;
-using TZGCMS.WeiXin.Model;
-using TZGCMS.Infrastructure.Cache;
 using TZGCMS.Infrastructure.Logging;
-using TZGCMS.Service.Systems;
 
-namespace SiteWeb.Controllers
+namespace TZGCMS.SiteWeb.Controllers
 {
     public class HomeController : BaseController
     {
@@ -31,59 +20,12 @@ namespace SiteWeb.Controllers
 
         public ActionResult Index()
         {
-            string userAgent = Request.UserAgent;
-            if (!userAgent.ToLower().Contains("micromessenger"))
+
+            if (Request.Browser.IsMobileDevice)
             {
-                Response.Write("请在微信中访问本页。");
+                return View("About.mobile");
             }
-            //if (User!=null && User.Identity.IsAuthenticated && User.IsInRole("微信用户"))
-            //{
-            //    return Redirect($"{SettingsManager.Site.SiteDomainName}/App/#/");
-            //}
-
-            //string code = Request.QueryString["code"];
-            //try
-            //{
-            //    if (!string.IsNullOrEmpty(code))
-            //    {
-            //        //_logger.Info("获取code：" + code);
-            //        var oauthToken = await WeChatHepler.GetAsync<OAuthToken>(
-            //            $"https://api.weixin.qq.com/sns/oauth2/access_token?appid={SettingsManager.WeiXin.AppId}&secret={SettingsManager.WeiXin.AppSecret}&code={code}&grant_type=authorization_code");
-
-
-
-            //        if (!string.IsNullOrEmpty(oauthToken?.openid))
-            //        {
-            //            SetPrincipal(oauthToken.openid);
-            //            _logger.Info("获取openid s：" + oauthToken.openid);
-
-            //           // System.Web.HttpContext.Current.Response.Redirect($"{SettingsManager.Site.SiteDomainName}/App/#/");
-
-            //            return Redirect($"{SettingsManager.Site.SiteDomainName}/App/#/");
-
-            //        }
-            //        else
-            //        {
-            //            _logger.Error("获取openid失败");
-            //        }
-            //        return Redirect(
-            //            $"https://open.weixin.qq.com/connect/oauth2/authorize?appid={SettingsManager.WeiXin.AppId}&redirect_uri={SettingsManager.Site.SiteDomainName}&response_type=code&scope=snsapi_base&state=123456#wechat_redirect");
-            //    }
-            //    else
-            //    {
-            //        return Redirect(
-            //            $"https://open.weixin.qq.com/connect/oauth2/authorize?appid={SettingsManager.WeiXin.AppId}&redirect_uri={SettingsManager.Site.SiteDomainName}&response_type=code&scope=snsapi_base&state=123456#wechat_redirect");
-            //    }
-
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    _logger.Fatal(ex);
-            //    return Redirect($"{SettingsManager.Site.SiteDomainName}/App/#/");;
-            //}
-            return Redirect($"{SettingsManager.Site.SiteDomainName}/App/#/");
-
+            return View();
         }
 
 

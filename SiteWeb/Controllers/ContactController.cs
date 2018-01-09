@@ -11,7 +11,7 @@ using TZGCMS.Model.Front.ViewModel;
 using TZGCMS.Resources.Front;
 using TZGCMS.Service.Emails;
 
-namespace SiteWeb.Controllers
+namespace TZGCMS.SiteWeb.Controllers
 {
     public class ContactController : BaseController
     {
