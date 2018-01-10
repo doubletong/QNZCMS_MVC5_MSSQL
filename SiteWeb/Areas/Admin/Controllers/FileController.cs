@@ -1,4 +1,4 @@
-﻿using SiteWeb.Filters;
+﻿using TZGCMS.SiteWeb.Filters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +8,7 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using TZGCMS.Infrastructure.Configs;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class FileController : BaseController

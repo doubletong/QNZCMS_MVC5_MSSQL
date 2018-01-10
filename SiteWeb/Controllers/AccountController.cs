@@ -28,7 +28,7 @@ namespace TZGCMS.SiteWeb.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            if (User.Identity.IsAuthenticated && !User.IsInRole("微信用户"))
+            if (User.Identity.IsAuthenticated)
             {
                 //防止欺诈跳转（回调地址为空也会判定为false）
                 if (Url.IsLocalUrl(returnUrl))
@@ -36,8 +36,7 @@ namespace TZGCMS.SiteWeb.Controllers
                     return Redirect(returnUrl);
                 }
                 else
-                {
-                   
+                {                   
                     //跳转到默认地址
                     return Redirect("/bbi-admin");
                 }
@@ -49,7 +48,7 @@ namespace TZGCMS.SiteWeb.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult Login(LoginIM model, string returnUrl)
         {
-            if (User.Identity.IsAuthenticated && !User.IsInRole("微信用户"))
+            if (User.Identity.IsAuthenticated)
             {
                 return Redirect("/bbi-admin");
             }

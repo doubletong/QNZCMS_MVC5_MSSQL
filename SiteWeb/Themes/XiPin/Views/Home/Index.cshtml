@@ -1,11 +1,15 @@
 ﻿@{
-    ViewBag.Title = "XIPIN希品";
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : "XIPIN希品";
 }
 
 @section header{
-    @*<meta name="keywords" content="尚橙,尚橙配件,尚橙数据线,尚橙蓝牙耳机,尚橙充电器,线材,尚橙车充,车载充电器" />
-        <meta name="description" content="尚橙，手机配件商，生产及研发手机数据线与充电器一体的新型的电子商务公司" />*@
-
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
 
     <link href="~/Plugins/owl.carousel/assets/owl.carousel.css" rel="stylesheet" />
 }

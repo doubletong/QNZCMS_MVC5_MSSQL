@@ -3,14 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TZGCMS.Data.Enums;
+using TZGCMS.Infrastructure.Logging;
+using TZGCMS.Service.PageMetas;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
     public class DownloadController : BaseController
     {
+        private readonly ILoggingService _logger;
+        private readonly IPageMetaServices _pageMetaService;
+        public DownloadController(IPageMetaServices pageMetaService, ILoggingService logger)
+        {
+            _pageMetaService = pageMetaService;
+            _logger = logger;
+        }
         // GET: Download
         public ActionResult Index()
         {
+            var url = Request.RawUrl;
+            ViewBag.PageMeta = _pageMetaService.GetPageMeta(ModelType.MENU, url);
             return View();
         }
     }

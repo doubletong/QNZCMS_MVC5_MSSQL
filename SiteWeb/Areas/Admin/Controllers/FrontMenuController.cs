@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using SiteWeb.Filters;
+using TZGCMS.SiteWeb.Filters;
 using TZGCMS.Data.Entity.Identity;
 using TZGCMS.Data.Entity.PageMetas;
 using TZGCMS.Data.Enums;
@@ -16,7 +16,7 @@ using TZGCMS.Resources.Admin;
 using TZGCMS.Service.Identity;
 using TZGCMS.Service.PageMetas;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class FrontMenuController : BaseController

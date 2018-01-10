@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace SiteWeb.Areas.Admin
+namespace TZGCMS.SiteWeb.Areas.Admin
 {
     public class AdminAreaRegistration : AreaRegistration 
     {
@@ -18,7 +18,7 @@ namespace SiteWeb.Areas.Admin
                 "Admin_default",
                 "bbi-admin/{controller}/{action}/{id}",
                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-               namespaces: new string[] { "SiteWeb.Areas.Admin.Controllers" }
+               namespaces: new string[] { "TZGCMS.SiteWeb.Areas.Admin.Controllers" }
             );
         }
     }

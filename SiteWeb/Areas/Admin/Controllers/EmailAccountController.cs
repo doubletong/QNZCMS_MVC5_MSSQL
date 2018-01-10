@@ -4,7 +4,7 @@ using System;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using System.Linq;
-using SiteWeb.Filters;
+using TZGCMS.SiteWeb.Filters;
 using TZGCMS.Service.Emails;
 using TZGCMS.Model.Admin.ViewModel.Emails;
 using TZGCMS.Infrastructure.Helper;
@@ -14,7 +14,7 @@ using TZGCMS.Model.Admin.ViewModel;
 using TZGCMS.Model.Admin.InputModel.Emails;
 using TZGCMS.Resources.Admin;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class EmailAccountController : BaseController

@@ -24,7 +24,7 @@ using TZGCMS.Service.Videos;
 using TZGCMS.WeiXin;
 using TZGCMS.WeiXin.Model;
 
-namespace SiteWeb.Controllers.api
+namespace TZGCMS.SiteWeb.Controllers.api
 {
     /// <summary>
     /// 视频直播

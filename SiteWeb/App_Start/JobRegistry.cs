@@ -17,7 +17,7 @@ using TZGCMS.Service.Videos;
 using TZGCMS.WeiXin;
 using TZGCMS.WeiXin.Model;
 
-namespace SiteWeb.App_Start
+namespace TZGCMS.SiteWeb.App_Start
 {
     public class JobRegistry : Registry
     {

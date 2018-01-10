@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using PagedList;
 using AutoMapper;
 using System.Linq;
-using SiteWeb.Filters;
+using TZGCMS.SiteWeb.Filters;
 using TZGCMS.Model.Admin.ViewModel.Ads;
 using TZGCMS.Service.Ads;
 using TZGCMS.Infrastructure.Helper;
@@ -13,7 +13,7 @@ using TZGCMS.Model.Admin.InputModel.Ads;
 using TZGCMS.Model.Admin.ViewModel;
 using TZGCMS.Resources.Admin;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]  
     public class CarouselController : BaseController

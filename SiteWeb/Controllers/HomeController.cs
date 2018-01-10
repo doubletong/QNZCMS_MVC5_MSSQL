@@ -4,27 +4,29 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Newtonsoft.Json;
 using TZGCMS.Data.Entity.Identity;
+using TZGCMS.Data.Enums;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.Helper;
 using TZGCMS.Infrastructure.Logging;
+using TZGCMS.Service.PageMetas;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
     public class HomeController : BaseController
     {
         private readonly ILoggingService _logger;
-        public HomeController(ILoggingService logger)
+        private readonly IPageMetaServices _pageMetaService;
+        public HomeController(IPageMetaServices pageMetaService,ILoggingService logger)
         {
+            _pageMetaService = pageMetaService;
             _logger = logger;
         }
 
         public ActionResult Index()
         {
+            var url = Request.RawUrl;
+            ViewBag.PageMeta = _pageMetaService.GetPageMeta(ModelType.MENU, url);
 
-            if (Request.Browser.IsMobileDevice)
-            {
-                return View("About.mobile");
-            }
             return View();
         }
 

@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TZGCMS.Data.Entity.Emails;
+using TZGCMS.Data.Enums;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.Helper;
 using TZGCMS.Model.Front.InputModel.Emails;
 using TZGCMS.Model.Front.ViewModel;
 using TZGCMS.Resources.Front;
 using TZGCMS.Service.Emails;
+using TZGCMS.Service.PageMetas;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
@@ -19,26 +21,24 @@ namespace TZGCMS.SiteWeb.Controllers
         private readonly IEmailTemplateServices _templateService;
         private readonly IEmailServices _emailListService;
         private readonly IEmailAccountServices _accountService;
-        // private readonly PageMetaRepository _pageMetaService;
+        private readonly IPageMetaServices _pageMetaService;
         public ContactController(
             IEmailTemplateServices templateService,
             IEmailServices emailListService,
             IEmailAccountServices accountService,
-            TZGCMS.Infrastructure.Email.IEmailService emailService)
+            TZGCMS.Infrastructure.Email.IEmailService emailService, IPageMetaServices pageMetaService)
         {
             _emailService = emailService;
             _templateService = templateService;
             _emailListService = emailListService;
             _accountService = accountService;
-            //_pageMetaService = new PageMetaRepository();
+            _pageMetaService = pageMetaService;
         }
         // GET: Contact
         public ActionResult Index()
         {
-            if (Request.Browser.IsMobileDevice)
-            {
-                return View("Index.mobile");
-            }
+            var url = Request.RawUrl;
+            ViewBag.PageMeta = _pageMetaService.GetPageMeta(ModelType.MENU, url);
             return View();
         }
 

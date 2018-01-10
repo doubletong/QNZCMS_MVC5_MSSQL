@@ -2,8 +2,6 @@
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using AutoMapper;
-using SiteWeb.Controllers.api;
-using SiteWeb.Mappings;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -19,8 +17,9 @@ using TZGCMS.Service.PageMetas;
 using TZGCMS.Service.Pages;
 using TZGCMS.Service.Systems;
 using TZGCMS.Service.Videos;
+using TZGCMS.SiteWeb.Mappings;
 
-namespace SiteWeb
+namespace TZGCMS.SiteWeb
 {
     public static class DependencyRegistrar
     {

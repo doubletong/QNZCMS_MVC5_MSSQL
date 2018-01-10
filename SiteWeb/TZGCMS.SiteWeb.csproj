@@ -391,6 +391,9 @@
     <Content Include="Areas\Admin\Content\fonts\bootstrap\glyphicons-halflings-regular.svg" />
     <Content Include="Areas\Admin\Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Areas\Admin\Content\img\album_defualt_cover.jpg" />
+    <Content Include="Areas\Admin\Content\img\Avatars\80dd58948b3d4ff2a6a9fd5d8e039735.jpg" />
+    <Content Include="Areas\Admin\Content\img\Avatars\a82d84dd62fc4e809bba91edabb51a63.jpg" />
+    <Content Include="Areas\Admin\Content\img\Avatars\DefaultPhoto.png" />
     <Content Include="Areas\Admin\Content\img\Extension\aac.png" />
     <Content Include="Areas\Admin\Content\img\Extension\ai.png" />
     <Content Include="Areas\Admin\Content\img\Extension\aiff.png" />
@@ -1582,6 +1585,7 @@
     <Content Include="Themes\XiPin\Content\img\marker.png" />
     <Content Include="Themes\XiPin\Content\img\pattern-2.png" />
     <Content Include="Themes\XiPin\Content\img\logo.png" />
+    <Content Include="Themes\XiPin\Content\img\qrcode.jpg" />
     <Content Include="Themes\XiPin\Content\img\zhuanti\newyear\s1-1.png" />
     <Content Include="Themes\XiPin\Content\img\zhuanti\newyear\s1-2.png" />
     <Content Include="Themes\XiPin\Content\img\zhuanti\newyear\s2-1.png" />
@@ -1636,13 +1640,7 @@
     <Content Include="Themes\XiPin\Views\Account\Login.cshtml" />
     <Content Include="Themes\XiPin\Views\Contact\Index.cshtml" />
     <Content Include="Themes\XiPin\Views\Contact\Index.mobile.cshtml" />
-    <Content Include="Themes\XiPin\Views\Home\About.cshtml" />
-    <Content Include="Themes\XiPin\Views\Home\About.mobile.cshtml" />
-    <Content Include="Themes\XiPin\Views\Home\Celebs.cshtml" />
-    <Content Include="Themes\XiPin\Views\Home\Celebs.mobile.cshtml" />
     <Content Include="Themes\XiPin\Views\Home\Index.cshtml" />
-    <Content Include="Themes\XiPin\Views\Home\P1.cshtml" />
-    <Content Include="Themes\XiPin\Views\Home\P1.mobile.cshtml" />
     <Content Include="Themes\XiPin\Views\Shared\Error.cshtml" />
     <Content Include="Themes\XiPin\Views\Shared\Layouts\_Layout.cshtml" />
     <Content Include="Themes\XiPin\Views\Web.config">
@@ -1672,6 +1670,9 @@
     <Content Include="Themes\XiPin\Views\About\Index.cshtml" />
     <Content Include="Themes\XiPin\Views\Download\Index.cshtml" />
     <Content Include="Themes\XiPin\Views\Product\Index.cshtml" />
+    <Content Include="Themes\XiPin\Content\css\_page-contact.less" />
+    <Content Include="Themes\XiPin\Content\css\_form.less" />
+    <Content Include="Themes\XiPin\Content\css\_page-article.less" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,7 +17,7 @@ using TZGCMS.Model.Front.InputModel.Articles;
 using TZGCMS.Model.Front.ViewModel.Articles;
 using TZGCMS.Service.Articles;
 
-namespace SiteWeb.Controllers.api
+namespace TZGCMS.SiteWeb.Controllers.api
 {
    /// <summary>
    /// 文章

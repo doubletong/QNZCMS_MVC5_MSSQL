@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="SiteWeb.MvcApplication" Language="C#" %>
+<%@ Application Codebehind="Global.asax.cs" Inherits="TZGCMS.SiteWeb.MvcApplication" Language="C#" %>

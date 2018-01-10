@@ -8,7 +8,7 @@ using TZGCMS.Data.Entity.Ads;
 using TZGCMS.Model.Front.ViewModel.Ads;
 using TZGCMS.Service.Ads;
 
-namespace SiteWeb.Controllers.api
+namespace TZGCMS.SiteWeb.Controllers.api
 {
     /// <summary>
     /// 轮播图，广告图

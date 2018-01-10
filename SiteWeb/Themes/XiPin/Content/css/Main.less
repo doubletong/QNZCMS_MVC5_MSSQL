@@ -5,6 +5,9 @@
 @import '_customBootstrap.less';
 @import '_nav.less';
 @import '_table.less';
+@import '_page-contact.less';
+@import '_form.less';
+@import '_page-article.less';
 
 
 html,body{
@@ -18,7 +21,7 @@ body {
 a{
     color:@linkColor;text-decoration:none;
     &:hover{
-        color:@hoverColor;
+        color:@hoverColor;text-decoration:none;
     }
 }
 
@@ -795,65 +798,6 @@ header.title {
 
 /* news end ==================================================  */
 
-/* contact start ==================================================  */
-.page-contact{
-    .contactform,.bus-path{
-        background-color:#f7f7f7;border-radius:6px;padding:15px 25px;margin-bottom:15px;
-    }
-
-
-        h3.title{
-               .font-size(2.4);font-weight:normal;color:@gray-dark;margin:0 0 20px;
-           }
-        h4.setitle{
-            .font-size(1.8);font-weight:normal;color:@gray-darker;margin:0 0 5px;
-        }
-        ul{
-            .mplnone;margin-bottom:30px;
-            li{
-                border-bottom:@gray-lighter 1px solid;padding:8px 0;
-            }
-
-        }
- 
-}
-
-.baidumap{width:100%;height:370px;margin-bottom:30px;}
-.sendform{
-   .box-header{
-       margin-bottom:20px;
-       h3{
-           .font-size(2.4);font-weight:normal;color:@gray-dark;margin:0;
-       }
-       p{
-           margin:0;
-       }
-   }
-   .send_email{
-      .form-control{
-           border:3px @gray-lighter solid;padding:5px;height:40px;margin-bottom:15px;.font-size(1.6);width:100%;border-radius: 0 12px;
-           &:focus{
-               outline-style:none;border-color:#f90;box-shadow:inset rgba(0,0,0,0.3) 0 0 6px;
-           }
-       }
-      textarea.form-control{
-          height:auto;
-      }
-
-      .btn{
-          border:none;background-color:@gray;color:#fff;padding:5px 15px;.font-size(1.8);border-radius: 0 12px;border:3px @gray-lighter solid;
-          &:hover{
-              background-color:@hoverColor;
-          }
-      }
-      p{
-          margin:0;margin-bottom:30px;
-      }
-   }
-  
-}
-/* contact end ==================================================  */
-
 .page-login{
     margin:100px auto;max-width:350px;width:100%;
     .panel-default{
@@ -879,6 +823,7 @@ header.title {
     }
 
     .mainav{
+        .mplnone;
         li{
             display:inline-block;width:49%;
             padding:5px 0;border-bottom:1px #ddd solid;

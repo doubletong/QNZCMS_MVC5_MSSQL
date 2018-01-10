@@ -1,7 +1,7 @@
-﻿using SiteWeb.Filters;
+﻿using TZGCMS.SiteWeb.Filters;
 using System.Web.Mvc;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class HomeController : BaseController

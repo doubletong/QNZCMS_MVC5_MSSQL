@@ -7,7 +7,7 @@ using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Model.Admin.ViewModel.Menus;
 using TZGCMS.Service.Identity;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     public class NavController : BaseController
     {

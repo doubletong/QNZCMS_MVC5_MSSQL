@@ -6,7 +6,7 @@ using PagedList;
 using System;
 using System.Xml.Linq;
 using System.Text;
-using SiteWeb.Filters;
+using TZGCMS.SiteWeb.Filters;
 using TZGCMS.Service.PageMetas;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.Helper;
@@ -20,7 +20,7 @@ using TZGCMS.Service.Articles;
 using TZGCMS.Model.Admin.ViewModel.Articles;
 using TZGCMS.Data.Entity.Articles;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class CommentController : BaseController

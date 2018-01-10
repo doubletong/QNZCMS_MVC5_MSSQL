@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.UI;
 
-namespace SiteWeb.App_Start
+namespace TZGCMS.SiteWeb.App_Start
 {
     public class CSharpRazorViewEngine : RazorViewEngine
     {

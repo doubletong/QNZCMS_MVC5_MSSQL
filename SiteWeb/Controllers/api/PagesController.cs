@@ -15,7 +15,7 @@ using TZGCMS.Data.Entity.Pages;
 using TZGCMS.Model.Front.ViewModel.Pages;
 using TZGCMS.Service.Pages;
 
-namespace SiteWeb.Controllers.api
+namespace TZGCMS.SiteWeb.Controllers.api
 {
     /// <summary>
     /// 单页管理

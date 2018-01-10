@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using AutoMapper;
 using System;
-using SiteWeb.Filters;
+using TZGCMS.SiteWeb.Filters;
 using TZGCMS.Service.Identity;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Data.Entity.Identity;
@@ -12,7 +12,7 @@ using TZGCMS.Model.Admin.ViewModel;
 using TZGCMS.Resources.Admin;
 using TZGCMS.Model.Admin.ViewModel.Menus;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     //  [Authorize(Roles = "创始人")]
     [SIGAuth]

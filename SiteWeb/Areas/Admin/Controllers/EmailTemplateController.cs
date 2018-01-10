@@ -4,7 +4,7 @@ using AutoMapper;
 using PagedList;
 using System;
 using System.Xml.Linq;
-using SiteWeb.Filters;
+using TZGCMS.SiteWeb.Filters;
 using TZGCMS.Service.Emails;
 using TZGCMS.Model.Admin.ViewModel.Emails;
 using TZGCMS.Infrastructure.Configs;
@@ -14,7 +14,7 @@ using TZGCMS.Model.Admin.ViewModel;
 using TZGCMS.Model.Admin.InputModel.Emails;
 using TZGCMS.Resources.Admin;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class EmailTemplateController : BaseController

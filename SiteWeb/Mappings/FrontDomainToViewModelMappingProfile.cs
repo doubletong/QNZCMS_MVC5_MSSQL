@@ -9,7 +9,7 @@ using TZGCMS.Model.Front.ViewModel.Articles;
 using TZGCMS.Model.Front.ViewModel.Pages;
 using TZGCMS.Model.Front.ViewModel.Videos;
 
-namespace SiteWeb.Mappings
+namespace TZGCMS.SiteWeb.Mappings
 {
     /// <summary>
     /// 前台表现层模型映射

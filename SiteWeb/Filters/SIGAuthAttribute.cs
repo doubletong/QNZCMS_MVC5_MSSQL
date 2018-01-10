@@ -8,7 +8,7 @@ using TZGCMS.Data.Entity.Identity;
 using TZGCMS.Model.Admin.ViewModel;
 using TZGCMS.Service.Identity;
 
-namespace SiteWeb.Filters
+namespace TZGCMS.SiteWeb.Filters
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
     public class SIGAuthAttribute : AuthorizeAttribute

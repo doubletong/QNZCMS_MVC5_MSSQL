@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using System.Xml.Linq;
 using System.Linq;
 using System.Threading.Tasks;
-using SiteWeb.Filters;
+using TZGCMS.SiteWeb.Filters;
 using TZGCMS.Service.Videos;
 using TZGCMS.Service.PageMetas;
 using TZGCMS.Model.Admin.ViewModel.Videos;
@@ -18,7 +18,7 @@ using TZGCMS.Data.Entity.PageMetas;
 using TZGCMS.Data.Enums;
 using TZGCMS.Resources.Admin;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class VideoController : BaseController

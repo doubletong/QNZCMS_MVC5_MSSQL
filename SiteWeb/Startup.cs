@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(SiteWeb.Startup))]
+[assembly: OwinStartup(typeof(TZGCMS.SiteWeb.Startup))]
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
-namespace SiteWeb
+namespace TZGCMS.SiteWeb
 {
     public class Startup
     {

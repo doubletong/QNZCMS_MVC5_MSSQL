@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using PagedList;
-using SiteWeb.Filters;
+using TZGCMS.SiteWeb.Filters;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -14,7 +14,7 @@ using TZGCMS.Model.Admin.ViewModel.Ads;
 using TZGCMS.Resources.Admin;
 using TZGCMS.Service.Ads;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class PositionController : BaseController

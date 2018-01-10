@@ -6,7 +6,7 @@ using PagedList;
 using System;
 using System.Xml.Linq;
 using System.Text;
-using SiteWeb.Filters;
+using TZGCMS.SiteWeb.Filters;
 using TZGCMS.Service.PageMetas;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.Helper;
@@ -23,7 +23,7 @@ using TZGCMS.Data.Entity.Videos;
 using TZGCMS.Model.Admin.ViewModel.Videos;
 using TZGCMS.Service.Videos;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class ReservationController : BaseController

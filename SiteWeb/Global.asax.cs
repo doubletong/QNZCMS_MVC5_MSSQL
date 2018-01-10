@@ -1,13 +1,7 @@
 ﻿using Autofac;
-using Autofac.Integration.WebApi;
 using FluentScheduler;
 using Newtonsoft.Json;
-using SiteWeb.App_Start;
-using SiteWeb.Controllers.api;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -16,8 +10,9 @@ using System.Web.Routing;
 using System.Web.Security;
 using TZGCMS.Data.Entity.Identity;
 using TZGCMS.Infrastructure.Configs;
+using TZGCMS.SiteWeb.App_Start;
 
-namespace SiteWeb
+namespace TZGCMS.SiteWeb
 {
     public class MvcApplication : System.Web.HttpApplication
     {

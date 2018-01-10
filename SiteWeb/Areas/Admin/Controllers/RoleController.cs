@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using SiteWeb.Filters;
+using TZGCMS.SiteWeb.Filters;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -10,7 +10,7 @@ using TZGCMS.Model.Admin.ViewModel.Identity;
 using TZGCMS.Resources.Admin;
 using TZGCMS.Service.Identity;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class RoleController : BaseController

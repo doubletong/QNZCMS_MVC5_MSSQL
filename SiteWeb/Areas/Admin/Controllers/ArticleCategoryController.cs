@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using PagedList;
-using SiteWeb.Filters;
+using TZGCMS.SiteWeb.Filters;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -17,7 +17,7 @@ using TZGCMS.Resources.Admin;
 using TZGCMS.Service.Articles;
 using TZGCMS.Service.PageMetas;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class ArticleCategoryController : BaseController

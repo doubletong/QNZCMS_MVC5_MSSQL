@@ -1,13 +1,12 @@
 using System.Web.Http;
 using WebActivatorEx;
-using SiteWeb;
+
 using Swashbuckle.Application;
-using System;
-using System.Xml.XPath;
+using TZGCMS.SiteWeb;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
-namespace SiteWeb
+namespace TZGCMS.SiteWeb
 {
     public class SwaggerConfig
     {

@@ -6,7 +6,6 @@ using PagedList;
 using System;
 using System.Xml.Linq;
 using System.Text;
-using SiteWeb.Filters;
 using TZGCMS.Service.Articles;
 using TZGCMS.Service.PageMetas;
 using TZGCMS.Model.Admin.ViewModel.Articles;
@@ -20,8 +19,9 @@ using TZGCMS.Data.Enums;
 using TZGCMS.Resources.Admin;
 using TZGCMS.Service.LuceneSearch;
 using TZGCMS.Model.Admin.ViewModel.LuceneSearch;
+using TZGCMS.SiteWeb.Filters;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class ArticleController : BaseController

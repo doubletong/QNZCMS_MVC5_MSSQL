@@ -31,8 +31,14 @@
 .m-t-50 {
   margin-top: 50px;
 }
+.p-t-15 {
+  padding-top: 15px;
+}
 .p-t-25 {
   padding-top: 25px;
+}
+.p-t-40 {
+  padding-top: 40px;
 }
 .p-t-50 {
   padding-top: 50px;
@@ -181,6 +187,9 @@
 .table-vmiddle td {
   vertical-align: middle !important;
 }
+.breadcrumb {
+  background-color: transparent;
+}
 .navbar {
   text-align: right;
 }
@@ -262,6 +271,188 @@
     width: 100%;
   }
 }
+/* contact start ==================================================  */
+.page-contact {
+  margin-bottom: 50px;
+}
+.page-contact .contactform,
+.page-contact .bus-path {
+  background-color: #f7f7f7;
+  border-radius: 6px;
+  padding: 15px 25px;
+  margin-bottom: 15px;
+}
+.page-contact h3.title {
+  font-size: 24px;
+  font-weight: normal;
+  color: #333333;
+  margin: 0 0 20px;
+}
+.page-contact h4.setitle {
+  font-size: 18px;
+  font-weight: normal;
+  color: #222222;
+  margin: 0 0 5px;
+}
+.page-contact ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  margin-bottom: 30px;
+}
+.page-contact ul li {
+  border-bottom: #eeeeee 1px solid;
+  padding: 8px 0;
+}
+.baidumap {
+  width: 100%;
+  height: 450px;
+  margin-bottom: 50px;
+}
+.sendform .box-header {
+  margin-bottom: 20px;
+}
+.sendform .box-header h3 {
+  font-size: 24px;
+  font-weight: normal;
+  color: #333333;
+  margin: 0;
+}
+.sendform .box-header p {
+  margin: 0;
+}
+.sendform .send_email .form-control {
+  border: 3px #eeeeee solid;
+  padding: 5px;
+  height: 40px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  width: 100%;
+  border-radius: 0 12px;
+}
+.sendform .send_email .form-control:focus {
+  outline-style: none;
+  border-color: #f90;
+  box-shadow: inset rgba(0, 0, 0, 0.3) 0 0 6px;
+}
+.sendform .send_email textarea.form-control {
+  height: auto;
+}
+.sendform .send_email .btn {
+  border: none;
+  background-color: #555555;
+  color: #fff;
+  padding: 5px 15px;
+  font-size: 18px;
+  border-radius: 0 12px;
+  border: 3px #eeeeee solid;
+}
+.sendform .send_email .btn:hover {
+  background-color: #36c1a7;
+}
+.sendform .send_email p {
+  margin: 0;
+  margin-bottom: 30px;
+}
+/* contact end ==================================================  */
+.btn-primary,
+.btn-primary:active,
+.btn-primary:focus {
+  height: 41px;
+  background-color: #4cdbc3;
+  border-color: #36c1a7;
+}
+.btn-primary:hover {
+  background-color: #25af94;
+  border-color: #25af94;
+}
+input.input-validation-error {
+  border-color: #d9534f;
+}
+.form-control:focus {
+  border-color: #36c1a7;
+  box-shadow: none;
+}
+.field-validation-error {
+  color: #d9534f;
+  display: block;
+  margin-top: 5px;
+  text-align: right;
+}
+.page-news {
+  margin-bottom: 50px;
+}
+.page-news .item {
+  position: relative;
+  display: block;
+  margin-bottom: 50px;
+}
+.page-news .item .thumbnail {
+  margin-bottom: 15px;
+}
+.page-news .item .thumbnail img {
+  width: 100%;
+  transition: all .3s;
+}
+.page-news .item .thumbnail img:hover {
+  transform: scale(1.05);
+}
+.page-news .item .des h3 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: #333;
+}
+.page-news .item .des h3:hover {
+  color: #36c1a7;
+}
+.page-news .item .des p {
+  color: #999;
+}
+.page-news .item .des .meta {
+  color: #999;
+}
+.page-news .article h2.title {
+  color: #333;
+  font-size: 32px;
+  margin: 0 0 15px;
+}
+.page-news .article .content {
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+.page-news .note {
+  margin-bottom: 15px;
+  position: relative;
+  margin-bottom: 20px;
+}
+.page-news .note ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.page-news .note ul li {
+  display: inline-block;
+  color: #999;
+  font-size: 12px;
+  padding: 0 8px;
+  border-left: 1px #ddd solid;
+}
+.page-news .note ul li:first-child {
+  border: none;
+  padding-left: 0;
+}
+.page-news .note:after {
+  content: ' ';
+  display: block;
+  width: 30px;
+  height: 2px;
+  background-color: #ddd;
+  position: absolute;
+  left: 0;
+  top: 25px;
+}
 html,
 body {
   margin: 0;
@@ -280,6 +471,7 @@ a {
 }
 a:hover {
   color: #36c1a7;
+  text-decoration: none;
 }
 figure {
   margin: 0;
@@ -1007,87 +1199,6 @@ header.title p {
   max-width: 100%;
 }
 /* news end ==================================================  */
-/* contact start ==================================================  */
-.page-contact .contactform,
-.page-contact .bus-path {
-  background-color: #f7f7f7;
-  border-radius: 6px;
-  padding: 15px 25px;
-  margin-bottom: 15px;
-}
-.page-contact h3.title {
-  font-size: 24px;
-  font-weight: normal;
-  color: #333333;
-  margin: 0 0 20px;
-}
-.page-contact h4.setitle {
-  font-size: 18px;
-  font-weight: normal;
-  color: #222222;
-  margin: 0 0 5px;
-}
-.page-contact ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  margin-bottom: 30px;
-}
-.page-contact ul li {
-  border-bottom: #eeeeee 1px solid;
-  padding: 8px 0;
-}
-.baidumap {
-  width: 100%;
-  height: 370px;
-  margin-bottom: 30px;
-}
-.sendform .box-header {
-  margin-bottom: 20px;
-}
-.sendform .box-header h3 {
-  font-size: 24px;
-  font-weight: normal;
-  color: #333333;
-  margin: 0;
-}
-.sendform .box-header p {
-  margin: 0;
-}
-.sendform .send_email .form-control {
-  border: 3px #eeeeee solid;
-  padding: 5px;
-  height: 40px;
-  margin-bottom: 15px;
-  font-size: 16px;
-  width: 100%;
-  border-radius: 0 12px;
-}
-.sendform .send_email .form-control:focus {
-  outline-style: none;
-  border-color: #f90;
-  box-shadow: inset rgba(0, 0, 0, 0.3) 0 0 6px;
-}
-.sendform .send_email textarea.form-control {
-  height: auto;
-}
-.sendform .send_email .btn {
-  border: none;
-  background-color: #555555;
-  color: #fff;
-  padding: 5px 15px;
-  font-size: 18px;
-  border-radius: 0 12px;
-  border: 3px #eeeeee solid;
-}
-.sendform .send_email .btn:hover {
-  background-color: #36c1a7;
-}
-.sendform .send_email p {
-  margin: 0;
-  margin-bottom: 30px;
-}
-/* contact end ==================================================  */
 .page-login {
   margin: 100px auto;
   max-width: 350px;
@@ -1113,6 +1224,11 @@ header.title p {
 }
 .page-footer h2.title .colortext {
   color: #36c1a7;
+}
+.page-footer .mainav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 .page-footer .mainav li {
   display: inline-block;

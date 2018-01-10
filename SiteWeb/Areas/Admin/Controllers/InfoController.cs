@@ -1,4 +1,4 @@
-﻿using SiteWeb.Filters;
+﻿using TZGCMS.SiteWeb.Filters;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -8,7 +8,7 @@ using TZGCMS.Infrastructure.Logging;
 using TZGCMS.Model.Admin.InputModel;
 using TZGCMS.Model.Admin.ViewModel;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
 
     [SIGAuth]

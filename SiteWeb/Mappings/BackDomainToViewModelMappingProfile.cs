@@ -21,7 +21,7 @@ using TZGCMS.Model.Admin.ViewModel.Log;
 using TZGCMS.Model.Admin.ViewModel.LuceneSearch;
 using TZGCMS.Model.Admin.ViewModel.Videos;
 
-namespace SiteWeb.Mappings
+namespace TZGCMS.SiteWeb.Mappings
 {
     /// <summary>
     /// DTO模型映射

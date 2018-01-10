@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace SiteWeb
+namespace TZGCMS.SiteWeb
 {
     public class BundleConfig
     {

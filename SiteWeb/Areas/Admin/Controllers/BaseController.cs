@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using TZGCMS.Data.Entity.Identity;
 using TZGCMS.Model.Admin.ViewModel;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     public class BaseController : Controller
     {

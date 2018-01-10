@@ -10,7 +10,7 @@ using System.Web.Http;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Model.Admin.ViewModel.FileManager;
 
-namespace SiteWeb.Areas.Admin.api
+namespace TZGCMS.SiteWeb.Areas.Admin.api
 {
 
     //[Authorize]

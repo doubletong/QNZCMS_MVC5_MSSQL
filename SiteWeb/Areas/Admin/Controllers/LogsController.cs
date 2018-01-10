@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using PagedList;
-using SiteWeb.Filters;
+using TZGCMS.SiteWeb.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ using TZGCMS.Model.Admin.ViewModel;
 using TZGCMS.Model.Admin.ViewModel.Log;
 using TZGCMS.Service.Systems;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class LogsController : BaseController

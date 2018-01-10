@@ -11,10 +11,10 @@ namespace TZGCMS.SiteWeb.Controllers
     {
          public AjaxResultVM AR = new AjaxResultVM();
 
-        protected virtual new CustomPrincipal User
-        {
-            get { return HttpContext.User as CustomPrincipal; }
-        }
+        //protected new CustomPrincipal User
+        //{
+        //    get { return HttpContext.User as CustomPrincipal; }
+        //}
 
         protected string GetModelErrorMessage()
         {

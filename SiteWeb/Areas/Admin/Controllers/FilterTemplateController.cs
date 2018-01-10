@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using PagedList;
-using SiteWeb.Filters;
+using TZGCMS.SiteWeb.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ using TZGCMS.Model.Admin.ViewModel.Articles;
 using TZGCMS.Resources.Admin;
 using TZGCMS.Service.Articles;
 
-namespace SiteWeb.Areas.Admin.Controllers
+namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class FilterTemplateController : BaseController
