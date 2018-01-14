@@ -17,7 +17,7 @@ namespace TZGCMS.Service.Ads
         Position GetById(int id);
         Position GetByIdWithCarousels(int id);
         bool Update(Position position);
-        bool Create(Position position);
+        Position Create(Position position);
         bool Delete(Position position);
 
         bool IsExistCode(string seoName, int? id);
@@ -69,7 +69,7 @@ namespace TZGCMS.Service.Ads
             return _unitOfWork.PositionRepository.Update(position);
         }
 
-        public bool Create(Position position)
+        public Position Create(Position position)
         {
             return _unitOfWork.PositionRepository.Insert(position);
         }

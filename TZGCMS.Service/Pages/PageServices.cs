@@ -22,7 +22,7 @@ namespace TZGCMS.Service.Pages
         Page GetById(int id);
 
         bool Update(Page page);
-        bool Create(Page page);
+        Page Create(Page page);
         bool Delete(Page page);
 
         bool IsExistSeoName(string seoName, int? id);
@@ -81,7 +81,7 @@ namespace TZGCMS.Service.Pages
             return _unitOfWork.PageRepository.Update(page);
         }
 
-        public bool Create(Page page)
+        public Page Create(Page page)
         {
             return _unitOfWork.PageRepository.Insert(page);
         }

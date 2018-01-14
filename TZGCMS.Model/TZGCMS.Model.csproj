@@ -80,6 +80,8 @@
     <Compile Include="Admin\InputModel\Menus\MenuIM.cs" />
     <Compile Include="Admin\InputModel\ModuleSet.cs" />
     <Compile Include="Admin\InputModel\Pages\PageIM.cs" />
+    <Compile Include="Admin\InputModel\Products\ProductCategoryIM.cs" />
+    <Compile Include="Admin\InputModel\Products\ProductIM.cs" />
     <Compile Include="Admin\InputModel\Videos\VideoCategoryIM.cs" />
     <Compile Include="Admin\InputModel\Videos\VideoIM.cs" />
     <Compile Include="Admin\ViewModel\Ads\CarouselListVM.cs" />
@@ -109,6 +111,8 @@
     <Compile Include="Admin\ViewModel\Menus\MoveMenuVM.cs" />
     <Compile Include="Admin\ViewModel\Pages\PageListVM.cs" />
     <Compile Include="Admin\ViewModel\Pages\PageVM.cs" />
+    <Compile Include="Admin\ViewModel\Products\CategoryListVM.cs" />
+    <Compile Include="Admin\ViewModel\Products\ProductListVM.cs" />
     <Compile Include="Admin\ViewModel\System\BakFileVM.cs" />
     <Compile Include="Admin\ViewModel\System\LogSearchVM.cs" />
     <Compile Include="Admin\ViewModel\System\LogVM.cs" />
@@ -128,6 +132,7 @@
     <Compile Include="Front\ViewModel\Articles\ArticleListVM.cs" />
     <Compile Include="Front\ViewModel\Articles\CommentFVM.cs" />
     <Compile Include="Front\ViewModel\Pages\PageFVM.cs" />
+    <Compile Include="Front\ViewModel\Products\ProductListFVM.cs" />
     <Compile Include="Front\ViewModel\Videos\VideoCategoryFVM.cs" />
     <Compile Include="Front\ViewModel\Videos\VideoFVM.cs" />
     <Compile Include="Inputs\Articles\ArticleIM.cs" />

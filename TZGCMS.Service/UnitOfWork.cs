@@ -8,6 +8,7 @@ using TZGCMS.Data.Entity.Identity;
 using TZGCMS.Data.Entity.Logs;
 using TZGCMS.Data.Entity.PageMetas;
 using TZGCMS.Data.Entity.Pages;
+using TZGCMS.Data.Entity.Products;
 using TZGCMS.Data.Entity.Videos;
 
 namespace TZGCMS.Service
@@ -40,10 +41,31 @@ namespace TZGCMS.Service
 
         private BaseRepository<Position> _positionRepository;
         private BaseRepository<Carousel> _carouselRepository;
+
+        private BaseRepository<ProductCategory> _productCategoryRepository;
+        private BaseRepository<Product> _productRepository;
         #endregion
 
         #region Constructors and Destructors
 
+        public BaseRepository<ProductCategory> ProductCategoryRepository
+        {
+            get
+            {
+                if (this._productCategoryRepository == null)
+                    this._productCategoryRepository = new BaseRepository<ProductCategory>(Context);
+                return _productCategoryRepository;
+            }
+        }
+        public BaseRepository<Product> ProductRepository
+        {
+            get
+            {
+                if (this._productRepository == null)
+                    this._productRepository = new BaseRepository<Product>(Context);
+                return _productRepository;
+            }
+        }
         public BaseRepository<Position> PositionRepository
         {
             get

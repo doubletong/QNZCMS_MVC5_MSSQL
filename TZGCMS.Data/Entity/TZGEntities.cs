@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIG.Model.Mapping;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using TZGCMS.Data.Entity.Ads;
@@ -8,6 +9,7 @@ using TZGCMS.Data.Entity.Identity;
 using TZGCMS.Data.Entity.Logs;
 using TZGCMS.Data.Entity.PageMetas;
 using TZGCMS.Data.Entity.Pages;
+using TZGCMS.Data.Entity.Products;
 using TZGCMS.Data.Entity.Videos;
 using TZGCMS.Data.Mapping;
 using TZGCMS.Infrastructure.Helper;
@@ -45,7 +47,8 @@ namespace TZGCMS.Data.Entity
 
         public virtual DbSet<Position> Positions { get; set; }
         public virtual DbSet<Carousel> Carousels { get; set; }
-
+        public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -74,6 +77,9 @@ namespace TZGCMS.Data.Entity
 
             modelBuilder.Configurations.Add(new PositionMap());
             modelBuilder.Configurations.Add(new CarouselMap());
+
+            modelBuilder.Configurations.Add(new ProductCategoryMap());
+            modelBuilder.Configurations.Add(new ProductMap());
             //throw new UnintentionalCodeFirstException();
         }
 

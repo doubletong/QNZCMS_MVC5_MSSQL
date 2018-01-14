@@ -5,6 +5,7 @@ using TZGCMS.Data.Entity.Emails;
 using TZGCMS.Data.Entity.Identity;
 using TZGCMS.Data.Entity.Logs;
 using TZGCMS.Data.Entity.Pages;
+using TZGCMS.Data.Entity.Products;
 using TZGCMS.Data.Entity.Videos;
 using TZGCMS.Model.Admin.InputModel.Ads;
 using TZGCMS.Model.Admin.InputModel.Articles;
@@ -13,6 +14,7 @@ using TZGCMS.Model.Admin.InputModel.Identity;
 using TZGCMS.Model.Admin.InputModel.LuceneSearch;
 using TZGCMS.Model.Admin.InputModel.Menus;
 using TZGCMS.Model.Admin.InputModel.Pages;
+using TZGCMS.Model.Admin.InputModel.Products;
 using TZGCMS.Model.Admin.InputModel.Videos;
 using TZGCMS.Model.Admin.ViewModel.Ads;
 using TZGCMS.Model.Admin.ViewModel.Articles;
@@ -65,15 +67,12 @@ namespace TZGCMS.SiteWeb.Mappings
             //   .ForMember(d => d.InTypeTitle, opt => opt.MapFrom(source => source.InType.Title))
             //   .ForMember(d => d.CustomerName, opt => opt.MapFrom(source => source.Customer.CustomerName));
 
-            //CreateMap<CategoryVM, Category>();
-            //CreateMap<Category, CategoryVM>();
-            //CreateMap<CategoryIM, SIG.DAL.Dapper.Model.Category>();
-            //CreateMap<SIG.DAL.Dapper.Model.Category, CategoryIM>();
+            CreateMap<ProductCategoryIM, ProductCategory>();
+            CreateMap<ProductCategory, ProductCategoryIM>();
 
-            //CreateMap<SIG.DAL.Dapper.Model.Product, ProductIM>();
-            //CreateMap<ProductIM, SIG.DAL.Dapper.Model.Product>();
-            //CreateMap<Product, ProductVM>().ForMember(d => d.PhotoCount, opt => opt.MapFrom(source => source.ProductPhotoes.Count));
-            //CreateMap<ProductVM, Product>();
+            CreateMap<Product, ProductIM>();
+            CreateMap<ProductIM, Product>();
+
 
             //CreateMap<TechnologyIM, SIG.DAL.Dapper.Model.Technology>();
             //CreateMap<SIG.DAL.Dapper.Model.Technology, TechnologyIM>();

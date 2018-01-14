@@ -14,7 +14,7 @@ namespace TZGCMS.Service.Emails
         List<Email> GetPagedElements(int pageIndex, int pageSize, string keyword,bool? active, out int totalCount);
         Email GetById(int id);
         bool Update(Email email);
-        bool Create(Email email);
+        Email Create(Email email);
         bool Delete(Email email);
         bool DeleteEmails(int[] ids);
         bool IsTrashEmails(int[] ids, bool active);
@@ -59,7 +59,7 @@ namespace TZGCMS.Service.Emails
             return _unitOfWork.EmailRepository.Update(email);
         }
 
-        public bool Create(Email email)
+        public Email Create(Email email)
         {
             return _unitOfWork.EmailRepository.Insert(email);
         }

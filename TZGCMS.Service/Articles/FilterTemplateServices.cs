@@ -15,7 +15,7 @@ namespace TZGCMS.Service.Articles
         List<FilterTemplate> GetPagedElements(int pageIndex, int pageSize, string keyword,  out int totalCount);
         FilterTemplate GetById(int id);
         bool Update(FilterTemplate filterTemplate);
-        bool Create(FilterTemplate filterTemplate);
+        FilterTemplate Create(FilterTemplate filterTemplate);
         bool Delete(FilterTemplate filterTemplate);
     }
     public class FilterTemplateServices: IFilterTemplateServices
@@ -56,7 +56,7 @@ namespace TZGCMS.Service.Articles
             return _unitOfWork.FilterTemplateRepository.Update(filterTemplate);
         }
 
-        public bool Create(FilterTemplate filterTemplate)
+        public FilterTemplate Create(FilterTemplate filterTemplate)
         {
             return _unitOfWork.FilterTemplateRepository.Insert(filterTemplate);
         }

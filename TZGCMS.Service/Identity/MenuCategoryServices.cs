@@ -12,7 +12,7 @@ namespace TZGCMS.Service.Identity
         MenuCategory GetById(int id);
         IEnumerable<MenuCategory> GetAll();
         bool Update(MenuCategory category);
-        bool Create(MenuCategory category);
+        MenuCategory Create(MenuCategory category);
         bool Delete(MenuCategory category);
     }
     public class MenuCategoryServices: IMenuCategoryServices
@@ -33,7 +33,7 @@ namespace TZGCMS.Service.Identity
             return _unitOfWork.MenuCategoryRepository.Update(category);
         }
 
-        public bool Create(MenuCategory category)
+        public MenuCategory Create(MenuCategory category)
         {
             return _unitOfWork.MenuCategoryRepository.Insert(category);
         }

@@ -13,7 +13,7 @@ namespace TZGCMS.Service.Identity
         Role GetById(int id);
         void SetRoleMenus(int RoleId, int[] menuId);
         bool Update(Role role);
-        bool Create(Role role);
+        Role Create(Role role);
         bool Delete(Role role);
     }
     public class RoleServices : IRoleServices
@@ -47,7 +47,7 @@ namespace TZGCMS.Service.Identity
             return  _unitOfWork.RoleRepository.Update(role);
         }
 
-        public bool Create(Role role)
+        public Role Create(Role role)
         {
             return _unitOfWork.RoleRepository.Insert(role);
         }

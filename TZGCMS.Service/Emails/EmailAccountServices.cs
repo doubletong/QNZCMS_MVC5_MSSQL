@@ -15,7 +15,7 @@ namespace TZGCMS.Service.Emails
         IEnumerable<EmailAccount> GetElements();
         EmailAccount GetById(int id);
         bool Update(EmailAccount emailAccount);
-        bool Create(EmailAccount emailAccount);
+        EmailAccount Create(EmailAccount emailAccount);
         bool Delete(EmailAccount emailAccount);
         EmailAccount SetDefault(int id);
     }
@@ -60,7 +60,7 @@ namespace TZGCMS.Service.Emails
             return _unitOfWork.EmailAccountRepository.Update(emailAccount);
         }
 
-        public bool Create(EmailAccount emailAccount)
+        public EmailAccount Create(EmailAccount emailAccount)
         {
             return _unitOfWork.EmailAccountRepository.Insert(emailAccount);
         }

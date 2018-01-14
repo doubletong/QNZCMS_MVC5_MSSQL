@@ -83,6 +83,8 @@
     <Compile Include="BaseRepository.cs" />
     <Compile Include="LuceneSearch\GoLucene.cs" />
     <Compile Include="PageMetas\PageMetaServices.cs" />
+    <Compile Include="Products\ProductCategoryServices.cs" />
+    <Compile Include="Products\ProductServices.cs" />
     <Compile Include="Videos\ReservationServices.cs" />
     <Compile Include="Videos\VideoServices.cs" />
     <Compile Include="Pages\PageServices.cs" />

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TZGCMS.Data.Entity.Pages
 {
-    public class Page
+    public class Page : IAuditedEntity
     {
         
         public int Id { get; set; }

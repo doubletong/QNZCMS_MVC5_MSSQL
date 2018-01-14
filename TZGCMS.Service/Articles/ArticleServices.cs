@@ -25,7 +25,7 @@ namespace TZGCMS.Service.Articles
         Article GetById(int id);
       
         bool Update(Article article);
-        bool Create(Article article);
+        Article Create(Article article);
         bool Delete(Article article);
         int InsertOrUpdate(ArticleIM model);
         void Delete(int id);
@@ -162,7 +162,7 @@ namespace TZGCMS.Service.Articles
             return _unitOfWork.ArticleRepository.Update(article);
         }
 
-        public bool Create(Article article)
+        public Article Create(Article article)
         {
             return _unitOfWork.ArticleRepository.Insert(article);
         }

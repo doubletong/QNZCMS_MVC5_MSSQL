@@ -14,7 +14,7 @@ namespace TZGCMS.Service.Articles
         ArticleCategory GetById(int id);
         ArticleCategory GetByIdWithArticles(int id);
         bool Update(ArticleCategory category);
-        bool Create(ArticleCategory category);
+        ArticleCategory Create(ArticleCategory category);
         bool Delete(ArticleCategory category);
 
         bool IsExistSeoName(string seoName, int? id);
@@ -63,7 +63,7 @@ namespace TZGCMS.Service.Articles
             return _unitOfWork.ArticleCategoryRepository.Update(category);
         }
 
-        public bool Create(ArticleCategory category)
+        public ArticleCategory Create(ArticleCategory category)
         {
             return _unitOfWork.ArticleCategoryRepository.Insert(category);
         }

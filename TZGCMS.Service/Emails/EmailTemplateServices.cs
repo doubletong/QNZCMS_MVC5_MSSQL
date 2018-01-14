@@ -15,7 +15,7 @@ namespace TZGCMS.Service.Emails
         List<EmailTemplate> GetPagedElements(int pageIndex, int pageSize, string keyword, int accountId, out int totalCount);
         EmailTemplate GetById(int id);
         bool Update(EmailTemplate template);
-        bool Create(EmailTemplate template);
+        EmailTemplate Create(EmailTemplate template);
         bool Delete(EmailTemplate template);
 
         bool IsExistTemplate(string templateNo, int? id);
@@ -62,7 +62,7 @@ namespace TZGCMS.Service.Emails
             return _unitOfWork.EmailTemplateRepository.Update(template);
         }
 
-        public bool Create(EmailTemplate template)
+        public EmailTemplate Create(EmailTemplate template)
         {
             return _unitOfWork.EmailTemplateRepository.Insert(template);
         }

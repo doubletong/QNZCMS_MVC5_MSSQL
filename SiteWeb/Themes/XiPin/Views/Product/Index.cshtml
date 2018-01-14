@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ProductListFVM
+@{
     PageMeta pm = (PageMeta)ViewBag.PageMeta;
     ViewBag.Title = pm != null ? pm.Title : "产品展示";
 }
@@ -12,57 +13,68 @@
 }
 
 <!-- PAGE TITLE ================================================== -->
-<div class="container pt40">
-    <header class="title">
-        <h2 class="animated fadeInLeftBig">@ViewBag.Title</h2>
-        <p class="animated fadeInRightBig">
-            专注于消费类电子产品设计与研发，为用户提供时尚具有吸引力的周边电子配件产品。
-        </p>
-    </header>
-</div>
-
-
-<!-- ABOUT    ================================================== -->
-<section class="container about-page">
-    <hr />
+<div class="container page-products">
     <div class="row">
-        <div class="col-sm-4">
-            <div class="item first">
-                <div class="icon">
-                    <i class="iconfont">&#xe60f;</i>
-                </div>
-                <h4>公司简介</h4>
+        <div class="col-md-3">
+            <div class="page-title">
+                <h2>@ViewBag.Title</h2>
                 <p>
-                    专注于消费类电子产品设计与研发，为用户提供时尚具有吸引力的周边电子配件产品，目前主要经营：线材配件，耳机，车载充电，充电器等。
+                    PRODUCTS
                 </p>
             </div>
         </div>
-        <div class="col-sm-4">
-            <div class="item">
-                <div class="icon">
-                    <i class="iconfont">&#xe60e;</i>
+        <div class="col-md-9">
+            @{
+                var allClass = Model.CategoryId == null ? "active" : "";
+            }
+            <div id="filter" class="categories">
+                <div class="categorybox">
+                    <a href="@Url.Action("index")" title="所有产品" class="@allClass" data-toggle="tooltip" data-placement="bottom">
+                        <div class="icon">
+                            <i class="iconfont">&#xe632;</i>
+                        </div>
+                    </a>
                 </div>
-                <h4>品牌战略</h4>
-                <p>
-                    使命：持续微创新；核心价值观：诚信负责，相互尊重，团队合作；质量理念：100%专注，只为1%品质提升。
-                </p>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="item">
-                <div class="icon">
-                    <i class="iconfont">&#xe610;</i>
-                </div>
-                <h4>未来愿景</h4>
-                <p>
-                    为我们的员工，顾客，供应链伙伴在内的所有人提供创造和实现他们美好心愿的机会
-                </p>
-            </div>
-        </div>
+                @foreach (var category in Model.Categories)
+                {
+                    var className = (Model.CategoryId == category.Id) ? "active" : "";
+                    <div class="categorybox">
+                        <a href="@Url.Action("index",new { cateId = category.Id })" class="@className" title="@category.Title" data-toggle="tooltip" data-placement="bottom">
+                            <div class="icon">
+                                <i class="iconfont @category.ImageUrl"></i>
+                            </div>
+                        </a>
+                    </div>
 
+
+                }
+
+            </div>
+        </div>
     </div>
 
-    <figure>
-        <img alt="" src="@Url.Content("~/Content/Public/img/about.jpg")" class="img-responsive">
-    </figure>
+
+</div>
+
+<hr />
+
+<!-- products   ================================================== -->
+<section class="container page-products m-b-50">
+    <div id="productlist" class="row">
+        @foreach (var product in Model.Products)
+        {
+            Html.RenderPartial("PartialProductBox", product);
+        }
+    </div>
+    @if (Model.Products.Any())
+    {
+        @Html.PagedListPager((IPagedList)Model.Products, page => Url.Action("Index", new { page, cateId = Model.CategoryId }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <span class="iconfont icon-info"></span> 未找到任何产品
+        </div>
+    }
+
 </section>

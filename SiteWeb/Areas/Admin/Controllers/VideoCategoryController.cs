@@ -115,7 +115,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
             var result =  _categoryServices.Create(newCategory);
 
-            if (result)
+            if (result!=null)
             {
                 var pageMeta = new PageMeta()
                 {

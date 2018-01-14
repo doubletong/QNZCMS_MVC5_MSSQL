@@ -40,7 +40,7 @@ namespace TZGCMS.Service.Identity
 
         Menu GetById(int id);
         bool Update(Menu menu);
-        bool Create(Menu menu);
+        Menu Create(Menu menu);
         bool Delete(Menu menu);
     }
     public class MenuServices : IMenuServices
@@ -317,7 +317,7 @@ namespace TZGCMS.Service.Identity
             return _unitOfWork.MenuRepository.Update(menu);
         }
 
-        public bool Create(Menu menu)
+        public Menu Create(Menu menu)
         {
             return _unitOfWork.MenuRepository.Insert(menu);
         }

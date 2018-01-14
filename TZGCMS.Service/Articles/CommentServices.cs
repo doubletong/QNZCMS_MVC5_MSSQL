@@ -23,7 +23,7 @@ namespace TZGCMS.Service.Articles
         Comment GetById(int id);
       
         bool Update(Comment article);
-        bool Create(Comment article);
+        Comment Create(Comment article);
         bool Delete(Comment article);
         void Delete(int id);
         //bool CheckCode(string code);
@@ -114,7 +114,7 @@ namespace TZGCMS.Service.Articles
             return _unitOfWork.CommentRepository.Update(article);
         }
 
-        public bool Create(Comment article)
+        public Comment Create(Comment article)
         {
             return _unitOfWork.CommentRepository.Insert(article);
         }

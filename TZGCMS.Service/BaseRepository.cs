@@ -29,7 +29,8 @@ namespace TZGCMS.Service
 
         T Get(Expression<Func<T, bool>> expression);
         IEnumerable<T> GetMany(Expression<Func<T, bool>> expression);
-       
+        IEnumerable<T> GetMany<KProperty>(Expression<Func<T, bool>> expression,Expression<Func<T, KProperty>> orderByExpression, bool ascending);
+
         IEnumerable<T> GetPagedElements<KProperty>(int pageIndex, int pageCount,
             Expression<Func<T, KProperty>> orderByExpression, bool ascending);
 
@@ -42,7 +43,7 @@ namespace TZGCMS.Service
             params Expression<Func<T, object>>[] includes);
 
         T GetById(object id);
-        bool Insert(T entity);
+        T Insert(T entity);
         bool Insert(IEnumerable<T> entities);
         bool Update(T entity);
         bool Update(IEnumerable<T> entities);
@@ -162,7 +163,23 @@ namespace TZGCMS.Service
         {
             return Table.Where(expression);
         }
+        public virtual  IEnumerable<T> GetMany<KProperty>(Expression<Func<T, bool>> expression, Expression<Func<T, KProperty>> orderByExpression, bool ascending)
+        {
+            IQueryable<T> queryable = expression == null ? Table : Table.Where(expression);
 
+            if (orderByExpression == (Expression<Func<T, KProperty>>)null)
+                throw new ArgumentNullException("orderByExpression", Messages.OrderByExpressionCannotBeNullException);
+
+            if (ascending)
+            {
+                return  queryable.OrderBy(orderByExpression).ToList();
+            }
+            else
+            {
+                return  Table.OrderByDescending(orderByExpression).ToList();
+            }
+
+        }
 
         /// <summary>
         /// <see cref="SIG.Core.IRepository{T}"/>
@@ -310,31 +327,30 @@ namespace TZGCMS.Service
             return Table.Find(id);
         }
 
-        public virtual bool Insert(T entity)
+        public virtual T Insert(T entity)
         {
-            bool result;
+          
             try
             {
                 if (entity == null)
                     throw new ArgumentNullException("entity");
 
-                Table.Add(entity);
+               var result =  Table.Add(entity);
                 Context.SaveChanges();
-                result = true;
+               return result;
             }
             catch (DbEntityValidationException dbEx)
             {
                 var msg = string.Empty;
-
                 foreach (var validationErrors in dbEx.EntityValidationErrors)
                     foreach (var validationError in validationErrors.ValidationErrors)
                         msg += string.Format("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
 
                 var fail = new Exception(msg, dbEx);
-                //throw fail;
-                result = false;
+                throw fail;
+               // result = false;
             }
-            return result;
+           
         }
 
         public virtual bool Insert(IEnumerable<T> entities)

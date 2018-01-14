@@ -112,7 +112,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 newPage.CreatedDate = DateTime.Now;
 
                 var result = _pageServices.Create(newPage);
-                if (result)
+                if (result!=null)
                 {
                     var pageMeta = new PageMeta()
                     {

@@ -19,7 +19,7 @@ namespace TZGCMS.Service.Videos
         VideoCategory GetById(int id);
         VideoCategory GetByIdWithVideos(int id);
         bool Update(VideoCategory category);
-        bool Create(VideoCategory category);
+        VideoCategory Create(VideoCategory category);
         bool Delete(VideoCategory category);
 
         bool IsExistSeoName(string seoName, int? id);
@@ -74,7 +74,7 @@ namespace TZGCMS.Service.Videos
             return _unitOfWork.VideoCategoryRepository.Update(category);
         }
 
-        public bool Create(VideoCategory category)
+        public VideoCategory Create(VideoCategory category)
         {
             return _unitOfWork.VideoCategoryRepository.Insert(category);
         }

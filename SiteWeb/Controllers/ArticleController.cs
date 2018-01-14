@@ -53,7 +53,7 @@ namespace TZGCMS.SiteWeb.Controllers
             //var categoryVMList = _mapper.Map<List<Article>, List<ArticleVM>>(goodslist);
             vm.TotalCount = totalCount;
 
-            vm.Articles = new StaticPagedList<Article>(list, vm.PageIndex, vm.PageSize, vm.TotalCount); ;
+            vm.Articles = new StaticPagedList<Article>(list, vm.PageIndex, vm.PageSize, vm.TotalCount); 
 
             //vm.Categories = _categoryService.GetActiveItems().OrderByDescending(c => c.Importance);
             //var categoryList = _categoryService.GetActiveItems().OrderByDescending(c => c.Importance).ToList();
@@ -64,6 +64,46 @@ namespace TZGCMS.SiteWeb.Controllers
             ViewBag.PageMeta = _pageMetaService.GetPageMeta(ModelType.MENU, url);
 
             return View(vm);
+        }
+
+        //[HttpGet]
+        //public ActionResult Detail(int id)
+        //{
+        //    var article = _articleServices.GetById(id);
+        //    article.ViewCount++;
+        //    _articleServices.Update(article);
+
+        //    ViewBag.PageMeta = _pageMetaService.GetPageMeta(ModelType.ARTICLE, id.ToString());
+
+        //    return View(article);
+        //}
+        [HttpGet]
+        public ActionResult Detail(int id)
+        {
+          //  ArticleDetailFVM dvm = new ArticleDetailFVM();
+            var article = _articleServices.GetById(id);
+            article.ViewCount++;
+            _articleServices.Update(article);
+
+         //   dvm.Post = vPost;
+          //dvm.Blogs = _unit.Blogs.GetAll().ToList();
+          //  dvm.Article = _unit.Posts.GetAll().OrderByDescending(p => p.AddedDate).FirstOrDefault();    
+
+            var prev = _articleServices.GetAll().Where(s => s.Active && s.Id < id ).OrderByDescending(s => s.Id).FirstOrDefault();
+            if (prev != null)
+            {
+                ViewBag.Prev = prev.Id;
+            }
+
+            var next = _articleServices.GetAll().Where(s => s.Active && s.Id > id ).OrderBy(s => s.Id).FirstOrDefault();
+            if (next != null)
+            {
+                ViewBag.Next = next.Id;
+            }
+
+            ViewBag.PageMeta = _pageMetaService.GetPageMeta(ModelType.ARTICLE, id.ToString());
+
+            return View(article);
         }
     }
 }

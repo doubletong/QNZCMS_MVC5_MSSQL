@@ -25,7 +25,7 @@ namespace TZGCMS.Service.Videos
         Reservation GetById(int videoId, string openId);
 
         bool Update(Reservation article);
-        bool Create(Reservation article);
+        Reservation Create(Reservation article);
         bool Delete(Reservation article);
 
         bool Delete(int videoId, string openId);
@@ -96,7 +96,7 @@ namespace TZGCMS.Service.Videos
             return _unitOfWork.ReservationRepository.Update(article);
         }
 
-        public bool Create(Reservation article)
+        public Reservation Create(Reservation article)
         {
             return _unitOfWork.ReservationRepository.Insert(article);
         }

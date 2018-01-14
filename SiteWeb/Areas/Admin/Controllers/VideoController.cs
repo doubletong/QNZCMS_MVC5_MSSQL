@@ -128,13 +128,11 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             }
 
             var video = _mapper.Map<VideoIM, Video>(vm);
-            //video.ViewCount = 0;
-            //video.CreatedBy = Site.CurrentUserName;
-            //video.CreatedDate = DateTime.Now;
+
 
             var result = _videoServices.Create(video);
 
-            if (result)
+            if (result!=null)
             {
                 var pageMeta = new PageMeta()
                 {

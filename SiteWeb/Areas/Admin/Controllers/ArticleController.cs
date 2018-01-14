@@ -330,13 +330,11 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             {
 
                 var newArticle = _mapper.Map<ArticleIM, Article>(vm);
-               // newArticle.ViewCount = 0;
-              //  newArticle.CreatedBy = Site.CurrentUserName;
-              //  newArticle.CreatedDate = DateTime.Now;
+      
 
                 var result = _articleServices.Create(newArticle);
 
-                if (result)
+                if (result!=null)
                 {
                     var pageMeta = new PageMeta()
                     {

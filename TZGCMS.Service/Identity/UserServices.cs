@@ -92,7 +92,7 @@ namespace TZGCMS.Service.Identity
         {
             return _unitOfWork.UserRepository.GetById(id);
         }
-        public bool Create(User user)
+        public User Create(User user)
         {
             return _unitOfWork.UserRepository.Insert(user);
         }

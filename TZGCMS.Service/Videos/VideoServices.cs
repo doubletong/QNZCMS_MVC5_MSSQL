@@ -27,7 +27,7 @@ namespace TZGCMS.Service.Videos
         Video GetById(int id);
       
         bool Update(Video article);
-        bool Create(Video article);
+        Video Create(Video article);
         bool Delete(Video article);
         void Delete(int id);
         //bool CheckCode(string code);
@@ -148,7 +148,7 @@ namespace TZGCMS.Service.Videos
             return _unitOfWork.VideoRepository.Update(article);
         }
 
-        public bool Create(Video article)
+        public Video Create(Video article)
         {
             return _unitOfWork.VideoRepository.Insert(article);
         }

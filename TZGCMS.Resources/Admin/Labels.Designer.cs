@@ -745,6 +745,15 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 缩略图2 的本地化字符串。
+        /// </summary>
+        public static string Package {
+            get {
+                return ResourceManager.GetString("Package", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 分页数 的本地化字符串。
         /// </summary>
         public static string PageSize {

@@ -13,7 +13,7 @@ namespace TZGCMS.Service.PageMetas
         
         PageMeta GetPageMeta(ModelType modelType, string objectId);
         bool Update(PageMeta pageMeta);
-        bool Create(PageMeta pageMeta);
+        PageMeta Create(PageMeta pageMeta);
         bool Delete(PageMeta pageMeta);
     }
     public class PageMetaServices: IPageMetaServices
@@ -24,7 +24,7 @@ namespace TZGCMS.Service.PageMetas
         {
             return _unitOfWork.PageMetaRepository.GetMany(d => d.ModelType == modelType && d.ObjectId == objectId).FirstOrDefault();
         }
-        public bool Create(PageMeta pageMeta)
+        public PageMeta Create(PageMeta pageMeta)
         {
             return _unitOfWork.PageMetaRepository.Insert(pageMeta);
         }

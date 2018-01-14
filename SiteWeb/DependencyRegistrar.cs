@@ -15,6 +15,7 @@ using TZGCMS.Service.Emails;
 using TZGCMS.Service.Identity;
 using TZGCMS.Service.PageMetas;
 using TZGCMS.Service.Pages;
+using TZGCMS.Service.Products;
 using TZGCMS.Service.Systems;
 using TZGCMS.Service.Videos;
 using TZGCMS.SiteWeb.Mappings;
@@ -76,6 +77,8 @@ namespace TZGCMS.SiteWeb
 
             builder.RegisterType<BackupServices>().As<IBackupServices>().InstancePerLifetimeScope();
             builder.RegisterType<LogServices>().As<ILogServices>().InstancePerLifetimeScope();
+            builder.RegisterType<ProductCategoryServices>().As<IProductCategoryServices>().InstancePerLifetimeScope();
+            builder.RegisterType<ProductServices>().As<IProductServices>().InstancePerLifetimeScope();
             // MVC - Set the dependency resolver to be Autofac.
 
 

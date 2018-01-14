@@ -17,7 +17,7 @@ namespace TZGCMS.Service.Ads
         Carousel GetById(int id);
       
         bool Update(Carousel carousel);
-        bool Create(Carousel carousel);
+        Carousel Create(Carousel carousel);
         bool Delete(Carousel carousel);
         void Delete(int id);
         //bool CheckCode(string code);
@@ -76,7 +76,7 @@ namespace TZGCMS.Service.Ads
             return _unitOfWork.CarouselRepository.Update(carousel);
         }
 
-        public bool Create(Carousel carousel)
+        public Carousel Create(Carousel carousel)
         {
             return _unitOfWork.CarouselRepository.Insert(carousel);
         }
