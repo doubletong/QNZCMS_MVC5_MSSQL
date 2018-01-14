@@ -43,6 +43,7 @@ namespace TZGCMS.Data.Enums
         CATEGORY = 17,
         [Display(Name = "视频分类")]
         VIDEOCATEGORY = 18
+       
 
 
     }

@@ -216,6 +216,7 @@
     <Compile Include="Areas\Admin\api\DefaultController.cs" />
     <Compile Include="Areas\Admin\api\FileManagerController.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DocumentCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\FrontMenuController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
@@ -1774,6 +1775,7 @@
     <Content Include="Themes\XiPin\Views\Product\Partials\HomeProducts.cshtml" />
     <Content Include="Themes\XiPin\Views\Product\Detail.cshtml" />
     <Content Include="Themes\XiPin\Views\Product\Partials\PartialProductBox.cshtml" />
+    <Content Include="Themes\XiPin\Content\css\_page-product.less" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1782,6 +1784,7 @@
     <Folder Include="Areas\Admin\Content\js\Highlight\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Base\" />
+    <Folder Include="Areas\Admin\Views\DocumentCategory\" />
     <Folder Include="Themes\Default\Views\Article\" />
     <Folder Include="Uploads\Files\" />
     <Folder Include="Uploads\Images\" />

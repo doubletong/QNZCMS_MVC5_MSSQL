@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using TZGCMS.Data.Entity.Ads;
 using TZGCMS.Data.Entity.Articles;
+using TZGCMS.Data.Entity.Doc;
 using TZGCMS.Data.Entity.Emails;
 using TZGCMS.Data.Entity.Identity;
 using TZGCMS.Data.Entity.Logs;
@@ -50,6 +51,9 @@ namespace TZGCMS.Data.Entity
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
 
+        public virtual DbSet<DocumentCategory> DocumentCategories { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder); 
@@ -80,6 +84,9 @@ namespace TZGCMS.Data.Entity
 
             modelBuilder.Configurations.Add(new ProductCategoryMap());
             modelBuilder.Configurations.Add(new ProductMap());
+
+            modelBuilder.Configurations.Add(new DocumentMap());
+            modelBuilder.Configurations.Add(new DocumentCategoryMap());
             //throw new UnintentionalCodeFirstException();
         }
 

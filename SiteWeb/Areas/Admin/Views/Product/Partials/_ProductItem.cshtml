@@ -8,6 +8,12 @@
             <img class="img-thumbnail" src="@string.Format("{0}?height=40", Model.Thumbnail)" alt="@Model.ProductName" />
         </a>
 }
+        @if (!string.IsNullOrEmpty(Model.Cover))
+    {
+        <a href="@Model.Cover" data-toggle="lightbox" title="@Model.ProductName">
+            <img class="img-thumbnail" src="@string.Format("{0}?height=40", Model.Cover)" alt="@Model.ProductName" />
+        </a>
+}
 
     </td>
     <td>

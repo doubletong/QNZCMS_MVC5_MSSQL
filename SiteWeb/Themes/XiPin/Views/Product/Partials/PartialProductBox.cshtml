@@ -2,13 +2,13 @@
 
 <div class="col-sm-6 col-md-4 item">
     <div class="productbox">
-        <a href="@string.Format("/products/detail/{0}", Html.DisplayFor(model => model.Id))">
+        <a href="@Url.Action("Detail",new {id = Model.Id })" >
             <img src="@Html.DisplayFor(model => model.Thumbnail)" alt="@Html.DisplayFor(model => model.ProductNo)" />
             <div class="roll">
                 @*<div class="icon">
                     <i class="icon-add117"></i>
                 </div>*@
-                <img src="@Html.DisplayFor(model => model.ImageUrl)" alt="@Html.DisplayFor(model => model.ProductNo)" />
+                <img src="@Html.DisplayFor(model => model.Cover)" alt="@Model.ProductNo" />
             </div>
 
         </a>

@@ -27,7 +27,7 @@ namespace TZGCMS.Service.Articles
         bool Update(Article article);
         Article Create(Article article);
         bool Delete(Article article);
-        int InsertOrUpdate(ArticleIM model);
+       
         void Delete(int id);
         //bool CheckCode(string code);
     }
@@ -113,48 +113,7 @@ namespace TZGCMS.Service.Articles
             return _unitOfWork.ArticleRepository.GetById(id);
         }
 
-        public int InsertOrUpdate(ArticleIM model)
-        {
-            if (model.Id == 0)// add new
-            {
-                var add = new Article
-                {
-                    Title = model.Title,
-                    Body = model.Body,
-                    CategoryId = model.CategoryId,
-                    Thumbnail = model.Thumbnail,
-                    Active = model.Active,
-                    Pubdate = model.Pubdate,
-                    CreatedBy = "Admin",
-                    CreatedDate = DateTime.Now,
-                    Recommend = model.Recommend,
-                    Source = model.Source,
-                    Summary = model.Summary,
-                    FullImage = model.FullImage                    
-                    
-                };
-                _unitOfWork.ArticleRepository.Insert(add);
-                return 1;
-            }
-            else //edit
-            {
-                var edit = _unitOfWork.ArticleRepository.Get(p => p.Id == model.Id);
-                    edit.Title = model.Title;
-                    edit.Body = model.Body;
-                    edit.CategoryId = model.CategoryId;
-                    edit.Thumbnail = model.Thumbnail;
-                    edit.Active = model.Active;
-                    edit.Pubdate = model.Pubdate;
-                    edit.UpdatedBy = "Admin";
-                    edit.UpdatedDate = DateTime.Now;
-                    edit.Recommend = model.Recommend;
-                    edit.Source = model.Source;
-                    edit.Summary = model.Summary;
-                    edit.FullImage = model.FullImage;
-                _unitOfWork.ArticleRepository.Update(edit);
-                return 2;
-            }
-        }
+     
 
 
         public bool Update(Article article)

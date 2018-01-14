@@ -54,6 +54,8 @@
     <Compile Include="Entity\Articles\ArticleCategory.cs" />
     <Compile Include="Entity\Articles\Comment.cs" />
     <Compile Include="Entity\Articles\FilterTemplate.cs" />
+    <Compile Include="Entity\Doc\Document.cs" />
+    <Compile Include="Entity\Doc\DocumentCategory.cs" />
     <Compile Include="Entity\Emails\Email.cs" />
     <Compile Include="Entity\Emails\EmailAccount.cs" />
     <Compile Include="Entity\Emails\EmailTemplate.cs" />
@@ -79,6 +81,8 @@
     <Compile Include="Enums\ModelType.cs" />
     <Compile Include="Enums\Status.cs" />
     <Compile Include="Enums\TagType.cs" />
+    <Compile Include="Mapping\DocumentMap.cs" />
+    <Compile Include="Mapping\DocumentCategoryMap.cs" />
     <Compile Include="Mapping\ProductCategoryMap.cs" />
     <Compile Include="Mapping\ProductMap.cs" />
     <Compile Include="Mapping\ReservationMap.cs" />

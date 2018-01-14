@@ -50,7 +50,7 @@ namespace TZGCMS.SiteWeb.Controllers
             return View(vm);
         }
 
-        public ActionResult HomeCategories(int count)
+        public PartialViewResult HomeCategories(int count)
         {
             var cates = _categoryService.GetActiveItems().Take(count);
             return PartialView(cates);
@@ -60,6 +60,17 @@ namespace TZGCMS.SiteWeb.Controllers
         {
             var cates = _productService.GetRecommendElements(count);
             return PartialView(cates);
+        }
+
+        public ActionResult Detail(int id)
+        {
+            var product = _productService.GetById(id);
+            product.ViewCount++;
+            _productService.Update(product);
+
+            ViewBag.PageMeta = _pageMetaService.GetPageMeta(ModelType.PRODUCT, id.ToString());
+
+            return View(product);
         }
     }
 }

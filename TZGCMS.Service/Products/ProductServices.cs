@@ -133,11 +133,13 @@ namespace TZGCMS.Service.Products
             editProduct.ProductName = im.ProductName;
             editProduct.ProductNo = im.ProductNo;
             editProduct.Thumbnail = im.Thumbnail;
+            editProduct.Cover = im.Cover;
             editProduct.Recommend = im.Recommend;
             editProduct.Active = im.Active;
             editProduct.Body = im.Body;
             editProduct.Description = im.Description;
             editProduct.ImageUrl = im.ImageUrl;
+           
             editProduct.Importance = im.Importance;
 
             editProduct.Categories.Clear();
@@ -161,6 +163,7 @@ namespace TZGCMS.Service.Products
                 ProductName = im.ProductName,
                 ProductNo = im.ProductNo,
                 Thumbnail = im.Thumbnail,
+                Cover = im.Cover,
                 Recommend = im.Recommend,
                 Active = im.Active,
                 Body = im.Body,

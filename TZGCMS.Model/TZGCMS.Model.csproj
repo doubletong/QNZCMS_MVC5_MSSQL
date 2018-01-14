@@ -66,6 +66,7 @@
     <Compile Include="Admin\InputModel\Articles\ArticleIM.cs" />
     <Compile Include="Admin\InputModel\Articles\FilterTemplateIM.cs" />
     <Compile Include="Admin\InputModel\CompanyInfoIM.cs" />
+    <Compile Include="Admin\InputModel\Doc\DocumentCategoryIM.cs" />
     <Compile Include="Admin\InputModel\Emails\EmailAccountIM.cs" />
     <Compile Include="Admin\InputModel\Emails\EmailIM.cs" />
     <Compile Include="Admin\InputModel\Emails\EmailTemplateIM.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Admin\ViewModel\Articles\ArticleVM.cs" />
     <Compile Include="Admin\ViewModel\Articles\FilterTemplateListVM.cs" />
     <Compile Include="Admin\ViewModel\Articles\FilterTemplateVM.cs" />
+    <Compile Include="Admin\ViewModel\Doc\DocumentCategoryListVM.cs" />
     <Compile Include="Admin\ViewModel\Emails\EmailAccountListVM.cs" />
     <Compile Include="Admin\ViewModel\Emails\EmailAccountVM.cs" />
     <Compile Include="Admin\ViewModel\Emails\EmailListVM.cs" />

@@ -17,7 +17,7 @@
 
 
 
-    <div class="sitepath">
+
         <div class="container">
 
             <ol class="breadcrumb">
@@ -28,8 +28,6 @@
                 <li class="active">@Model.Title</li>
             </ol>
         </div>
-
-    </div>
 
 
 
@@ -79,3 +77,11 @@
     </div>
 
 </section>
+@section footer{
+    <script>
+        $(function () {
+            $("#mainav li").eq(3).addClass("active");
+        })
+    </script>
+
+    }

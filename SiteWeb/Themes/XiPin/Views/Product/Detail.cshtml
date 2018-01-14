@@ -1,129 +1,110 @@
-﻿@model BBICMS.Model.ViewModel.Front.ProductDetailVM
+﻿@model Product
 
 @{
-    ViewBag.Title = Model.Product.ProductName + "_" + Model.Product.ProductNo;
 
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : Model.ProductName + Model.ProductNo;
 }
 
 @section header{
-    <meta name="keywords" content="@Model.Product.Keywords" />
-    <meta name="description" content="@Model.Product.Summary" />
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
 
-<link href="~/Scripts/lib/jquery/plugins/owl.carousel/assets/owl.carousel.css" rel="stylesheet" />
+
+    <link href="~/Plugins/owl.carousel/assets/owl.carousel.css" rel="stylesheet" />
 }
 
-
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="/">首页</a></li>
+        <li><a href="@Url.Action("Index")">产品展示</a></li>
+        <li class="active">@Model.ProductName</li>
+    </ol>
+</div>
 
 
 
 <!-- PAGE TITLE ================================================== -->
 <div class="container pt40">
     <header class="title">
-        <h2 class="animated fadeInLeftBig">@Model.Product.ProductName</h2>
+        <h2 class="animated fadeInLeftBig">@Model.ProductName</h2>
         @*<p class="animated fadeInRightBig">
-            @Model.Product.Summary
-        </p>*@
+                @Model.Product.Summary
+            </p>*@
     </header>
 </div>
-@*<img src="@Model.Product.ViewImage" style="width:0;height:0;" alt="">*@
 
-    <!-- PROJECT SLIDER   ================================================== -->
-<section class="container">
-    <div class="owl-carousel">
-        @foreach (var photo in Model.Product.ProductPhotos)
-            {
-            <div class="item"><img src="@photo.ImageUrl" alt="@photo.Title" /></div>
-        }       
-    </div>   
-    <hr/>
-</section>
 
-    <!-- PROJECT DESCRIPTION    ================================================== -->
-    <section class="container page-products m-b-50">
+
+<section class="container page-products m-b-50">
     <div class="row ">
-        <aside class="col-lg-4 animated fadeInLeft notransition">
-            <div class="panel panel-default">
-                <!-- Default panel contents -->
-                <div class="panel-heading">产品概要<small>Product description</small></div>
-                <div class="panel-body">
-                    <p>@Model.Product.Summary</p>
-                </div>
+        <div class="col-md-10 col-md-offset-1">
+            <!-- PROJECT SLIDER   ================================================== -->
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+    {
 
-                <!-- List group -->
-                <ul class="list-group">
-                    <li class="list-group-item">型号：@Model.Product.ProductNo</li>
-                    <li class="list-group-item">品名：@Model.Product.ProductName</li>
-                    @*<li class="list-group-item">上市时间：@Model.Product.AddedDate.ToLongDateString()</li>*@
-                    <li class="list-group-item">查看：@Model.Product.ViewCount</li>
-                  
-                </ul>
-                <footer class="panel-footer">
-                    <section style="height: 40px;">
-                        <div class="bdsharebuttonbox hidden-xs">
-                            <a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_tqf" data-cmd="tqf" title="分享到腾讯朋友"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-                        </div>
-                    </section>
-                </footer>
-            </div>
-           
-
-        </aside>
-        <div class="col-lg-8">
-            <h3 class="smalltitle">
-                <span>功能参数 <small>Parameters</small></span>
-            </h3>
-            <div class="body-product">
-                @Html.Raw(Model.Product.Parameters)
-            </div>
-            <h3 class="smalltitle">
-                <span>产品描述 <small>Product description</small></span>
-            </h3>
-            <div class="body-product">
-                @Html.Raw(Model.Product.Description)
-            </div>
-            <h3 class="smalltitle">
-                <span>相关下载 <small>Downloads</small></span>
-            </h3>
-            <div class="body-product">
-               @Html.Action("DocForProduct","Download",new { productNo = Model.Product.ProductNo})
-            </div>
+        <div class="owl-carousel">
+            @foreach (var photo in Model.ImageUrl.Split('|'))
+    {
+        <div class="item"><img src="@photo" /></div>
+}
         </div>
 
+}
+            <hr />
+            <div class="product-title">
+                <section class="share">
+                    <div class="bdsharebuttonbox hidden-xs">
+                        <a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_tqf" data-cmd="tqf" title="分享到腾讯朋友"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+                    </div>
+                </section>
+                <h3>产品描述 <small>Product description</small></h3>
+            </div>
+            <div class="well">
+                <ul class="row">
+                    <li class="col-sm-3"><label>型号：</label>@Model.ProductNo</li>
+                    <li class="col-sm-3"><label>品名：</label>@Model.ProductName</li>
+                    <li class="col-sm-3"><label>类别：</label>@Model.CategoryTitle</li>
+                    <li class="col-sm-3"><label>查看：</label>@Model.ViewCount</li>
+
+                </ul>
+            </div>
+            <div class="body-product">
+                @Html.Raw(Model.Body)
+            </div>
+
+            @*<h3 class="smalltitle">
+            <span>相关下载 <small>Downloads</small></span>
+        </h3>
+        <div class="body-product">
+            @Html.Action("DocForProduct", "Download", new { productNo = Model.Product.ProductNo })
+        </div>*@
+
+        </div>
     </div>
 </section>
 
 
-@section scripts {
-<script src="~/Scripts/lib/jquery/plugins/owl.carousel/owl.carousel.min.js"></script>
-    <script>
-        $(function() {  
+@section footer {
+    <script src="~/Plugins/owl.carousel/owl.carousel.min.js"></script>
 
+    <script>
+        $(function () {
+            $("#mainav li").eq(2).addClass("active");
             $('.owl-carousel').owlCarousel({
-                margin: 10,              
-                loop: true,             
+                margin:0,
+                loop: true,
                 autoplay: true,
-                autoHeight:true,
+                autoHeight: true,
                 autoplayTimeout: 2000,
                 autoplayHoverPause: true,
                 nav: true,
-                navText: ["<span class='glyphicon glyphicon-chevron-left'></span>", "<span class='glyphicon glyphicon-chevron-right'></span>"],
+                navText: ["<i class='iconfont icon-back'></i>", "<i class='iconfont icon-more'></i>"],
                 responsiveClass: true,
-                responsive: {
-                    0: {
-                        items: 1,
-                        nav: true
-                    },
-                    480: {
-                        items: 2,
-                        nav: false
-                    },
-                    1200: {
-                        items: 3,
-                        nav: true,
-                        loop: false
-                    }
-                }
+                items: 1
             })
 
 
@@ -131,10 +112,10 @@
         window._bd_share_config = {
             "common": {
                 "bdSnsKey": {},
-                "bdText": "", "bdMini": "2", "bdMiniList": false, "bdPic": "", "bdStyle": "1", "bdSize": "24"
+                "bdText": "", "bdMini": "2", "bdMiniList": false, "bdPic": "", "bdStyle": "1", "bdSize": "16"
             },
             "share": {},
-          //  "image": { "viewList": ["qzone", "weixin", "tqq", "tsina", "twi", "fbook", "tqf", "sqq"], "viewText": "分享到：", "viewSize": "24" },
+            //  "image": { "viewList": ["qzone", "weixin", "tqq", "tsina", "twi", "fbook", "tqf", "sqq"], "viewText": "分享到：", "viewSize": "24" },
             "selectShare": { "bdContainerClass": null, "bdSelectMiniList": ["qzone", "weixin", "tqq", "tsina", "twi", "fbook", "tqf", "sqq"] }
         }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
     </script>

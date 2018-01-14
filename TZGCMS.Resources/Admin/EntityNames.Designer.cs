@@ -169,6 +169,15 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 分档分类 的本地化字符串。
+        /// </summary>
+        public static string DocumentCategory {
+            get {
+                return ResourceManager.GetString("DocumentCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 邮件 的本地化字符串。
         /// </summary>
         public static string Email {

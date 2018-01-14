@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TZGCMS.Data.Entity;
 using TZGCMS.Data.Entity.Ads;
 using TZGCMS.Data.Entity.Articles;
+using TZGCMS.Data.Entity.Doc;
 using TZGCMS.Data.Entity.Emails;
 using TZGCMS.Data.Entity.Identity;
 using TZGCMS.Data.Entity.Logs;
@@ -44,9 +45,32 @@ namespace TZGCMS.Service
 
         private BaseRepository<ProductCategory> _productCategoryRepository;
         private BaseRepository<Product> _productRepository;
+
+        private BaseRepository<DocumentCategory> _documentCategoryRepository;
+        private BaseRepository<Document> _documentRepository;
         #endregion
 
         #region Constructors and Destructors
+
+        public BaseRepository<DocumentCategory> DocumentCategoryRepository
+        {
+            get
+            {
+                if (this._documentCategoryRepository == null)
+                    this._documentCategoryRepository = new BaseRepository<DocumentCategory>(Context);
+                return _documentCategoryRepository;
+            }
+        }
+
+        public BaseRepository<Document> DocumentRepository
+        {
+            get
+            {
+                if (this._documentRepository == null)
+                    this._documentRepository = new BaseRepository<Document>(Context);
+                return _documentRepository;
+            }
+        }
 
         public BaseRepository<ProductCategory> ProductCategoryRepository
         {
