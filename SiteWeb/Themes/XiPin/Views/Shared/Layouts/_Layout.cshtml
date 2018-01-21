@@ -63,7 +63,7 @@
             <div class="row">
                 <div class="col-xs-3 col-sm-6">
                     <a href="tel:@SettingsManager.Contact.Phone">
-                        <i class="icon-telephone37"></i> <span class="hidden-xs">@SettingsManager.Contact.Phone</span>
+                        <i class="iconfont icon-icon"></i> <span class="hidden-xs">@SettingsManager.Contact.Phone</span>
                     </a>
                 </div>
                 <div class="col-xs-9 col-sm-6 loginbox text-right">
@@ -81,7 +81,7 @@
                     }
                     else
                     {
-                        <div class="unlogin">@Html.ActionLink("登录", "Login", "Account") @Html.ActionLink("注册", "Register", "Account")</div>
+                        <div class="unlogin"><a href="/">中文</a> <a href="/">English</a></div>
                     }
                     <!-- navbar end -->
                     @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))

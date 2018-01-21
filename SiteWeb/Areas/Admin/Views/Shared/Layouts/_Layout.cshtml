@@ -66,15 +66,15 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                       
+
                         <a class="navbar-brand" href="#">@SettingsManager.Site.SiteName</a>
                     </div>
-                  
+
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                       
-                       
+
+
 
                         <ul class="nav navbar-nav navbar-right">
                             <li class="user-avater"><img src="@((User as CustomPrincipal).Avatar)" alt="@User.Identity.Name" class="img-circle" /></li>
@@ -85,19 +85,24 @@
                                 </ul>
                             </li>
                             @*<li><a href="/" title="返回首页"><i class="fa fa-home"></i> 返回首页</a></li>*@
-                           
-                            <li><a href="@Url.Action("LogOut", "Account", new { area = "" })"><i class="fa fa-sign-out"></i> 退出系统</a></li>
+
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i> 退出系统</a></li>
                         </ul>
+                        <!-- navbar end -->
+
                     </div><!-- /.navbar-collapse -->
                 </div>
             </nav>
-          
-                    
+            @using (Html.BeginForm("LogOff", "Account",new { area = "" }, FormMethod.Post, new { id = "logoutForm" }))
+            {
+        @Html.AntiForgeryToken()
+}
+
             @Html.Action("Crumbs", "Nav", new { areaName = Html.Area(), controller = Html.Controller(), action = Html.Action() })
             <div class="main-content">
                 @RenderBody()
             </div>
-            
+
             <footer id="pagefooter" class="page-footer">
                 Copyright &copy; 2012 <a id="hlSiteInfo" href="@SettingsManager.Site.DeveloperDomainName">@SettingsManager.Site.Developer</a> All Rights  Reserved
                 Powered by @SettingsManager.Site.Version

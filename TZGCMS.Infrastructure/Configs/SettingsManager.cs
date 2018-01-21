@@ -29,6 +29,8 @@
         public static CategorySettings Category => SettingLoader.LoadConfig<CategorySettings>();
 
         public static ProductSettings Product => SettingLoader.LoadConfig<ProductSettings>();
+        public static DocSettings Doc => SettingLoader.LoadConfig<DocSettings>();
+      
 
         public static ArticleSettings Article
         {

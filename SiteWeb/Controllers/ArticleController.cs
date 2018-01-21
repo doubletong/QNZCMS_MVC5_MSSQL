@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TZGCMS.Data.Entity.Articles;
@@ -24,12 +25,7 @@ namespace TZGCMS.SiteWeb.Controllers
             _categoryService = categoryService;
             _pageMetaService = pageMetaService;
         }
-        // GET: Article
-        //public ActionResult Index()
-        //{
-        //    var vm = _articleServices.GetAll();
-        //    return View(vm);
-        //}
+     
         public ActionResult Index(int? page)
         {
 
@@ -66,17 +62,19 @@ namespace TZGCMS.SiteWeb.Controllers
             return View(vm);
         }
 
-        //[HttpGet]
-        //public ActionResult Detail(int id)
-        //{
-        //    var article = _articleServices.GetById(id);
-        //    article.ViewCount++;
-        //    _articleServices.Update(article);
+        [HttpGet]
+        public PartialViewResult RecentNews(string seoName, int count)
+        {
+            var articleList = _articleServices.RecentNews(seoName, count);           
+            return PartialView(articleList);
+        }
 
-        //    ViewBag.PageMeta = _pageMetaService.GetPageMeta(ModelType.ARTICLE, id.ToString());
-
-        //    return View(article);
-        //}
+        [HttpGet]
+        public PartialViewResult HomeNews(string seoName, int count)
+        {
+            var articleList = _articleServices.RecentNews(seoName, count);
+            return PartialView(articleList);
+        }
         [HttpGet]
         public ActionResult Detail(int id)
         {

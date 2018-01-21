@@ -67,6 +67,7 @@
     <Compile Include="Admin\InputModel\Articles\FilterTemplateIM.cs" />
     <Compile Include="Admin\InputModel\CompanyInfoIM.cs" />
     <Compile Include="Admin\InputModel\Doc\DocumentCategoryIM.cs" />
+    <Compile Include="Admin\InputModel\Doc\DocumentIM.cs" />
     <Compile Include="Admin\InputModel\Emails\EmailAccountIM.cs" />
     <Compile Include="Admin\InputModel\Emails\EmailIM.cs" />
     <Compile Include="Admin\InputModel\Emails\EmailTemplateIM.cs" />
@@ -75,6 +76,8 @@
     <Compile Include="Admin\InputModel\Identity\RegisterIM.cs" />
     <Compile Include="Admin\InputModel\Identity\SetPasswordIM.cs" />
     <Compile Include="Admin\InputModel\Identity\UserIM.cs" />
+    <Compile Include="Admin\InputModel\Links\LinkIM.cs" />
+    <Compile Include="Admin\InputModel\Links\LinkCategoryIM.cs" />
     <Compile Include="Admin\InputModel\LuceneSearch\SearchDataIM.cs" />
     <Compile Include="Admin\InputModel\Menus\FrontMenuIM.cs" />
     <Compile Include="Admin\InputModel\Menus\MenuCategoryIM.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="Admin\ViewModel\Articles\FilterTemplateListVM.cs" />
     <Compile Include="Admin\ViewModel\Articles\FilterTemplateVM.cs" />
     <Compile Include="Admin\ViewModel\Doc\DocumentCategoryListVM.cs" />
+    <Compile Include="Admin\ViewModel\Doc\DocumentListVM.cs" />
     <Compile Include="Admin\ViewModel\Emails\EmailAccountListVM.cs" />
     <Compile Include="Admin\ViewModel\Emails\EmailAccountVM.cs" />
     <Compile Include="Admin\ViewModel\Emails\EmailListVM.cs" />
@@ -108,6 +112,8 @@
     <Compile Include="Admin\ViewModel\Identity\SetRoleMenusVM.cs" />
     <Compile Include="Admin\ViewModel\Identity\SetUserRolesVM.cs" />
     <Compile Include="Admin\ViewModel\Identity\UserListVM.cs" />
+    <Compile Include="Admin\ViewModel\Links\LinkListVM.cs" />
+    <Compile Include="Admin\ViewModel\Links\LinkCategoryListVM.cs" />
     <Compile Include="Admin\ViewModel\LuceneSearch\SearchData.cs" />
     <Compile Include="Admin\ViewModel\LuceneSearch\SelectedList.cs" />
     <Compile Include="Admin\ViewModel\Menus\MoveMenuVM.cs" />
@@ -133,6 +139,7 @@
     <Compile Include="Front\ViewModel\Articles\ArticleDetailFVM.cs" />
     <Compile Include="Front\ViewModel\Articles\ArticleListVM.cs" />
     <Compile Include="Front\ViewModel\Articles\CommentFVM.cs" />
+    <Compile Include="Front\ViewModel\Doc\DocumentListFVM.cs" />
     <Compile Include="Front\ViewModel\Pages\PageFVM.cs" />
     <Compile Include="Front\ViewModel\Products\ProductListFVM.cs" />
     <Compile Include="Front\ViewModel\Videos\VideoCategoryFVM.cs" />

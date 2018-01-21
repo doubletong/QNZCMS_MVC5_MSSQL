@@ -153,6 +153,9 @@
   <data name="District" xml:space="preserve">
     <value>区县</value>
   </data>
+  <data name="Document" xml:space="preserve">
+    <value>文档</value>
+  </data>
   <data name="DocumentCategory" xml:space="preserve">
     <value>分档分类</value>
   </data>

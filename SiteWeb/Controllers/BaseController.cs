@@ -65,23 +65,23 @@ namespace TZGCMS.SiteWeb.Controllers
         /// <param name="requestContext"></param>
         protected override void Execute(System.Web.Routing.RequestContext requestContext)
         {
-            var themeName = SettingsManager.Site.Theme;
+           // var themeName = SettingsManager.Site.Theme;
             var defaultTheme = "Default";
 
-            if (requestContext.HttpContext.Items[themeName] == null)
+            if (requestContext.HttpContext.Items["themeName"] == null)
             {
                 //first time load
-                requestContext.HttpContext.Items[themeName] = requestContext.HttpContext.Request.Cookies.Get("theme").Value;
+                requestContext.HttpContext.Items["themeName"] = requestContext.HttpContext.Request.Cookies.Get("theme").Value;
             }
             else
             {
-                requestContext.HttpContext.Items[themeName] = defaultTheme;
+                requestContext.HttpContext.Items["themeName"] = defaultTheme;
 
                 var previewTheme = requestContext.RouteData.GetRequiredString("theme");
 
                 if (!string.IsNullOrEmpty(previewTheme))
                 {
-                    requestContext.HttpContext.Items[themeName] = previewTheme;
+                    requestContext.HttpContext.Items["themeName"] = previewTheme;
                 }
             }
 

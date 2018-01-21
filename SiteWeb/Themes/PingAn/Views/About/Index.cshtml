@@ -1,0 +1,258 @@
+﻿
+@{
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : "关于我们";
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+}
+@Html.Partial("Header")
+
+<div class="banner">
+    <div class="container page-title">
+        <h1>关于研究院</h1>
+        <h3>About the academy</h3>
+    </div>
+</div>
+<!-- PAGE TITLE ================================================== -->
+<div class="container page-about">
+    <header class="title">
+        <h2>简介</h2>
+    </header>
+    <div class="intro">
+        <p>
+            平安金融安全研究院作为业界首家综合性的金融安全研究及创新机构，以“聚焦金融、着力创新、引领行业、打造品牌”为指导方针，着力整合“政、产、学、研、金、介、用”的业界优秀资源，与国家、行业、高校、研究院所等强强联合，“一手抓创新，一手抓落地”，创造一个良好的金融安全创新环境和生态，为平安集团、行业、国家提供强有力的金融安全技术支撑，为金融机构在互联网、人工智能时代下的信息安全建设、业务安全风控、金融科技安全保障和国家金融安全作出科技贡献，形成可持续发展的独特学术研究优势、产品和服务，推动和引领我国在金融安全方面上的科学技术进步，打造金融安全品牌。
+        </p>
+    </div>
+    <header class="title">
+        <h2>组织架构</h2>
+    </header>
+    <div class="tab-header">
+        <ul>
+            <li>
+                <a href="#" class="active" data-id="tab1">
+                    学术和技术专家指导委员会
+                </a>
+            </li>
+            <li>
+                <a href="#" data-id="tab2">
+                    执行委员会
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="row tabone active" id="tab1">
+        <div class="col-md-3">
+            <div class="item">
+                <div class="thumb">
+                    <img src="~/Themes/PingAn/Content/img/person/001.jpg" alt="方滨兴" />
+                </div>
+                <h3>方滨兴</h3>
+                <h4>主任兼首席科学家</h4>
+                <p>
+                    中国工程院院士、中国网络空间安全协会理事长
+                </p>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="item item1">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="thumb">
+                                    <img src="~/Themes/PingAn/Content/img/person/002.jpg" alt="贾焰" />
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h3>贾焰</h3>
+                                <h4>高级顾问</h4>
+                                <p>
+                                    国防科学科技大学教授、博士
+                                    生导师、中国网络空间安全协
+                                    会副理事长
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="item item1">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="thumb">
+                                    <img src="~/Themes/PingAn/Content/img/person/003.jpg" alt="陈晓桦" />
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h3>陈晓桦</h3>
+                                <h4>高级顾问</h4>
+                                <p>
+                                    中国网络空间安全协会副秘书长、研究员、博士生导师
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="item item1">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="thumb">
+                                    <img src="~/Themes/PingAn/Content/img/person/004.jpg" alt="田志宏" />
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h3>田志宏</h3>
+                                <h4>副主任</h4>
+                                <p>
+                                    中国网络空间协会竞工委秘书长、研究员、博士生导师
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="item item1">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="thumb">
+                                    <img src="~/Themes/PingAn/Content/img/person/005.jpg" alt="许进" />
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h3>许进</h3>
+                                <h4>副主任</h4>
+                                <p>
+                                    北京大学信息科学技术学院教授、博士生导师
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row tabone" id="tab2">
+        <div class="col-md-4">
+            <div class="item item3">
+                <div class="thumb">
+                    <img src="~/Themes/PingAn/Content/img/person/006.jpg" alt="方滨兴" />
+                </div>
+                <h3>陈立明</h3>
+                <h4>研究院院长</h4>
+                <p>
+                    平安科技首席执行官、深圳市人工智能协会理事、全球CFTE董事会成员
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="item">
+                <div class="thumb">
+                    <img src="~/Themes/PingAn/Content/img/person/007.jpg" alt="方滨兴" />
+                </div>
+                <h3>胡玮</h3>
+                <h4>研究院常务副院长</h4>
+                <p>
+                    平安科技首席运营官、平安云事业部总裁 、工信部区块链标准化协会副董事、深圳市软件协会副会长、深圳市产业发展与创新人才、北大CIO班特约客座专家
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="item">
+                <div class="thumb">
+                    <img src="~/Themes/PingAn/Content/img/person/008.jpg" alt="方滨兴" />
+                </div>
+                <h3>李洋</h3>
+                <h4>研究院执行副院长</h4>
+                <p>
+                    平安科技首席安全官、中国云安全联盟理事、中国网络空间安全协会竞评演练工作委员会委员、中国网络空间安全协会网络金融安全专业委员会副主任、哈                    工大客座教授、广州大学客座研究员
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <header class="title">
+        <h2>研究方向</h2>
+    </header>
+    <div class="fangxiang ">
+        <ul class="clearfix">
+            <li>
+                <img src="~/Themes/PingAn/Content/img/f1.jpg" alt="网络安全" />
+                <div class="des">
+                    <div class="thumb">
+                        <i class="iconfont icon-xianxingdiqiu"></i>
+                    </div>
+                    <h3>网络安全</h3>
+                    <p>重点研究金融网络空间中网络所面临的各种威胁和防护手段，涉及网络安全态势分析、网络异常行为分析、网络渗透检测、网络应急响应控制、无线通信安全等</p>
+                </div>
+            </li>
+            <li>
+                <img src="~/Themes/PingAn/Content/img/f2.jpg" alt="数据及内容安全" />
+                <div class="des">
+                    <div class="thumb">
+                        <i class="iconfont icon-shujuku"></i>
+                    </div>
+                    <h3>数据及内容安全</h3>
+                    <p>重点研究如何通过数据管控、行为监测、大数据分析等手段，防止敏感的金融数据外部泄露；同时，如何在满足行业合规的前提下，做好金融行业的个人隐私数据保护。</p>
+                </div>
+            </li>
+            <li>
+                <img src="~/Themes/PingAn/Content/img/f3.jpg" alt="系统安全" />
+                <div class="des">
+                    <div class="thumb">
+                        <i class="iconfont icon-desktop"></i>
+                    </div>
+                    <h3>系统安全</h3>
+                    <p>重点研究研究金融网络空间上具有独立计算能力的计算机系统（含移动平台）的安全问题，涉及恶意代码分析与防护、可信云计算、虚拟机化安全、计算机取证等。</p>
+                </div>
+            </li>
+            <li>
+                <img src="~/Themes/PingAn/Content/img/f4.jpg" alt="金融业务安全" />
+                <div class="des">
+                    <div class="thumb">
+                        <i class="iconfont icon-shangwugongwenbao"></i>
+                    </div>
+                    <h3>金融业务安全</h3>
+                    <p>应用前沿人工智能技术，针对金融业务场景及风险点，在反欺诈、帐户安全、交易行为分析、设备指纹、生物特征识别、反垃圾服务等方面进行深入研究。</p>
+                </div>
+            </li>
+            <li>
+                <img src="~/Themes/PingAn/Content/img/f5.jpg" alt="金融安全标准和政策" />
+                <div class="des">
+                    <div class="thumb">
+                        <i class="iconfont icon-money05"></i>
+                    </div>
+                    <h3>金融安全标准和政策</h3>
+                    <p>结合平安集团在物联网、大数据、移动、云计算、人工智能、区块链等安全领域的最佳实践，不断跟进国家、行业联盟标准/政策要求，参与和引领安全标准/政策制定。</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+@section footer{
+    
+    <script>
+        $(function () {
+            $(".tab-header a").click(function (e) {
+                e.preventDefault();
+                $(".tab-header a.active").removeClass("active");
+                $(this).addClass("active");
+                var tab = $(this).attr("data-id");
+                $(".tabone.active").removeClass("active");
+                $("#" + tab).addClass("active");
+            })
+        })
+    </script>
+    }

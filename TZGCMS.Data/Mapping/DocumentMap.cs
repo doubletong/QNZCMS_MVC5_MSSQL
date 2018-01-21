@@ -18,7 +18,7 @@ namespace TZGCMS.Data.Mapping
             this.Property(p => p.FileSize).IsOptional();
             this.Property(p => p.Importance).IsRequired();
             this.Property(p => p.Extension).HasMaxLength(50).IsOptional();
-            this.Property(p => p.FilePath).HasMaxLength(50).IsOptional();
+            this.Property(p => p.FilePath).HasMaxLength(150).IsOptional();
             this.Property(p => p.Active).IsRequired();
             this.Property(p => p.IsVIP).IsRequired();
             this.Property(p => p.IsLink).IsRequired();

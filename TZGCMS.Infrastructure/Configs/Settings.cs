@@ -104,6 +104,19 @@ namespace TZGCMS.Infrastructure.Configs
         [XmlElement(DataType = "int", ElementName = "Timer")]
         public int Timer { get; set; }
        
+
+    }
+
+
+    /// <summary>
+    /// Page config
+    /// </summary>
+    [XmlRoot("Settings")]
+    public class DocSettings : BaseSettings
+    {
+        [XmlElement(DataType = "int", ElementName = "FrontPageSize")]
+        public int FrontPageSize { get; set; }
+
     }
 
     /// <summary>

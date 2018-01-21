@@ -1,16 +1,20 @@
 ﻿using AutoMapper;
 using TZGCMS.Data.Entity.Ads;
 using TZGCMS.Data.Entity.Articles;
+using TZGCMS.Data.Entity.Doc;
 using TZGCMS.Data.Entity.Emails;
 using TZGCMS.Data.Entity.Identity;
+using TZGCMS.Data.Entity.Links;
 using TZGCMS.Data.Entity.Logs;
 using TZGCMS.Data.Entity.Pages;
 using TZGCMS.Data.Entity.Products;
 using TZGCMS.Data.Entity.Videos;
 using TZGCMS.Model.Admin.InputModel.Ads;
 using TZGCMS.Model.Admin.InputModel.Articles;
+using TZGCMS.Model.Admin.InputModel.Doc;
 using TZGCMS.Model.Admin.InputModel.Emails;
 using TZGCMS.Model.Admin.InputModel.Identity;
+using TZGCMS.Model.Admin.InputModel.Links;
 using TZGCMS.Model.Admin.InputModel.LuceneSearch;
 using TZGCMS.Model.Admin.InputModel.Menus;
 using TZGCMS.Model.Admin.InputModel.Pages;
@@ -93,9 +97,11 @@ namespace TZGCMS.SiteWeb.Mappings
 
             CreateMap<Page, PageIM>();
             CreateMap<PageIM, Page>();
+            CreateMap<DocumentCategoryIM, DocumentCategory>();
+            CreateMap<DocumentCategory, DocumentCategoryIM>();
 
-            //CreateMap<PageMeta, ArticleIM>().ForMember(x => x.Id, opt => opt.MapFrom(source => source.ObjectId));
-            //CreateMap<ArticleIM, PageMeta>().ForMember(x => x.ObjectId, opt => opt.MapFrom(source => source.Id));
+            CreateMap<DocumentIM, Document>();
+            CreateMap<Document, DocumentIM>();
 
             //CreateMap<GoodsCategoryVM, GoodsCategory>();
             //CreateMap<GoodsCategory, GoodsCategoryVM>();
@@ -132,15 +138,12 @@ namespace TZGCMS.SiteWeb.Mappings
             //CreateMap<QuestionCategoryIM, QuestionCategory>();
             //CreateMap<QuestionCategory, QuestionCategoryIM>();
 
-            //CreateMap<LinkCategoryVM, LinkCategory>();
-            //CreateMap<LinkCategory, LinkCategoryVM>();
-            //CreateMap<LinkCategoryIM, SIG.DAL.Dapper.Model.LinkCategory>();
-            //CreateMap<SIG.DAL.Dapper.Model.LinkCategory, LinkCategoryIM>();
-            //CreateMap<LinkVM, Link>();
-            //CreateMap<Link, LinkVM>();
-            //CreateMap<LinkIM, SIG.DAL.Dapper.Model.Link>();
-            //CreateMap<SIG.DAL.Dapper.Model.Link, LinkIM>();
+            CreateMap<LinkCategoryIM, LinkCategory>();
+            CreateMap<LinkCategory, LinkCategoryIM>();
 
+            CreateMap<LinkIM, Link>();
+            CreateMap<Link, LinkIM>();
+         
             //CreateMap<AnnouncementVM, Announcement>();
             //CreateMap<Announcement, AnnouncementVM>();
             //CreateMap<AnnouncementIM, Announcement>();

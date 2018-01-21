@@ -11,8 +11,10 @@ using TZGCMS.Infrastructure.Cache;
 using TZGCMS.Infrastructure.Logging;
 using TZGCMS.Service.Ads;
 using TZGCMS.Service.Articles;
+using TZGCMS.Service.Doc;
 using TZGCMS.Service.Emails;
 using TZGCMS.Service.Identity;
+using TZGCMS.Service.Links;
 using TZGCMS.Service.PageMetas;
 using TZGCMS.Service.Pages;
 using TZGCMS.Service.Products;
@@ -79,6 +81,11 @@ namespace TZGCMS.SiteWeb
             builder.RegisterType<LogServices>().As<ILogServices>().InstancePerLifetimeScope();
             builder.RegisterType<ProductCategoryServices>().As<IProductCategoryServices>().InstancePerLifetimeScope();
             builder.RegisterType<ProductServices>().As<IProductServices>().InstancePerLifetimeScope();
+            builder.RegisterType<DocumentCategoryServices>().As<IDocumentCategoryServices>().InstancePerLifetimeScope();
+            builder.RegisterType<DocumentServices>().As<IDocumentServices>().InstancePerLifetimeScope();
+
+            builder.RegisterType<LinkCategoryServices>().As<ILinkCategoryServices>().InstancePerLifetimeScope();
+            builder.RegisterType<LinkServices>().As<ILinkServices>().InstancePerLifetimeScope();
             // MVC - Set the dependency resolver to be Autofac.
 
 

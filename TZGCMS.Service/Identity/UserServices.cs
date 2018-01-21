@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
@@ -212,7 +213,7 @@ namespace TZGCMS.Service.Identity
             {
                 UserId = user.Id,
                 RealName = user.RealName,
-                Avatar = string.IsNullOrEmpty(user.PhotoUrl) ? SettingsManager.User.DefaultAvatar : user.PhotoUrl,
+                Avatar = string.IsNullOrEmpty(user.PhotoUrl) ? Path.Combine(SettingsManager.User.AvatarDir,SettingsManager.User.DefaultAvatar) : user.PhotoUrl,
                 Roles = roles
             };
             //serializeModel.Menus = GetUserMenus(user.);

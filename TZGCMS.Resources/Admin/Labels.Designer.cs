@@ -331,6 +331,15 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 下载密码 的本地化字符串。
+        /// </summary>
+        public static string DownloadPassword {
+            get {
+                return ResourceManager.GetString("DownloadPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 电子邮箱 的本地化字符串。
         /// </summary>
         public static string Email {
@@ -385,11 +394,38 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 扩展名 的本地化字符串。
+        /// </summary>
+        public static string Extension {
+            get {
+                return ResourceManager.GetString("Extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 面料 的本地化字符串。
         /// </summary>
         public static string FABRIC {
             get {
                 return ResourceManager.GetString("FABRIC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 下载地址 的本地化字符串。
+        /// </summary>
+        public static string FilePath {
+            get {
+                return ResourceManager.GetString("FilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文件大小 的本地化字符串。
+        /// </summary>
+        public static string FileSize {
+            get {
+                return ResourceManager.GetString("FileSize", resourceCulture);
             }
         }
         
@@ -561,6 +597,15 @@ namespace TZGCMS.Resources.Admin {
         public static string IsDefault {
             get {
                 return ResourceManager.GetString("IsDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否会员 的本地化字符串。
+        /// </summary>
+        public static string IsVIP {
+            get {
+                return ResourceManager.GetString("IsVIP", resourceCulture);
             }
         }
         
@@ -840,6 +885,15 @@ namespace TZGCMS.Resources.Admin {
         public static string Price {
             get {
                 return ResourceManager.GetString("Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 产品 的本地化字符串。
+        /// </summary>
+        public static string Product {
+            get {
+                return ResourceManager.GetString("Product", resourceCulture);
             }
         }
         

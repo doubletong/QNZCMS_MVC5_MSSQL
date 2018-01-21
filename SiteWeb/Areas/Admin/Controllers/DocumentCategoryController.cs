@@ -57,7 +57,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             {
                 Keyword = keyword,
                 PageIndex = page ?? 1,
-                PageSize = 15 //SettingsManager.Document.PageSize
+                PageSize = SettingsManager.Doc.PageSize
             };
             int totalCount;
             var list = _categoryServices.GetPagedElements(vm.PageIndex - 1, vm.PageSize, vm.Keyword, out totalCount);
@@ -72,7 +72,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         {
             try
             {
-                var xmlFile = Server.MapPath("~/Config/DocumentSettings.config");
+                var xmlFile = Server.MapPath("~/Config/DocSettings.config");
                 XDocument doc = XDocument.Load(xmlFile);
 
                 var item = doc.Descendants("Settings").FirstOrDefault();
@@ -132,7 +132,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
 
             int count;
-            var pageSize = 15; //SettingsManager.Document.PageSize;
+            var pageSize = SettingsManager.Doc.PageSize;
             var list = _categoryServices.GetPagedElements(0, pageSize, string.Empty, out count);
             AR.Data = RenderPartialViewToString("_CategoryList", list);
             AR.SetSuccess(String.Format(Messages.AlertCreateSuccess, EntityNames.DocumentCategory));

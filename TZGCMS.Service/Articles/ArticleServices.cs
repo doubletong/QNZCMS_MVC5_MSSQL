@@ -17,11 +17,13 @@ namespace TZGCMS.Service.Articles
         #region Async
         Task<Article> GetByIdWithCategoryAsync(int id);
         Task<bool> UpdateAsync(Article article);
+        IEnumerable<Article> RecentNews(string seoName, int count);
         #endregion
         IEnumerable<Article> GetAll();
         IEnumerable<Article> GetActiveElements();
         List<Article> GetPagedElements(int pageIndex, int pageSize, string keyword, int categoryId, out int totalCount);
         List<Article> GetActivePagedElements(int pageIndex, int pageSize, string keyword, int categoryId, out int totalCount);
+
         Article GetById(int id);
       
         bool Update(Article article);
@@ -44,6 +46,14 @@ namespace TZGCMS.Service.Articles
         public async Task<bool> UpdateAsync(Article article)
         {
             return await _unitOfWork.ArticleRepository.UpdateAsync(article);
+        }
+        public IEnumerable<Article> RecentNews(string seoName, int count)
+        {
+            var category = _unitOfWork.ArticleCategoryRepository.GetFirstOrDefault(d => d.SeoName == seoName);
+            if (category == null)
+                return null;
+            var articles = _unitOfWork.ArticleRepository.GetPagedElements(pageIndex: 0, pageCount: count, orderByExpression: d => d.Pubdate, filter :d => d.CategoryId == category.Id, ascending:false);
+            return articles;
         }
         #endregion
 

@@ -513,4 +513,22 @@
   <data name="Package" xml:space="preserve">
     <value>缩略图2</value>
   </data>
+  <data name="DownloadPassword" xml:space="preserve">
+    <value>下载密码</value>
+  </data>
+  <data name="Extension" xml:space="preserve">
+    <value>扩展名</value>
+  </data>
+  <data name="FilePath" xml:space="preserve">
+    <value>下载地址</value>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>文件大小</value>
+  </data>
+  <data name="IsVIP" xml:space="preserve">
+    <value>是否会员</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>产品</value>
+  </data>
 </root>

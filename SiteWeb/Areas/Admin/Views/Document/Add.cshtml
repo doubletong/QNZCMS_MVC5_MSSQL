@@ -1,0 +1,258 @@
+﻿@model DocumentIM
+@{
+    ViewBag.Title = "新建" + EntityNames.Document;
+    ViewBag.PageTitle = ViewBag.Title + "_内容";
+
+}
+@section Header{
+    <link href="~/plugins/SigFinder/SigFinder.min.css" rel="stylesheet" />
+    <link href="~/plugins/webuploader/webuploader.css" rel="stylesheet" />
+}
+
+@using (Ajax.BeginForm("Add", null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnBegin = "onBeginSave",
+    OnComplete = "onCompleteSave",
+    OnSuccess = "updateSuccess"
+
+}, new { @class = "form-horizontal", role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="panel panel-default">
+        <header class="panel-heading">
+            <span class="glyphicon glyphicon-edit"></span> @ViewBag.Title
+        </header>
+
+        <section class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#product" aria-controls="product" role="tab" data-toggle="tab">@EntityNames.Document</a></li>
+                <li role="presentation"><a href="#seo" aria-controls="seo" role="tab" data-toggle="tab">SEO设置</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content" style="padding-top:30px;">
+                <div role="tabpanel" class="tab-pane active" id="product">
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = Labels.Title })
+                            @Html.ValidationMessageFor(model => model.Title)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CategoryId, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Categories, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.CategoryId)
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Extension, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.Extension, (SelectList)ViewBag.Extensions, "--请选择文件格式--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Extension)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FileSize, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.FileSize, new { @class = "form-control", placeholder = Labels.FileSize })
+                            @Html.ValidationMessageFor(model => model.FileSize)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FilePath, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.FilePath, new { @class = "form-control", placeholder = Labels.FilePath })
+                            @Html.ValidationMessageFor(model => model.FilePath)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder = Labels.DownloadPassword })
+                            @Html.ValidationMessageFor(model => model.Password)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProductIds, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.ProductIds, new { @class = "form-control", placeholder = Labels.Product })
+                            <div class="help-block">多个产品型号请用英文逗号隔开</div>
+                            @Html.ValidationMessageFor(model => model.ProductIds)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Importance, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Importance, new { @class = "form-control", placeholder = Labels.Importance })
+                            @Html.ValidationMessageFor(model => model.Importance)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-5 col-md-offset-2">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(model => model.IsVIP)  @Html.DisplayNameFor(model => model.IsVIP)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.ValidationMessageFor(model => model.IsVIP)
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-5 col-md-offset-2">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(model => model.Active)  @Html.DisplayNameFor(model => model.Active)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            @Html.ValidationMessageFor(model => model.Active)
+                        </div>
+                    </div>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="seo">
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SEOTitle, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.SEOTitle, new { @class = "form-control", placeholder = "标题(SEO)" })
+                            @Html.ValidationMessageFor(model => model.SEOTitle)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Keywords, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Keywords, new { @class = "form-control", placeholder = "关键字(SEO)" })
+
+                            @Html.ValidationMessageFor(model => model.Keywords)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SEODescription, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.SEODescription, new { @class = "form-control", placeholder = "描述(SEO)" })
+
+                            @Html.ValidationMessageFor(model => model.SEODescription)
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+        <footer class="panel-footer text-center">
+            <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save fa-fw"></i>  @Buttons.Add </button>
+            <a href="@Url.Action("Index")" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> @Buttons.Back</a>
+        </footer>
+
+    </div>
+
+}
+
+@Html.Action("PopuFinder", "File")
+
+@section Footer {
+
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+    <script src="/Plugins/webuploader/webuploader.min.js"></script>
+    <script src="/Plugins/SigFinder/FileManager.js"></script>
+
+
+    <script>
+
+        function SetThumbnail() {
+            var fileUrl = $("#fileList .item.active").attr("data-file");
+            $('#Thumbnail').val(fileUrl);
+            $('#fileManagerModal').modal('hide');
+        }
+
+
+        function SetFullImage() {
+            var fileUrl = $("#fileList .item.active").attr("data-file");
+            $('#FullImage').val(fileUrl);
+            $('#fileManagerModal').modal('hide');
+        }
+
+
+    function onBeginSave() {
+        $("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin");
+    }
+    function onCompleteSave() {
+        $("#btnSave i").removeClass("fa-spinner fa-spin").addClass("fa-save");
+    }
+
+    function updateSuccess(data) {
+        var title = '@ViewBag.Title';
+        Common.ShowBox(data.Status, data.Message, title);
+    }
+
+
+ 
+        function callSigFinder(field_name, url, type, win) {
+            var roxyFileman = '@Url.Action("FinderForTinyMCE","File",new { area="Admin"})';
+            tinyMCE.activeEditor.windowManager.open({
+                file: roxyFileman,
+                title: 'SigFinder',
+                width: 850,
+                height: 655,
+                resizable: "yes",
+                plugins: "media",
+                inline: "yes",
+                close_previous: "no"
+            }, { window: win, input: field_name });
+            return false;
+
+        }
+
+        $(function () {
+            $("#btnThumbnail").on("click", function () {
+                $('#fileManagerModal').modal();
+                $("#selectImage").unbind('click');
+                $("#selectImage").bind("click", function () {
+                    SetThumbnail();
+                });
+            });
+
+            $("#btnFullImage").on("click", function () {
+                $('#fileManagerModal').modal();
+                $("#selectImage").unbind('click');
+                $("#selectImage").bind("click", function () {
+                    SetFullImage();
+                });
+            });
+
+            $('#datetimepicker2').datetimepicker({
+                locale: 'zh-CN',
+                format: 'L'
+            });
+        })
+    </script>
+}
+

@@ -1,0 +1,44 @@
+﻿
+.navbar {
+    position: relative;
+    border: none;
+    text-align: right;
+    padding-top: 24px;
+
+    ul.mainav {
+        margin: 0;
+
+        li {
+            display: inline-block;
+
+            a {
+                .font-size(1.6);
+                text-decoration: none;
+                display: block;
+                height: 29px;
+                line-height: 29px;
+                padding: 0 25px;
+                border-radius: 15px;
+                color: #fff;
+
+                &:hover {
+                    color: @color_sub;
+                }
+            }
+        }
+
+        li.active {
+            a {
+              
+                color: @color_sub;
+            }
+        }
+
+        li.orange {
+            a {
+                background-color: @color_sub;
+                color: #fff;
+            }
+        }
+    }
+}

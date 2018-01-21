@@ -54,6 +54,7 @@
     <Compile Include="Entity\Articles\ArticleCategory.cs" />
     <Compile Include="Entity\Articles\Comment.cs" />
     <Compile Include="Entity\Articles\FilterTemplate.cs" />
+    <Compile Include="Entity\Chronicles\Chronicle.cs" />
     <Compile Include="Entity\Doc\Document.cs" />
     <Compile Include="Entity\Doc\DocumentCategory.cs" />
     <Compile Include="Entity\Emails\Email.cs" />
@@ -66,6 +67,8 @@
     <Compile Include="Entity\Identity\Role.cs" />
     <Compile Include="Entity\Identity\User.cs" />
     <Compile Include="Entity\Identity\UserSafety.cs" />
+    <Compile Include="Entity\Links\Link.cs" />
+    <Compile Include="Entity\Links\LinkCategory.cs" />
     <Compile Include="Entity\Logs\Log.cs" />
     <Compile Include="Entity\PageMetas\PageMeta.cs" />
     <Compile Include="Entity\Pages\Page.cs" />
@@ -81,8 +84,11 @@
     <Compile Include="Enums\ModelType.cs" />
     <Compile Include="Enums\Status.cs" />
     <Compile Include="Enums\TagType.cs" />
+    <Compile Include="Mapping\LinkMap.cs" />
+    <Compile Include="Mapping\LinkCategoryMap.cs" />
     <Compile Include="Mapping\DocumentMap.cs" />
     <Compile Include="Mapping\DocumentCategoryMap.cs" />
+    <Compile Include="Mapping\ChronicleMap.cs" />
     <Compile Include="Mapping\ProductCategoryMap.cs" />
     <Compile Include="Mapping\ProductMap.cs" />
     <Compile Include="Mapping\ReservationMap.cs" />

@@ -1,0 +1,83 @@
+﻿@{
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : SettingsManager.Contact.CompanyName;
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+
+    <link href="~/Plugins/owl.carousel/assets/owl.carousel.css" rel="stylesheet" />
+}
+
+@Html.Partial("Header")
+<section class="searchbox">
+    <div class="box">
+        <div class="logo">
+            <img src="~/Themes/PingAn/Content/img/logo.png" alt="@SettingsManager.Site.SiteName" />
+        </div>
+        <form class="form" method="get">
+            <div class="control-group">
+                <input name="keywords" type="text" class="form-control" placeholder="搜索关键词" /><button type="submit"><i class="iconfont icon-search"></i></button>
+            </div>
+        </form>
+    </div>
+</section>
+<section class="section2 container">
+    <div class="row">
+        <div class="col-md-8 col-lg-9">
+            @Html.Action("HomeNews", "Article", new { seoName = "news", count = 8 })
+            <hr class="nomt" />
+            <p class="text-center">
+                <a href="/article" class="btn btn-b-orange btn-lg">更多文章</a>
+            </p>
+
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <aside class="chart">
+                <h3 class="title">动态数据</h3>
+                <img src="~/Themes/PingAn/Content/img/chart.png" alt="动态数据" />
+            </aside>
+            @Html.Action("RecentNews","Article", new { seoName = "articles", count = 8 })
+            <p class="text-center">
+                <a href="/article" class="btn btn-b-orange">更多文章</a>
+            </p>
+
+        </div>
+    </div>
+   
+</section>
+<section class="section3">
+    <div class="ad">
+        <a href="#">
+            <img src="~/Themes/PingAn/Content/img/temp/ad.jpg"  alt=""/>
+        </a>
+    </div>
+</section>
+
+
+
+@section footer{
+    <script src="~/Plugins/owl.carousel/owl.carousel.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('.owl-carousel').owlCarousel({
+                items: 1,
+                navText: ["<span class='iconfont'>&#xe614;</span>", "<span class='iconfont'>&#xe612;</span>"],
+                loop: true,
+                nav: true,
+                autoplay: true,
+                autoHeight: true,
+                autoplayTimeout: 3000
+
+            });
+        });
+    </script>
+
+
+}

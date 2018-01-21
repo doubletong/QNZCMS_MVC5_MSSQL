@@ -10,5 +10,9 @@
   {
     "outputFile": "Themes/XiPin/Content/css/Main.css",
     "inputFile": "Themes/XiPin/Content/css/Main.less"
+  },
+  {
+    "outputFile": "Themes/PingAn/Content/css/Main.css",
+    "inputFile": "Themes/PingAn/Content/css/Main.less"
   }
 ]

@@ -84,6 +84,7 @@
     <Compile Include="Helper\DateTimeHelper.cs" />
     <Compile Include="Helper\Encryption.cs" />
     <Compile Include="Helper\EncryptionHelper.cs" />
+    <Compile Include="Helper\File.cs" />
     <Compile Include="Helper\Hash.cs" />
     <Compile Include="Helper\IdentityGenerator.cs" />
     <Compile Include="Helper\ImageHandler.cs" />

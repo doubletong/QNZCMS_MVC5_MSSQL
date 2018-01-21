@@ -4,9 +4,11 @@ using System.Data.Entity;
 using System.Linq;
 using TZGCMS.Data.Entity.Ads;
 using TZGCMS.Data.Entity.Articles;
+using TZGCMS.Data.Entity.Chronicles;
 using TZGCMS.Data.Entity.Doc;
 using TZGCMS.Data.Entity.Emails;
 using TZGCMS.Data.Entity.Identity;
+using TZGCMS.Data.Entity.Links;
 using TZGCMS.Data.Entity.Logs;
 using TZGCMS.Data.Entity.PageMetas;
 using TZGCMS.Data.Entity.Pages;
@@ -54,6 +56,11 @@ namespace TZGCMS.Data.Entity
         public virtual DbSet<DocumentCategory> DocumentCategories { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
 
+        public virtual DbSet<LinkCategory> LinkCategories { get; set; }
+        public virtual DbSet<Link> Links { get; set; }
+
+        public virtual DbSet<Chronicle> Chronicles { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder); 
@@ -87,6 +94,11 @@ namespace TZGCMS.Data.Entity
 
             modelBuilder.Configurations.Add(new DocumentMap());
             modelBuilder.Configurations.Add(new DocumentCategoryMap());
+
+            modelBuilder.Configurations.Add(new LinkMap());
+            modelBuilder.Configurations.Add(new LinkCategoryMap());
+
+            modelBuilder.Configurations.Add(new ChronicleMap());
             //throw new UnintentionalCodeFirstException();
         }
 

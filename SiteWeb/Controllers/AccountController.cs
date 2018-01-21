@@ -98,8 +98,8 @@ namespace TZGCMS.SiteWeb.Controllers
         }
 
        
-       
-        public ActionResult LogOut()
+       [HttpPost]
+        public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home", new { area = "" });

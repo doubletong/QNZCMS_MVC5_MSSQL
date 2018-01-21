@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using TZGCMS.Data.Entity;
 using TZGCMS.Data.Entity.Ads;
 using TZGCMS.Data.Entity.Articles;
+using TZGCMS.Data.Entity.Chronicles;
 using TZGCMS.Data.Entity.Doc;
 using TZGCMS.Data.Entity.Emails;
 using TZGCMS.Data.Entity.Identity;
+using TZGCMS.Data.Entity.Links;
 using TZGCMS.Data.Entity.Logs;
 using TZGCMS.Data.Entity.PageMetas;
 using TZGCMS.Data.Entity.Pages;
@@ -48,9 +50,42 @@ namespace TZGCMS.Service
 
         private BaseRepository<DocumentCategory> _documentCategoryRepository;
         private BaseRepository<Document> _documentRepository;
+
+        private BaseRepository<LinkCategory> _linkCategoryRepository;
+        private BaseRepository<Link> _linkRepository;
+
+        private BaseRepository<Chronicle> _chronicleRepository;
         #endregion
 
         #region Constructors and Destructors
+        public BaseRepository<Chronicle> ChronicleRepository
+        {
+            get
+            {
+                if (this._chronicleRepository == null)
+                    this._chronicleRepository = new BaseRepository<Chronicle>(Context);
+                return _chronicleRepository;
+            }
+        }
+        public BaseRepository<LinkCategory> LinkCategoryRepository
+        {
+            get
+            {
+                if (this._linkCategoryRepository == null)
+                    this._linkCategoryRepository = new BaseRepository<LinkCategory>(Context);
+                return _linkCategoryRepository;
+            }
+        }
+
+        public BaseRepository<Link> LinkRepository
+        {
+            get
+            {
+                if (this._linkRepository == null)
+                    this._linkRepository = new BaseRepository<Link>(Context);
+                return _linkRepository;
+            }
+        }
 
         public BaseRepository<DocumentCategory> DocumentCategoryRepository
         {

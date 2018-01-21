@@ -20,7 +20,7 @@
 
                         if (Model.CurrentMenu != null)
                         {
-                            string linkActive = item.Id == Model.CurrentMenu.Id ? "active" : "";
+                            string linkActive = (item.Id == Model.CurrentMenu.Id || item.Id == Model.CurrentMenu.ParentId && Model.CurrentMenu.LayoutLevel == 3)  ? "active" : "";
                             string openav = Model.CurrentMenu.ParentId == item.Id ? "nav-open" : "";
 
                             <li class="@hasChilds @string.Format("level{0}", item.LayoutLevel) @openav" data-parent="@(item.ParentId??0)">

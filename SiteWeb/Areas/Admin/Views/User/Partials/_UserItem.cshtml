@@ -61,7 +61,7 @@
 
     </td>
     <td>
-        <img src="@(string.IsNullOrEmpty(Model.PhotoUrl)? SettingsManager.User.DefaultAvatar :Model.PhotoUrl)" alt="@Model.UserName" class="img-circle" style="height:40px;" />
+        <img src="@(string.IsNullOrEmpty(Model.PhotoUrl)? Path.Combine(SettingsManager.User.AvatarDir,SettingsManager.User.DefaultAvatar ):Model.PhotoUrl)" alt="@Model.UserName" class="img-circle" style="height:40px;" />
     </td>
     <td>
         @Html.DisplayFor(modelItem => Model.UserName)

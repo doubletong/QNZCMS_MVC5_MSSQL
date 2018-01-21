@@ -10,7 +10,7 @@ using TZGCMS.Data.Entity.Doc;
 using TZGCMS.Infrastructure.Extensions;
 
 
-namespace TZGCMS.Service.Documents
+namespace TZGCMS.Service.Doc
 {
     public interface IDocumentServices
     {
