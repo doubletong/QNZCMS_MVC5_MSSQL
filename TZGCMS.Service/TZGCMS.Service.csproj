@@ -73,7 +73,7 @@
     <Compile Include="Articles\CommentServices.cs" />
     <Compile Include="Articles\ArticleServices.cs" />
     <Compile Include="Articles\FilterTemplateServices.cs" />
-    <Compile Include="Chronicles\PageServices.cs" />
+    <Compile Include="Chronicles\ChronicleServices.cs" />
     <Compile Include="Doc\DocumentServices.cs" />
     <Compile Include="Doc\DocumentCategoryServices.cs" />
     <Compile Include="Emails\EmailAccountServices.cs" />

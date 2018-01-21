@@ -1,0 +1,267 @@
+﻿@model ChronicleListVM
+
+
+@{
+    ViewBag.Title = EntityNames.Chronicle;
+    ViewBag.PageTitle = ViewBag.Title + "_内容";
+
+}
+
+@section header{
+    <link href="~/Plugins/lightbox/ekko-lightbox.min.css" rel="stylesheet" />
+    <link href="~/plugins/SigFinder/SigFinder.min.css" rel="stylesheet" />
+    <link href="~/plugins/webuploader/webuploader.css" rel="stylesheet" />
+}
+
+<div class="panel panel-default">
+    <header class="panel-heading">
+        <div class="pull-right">
+            @Ajax.RawActionLink("<i class='fa fa-plus fa-fw'></i>" + Buttons.Add,
+                           "Add", "Chronicle", new { },
+                           new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
+                           new { @class = "btn btn-primary" })
+        </div>
+
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="Keyword">关键字</label>
+                @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-search fa-fw"></i>查找</button>
+        </form>
+    </header>
+
+
+    <table class="table table-hover table-vmiddle">
+        <thead>
+            <tr>
+                <th>
+                    缩略图
+                </th>
+                <th>
+                    年月日
+                </th>
+                <th>
+                    主题
+                </th>
+                <th>
+                    显示？
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tbList">
+            @foreach (var item in Model.Chronicles)
+            {
+                Html.RenderPartial("_ChronicleItem", item);
+            }
+
+        </tbody>
+
+    </table>
+
+    <footer class="panel-footer">
+        <div class="row">
+            <div class="col-sm-7">
+                @Html.PagedListPager(Model.Chronicles, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }))
+            </div>
+            <div class="col-sm-5">
+                <div class="form-inline text-right">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
+                        @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+
+</div>
+
+<!-- end main container -->
+
+<div id="edit-container">
+</div>
+
+<form id="anti-form" method="post">
+    @Html.AntiForgeryToken()
+</form>
+@Html.Action("PopuFinder", "File")
+
+@section footer {
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+    <script src="~/plugins/tinymce/tinymce.min.js"></script>
+    <script src="~/plugins/tinymce/langs/zh_CN.js"></script>
+    <script src="~/Plugins/lightbox/ekko-lightbox.min.js"></script>
+    <script src="/Plugins/webuploader/webuploader.min.js"></script>
+    <script src="/Plugins/SigFinder/FileManager.js"></script>
+
+    <script>
+
+    function SetThumbnail() {
+        var fileUrl = $("#fileList .item.active").attr("data-file");
+        $('#Thumbnail').val(fileUrl);
+        $('#fileManagerModal').modal('hide');
+    }
+
+    function OnSuccessLink(data) {
+        Common.ShowBox(data.Status, data.Message, "操作")
+    }
+
+    function onAjaxComplete() {
+        $('#ModalEdit').modal();
+
+        $(document).on("click", "#btnThumbnail", function () {
+            $('#fileManagerModal').modal();
+            $("#selectImage").unbind('click');
+            $("#selectImage").bind("click", function () {
+                SetThumbnail();
+            });
+        });
+
+
+        tinymce.init({
+            selector: '#Body',  // change this value according to your HTML
+            height: 250,
+            language: 'zh_CN',
+            theme: 'modern',
+            convert_urls: false,
+            plugins: [
+                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                'searchreplace wordcount visualblocks visualchars code fullscreen',
+                'insertdatetime media nonbreaking save table contextmenu directionality',
+                'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+            ],
+            toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image print preview media | forecolor backcolor emoticons | codesample',
+            image_advtab: true,
+            templates: [
+                { title: 'Test template 1', content: 'Test 1' },
+                { title: 'Test template 2', content: 'Test 2' }
+            ],
+            //picture manager
+            file_browser_callback: callSigFinder,
+            templates: [
+                { title: 'Some title 1', description: 'Some desc 1', content: 'My content' },
+                { title: 'Some title 2', description: 'Some desc 2', url: 'development.html' }
+            ]
+
+        });
+        function callSigFinder(field_name, url, type, win) {
+            /**/
+            var roxyFileman = '@Url.Action("FinderForTinyMCE", "File", new { area = "Admin" })';
+    /**/
+    tinyMCE.activeEditor.windowManager.open({
+        file: roxyFileman,
+        title: 'SigFinder',
+        width: 850,
+        height: 655,
+        resizable: "yes",
+        plugins: "media",
+        inline: "yes",
+        close_previous: "no"
+    }, { window: win, input: field_name });
+    return false;
+
+}
+
+
+
+}
+function onBegin() {
+$("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin")
+}
+function onComplete() {
+$("#btnSave i").removeClass("fa-spinner fa-spin").addClass("fa-save")
+// tinymce.remove();
+}
+
+
+function updateSuccess(data) {
+/**/
+var title = '@ViewBag.PageTitle';
+    /**/
+    Common.ShowBoxWithFuncBack(data, title, submitSuccess);
+}
+
+function submitSuccess(id, htmlData) {
+    $('#ModalEdit').modal('hide');
+    //  alert(id);
+    //   console.log(id);
+    if (id > 0) {
+        var cid = "container" + id;
+        $("#" + cid).replaceWith(htmlData);
+    }
+    else {
+        $("#tbList").html(htmlData);
+
+    }
+}
+
+
+
+
+    $(function () {
+
+        //lightbox events
+        $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+
+    $(document).on('hidden.bs.modal', '#ModalEdit', function (e) {
+        tinymce.remove();
+    })
+
+    //pagging set
+    $(document).on("change", '#PageSize', function (e) {
+        e.preventDefault();
+        var url = "@Url.Action("PageSizeSet")", title = "分页设置", pageSize = $(this).val();
+
+        Common.PageSizeSet(url, title, pageSize, setPageSizeFunc);
+
+    });
+
+function setPageSizeFunc() {
+    location.reload();
+}
+
+//active
+$(document).on("click", '.active-item', function (e) {
+    e.preventDefault();
+
+    var url = $(this).attr('data-url'), title = $(this).attr('title'), that = $(this);
+    Common.SingleActionWithFuncBack(url, title, that, submitFunc);
+
+});
+
+function submitFunc(that, data) {
+    var tr = that.closest('.item-container').replaceWith(data);
+}
+
+
+//delete
+$(document).on("click", '.delete-item', function (e) {
+    e.preventDefault();
+
+    var url = $(this).attr('data-url');
+    var that = $(this);
+    bootbox.setLocale("zh_CN");
+    bootbox.confirm("你确定要删除此项吗？", function (result) {
+        if (result) {
+            /*DELETE*/
+            /**/
+            var title = "@ViewBag.Title";
+    /**/
+    Common.DeleteItem(url, title, that);
+}
+});
+
+});
+
+
+});
+    </script>
+
+}

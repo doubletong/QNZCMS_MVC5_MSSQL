@@ -14,8 +14,10 @@ namespace TZGCMS.Data.Entity.Chronicles
         public short Month { get; set; }
         public short? Day { get; set; }
         public bool Active { get; set; }
+        public string Thumbnail { get; set; }
         public int ViewCount { get; set; }
         public string Body { get; set; }
+        public string Summary { get; set; }
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }

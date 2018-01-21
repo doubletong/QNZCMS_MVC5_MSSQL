@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using TZGCMS.Data.Entity.Ads;
 using TZGCMS.Data.Entity.Articles;
+using TZGCMS.Data.Entity.Chronicles;
 using TZGCMS.Data.Entity.Doc;
 using TZGCMS.Data.Entity.Emails;
 using TZGCMS.Data.Entity.Identity;
@@ -11,6 +12,7 @@ using TZGCMS.Data.Entity.Products;
 using TZGCMS.Data.Entity.Videos;
 using TZGCMS.Model.Admin.InputModel.Ads;
 using TZGCMS.Model.Admin.InputModel.Articles;
+using TZGCMS.Model.Admin.InputModel.Chronicles;
 using TZGCMS.Model.Admin.InputModel.Doc;
 using TZGCMS.Model.Admin.InputModel.Emails;
 using TZGCMS.Model.Admin.InputModel.Identity;
@@ -22,6 +24,7 @@ using TZGCMS.Model.Admin.InputModel.Products;
 using TZGCMS.Model.Admin.InputModel.Videos;
 using TZGCMS.Model.Admin.ViewModel.Ads;
 using TZGCMS.Model.Admin.ViewModel.Articles;
+using TZGCMS.Model.Admin.ViewModel.Chronicles;
 using TZGCMS.Model.Admin.ViewModel.Emails;
 using TZGCMS.Model.Admin.ViewModel.Log;
 using TZGCMS.Model.Admin.ViewModel.LuceneSearch;
@@ -167,10 +170,10 @@ namespace TZGCMS.SiteWeb.Mappings
             CreateMap<EmailTemplateIM, EmailTemplate>();
             CreateMap<EmailTemplate, EmailTemplateIM>();
 
-            //CreateMap<ChronicleVM, Chronicle>();
-            //CreateMap<Chronicle, ChronicleVM>();
-            //CreateMap<ChronicleIM, Chronicle>();
-            //CreateMap<Chronicle, ChronicleIM>();
+            CreateMap<ChronicleVM, Chronicle>();
+            CreateMap<Chronicle, ChronicleVM>();
+            CreateMap<ChronicleIM, Chronicle>();
+            CreateMap<Chronicle, ChronicleIM>();
 
             //CreateMap<AlbumVM, Album>();
             //CreateMap<Album, AlbumVM>();

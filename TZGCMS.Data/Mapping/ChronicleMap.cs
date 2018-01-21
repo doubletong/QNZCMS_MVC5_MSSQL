@@ -23,6 +23,8 @@ namespace TZGCMS.Data.Mapping
             this.Property(p => p.Month).IsRequired();
             this.Property(p => p.Day).IsOptional();
             this.Property(p => p.Body).IsMaxLength();
+            this.Property(p => p.Summary).HasMaxLength(500);
+            this.Property(p => p.Thumbnail).HasMaxLength(150);
             this.Property(p => p.ViewCount).IsOptional();
             this.Property(p => p.CreatedDate).IsRequired().HasColumnType("datetime");
             this.Property(p => p.CreatedBy).HasMaxLength(50);

@@ -18,7 +18,8 @@ namespace TZGCMS.Service.Chronicles
         #endregion
 
         List<Chronicle> GetActiveElements();
-        List<Chronicle> GetChronicledElements(int pageIndex, int pageSize, string keyword,out int totalCount);
+        IEnumerable<Chronicle> GetActiveByYear(int year);
+        List<Chronicle> GetPagedElements(int pageIndex, int pageSize, string keyword,out int totalCount);
         Chronicle GetById(int id);
 
         bool Update(Chronicle page);
@@ -43,9 +44,13 @@ namespace TZGCMS.Service.Chronicles
 
         public List<Chronicle> GetActiveElements()
         {
-            return _unitOfWork.ChronicleRepository.GetMany(d => d.Active).OrderByDescending(d=>d.CreatedDate).ToList();
+            return _unitOfWork.ChronicleRepository.GetMany(d => d.Active).OrderByDescending(d=>d.Year).ToList();
         }
-        public List<Chronicle> GetChronicledElements(int pageIndex, int pageSize, string keyword, out int totalCount) {
+        public IEnumerable<Chronicle> GetActiveByYear(int year)
+        {
+            return _unitOfWork.ChronicleRepository.GetMany(expression:(d => d.Active && d.Year == year), orderByExpression: d=>d.Month,ascending: false);
+        }
+        public List<Chronicle> GetPagedElements(int pageIndex, int pageSize, string keyword, out int totalCount) {
             //get list count
 
 
@@ -65,7 +70,7 @@ namespace TZGCMS.Service.Chronicles
                 filter = filter.AndAlso(filterByKeyword);         
 
 
-            pages = _unitOfWork.ChronicleRepository.GetPagedElements(pageIndex, pageSize, (c => c.CreatedDate), filter, false).ToList();
+            pages = _unitOfWork.ChronicleRepository.GetPagedElements(pageIndex, pageSize, c => c.Year, filter, false).OrderByDescending(d=>d.Month).ToList();
 
             return pages;
         }

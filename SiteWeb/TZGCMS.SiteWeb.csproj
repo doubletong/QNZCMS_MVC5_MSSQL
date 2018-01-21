@@ -76,6 +76,21 @@
     <Reference Include="FluentScheduler, Version=5.3.0.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentScheduler.5.3.0\lib\net40\FluentScheduler.dll</HintPath>
     </Reference>
+    <Reference Include="Glimpse.Ado, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.Ado.1.7.3\lib\net45\Glimpse.Ado.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.AspNet, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.AspNet.1.8.0\lib\net45\Glimpse.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Core, Version=1.8.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.1.8.6\lib\net45\Glimpse.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.EF6, Version=1.6.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.EF6.1.6.5\lib\net45\Glimpse.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Mvc5, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.Mvc5.1.5.3\lib\net45\Glimpse.Mvc5.dll</HintPath>
+    </Reference>
     <Reference Include="ImageProcessor, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ImageProcessor.2.4.0.0\lib\net45\ImageProcessor.dll</HintPath>
     </Reference>
@@ -216,6 +231,7 @@
     <Compile Include="Areas\Admin\api\DefaultController.cs" />
     <Compile Include="Areas\Admin\api\FileManagerController.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ChronicleController.cs" />
     <Compile Include="Areas\Admin\Controllers\DocumentController.cs" />
     <Compile Include="Areas\Admin\Controllers\DocumentCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\FrontMenuController.cs" />
@@ -256,6 +272,7 @@
     <Compile Include="Controllers\api\WechatController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ChronicleController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -266,6 +283,7 @@
     <Compile Include="Controllers\WeiXinController.cs" />
     <Compile Include="DependencyRegistrar.cs" />
     <Compile Include="Filters\SIGAuthAttribute.cs" />
+    <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1602,6 +1620,11 @@
     <Content Include="Areas\Admin\Views\Link\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Link\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Link\Partials\_LinkItem.cshtml" />
+    <Content Include="Areas\Admin\Views\Chronicle\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Chronicle\Partials\_Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Chronicle\Partials\_ChronicleItem.cshtml" />
+    <Content Include="Areas\Admin\Views\Chronicle\Partials\_ChronicleList.cshtml" />
+    <Content Include="Areas\Admin\Views\Chronicle\Partials\_Edit.cshtml" />
     <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
@@ -1895,6 +1918,9 @@
     <Content Include="Themes\PingAn\Views\Article\Partials\RecentNews.cshtml" />
     <Content Include="Themes\PingAn\Views\Link\Partials\GetLinks.cshtml" />
     <Content Include="Themes\PingAn\Views\Article\Partials\HomeNews.cshtml" />
+    <Content Include="Themes\PingAn\Views\Chronicle\Index.cshtml" />
+    <Content Include="Themes\PingAn\Content\css\_page_chronicle.less" />
+    <Content Include="Themes\PingAn\Views\Chronicle\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1905,7 +1931,7 @@
     <Folder Include="Themes\Default\Views\Article\" />
     <Folder Include="Uploads\Files\" />
     <Folder Include="Uploads\Images\" />
-    <Folder Include="Views\Article\" />
+    <Folder Include="Views\Chronicle\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

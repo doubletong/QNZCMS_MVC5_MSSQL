@@ -1,0 +1,146 @@
+﻿.page-chronicle {
+    position: relative;
+
+    .yearselect {
+        position: absolute;
+        right: 15px;
+        top: 90px;
+        z-index: 1000;
+
+        a.btn {
+            margin-bottom: 1px;
+        }
+
+        .years {
+            display: none;
+            .mplnone;
+
+            li {
+                a {
+                    display: block;
+                    padding: 8px 15px;
+                    text-align: center;
+                    background-color: #f7f7f7;
+                    margin-bottom: 1px;
+
+                    &.active {
+                        color: @color_sub;
+                    }
+                }
+            }
+        }
+    }
+
+    .chro-list {
+        margin-left: 150px;
+        border-left: 1px @color_sub solid;
+        padding-top: 40px;
+        position: relative;
+        padding-left: 65px;
+        margin-top: 100px;
+
+        .icon-time1 {
+            position: absolute;
+            left: -32px;
+            font-size: 64px;
+            color: @color_sub;
+            top: -60px;
+            line-height: 1;
+        }
+
+        .box {
+            position: relative;
+            margin-bottom: 100px;
+
+            .month {
+                position: absolute;
+                left: -220px;
+                top: -18px;
+                z-index: 200;
+                width: 120px;
+                text-align: right;
+                font-size: 36px;
+                line-height: 1;
+                color: #5d5d5d;
+            }
+
+            &:before {
+                content: " ";
+                display: block;
+                width: 17px;
+                height: 17px;
+                border-radius: 50%;
+                border: 3px @color_sub solid;
+                position: absolute;
+                left: -74px;
+                background-color: #fff;
+                top: -8px;
+                z-index: 100;
+            }
+
+            .thumb {
+                a {
+                    img {
+                        max-width: 100%;
+                        background-color: rgb(221, 221, 221);
+                        box-shadow: 4.316px 4.168px 12.35px 0.65px rgba(16, 16, 16, 0.39);
+                        transition:all 300ms;
+                    }
+                    &:hover{
+                        img{
+                            transform:scale(1.05);
+                        }
+                    }
+                }
+            }
+
+            .txt {
+                h3 {
+                    font-size: 26px;
+                    color: @color_sub;
+                    line-height: 1;
+                    margin: 0;
+
+                    a {
+                        color: @color_sub;
+                        &:hover{
+                            color:@color_main;
+                        }
+                    }
+                }
+
+                p {
+                    font-size: 18px;
+                    text-align: justify;
+                }
+            }
+        }
+    }
+}
+
+
+.page-chronicle-detail {
+    border-top: 78px #000 solid;
+    padding-top: 50px;
+    margin-bottom:120px;
+    min-height:500px;
+
+    .onearticle {
+        .art-title {
+            text-align: center;
+
+            h1 {
+                display: inline-block;
+                font-size: 36px;
+                background: url(../img/title.png) no-repeat left center;padding:30px 90px;
+                background-size:72px auto;
+            }
+        }
+
+        .content {
+            img {
+                max-width: 100%;
+            }
+        }
+    }
+}

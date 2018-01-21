@@ -176,7 +176,7 @@ namespace TZGCMS.Service
             }
             else
             {
-                return  Table.OrderByDescending(orderByExpression).ToList();
+                return queryable.OrderByDescending(orderByExpression).ToList();
             }
 
         }

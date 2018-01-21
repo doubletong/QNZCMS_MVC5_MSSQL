@@ -1,0 +1,19 @@
+﻿@model  Chronicle
+@{
+    ViewBag.Title = Model.Title;
+}
+
+@Html.Partial("Header")
+
+<div class=" page-chronicle-detail">
+    <div class="container">
+        <article class="onearticle">
+            <header class="art-title">
+                <h1>@Model.Title</h1>
+            </header>
+            <div class="content">
+                @Html.Raw(Model.Body)
+            </div>
+        </article>
+    </div>
+</div>

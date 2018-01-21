@@ -952,6 +952,122 @@ input.input-validation-error {
 .page-service .tab5 p {
   font-size: 14px;
 }
+.page-chronicle {
+  position: relative;
+}
+.page-chronicle .yearselect {
+  position: absolute;
+  right: 15px;
+  top: 90px;
+  z-index: 1000;
+}
+.page-chronicle .yearselect a.btn {
+  margin-bottom: 1px;
+}
+.page-chronicle .yearselect .years {
+  display: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.page-chronicle .yearselect .years li a {
+  display: block;
+  padding: 8px 15px;
+  text-align: center;
+  background-color: #f7f7f7;
+  margin-bottom: 1px;
+}
+.page-chronicle .yearselect .years li a.active {
+  color: #ff9f03;
+}
+.page-chronicle .chro-list {
+  margin-left: 150px;
+  border-left: 1px #ff9f03 solid;
+  padding-top: 40px;
+  position: relative;
+  padding-left: 65px;
+  margin-top: 100px;
+}
+.page-chronicle .chro-list .icon-time1 {
+  position: absolute;
+  left: -32px;
+  font-size: 64px;
+  color: #ff9f03;
+  top: -60px;
+  line-height: 1;
+}
+.page-chronicle .chro-list .box {
+  position: relative;
+  margin-bottom: 100px;
+}
+.page-chronicle .chro-list .box .month {
+  position: absolute;
+  left: -220px;
+  top: -18px;
+  z-index: 200;
+  width: 120px;
+  text-align: right;
+  font-size: 36px;
+  line-height: 1;
+  color: #5d5d5d;
+}
+.page-chronicle .chro-list .box:before {
+  content: " ";
+  display: block;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 3px #ff9f03 solid;
+  position: absolute;
+  left: -74px;
+  background-color: #fff;
+  top: -8px;
+  z-index: 100;
+}
+.page-chronicle .chro-list .box .thumb a img {
+  max-width: 100%;
+  background-color: #dddddd;
+  box-shadow: 4.316px 4.168px 12.35px 0.65px rgba(16, 16, 16, 0.39);
+  transition: all 300ms;
+}
+.page-chronicle .chro-list .box .thumb a:hover img {
+  transform: scale(1.05);
+}
+.page-chronicle .chro-list .box .txt h3 {
+  font-size: 26px;
+  color: #ff9f03;
+  line-height: 1;
+  margin: 0;
+}
+.page-chronicle .chro-list .box .txt h3 a {
+  color: #ff9f03;
+}
+.page-chronicle .chro-list .box .txt h3 a:hover {
+  color: #36c1a7;
+}
+.page-chronicle .chro-list .box .txt p {
+  font-size: 18px;
+  text-align: justify;
+}
+.page-chronicle-detail {
+  border-top: 78px #000 solid;
+  padding-top: 50px;
+  margin-bottom: 120px;
+  min-height: 500px;
+}
+.page-chronicle-detail .onearticle .art-title {
+  text-align: center;
+}
+.page-chronicle-detail .onearticle .art-title h1 {
+  display: inline-block;
+  font-size: 36px;
+  background: url(../img/title.png) no-repeat left center;
+  padding: 30px 90px;
+  background-size: 72px auto;
+}
+.page-chronicle-detail .onearticle .content img {
+  max-width: 100%;
+}
 .nav-page {
   position: relative;
   height: 120px;

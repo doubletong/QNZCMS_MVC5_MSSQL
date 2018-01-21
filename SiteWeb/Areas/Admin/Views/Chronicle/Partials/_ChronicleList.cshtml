@@ -1,0 +1,5 @@
+﻿@model IEnumerable<ChronicleVM>
+@foreach (var item in Model)
+{
+    Html.RenderPartial("_ChronicleItem", item);
+}

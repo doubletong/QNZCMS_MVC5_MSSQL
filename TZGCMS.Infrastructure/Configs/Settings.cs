@@ -488,7 +488,10 @@ namespace TZGCMS.Infrastructure.Configs
     [XmlRoot("Settings")]
     public class ChronicleSettings : BaseSettings
     {
-
+        [XmlElement(DataType = "int", ElementName = "ThumbHeight")]
+        public int ThumbHeight { get; set; }
+        [XmlElement(DataType = "int", ElementName = "ThumbWidth")]
+        public int ThumbWidth { get; set; }
     }
 
     [XmlRoot("Settings")]

@@ -65,6 +65,7 @@
     <Compile Include="Admin\InputModel\Articles\ArticleCategoryIM.cs" />
     <Compile Include="Admin\InputModel\Articles\ArticleIM.cs" />
     <Compile Include="Admin\InputModel\Articles\FilterTemplateIM.cs" />
+    <Compile Include="Admin\InputModel\Chronicles\ChronicleIM.cs" />
     <Compile Include="Admin\InputModel\CompanyInfoIM.cs" />
     <Compile Include="Admin\InputModel\Doc\DocumentCategoryIM.cs" />
     <Compile Include="Admin\InputModel\Doc\DocumentIM.cs" />
@@ -100,6 +101,8 @@
     <Compile Include="Admin\ViewModel\Articles\ArticleVM.cs" />
     <Compile Include="Admin\ViewModel\Articles\FilterTemplateListVM.cs" />
     <Compile Include="Admin\ViewModel\Articles\FilterTemplateVM.cs" />
+    <Compile Include="Admin\ViewModel\Chronicles\ChronicleListVM.cs" />
+    <Compile Include="Admin\ViewModel\Chronicles\ChronicleVM.cs" />
     <Compile Include="Admin\ViewModel\Doc\DocumentCategoryListVM.cs" />
     <Compile Include="Admin\ViewModel\Doc\DocumentListVM.cs" />
     <Compile Include="Admin\ViewModel\Emails\EmailAccountListVM.cs" />
@@ -175,6 +178,8 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Front\ViewModel\Chronicles\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
