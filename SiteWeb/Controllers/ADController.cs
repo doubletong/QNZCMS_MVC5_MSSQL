@@ -37,8 +37,23 @@ namespace TZGCMS.SiteWeb.Controllers
                 ////var list = _mapper.Map<IEnumerable<Carousel>, IEnumerable<CarouselVM>>(position.Carousels.OrderByDescending(m => m.Importance));
                 return PartialView(carousels);
             }
+        }
 
+        public PartialViewResult SingleAd(string code)
+        {
+            var carousels = _carouselService.GetActiveElements(code);
 
+            if (carousels == null)
+            {
+                TempData["Error"] = $"{code}广告位不存在！";
+                return PartialView(null);
+            }
+            else
+            {
+                //var carousels = _carouselService.f(position.Id).OrderByDescending(m => m.Importance);
+                ////var list = _mapper.Map<IEnumerable<Carousel>, IEnumerable<CarouselVM>>(position.Carousels.OrderByDescending(m => m.Importance));
+                return PartialView(carousels.FirstOrDefault());
+            }
         }
     }
 }

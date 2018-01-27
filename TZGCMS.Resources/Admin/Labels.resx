@@ -531,4 +531,10 @@
   <data name="Product" xml:space="preserve">
     <value>产品</value>
   </data>
+  <data name="Javascript" xml:space="preserve">
+    <value>脚本</value>
+  </data>
+  <data name="Style" xml:space="preserve">
+    <value>样式</value>
+  </data>
 </root>

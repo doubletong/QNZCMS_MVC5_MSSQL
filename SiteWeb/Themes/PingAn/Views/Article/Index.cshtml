@@ -11,7 +11,7 @@
         <meta name="description" content="@pm.Description" />
         <meta name="keywords" content="@pm.Keyword" />
     }
-    <link href="~/Plugins/owl.carousel/assets/owl.carousel.css" rel="stylesheet" />
+        <link href="~/Plugins/bxslider/dist/jquery.bxslider.min.css" rel="stylesheet" />
 }
 @Html.Partial("Header")
 @Html.Action("Carousels", "Ad", new { code = "A1001" })
@@ -79,7 +79,7 @@ else
 
             </div>
             <div class="col-md-4 col-lg-3">            
-                @Html.Action("RecentNews", new { seoName = "articles", count = 8 })
+                @Html.Action("HotNews", new {count = 8 })
             </div>
         </div>
 
@@ -105,20 +105,17 @@ else
 
 
 @section footer{
-    <script src="~/Plugins/owl.carousel/owl.carousel.min.js"></script>
+    <script src="~/Plugins/bxslider/dist/jquery.bxslider.min.js"></script>
     <script>
 
         $(document).ready(function () {
-            $('.owl-carousel').owlCarousel({
-                items: 1,
-                navText: ["<span class='iconfont'>&#xe614;</span>", "<span class='iconfont'>&#xe612;</span>"],
-                loop: true,
-                nav: true,
-                autoplay: true,
-                autoHeight: true,
-                autoplayTimeout: 3000
-
+            $('.bxslider').bxSlider({
+                mode: 'fade',
+                captions: true,
+                auto: true,
+                controls: false
             });
+            $(".bx-caption span,.bx-pager").addClass("container");
         });
     </script>
 

@@ -23,7 +23,7 @@ namespace TZGCMS.SiteWeb.Controllers
         }
         public PartialViewResult SiteNav()
         {          
-            var vm = _menuServices.GetMenusByCategoryId(2);
+            var vm = _menuServices.GetMenusByCategoryId(2).Where(m=>m.Active);
             return PartialView("_SiteNav", vm);
         }
     }

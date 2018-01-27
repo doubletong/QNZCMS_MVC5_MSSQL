@@ -610,6 +610,15 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 脚本 的本地化字符串。
+        /// </summary>
+        public static string Javascript {
+            get {
+                return ResourceManager.GetString("Javascript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 关键字 的本地化字符串。
         /// </summary>
         public static string KeyWords {
@@ -1101,6 +1110,15 @@ namespace TZGCMS.Resources.Admin {
         public static string StartDate {
             get {
                 return ResourceManager.GetString("StartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 样式 的本地化字符串。
+        /// </summary>
+        public static string Style {
+            get {
+                return ResourceManager.GetString("Style", resourceCulture);
             }
         }
         

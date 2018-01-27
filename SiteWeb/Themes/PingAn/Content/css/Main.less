@@ -50,73 +50,123 @@ figure{
 }
 
 .searchbox {
-    height: 850px;
+    height: 320px;
     background: #0f1221 url(../img/home_bg.jpg) no-repeat top center;
-    padding-top: 308px;margin-bottom:40px;
+    padding-top: 150px;
+    margin-bottom: 40px;
+
+    @media only screen and (min-width: 768px) {
+        height: 850px;
+        padding-top: 308px;
+    }
+
 
     .box {
-        width: 642px;
         margin: 0 auto;
         text-align: center;
+        padding: 0 15px;
+
+        @media only screen and (min-width: 768px) {
+            width: 642px;
+        }
 
         .logo {
             margin-bottom: 50px;
+            display: none;
+
+            @media only screen and (min-width: 768px) {
+               display:block;
+            }
+
+            img {
+                width: 70%;
+
+                @media only screen and (min-width: 768px) {
+                    width: auto;
+                }
+            }
         }
 
         .form {
             height: 48px;
             border-radius: 24px;
             border: #b6bbc6 1px solid;
-            padding-right:80px;
-            padding-left:20px;position:relative;
-            input{
-                background-color:transparent;
-             height:46px;color:#fff;border:none;font-size:18px;
+            padding-right: 80px;
+            padding-left: 20px;
+            position: relative;
+
+            input {
+                background-color: transparent;
+                height: 46px;
+                color: #fff;
+                border: none;
+                font-size: 18px;
             }
-            button{
-                border:none;width:46px;height:46px;position:absolute;right:20px;top:0;z-index:100;background-color:transparent;
-                &:focus{
-                    outline:none;
+
+            button {
+                border: none;
+                width: 46px;
+                height: 46px;
+                position: absolute;
+                right: 20px;
+                top: 0;
+                z-index: 100;
+                background-color: transparent;
+
+                &:focus {
+                    outline: none;
                 }
-                .iconfont{
-                    font-size:28px;color:#fff;
+
+                .iconfont {
+                    font-size: 28px;
+                    color: #fff;
                 }
             }
         }
     }
 }
 .pageHeader {
-    background-color: #fff;
+    background-color: rgba(0, 0, 0,.9);
     position: absolute;
-    left:0;top:0;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 45px;
-
     transition: all 800ms ease;
     z-index: 392;
 
     @media only screen and (min-width: 768px) {
-        height: 78px;      
-        background-color: rgba(0, 0, 0,.4);     
+        height: 78px;
+        background-color: rgba(0, 0, 0,.4);
     }
 
     .logo {
         padding-top: 5px;
         display: block;
         text-decoration: none;
+        width: 40px;
+        overflow: hidden;
 
         @media only screen and (min-width: 768px) {
             padding-top: 8px;
+            width: 60px;
         }
 
+        @media only screen and (min-width: 992px) {
+            width: 60px;
+        }
 
+        @media only screen and (min-width: 1200px) {
+            width: auto;
+            overflow: visible;
+            padding-top: 8px;
+        }
 
-        .iconfont {
-            font-size: 18px;
-            color: @color_main;
+        img {
+            width: 165px;
 
             @media only screen and (min-width: 768px) {
-                font-size: 24px;
+                width: auto;
             }
         }
     }
@@ -130,7 +180,7 @@ figure{
 
         a {
             text-decoration: none;
-            color: #666;
+            color: #fff;
 
             .iconfont {
                 .font-size(2.8);
@@ -138,6 +188,10 @@ figure{
                 width: 40px;
                 display: block;
                 text-align: center;
+
+                @media only screen and (min-width: 768px) {
+                    .font-size(3.6);
+                }
             }
         }
 
@@ -150,7 +204,12 @@ figure{
         }
     }
 
-
+    &.fixed-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 6000;
+    }
 }
 
 .section2 {
@@ -175,7 +234,11 @@ figure{
         }
 
         .box {
-            padding: 50px 15px 40px 0;
+            padding: 25px 0 20px 0;
+
+            @media only screen and (min-width:768px) {
+                padding: 50px 15px 40px 0;
+            }
 
             &:hover {
                 background-color: #f5f5f5;
@@ -191,10 +254,16 @@ figure{
                 font-size: 24px;
                 color: @color_title;
                 margin: 0 0 10px;
+                text-align: justify;
             }
 
             .note {
                 color: #999;
+
+                .iconfont {
+                    font-size: 20px;
+                    color: @color_sub;
+                }
             }
 
             p {
@@ -257,10 +326,15 @@ figure{
 
 
 .section3 {
-    margin-bottom: 120px;
-    .ad{
-        img{
-            width:100%
+    margin-bottom: 50px;
+
+    @media only screen and (min-width:768px) {
+        margin-bottom: 120px;
+    }
+
+    .ad {
+        img {
+            width: 100%
         }
     }
 }
@@ -294,11 +368,20 @@ figure{
 
         ul {
             .mplnone;
+            text-align: center;
 
             li {
-                float: left;
-                margin-right: 10px;
+                display: inline-block;
+                margin-right: 5px;
+                margin-left: 5px;
                 margin-bottom: 29px;
+
+                @media only screen and (min-width:768px) {
+                    float: left;
+                    margin-right: 10px;
+                    margin-left: 0;
+                    margin-bottom: 29px;
+                }
             }
         }
     }
@@ -315,6 +398,11 @@ figure{
         border-left: 2px #373737 solid;
         border-right: 2px #373737 solid;
         margin: 0 auto;
+        display: none;
+
+        @media only screen and (min-width:768px) {
+            display: block;
+        }
     }
 
     .qrcode {
@@ -323,8 +411,12 @@ figure{
         border: 8px #373737 solid;
         text-align: center;
         padding-top: 30px;
-        margin: 0 auto;
+        margin: 0 auto 50px;
         color: #fff;
+
+        @media only screen and (min-width:768px) {
+            margin: 0 auto;
+        }
 
         img {
             margin-bottom: 15px;
@@ -338,35 +430,5 @@ figure{
             text-align: center;
         }
     }
-
-   
 }
 
-
-
-.pusher{
-    position:fixed;right:0;top:0;width:100%;z-index:6000;height:100%;background:rgba(0,0,0,.7);
-    display:none;
-    .rightnav{
-    background-color:@color_link;width:150px;right:-150px;top:0;position:absolute;
-    height:100%;color:#fff;padding-top:20px;box-shadow:rgba(0,0,0,.2) 3px 0 3px inset;
-   
-    ul.mainav{
-        .mplnone;
-        li{
-           padding:3px 15px;
-            a{
-                color:#fff;.font-size(1.6);display:block;padding:5px 15px;text-decoration:none;border-radius:6px;              
-                &:hover{
-                    color:lighten(@color_link,30%);  background-color:darken(@color_link,20%);
-                }
-            }         
-            &.active{
-                a{
-                      background-color:darken(@color_link,20%); 
-                }
-            }
-        }
-    }
-}
-}

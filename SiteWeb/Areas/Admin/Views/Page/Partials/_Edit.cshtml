@@ -37,6 +37,7 @@
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist" style="margin-bottom:20px;">
                         <li role="presentation" class="active"><a href="#product" aria-controls="product" role="tab" data-toggle="tab">@EntityNames.Page</a></li>
+                        <li role="presentation"><a href="#styleJs" aria-controls="styleJs" role="tab" data-toggle="tab">样式与脚本</a></li>
                         <li role="presentation"><a href="#seo" aria-controls="seo" role="tab" data-toggle="tab">SEO设置</a></li>
                     </ul>
 
@@ -61,7 +62,7 @@
                                     @Html.ValidationMessageFor(model => model.SeoName)
                                 </div>
                             </div>
-                           
+
                             <div class="form-group">
                                 @Html.LabelFor(model => model.TemplateName, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">
@@ -92,7 +93,25 @@
                             </div>
 
                         </div>
+                        <div role="tabpanel" class="tab-pane" id="styleJs">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.HeadCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <div id="DivHeadCode" style="min-height:250px"></div>
+                                    @Html.HiddenFor(model => model.HeadCode)
+                                    @Html.ValidationMessageFor(model => model.HeadCode)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FooterCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <div id="DivFooterCode" style="min-height:250px"></div>
+                                    @Html.HiddenFor(model => model.FooterCode)
+                                    @Html.ValidationMessageFor(model => model.FooterCode)
+                                </div>
+                            </div>
 
+                        </div>
                         <div role="tabpanel" class="tab-pane" id="seo">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.SEOTitle, new { @class = "col-md-2 control-label" })
@@ -134,4 +153,24 @@
 
 <script type="text/javascript" language=javascript>
     $.validator.unobtrusive.parse(document);
+    var editor = ace.edit("DivHeadCode");
+    editor.setTheme("ace/theme/chrome");
+    editor.session.setMode("ace/mode/html");
+    editor.setAutoScrollEditorIntoView(true);
+    editor.setOption("maxLines", 30);
+
+    editor.getSession().on('change', function (e) {
+        $("#HeadCode").val(editor.getValue());
+
+    });
+
+    var editor1 = ace.edit("DivFooterCode");
+    editor1.setTheme("ace/theme/chrome");
+    editor1.session.setMode("ace/mode/html");
+    editor1.setAutoScrollEditorIntoView(true);
+    editor1.setOption("maxLines", 30);
+
+    editor1.getSession().on('change', function (e) {
+        $("#FooterCode").val(editor.getValue())
+    });
 </script>

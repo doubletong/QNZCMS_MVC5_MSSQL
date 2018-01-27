@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Article>
+    <aside class="chart zhuanlan">
+        <h3 class="art-title">热门资讯</h3>
+        <ul>
+            @foreach (var item in Model)
+    {
+        <li>
+            <a href="@Url.Action("detail",new { id = item.Id})">@item.Title</a>
+            <time>@item.Pubdate.ToShortDateString()</time>
+        </li>
+}
+
+        </ul>
+    </aside>

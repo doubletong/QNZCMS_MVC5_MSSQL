@@ -100,7 +100,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                AR.SetSuccess(GetModelErrorMessage());
+                AR.Setfailure(GetModelErrorMessage());
                 return Json(AR, JsonRequestBehavior.DenyGet);
             }
 
@@ -108,8 +108,6 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             {
                 var newPage = _mapper.Map<PageIM, Page>(page);
                 newPage.ViewCount = 0;
-                newPage.CreatedBy = Site.CurrentUserName;
-                newPage.CreatedDate = DateTime.Now;
 
                 var result = _pageServices.Create(newPage);
                 if (result!=null)
@@ -128,7 +126,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
                 int count;
                 int pageSize = SettingsManager.Page.PageSize;
-                var list = _pageServices.GetPagedElements(1, pageSize, string.Empty, out count);
+                var list = _pageServices.GetPagedElements(0, pageSize, string.Empty, out count);
 
                 AR.Data = RenderPartialViewToString("_PageList", list);
 
@@ -183,14 +181,15 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
             try
             {
-                //  var editPage = _mapper.Map<PageIM, Page>(page);
+                var old = _pageServices.GetById(page.Id);
+                var editPage = _mapper.Map(page, old);
 
-                var editPage = _pageServices.GetById(page.Id);
-                editPage.Title = page.Title;
-                editPage.Body = page.Body;
-                editPage.Active = page.Active;
-                editPage.SeoName = page.SeoName;
-                editPage.TemplateName = page.TemplateName;
+
+                //editPage.Title = page.Title;
+                //editPage.Body = page.Body;
+                //editPage.Active = page.Active;
+                //editPage.SeoName = page.SeoName;
+                //editPage.TemplateName = page.TemplateName;
 
                 _pageServices.Update(editPage);
 

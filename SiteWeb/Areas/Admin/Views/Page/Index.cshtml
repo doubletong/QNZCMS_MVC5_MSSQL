@@ -1,5 +1,5 @@
 ﻿@model PageListVM
-@{   
+@{
     ViewBag.Title = EntityNames.Page + "_内容";
 }
 
@@ -7,76 +7,75 @@
 
 }
 
-    <div class="panel panel-default">
-        <header class="panel-heading">
-            <div class="row">
-                <div class="col-sm-8">
-                    @using (Html.BeginForm("Index", "Page", FormMethod.Get, new { @class = "form-inline" }))
-                    {
-                        <div class="form-group">
-                            @Html.EditorFor(model => model.Keyword, new { htmlAttributes = new { @class = "form-control", placeholder = Labels.KeyWords } })
-                        </div>
+<div class="panel panel-default">
+    <header class="panel-heading">
+        <div class="row">
+            <div class="col-sm-8">
+                @using (Html.BeginForm("Index", "Page", FormMethod.Get, new { @class = "form-inline" }))
+                {
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.Keyword, new { htmlAttributes = new { @class = "form-control", placeholder = Labels.KeyWords } })
+                    </div>
 
-                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> 搜索</button>
-                    }
-                </div>
-                <div class="col-sm-4 text-right">
-                    @Ajax.RawActionLink("<i class='fa fa-plus fa-fw'></i>新增页面",
-                        "Create", "Page",
-                        new { },
-                        new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
-                        new { title = "创建新页面", @class = "btn btn-primary" })
-                    <a class="btn btn-default createIndex" href="#" data-url="@Url.Action("CreateIndex")"><i class="fa fa-server"></i> @Buttons.CreateIndex</a>  
-                </div>
-            </div>
-          
-        </header>
-        
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        主题
-                    </th>
-                    <th>
-                        Seo网址
-                    </th>
-                    <th>
-                        查看
-                    </th>
-                    <th>创建日期</th>
-                    <th>
-                        激活？
-                    </th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody id="tbList">
-                @foreach (var item in Model.Pages)
-                {                   
-                    Html.RenderPartial("_PageItem", item);
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> 搜索</button>
                 }
-                </tbody>
+            </div>
+            <div class="col-sm-4 text-right">
+                @Ajax.RawActionLink("<i class='fa fa-plus fa-fw'></i>新增页面",
+                         "Create", "Page",
+                         new { },
+                         new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
+                         new { title = "创建新页面", @class = "btn btn-primary" })
+                <a class="btn btn-default createIndex" href="#" data-url="@Url.Action("CreateIndex")"><i class="fa fa-server"></i> @Buttons.CreateIndex</a>
+            </div>
+        </div>
 
-</table>
-        <footer class="panel-footer">
-            <div class="row">
-                <div class="col-sm-7">
-                    @Html.PagedListPager(Model.Pages, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }))
-                </div>
-                <div class="col-sm-5">
-                    <div class="form-inline text-right">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
-                            @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
-                        </div>
+    </header>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    主题
+                </th>
+                <th>
+                    Seo网址
+                </th>
+                <th>
+                    查看
+                </th>
+                <th>创建日期</th>
+                <th>
+                    激活？
+                </th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="tbList">
+            @foreach (var item in Model.Pages)
+            {
+                Html.RenderPartial("_PageItem", item);
+            }
+        </tbody>
+
+    </table>
+    <footer class="panel-footer">
+        <div class="row">
+            <div class="col-sm-7">
+                @Html.PagedListPager(Model.Pages, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }))
+            </div>
+            <div class="col-sm-5">
+                <div class="form-inline text-right">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
+                        @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
                     </div>
                 </div>
             </div>
-        </footer>
-      
-    </div>
+        </div>
+    </footer>
 
+</div>
 
 <div id="edit-container">
 </div>
@@ -86,11 +85,13 @@
 </form>
 
 @section Footer {
-  @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
-<script src="~/plugins/tinymce/tinymce.min.js"></script>
-<script src="~/plugins/tinymce/langs/zh_CN.js"></script>
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+    <script src="~/plugins/tinymce/tinymce.min.js"></script>
+    <script src="~/plugins/tinymce/langs/zh_CN.js"></script>
+    <script src="~/Plugins/ace/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 
     <script>
+       
 
         function OnSuccessLink(data) {
             Common.ShowBox(data.Status, data.Message, "操作")
@@ -98,6 +99,8 @@
 
         function onAjaxComplete() {
             $('#ModalEdit').modal();
+
+          
 
             tinymce.init({
                 selector: '#Body',  // change this value according to your HTML

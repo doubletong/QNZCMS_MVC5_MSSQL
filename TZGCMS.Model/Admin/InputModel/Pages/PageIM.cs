@@ -29,7 +29,12 @@ namespace TZGCMS.Model.Admin.InputModel.Pages
         [Display(ResourceType = typeof(Labels), Name = "Active")]
         public bool Active { get; set; }
 
-       
+        [Display(ResourceType = typeof(Labels), Name = "Style")]
+        public string HeadCode { get; set; }
+        [Display(ResourceType = typeof(Labels), Name = "Javascript")]
+        public string FooterCode { get; set; }
+
+
         [Display(ResourceType = typeof(Labels), Name = "Title")]
         public string SEOTitle { get; set; }
         [Display(ResourceType = typeof(Labels), Name = "KeyWords")]

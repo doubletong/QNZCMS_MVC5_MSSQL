@@ -98,7 +98,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
             int count;
             int pageSize = SettingsManager.Ads.PageSize;
-            var list = _carouselService.GetPagedElements(1, pageSize, string.Empty, 0,  out count);
+            var list = _carouselService.GetPagedElements(0, pageSize, string.Empty, 0,  out count);
           //  List<CarouselVM> carouselList = _mapper.Map<List<Carousel>, List<CarouselVM>>(list);
             AR.Data = RenderPartialViewToString("_CarouselList", list);
 

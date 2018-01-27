@@ -21,6 +21,8 @@ namespace TZGCMS.Data.Mapping
             this.Property(p => p.Title).HasMaxLength(100).IsRequired();
             this.Property(p => p.SeoName).HasMaxLength(100).IsRequired();
             this.Property(p => p.Body).IsMaxLength();
+            this.Property(p => p.HeadCode).IsMaxLength();
+            this.Property(p => p.FooterCode).IsMaxLength();
             this.Property(p => p.ViewCount).IsOptional();
             this.Property(p => p.CreatedDate).IsRequired().HasColumnType("datetime");
             this.Property(p => p.CreatedBy).HasMaxLength(50);

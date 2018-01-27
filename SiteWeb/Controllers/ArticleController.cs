@@ -70,6 +70,13 @@ namespace TZGCMS.SiteWeb.Controllers
         }
 
         [HttpGet]
+        public PartialViewResult HotNews(int count)
+        {
+            var articleList = _articleServices.HotNews(count);
+            return PartialView(articleList);
+        }
+
+        [HttpGet]
         public PartialViewResult HomeNews(string seoName, int count)
         {
             var articleList = _articleServices.RecentNews(seoName, count);

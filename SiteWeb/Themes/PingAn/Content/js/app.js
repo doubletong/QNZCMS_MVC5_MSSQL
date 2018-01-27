@@ -69,14 +69,14 @@ $(function () {
    
 
     // 浮动菜单 ===================================================================
-    //$(window).scroll(function () {
+    $(window).scroll(function () {
      
-    //    if ($(document).scrollTop() < 31) {
-    //        $('#pageHeader').removeClass('fixed-header');           
-    //    } else {
-    //        $('#pageHeader').addClass('fixed-header');           
-    //    }
-    //});
+        if ($(document).scrollTop() < 31) {
+            $('#pageHeader').removeClass('fixed-header');           
+        } else {
+            $('#pageHeader').addClass('fixed-header');           
+        }
+    });
 
 
     //响应式导航 ===================================================================

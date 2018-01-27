@@ -1,104 +1,69 @@
-﻿.owl-controls {
-    height: 50px;
-    width: 100%;
-    
-   
-    .owl-nav {
-        float: left;
-        padding-top: 10px;
-         @media only screen and (max-width: 767px) {
-            display:none;
-        }
+﻿.bx-wrapper {
+    box-shadow: none;
+    border: none;
 
-        .owl-next, .owl-prev {
-            display: inline-block;
-            height:26px;
-            width: 26px;
-            border-radius: 3px;
-            background-color: #f1f1f1;
-            text-align: center;
-            margin-right: 6px;line-height:26px;
-        }
+    .bx-caption span {
+        font-size: 24px;
     }
 
-    .owl-dots {
-        float: right;
+    .bx-pager {
+        text-align: right;
+        position: relative;
+        bottom: 0;
+        margin-top: -62px;
 
-        .owl-dot {
-            display: inline-block;
-            margin: 15px 0 15px 10px;
 
-            span {
-                display: block;
-                width: 12px;
-                height: 12px;
-                border-radius: 50%;
-                background-color: #666;
-            }
+        @media only screen and (min-width: 768px) {
+            width: 750px;
+        }
 
-            &.active {
-                span {
-                    background-color: #ff6a00;
+        @media only screen and (min-width: 992px) {
+            width: 970px;
+        }
+
+        @media only screen and (min-width: 1200px) {
+            width: 1170px;
+        }
+
+        &.bx-default-pager {
+            a {
+                background-color: #fff;
+
+                &.active {
+                    background-color: #fff;
+                    width: 30px;
                 }
             }
         }
     }
 }
+.bx-viewport {
+    height:300px;
 
-.home-carousel{
-    position:relative;
+    @media only screen and (min-width: 768px) {
+        height: 500px;
+    }
+}
+.bxslider {
+    overflow: hidden;
+    height: 300px;
 
-    .owl-controls{
-        height:auto;
-         .owl-nav {
-        position:absolute;left:0;width:100%;top:50%;      z-index:5000;margin-top:-40px;
-         @media only screen and (max-width: 767px) {
-            display:none;
-        }
+    @media only screen and (min-width: 768px) {
+        height: 500px;
+    }
 
-        .owl-next, .owl-prev {
-            display: inline-block;float:left;
-            height:70px;
-            width: 70px;color:#fff;
-            border-radius: 0 6px 6px 0;
-          background-color: rgba(255,255,255,.3);
-            text-align: center;margin-right: 0;
-           line-height:70px;
-           .iconfont{
-               font-size:24px;
-           }
-        }
-        .owl-prev{
-            float:right;   border-radius:  6px 0 0 6px ;
+    div {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    a {
+        display: block;
+        height: 300px;
+
+        @media only screen and (min-width: 768px) {
+            height: 500px;
         }
     }
-          .owl-dots{
-                bottom:15px;z-index:9000;position:absolute;left:0;width:100%;
-            float:none;text-align:center;
-                   .owl-dot {
-                    display: inline-block;
-                    margin: 15px 0 15px 10px;
-
-                    span {
-                        display: block;
-                        width: 50px;
-                        height: 5px;
-                        border-radius: 0;
-                        background-color: rgba(255,255,255,.3);
-                         @media only screen and (max-width: 767px) {
-            display:none;
-        }
-                    }
-
-                    &.active {
-                        span {
-                            background-color: #ff6a00;
-                        }
-                    }
-                }
-        }
-    }
-    
-   
-  
 }

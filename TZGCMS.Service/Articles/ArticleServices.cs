@@ -17,10 +17,12 @@ namespace TZGCMS.Service.Articles
         #region Async
         Task<Article> GetByIdWithCategoryAsync(int id);
         Task<bool> UpdateAsync(Article article);
-        IEnumerable<Article> RecentNews(string seoName, int count);
+    
         #endregion
         IEnumerable<Article> GetAll();
         IEnumerable<Article> GetActiveElements();
+        IEnumerable<Article> RecentNews(string seoName, int count);
+        IEnumerable<Article> HotNews(int count);
         List<Article> GetPagedElements(int pageIndex, int pageSize, string keyword, int categoryId, out int totalCount);
         List<Article> GetActivePagedElements(int pageIndex, int pageSize, string keyword, int categoryId, out int totalCount);
 
@@ -47,14 +49,7 @@ namespace TZGCMS.Service.Articles
         {
             return await _unitOfWork.ArticleRepository.UpdateAsync(article);
         }
-        public IEnumerable<Article> RecentNews(string seoName, int count)
-        {
-            var category = _unitOfWork.ArticleCategoryRepository.GetFirstOrDefault(d => d.SeoName == seoName);
-            if (category == null)
-                return null;
-            var articles = _unitOfWork.ArticleRepository.GetPagedElements(pageIndex: 0, pageCount: count, orderByExpression: d => d.Pubdate, filter :d => d.CategoryId == category.Id, ascending:false);
-            return articles;
-        }
+    
         #endregion
 
         public IEnumerable<Article> GetAll()
@@ -64,6 +59,19 @@ namespace TZGCMS.Service.Articles
         public IEnumerable<Article> GetActiveElements()
         {
             return _unitOfWork.ArticleRepository.GetMany(d => d.Active);
+        }
+        public IEnumerable<Article> RecentNews(string seoName, int count)
+        {
+            var category = _unitOfWork.ArticleCategoryRepository.GetFirstOrDefault(d => d.SeoName == seoName);
+            if (category == null)
+                return null;
+            var articles = _unitOfWork.ArticleRepository.GetPagedElements(pageIndex: 0, pageCount: count, orderByExpression: d => d.Pubdate, filter: d => d.CategoryId == category.Id && d.Active, ascending: false);
+            return articles;
+        }
+        public IEnumerable<Article> HotNews(int count)
+        {        
+            var articles = _unitOfWork.ArticleRepository.GetPagedElements(pageIndex: 0, pageCount: count, orderByExpression: d => d.ViewCount, filter: d => d.Active, ascending: false);
+            return articles;
         }
         public List<Article> GetPagedElements(int pageIndex, int pageSize, string keyword, int categoryId, out int totalCount)
         {
