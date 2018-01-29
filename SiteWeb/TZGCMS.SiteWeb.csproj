@@ -3106,6 +3106,7 @@
     <Content Include="Themes\PingAn\Views\Pages\Index.cshtml" />
     <Content Include="Themes\PingAn\Views\AD\Partials\SingleAd.cshtml" />
     <Content Include="Themes\PingAn\Views\Article\Partials\HotNews.cshtml" />
+    <Content Include="Themes\PingAn\Views\Article\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -62,6 +62,30 @@ namespace TZGCMS.SiteWeb.Controllers
             return View(vm);
         }
 
+        public ActionResult Search(string keyword, int? page)
+        {
+
+            var vm = new ArticleListVM
+            {
+                Keyword = keyword,
+                PageIndex = page ?? 1,
+                PageSize = SettingsManager.Article.FrontPageSize
+            };
+            int totalCount;
+            var list = _articleServices.GetActivePagedElements(vm.PageIndex - 1, vm.PageSize, vm.Keyword, 0, out totalCount);
+            //var categoryVMList = _mapper.Map<List<Article>, List<ArticleVM>>(goodslist);
+            vm.TotalCount = totalCount;
+
+            vm.Articles = new StaticPagedList<Article>(list, vm.PageIndex, vm.PageSize, vm.TotalCount);
+
+      
+
+            var url = Request.RawUrl;
+            ViewBag.PageMeta = _pageMetaService.GetPageMeta(ModelType.MENU, url);
+
+            return View(vm);
+        }
+
         [HttpGet]
         public PartialViewResult RecentNews(string seoName, int count)
         {

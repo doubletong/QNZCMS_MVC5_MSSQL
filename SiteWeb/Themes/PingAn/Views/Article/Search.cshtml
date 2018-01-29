@@ -1,0 +1,127 @@
+﻿@model ArticleListVM
+@{
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : "新闻资讯";
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+    <link href="~/Plugins/bxslider/dist/jquery.bxslider.min.css" rel="stylesheet" />
+}
+@Html.Partial("Header")
+
+
+    <div class="page-search">
+
+
+        <!-- BLOG ================================================== -->
+        <section class="container page-about page-news">
+            <div class="searchform">
+                找到与<span>@Model.Keyword</span>相关的<span>@Model.TotalCount</span>条
+                <form class="formInline">
+
+                    <input name="keyword" type="text" class="form-control" value="@Model.Keyword" placeholder="搜索关键词" /><button type="submit"><i class="iconfont icon-search"></i></button>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-lg-9">
+                    <div class="articleList">
+
+                        @foreach (var post in Model.Articles)
+                    {
+
+                        <div class="box">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <a href="@Url.Action("detail",new { id = post.Id})" class="thumb">
+                                        <img src="@post.Thumbnail" alt="@post.Title" />
+                                    </a>
+                                </div>
+                                <div class="col-sm-8">
+                                    <a href="@Url.Action("detail",new { id = post.Id})">
+                                        <h3 class="art-title">
+                                            @post.Title
+                                        </h3>
+                                        <div class="note">
+                                            <span class="pull-right"> <i class="iconfont icon-fire"></i>@post.ViewCount</span>
+                                            <span>
+                                                <i class="iconfont icon-time"></i> @post.Pubdate.ToShortDateString()
+                                            </span>
+                                            <span>作者：@post.Source </span>
+                                        </div>
+                                        <p>
+                                            @post.Summary
+                                        </p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                }
+                        @if (Model.Articles.Any())
+                    {
+                        <div class="text-center">
+                            @Html.PagedListPager((IPagedList)Model.Articles, page => Url.Action("Index", new { page }))
+                        </div>
+                }
+                else
+                {
+                    <div class="alert alert-info">
+                        <i class="iconfont icon-info"></i>  未找到任何项。
+                    </div>
+            }
+
+
+                    </div>
+
+
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    @Html.Action("HotNews", new { count = 8 })
+                </div>
+            </div>
+
+
+            <div class="row">
+
+
+                <div class="col-md-10 col-md-offset-1 animated fadeInLeft">
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+        </section>
+    </div>
+
+@section footer{
+    <script src="~/Plugins/bxslider/dist/jquery.bxslider.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('.bxslider').bxSlider({
+                mode: 'fade',
+                captions: true,
+                auto: true,
+                controls: false
+            });
+            $(".bx-caption span,.bx-pager").addClass("container");
+        });
+    </script>
+
+
+}

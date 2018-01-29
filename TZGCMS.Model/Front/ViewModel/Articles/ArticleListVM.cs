@@ -11,7 +11,7 @@ namespace TZGCMS.Model.Front.ViewModel.Articles
     public class ArticleListVM
     {
         //public int CategoryId { get; set; }
-        //public string Keyword { get; set; }
+        public string Keyword { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
         public int TotalCount { get; set; }

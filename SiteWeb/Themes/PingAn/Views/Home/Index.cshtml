@@ -18,9 +18,9 @@
         <div class="logo">
             <img src="~/Themes/PingAn/Content/img/logo.png" alt="@SettingsManager.Site.SiteName" />
         </div>
-        <form class="form" method="get">
+        <form class="form" action="@Url.Action("Search","Article")" method="get">
             <div class="control-group">
-                <input name="keywords" type="text" class="form-control" placeholder="搜索关键词" /><button type="submit"><i class="iconfont icon-search"></i></button>
+                <input name="keyword" type="text" class="form-control" placeholder="搜索关键词" /><button type="submit"><i class="iconfont icon-search"></i></button>
             </div>
         </form>
     </div>
@@ -40,7 +40,7 @@
                 <h3 class="title">动态数据</h3>
                 <img src="~/Themes/PingAn/Content/img/chart.png" alt="动态数据" />
             </aside>
-            @Html.Action("RecentNews","Article", new { seoName = "articles", count = 8 })
+            @Html.Action("HotNews","Article", new { count = 8 })
             <p class="text-center">
                 <a href="/article" class="btn btn-b-orange">更多文章</a>
             </p>

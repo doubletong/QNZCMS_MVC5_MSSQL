@@ -145,3 +145,72 @@
         margin-top: 30px;
     }
 }
+
+.page-search {
+    border-top: 45px #000 solid;
+    padding-top: 30px;
+    margin-bottom: 60px;
+    min-height: 500px;
+
+    @media only screen and (min-width:768px) {
+        padding-top: 50px;
+        margin-bottom: 120px;
+        border-top: 78px #000 solid;
+    }
+
+    .searchform {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 50px;
+        color: @color_title;
+
+        @media only screen and (min-width:768px) {
+            text-align: left;
+        }
+
+
+
+        span {
+            color: @color_sub;
+        }
+
+        .formInline {
+            display: inline-block;
+            border: 1px #ddd solid;
+            height: 32px;
+            width: 230px;
+            position: relative;
+            border-radius: 16px;
+            padding: 0 8px;
+
+
+            @media only screen and (min-width:768px) {
+                margin-left: 15px;
+            }
+
+            input {
+                width: 180px;
+                height: 30px;
+                border: none;
+                box-shadow: none;
+            }
+
+            button {
+                position: absolute;
+                top: 0;
+                right: 5px;
+                z-index: 1000;
+                height: 30px;
+                border: none;
+                background-color: transparent;
+                padding: 0;
+                line-height: 1;
+                width: 30px;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+    }
+}

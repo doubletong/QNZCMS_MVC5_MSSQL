@@ -11,7 +11,7 @@ namespace TZGCMS.Infrastructure.Helper
             int year = DateTime.Now.Year;
             for (int i = starYear; i <= year; i++)
             {
-                yearList.Add(i);
+                yearList.Insert(0,i);
             }
             return yearList;
         }
