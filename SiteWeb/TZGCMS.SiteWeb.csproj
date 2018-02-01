@@ -277,6 +277,7 @@
     <Compile Include="Controllers\ChronicleController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LinkController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
@@ -2904,6 +2905,8 @@
     <Content Include="Themes\PingAn\Content\iconfont\iconfont.css" />
     <Content Include="Themes\PingAn\Content\iconfont\iconfont.js" />
     <Content Include="Themes\PingAn\Content\iconfont\iconfont.svg" />
+    <Content Include="Themes\PingAn\Content\img\404.png" />
+    <Content Include="Themes\PingAn\Content\img\500.png" />
     <Content Include="Themes\PingAn\Content\img\about.jpg" />
     <Content Include="Themes\PingAn\Content\img\androidAPK.png" />
     <Content Include="Themes\PingAn\Content\img\article_no_thumb.png" />
@@ -3107,6 +3110,9 @@
     <Content Include="Themes\PingAn\Views\AD\Partials\SingleAd.cshtml" />
     <Content Include="Themes\PingAn\Views\Article\Partials\HotNews.cshtml" />
     <Content Include="Themes\PingAn\Views\Article\Search.cshtml" />
+    <Content Include="Themes\PingAn\Views\Error\BadRequest.cshtml" />
+    <Content Include="Themes\PingAn\Views\Error\NotFound.cshtml" />
+    <Content Include="Themes\PingAn\Views\Error\ServerError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3120,6 +3126,7 @@
     <Folder Include="Uploads\Files\" />
     <Folder Include="Uploads\Images\" />
     <Folder Include="Views\Chronicle\" />
+    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

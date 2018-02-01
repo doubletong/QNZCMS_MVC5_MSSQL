@@ -46,9 +46,9 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label">@(Labels.Year + Labels.Month + Labels.Day)</label>
                                 <div class="col-md-10">
-                                    @Html.DropDownListFor(model => model.Year, (SelectList)ViewBag.Years, $"--{Labels.Year}--", new { @class = "form-control", style = "width:120px;display:inline-block;" })
-                                    @Html.DropDownListFor(model => model.Month, (SelectList)ViewBag.Months, $"--{Labels.Month}--", new { @class = "form-control", style = "width:120px;display:inline-block;" })
-                                    @Html.DropDownListFor(model => model.Day, (SelectList)ViewBag.Days, $"--{Labels.Day}--", new { @class = "form-control", style = "width:120px;display:inline-block;" })
+                                    @Html.DropDownListFor(model => model.Year, (SelectList)ViewBag.Years, "--" + Labels.Year + "--", new { @class = "form-control", style = "width:120px;display:inline-block;" })
+                                    @Html.DropDownListFor(model => model.Month, (SelectList)ViewBag.Months, "--" + Labels.Month + "--", new { @class = "form-control", style = "width:120px;display:inline-block;" })
+                                    @Html.DropDownListFor(model => model.Day, (SelectList)ViewBag.Days, "--" + Labels.Day + "--", new { @class = "form-control", style = "width:120px;display:inline-block;" })
 
                                     @Html.ValidationMessageFor(model => model.Year)
                                     @Html.ValidationMessageFor(model => model.Month)

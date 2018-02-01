@@ -12,7 +12,7 @@
         }
     </td>
     <td>
-        @($"{Model.Year}年{Model.Month}月{day}")
+        @(string.Format("{0}年{1}月{2}",Model.Year,Model.Month,day))
     </td>
     <td>
         @Model.Title
