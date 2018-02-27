@@ -28,7 +28,7 @@ namespace TZGCMS.Service.Identity
         ////List<MenuVM> GetFaltMenus(int categoryId);
 
         IEnumerable<Menu> GetMenusByCategoryId(int categoryId);
-        IEnumerable<Menu> GetLevelMenusByCategoryId(int categoryId);
+        //    IEnumerable<Menu> GetLevelMenusByCategoryId(int categoryId);
         Menu GetByIdWithChilds(int id);
         int UpMoveMenu(int id);
         int DownMoveMenu(int id);
@@ -83,11 +83,11 @@ namespace TZGCMS.Service.Identity
 
         public List<Menu> GetShowMenus(int categoryId)
         {
-       
+
             var menus = _unitOfWork.MenuRepository.
-                GetMany(m => m.CategoryId == categoryId && (m.MenuType == MenuType.NOLINK || 
+                GetMany(m => m.CategoryId == categoryId && (m.MenuType == MenuType.NOLINK ||
                 m.MenuType == MenuType.PAGE)).OrderBy(m => m.Importance).ToList();
-           
+
             return menus;
 
         }
@@ -138,8 +138,8 @@ namespace TZGCMS.Service.Identity
 
 
         public List<Menu> GetAllMenusByCategoryId(int categoryId)
-        {            
-           var menus = _unitOfWork.MenuRepository.GetMany(m => m.CategoryId == categoryId).ToList(); 
+        {
+            var menus = _unitOfWork.MenuRepository.GetMany(m => m.CategoryId == categoryId).ToList();
             return menus;
         }
 
@@ -150,48 +150,20 @@ namespace TZGCMS.Service.Identity
         /// <returns></returns>
         public IEnumerable<Menu> GetMenusByCategoryId(int categoryId)
         {
-            return  _unitOfWork.MenuRepository.GetMany(m => m.CategoryId == categoryId).OrderBy(m => m.Importance);
+            return _unitOfWork.MenuRepository.GetMany(m => m.CategoryId == categoryId).OrderBy(m => m.Importance).ToList();
         }
 
-        /// <summary>
-        /// 按分类ID获取菜单并缓存
-        /// </summary>
-        /// <param name="categoryId"></param>
-        /// <returns></returns>
-        //public IEnumerable<Menu> GetMenusByCategoryIdWithCache(int categoryId)
-        //{
-        //    var key = $"{EntityNames.Menu}S_SetRole_{categoryId}";
-
-        //    IEnumerable<Menu> result;
-        //    if (SettingsManager.Menu.EnableCaching)
-        //    {
-        //        if (_cacheService.IsSet(key))
-        //        {
-        //            result = (IEnumerable<Menu>)_cacheService.Get(key);
-        //        }
-        //        else
-        //        {
-        //            result = GetMenusByCategoryId(categoryId);
-        //            _cacheService.Set(key, result, SettingsManager.Menu.CacheDuration);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        result = GetMenusByCategoryId(categoryId);
-        //    }
-
-        //    return result;
-        //}
-
+      
         /// <summary>
         /// 按分类ID获取菜单并层级化（角色菜单权限）
         /// </summary>
         /// <param name="categoryId"></param>
         /// <returns></returns>
-        public IEnumerable<Menu> GetLevelMenusByCategoryId(int categoryId)
-        {
-            return _unitOfWork.MenuRepository.Table.Include("ChildMenus").Where(d => d.CategoryId == categoryId && d.ParentId == null).AsEnumerable();           
-        }
+        //public IEnumerable<Menu> GetLevelMenusByCategoryId(int categoryId)
+        //{
+        //    // return _unitOfWork.MenuRepository.Table.Where(d => d.CategoryId == categoryId && d.ParentId == null).AsEnumerable();     
+        //    return _unitOfWork.MenuRepository.Table.Where(d => d.CategoryId == categoryId).ToList();
+        //}
 
 
         /// <summary>
@@ -200,7 +172,7 @@ namespace TZGCMS.Service.Identity
         /// <param name="categoryId"></param>
         public void ResetSort(int categoryId)
         {
-            var menuList = GetLevelMenusByCategoryId(categoryId);// _menuRepository.GetFilteredElements(m => m.CategoryId == categoryId && m.ParentId == null, m => m.ChildMenus).OrderBy(m => m.Importance);
+            var menuList = GetMenusByCategoryId(categoryId);// _menuRepository.GetFilteredElements(m => m.CategoryId == categoryId && m.ParentId == null, m => m.ChildMenus).OrderBy(m => m.Importance);
             var list = menuList.Where(m => m.ParentId == null).OrderBy(m => m.Importance)
                 .SelectDeep<Menu>(m => m.ChildMenus.OrderBy(g => g.Importance));
 
@@ -211,7 +183,7 @@ namespace TZGCMS.Service.Identity
                 Update(item);
                 i++;
             }
-          
+
             //   _menuRepository.UnitOfWork.Commit();
             // _cacheService.Invalidate(EntityNames.Menu);
             // return menu;
@@ -242,7 +214,7 @@ namespace TZGCMS.Service.Identity
             Update(prevMenu);
             Update(vMenu);
 
-            ResetSort(vMenu.CategoryId);
+           // ResetSort(vMenu.CategoryId);
             //SetMenuImportance(vMenu.Id, num);
             //SetMenuImportance(prevMenu.Id, -num);
 
@@ -269,12 +241,12 @@ namespace TZGCMS.Service.Identity
                 // 已经在最后一位
                 return 0;
             }
-                    
+
 
             var num = nextMenu.Importance - vMenu.Importance;
             nextMenu.Importance = nextMenu.Importance - num;
             vMenu.Importance = vMenu.Importance + num;
-            ResetSort(vMenu.CategoryId);
+           // ResetSort(vMenu.CategoryId);
             return 1;
         }
 
@@ -308,7 +280,7 @@ namespace TZGCMS.Service.Identity
         }
         public Menu GetByIdWithChilds(int id)
         {
-            return _unitOfWork.MenuRepository.GetFirstOrDefault(d=>d.Id == id,d=>d.ChildMenus,d=>d.Roles);
+            return _unitOfWork.MenuRepository.GetFirstOrDefault(d => d.Id == id, d => d.ChildMenus, d => d.Roles);
         }
 
 

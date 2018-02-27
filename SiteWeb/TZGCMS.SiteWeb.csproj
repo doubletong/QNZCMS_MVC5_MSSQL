@@ -249,6 +249,7 @@
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\WeiXinController.cs" />
     <Compile Include="DependencyRegistrar.cs" />
+    <Compile Include="Filters\SIGActionFilter.cs" />
     <Compile Include="Filters\SIGAuthAttribute.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">

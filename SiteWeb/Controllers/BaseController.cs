@@ -4,9 +4,11 @@ using System.Web.Mvc;
 using TZGCMS.Data.Entity.Identity;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Model.Front.ViewModel;
+using TZGCMS.SiteWeb.Filters;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
+    [SIGActionFilter]
     public class BaseController : Controller
     {
          public AjaxResultVM AR = new AjaxResultVM();
@@ -86,6 +88,11 @@ namespace TZGCMS.SiteWeb.Controllers
             }
 
             base.Execute(requestContext);
+        }
+
+        public new RedirectToRouteResult RedirectToAction(string action, string controller)
+        {
+            return base.RedirectToAction(action, controller);
         }
     }
 }

@@ -9,6 +9,7 @@ using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.Helper;
 using TZGCMS.Infrastructure.Logging;
 using TZGCMS.Service.PageMetas;
+using TZGCMS.SiteWeb.Filters;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
@@ -21,7 +22,7 @@ namespace TZGCMS.SiteWeb.Controllers
             _pageMetaService = pageMetaService;
             _logger = logger;
         }
-
+        [SIGActionFilter]
         public ActionResult Index()
         {
             var url = Request.RawUrl;
@@ -51,8 +52,12 @@ namespace TZGCMS.SiteWeb.Controllers
             }
             return View();
         }
+        public ActionResult CloseSite()
+        {           
+            return View();
+        }
+        
 
-    
         public ActionResult Celebs()
         {
             if (Request.Browser.IsMobileDevice)

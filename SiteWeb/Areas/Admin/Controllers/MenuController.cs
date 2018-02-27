@@ -28,13 +28,13 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             _menuCategoryService = menuCategoryService;
             _mapper = mapper;
         }
-      
+
         //
         // GET: /Admin/Menu/ 
         public ActionResult Index()
         {
-            var  menuCategory = _menuCategoryService.GetById(SettingsManager.Menu.BackMenuCId);
-          //  var vm = _mapper.Map<MenuCategoryVM>(menuCategory);      
+            var menuCategory = _menuCategoryService.GetById(SettingsManager.Menu.BackMenuCId);
+            //  var vm = _mapper.Map<MenuCategoryVM>(menuCategory);      
             return View(menuCategory);
         }
 
@@ -44,23 +44,23 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         /// <param name="categoryId"></param>
         /// <returns></returns>
         [AllowAnonymous]
-        public  ActionResult GetMenus(int categoryId)
+        public ActionResult GetMenus(int categoryId)
         {
-            var menus = _menuService.GetLevelMenusByCategoryId(categoryId);
-            return PartialView("_MenuList",menus);
+            var menus = _menuService.GetMenusByCategoryId(categoryId);
+            return PartialView("_MenuList", menus);
         }
 
-      
 
 
 
-        [HttpGet]     
+
+        [HttpGet]
         public ActionResult CreateMenu(int categoryId, int parentId)
         {
-            var vMenu = new Menu(); 
+            var vMenu = new Menu();
             MenuIM newDto = _mapper.Map<MenuIM>(vMenu);
-        
-            newDto.CategoryId = (int)categoryId;          
+
+            newDto.CategoryId = (int)categoryId;
             newDto.ParentId = parentId;
             return PartialView("_MenuCreate", newDto);
         }
@@ -161,7 +161,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 //_menuService.CreateAndSort(vMenu);           
                 _menuService.ResetSort(menu.CategoryId);
 
-                var menus = _menuService.GetLevelMenusByCategoryId(vMenu.CategoryId);
+                var menus = _menuService.GetMenusByCategoryId(vMenu.CategoryId);
                 AR.Id = menu.CategoryId;
                 AR.Data = RenderPartialViewToString("_MenuList", menus);
 
@@ -216,7 +216,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
                 // _menuService.ResetSort(orgMenu.CategoryId);
 
-                var menus = _menuService.GetLevelMenusByCategoryId(vMenu.CategoryId);
+                var menus = _menuService.GetMenusByCategoryId(vMenu.CategoryId);
                 AR.Id = vMenu.CategoryId;
                 AR.Data = RenderPartialViewToString("_MenuList", menus);
 
@@ -263,9 +263,9 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                     return Json(AR, JsonRequestBehavior.DenyGet);
                 }
 
-              //  vMenu.Roles.Clear();
+                //  vMenu.Roles.Clear();
                 _menuService.Delete(vMenu);
-              //  _menuService.DeleteMenuWithRoles(id);
+                //  _menuService.DeleteMenuWithRoles(id);
                 _menuService.ResetSort(vMenu.CategoryId);
 
                 //var menus = await _menuService.GetMenus(cid);
@@ -304,7 +304,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
             }
 
-            var menus = _menuService.GetLevelMenusByCategoryId(categoryId);
+            var menus = _menuService.GetMenusByCategoryId(categoryId);
             AR.Id = categoryId;
             AR.Data = RenderPartialViewToString("_MenuList", menus);
 
@@ -360,7 +360,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             {
                 _menuService.ResetSort(id);
 
-                var menus = _menuService.GetLevelMenusByCategoryId(id);
+                var menus = _menuService.GetMenusByCategoryId(id);
                 AR.Id = id;
                 AR.Data = RenderPartialViewToString("_MenuList", menus);
 
@@ -379,7 +379,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         public ActionResult MoveMenu(int id)
         {
             var menu = _menuService.GetById(id);
-            var menus = _menuService.GetLevelMenusByCategoryId(menu.CategoryId);
+            var menus = _menuService.GetMenusByCategoryId(menu.CategoryId);
             MoveMenuVM vm = new MoveMenuVM
             {
                 Id = id,
@@ -406,7 +406,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
                 _menuService.ResetSort(menu.CategoryId);
 
-                var menus = _menuService.GetLevelMenusByCategoryId(menu.CategoryId);
+                var menus = _menuService.GetMenusByCategoryId(menu.CategoryId);
                 AR.Id = menu.CategoryId;
                 AR.Data = RenderPartialViewToString("_MenuList", menus);
 
