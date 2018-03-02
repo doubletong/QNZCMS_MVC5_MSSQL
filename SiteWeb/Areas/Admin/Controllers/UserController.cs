@@ -153,7 +153,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
 
         }
-
+        [AllowAnonymous]
 
         public JsonResult IsUserNameUnique(string UserName)
         {
@@ -163,7 +163,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 ? Json(false, JsonRequestBehavior.AllowGet)
                 : Json(true, JsonRequestBehavior.AllowGet);
         }
-
+        [AllowAnonymous]
         public JsonResult IsEmailUnique(string Email)
         {
             var result = _userServices.IsExistEmail(Email);
@@ -241,6 +241,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             }
 
         }
+        [AllowAnonymous]
         public JsonResult IsEmailUniqueAtEdit(string email, Guid id)
         {
             var result = _userServices.IsExistEmail(email, id);

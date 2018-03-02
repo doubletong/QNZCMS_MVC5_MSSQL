@@ -133,17 +133,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 AR.Setfailure(GetModelErrorMessage());
                 return Json(AR, JsonRequestBehavior.DenyGet);
             }
-            //var carousel = _carouselService.GetById(vm.Id);
-            //carousel.Title = vm.Title;
-            //carousel.ImageUrl = vm.ImageUrl;
-            //carousel.PositionId = vm.PositionId;
-            //carousel.ImageUrlMobile = vm.ImageUrlMobile;
-            //carousel.WebLink = vm.WebLink;
-            //carousel.Importance = vm.Importance;
-            //carousel.CreatedBy = Site.CurrentUserName;
-            //carousel.CreatedDate = DateTime.Now;
-            //carousel.Description = vm.Description;
-            //carousel.Active = vm.Active;
+         
 
             var carousel = _mapper.Map<Carousel>(vm);
             _carouselService.Update(carousel);
