@@ -15,6 +15,7 @@ using TZGCMS.Service.Chronicles;
 using TZGCMS.Service.Doc;
 using TZGCMS.Service.Emails;
 using TZGCMS.Service.Identity;
+using TZGCMS.Service.Jobs;
 using TZGCMS.Service.Links;
 using TZGCMS.Service.PageMetas;
 using TZGCMS.Service.Pages;
@@ -77,6 +78,8 @@ namespace TZGCMS.SiteWeb
 
             builder.RegisterType<PositionServices>().As<IPositionServices>().InstancePerLifetimeScope();
             builder.RegisterType<CarouselServices>().As<ICarouselServices>().InstancePerLifetimeScope();
+
+            builder.RegisterType<JobServices>().As<IJobServices>().InstancePerLifetimeScope();
 
             builder.RegisterType<BackupServices>().As<IBackupServices>().InstancePerLifetimeScope();
             builder.RegisterType<LogServices>().As<ILogServices>().InstancePerLifetimeScope();

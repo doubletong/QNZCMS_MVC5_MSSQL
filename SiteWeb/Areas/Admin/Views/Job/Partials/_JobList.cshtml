@@ -1,0 +1,5 @@
+﻿@model IEnumerable<TZGCMS.Data.Entity.Job>
+@foreach (var item in Model)
+{
+    Html.RenderPartial("_JobItem", item);
+}

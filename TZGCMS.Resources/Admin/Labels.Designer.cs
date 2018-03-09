@@ -1312,6 +1312,24 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 工作地点 的本地化字符串。
+        /// </summary>
+        public static string WorkAddress {
+            get {
+                return ResourceManager.GetString("WorkAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 工作类型 的本地化字符串。
+        /// </summary>
+        public static string WorkType {
+            get {
+                return ResourceManager.GetString("WorkType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 年 的本地化字符串。
         /// </summary>
         public static string Year {

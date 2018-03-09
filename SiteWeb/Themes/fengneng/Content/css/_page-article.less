@@ -1,0 +1,216 @@
+﻿
+.page-news {
+    margin-bottom: 50px;
+
+    .articleList {
+        .section-title {
+            border-bottom: 1px #e0e0e0 solid;
+            height: 51px;
+            margin-bottom: 6px;
+
+            h2 {
+                height: 50px;
+                border-bottom: @color_sub 4px solid;
+                display: inline-block;
+                margin: 0;
+                line-height: 46px;
+                font-size: 18px;
+                color: @color_title;
+                font-weight: normal;
+            }
+        }
+
+        .box {
+            padding: 25px 0 20px 0;
+
+            @media only screen and (min-width:768px) {
+                padding: 50px 15px 40px 0;
+            }
+
+            &:hover {
+                background-color: #f5f5f5;
+            }
+
+            .thumb {
+                img {
+                    width: 100%;
+                }
+            }
+
+            .art-title {
+                font-size: 24px;
+                color: @color_title;
+                margin: 0 0 10px;
+            }
+
+            .note {
+                color: #999;
+
+                .iconfont {
+                    font-size: 20px;
+                    color: @color_sub;
+                }
+            }
+
+            p {
+                color: #999;
+            }
+        }
+    }
+
+    .zhuanlan {
+        border-top: 1px #e0e0e0 solid;
+        margin-top: 50px;
+        text-align: center;
+        background-color: #fafafa;
+        padding: 0 15px 25px;
+
+        .art-title {
+            margin: 0;
+            display: inline-block;
+            border-top: 2px @color_sub solid;
+            height: 56px;
+            line-height: 48px;
+            font-size: 18px;
+            color: @color_title;
+            font-weight: normal;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        ul {
+            .mplnone;
+
+            li {
+                background: url(../img/dot.png) no-repeat left 11px;
+                padding-left: 20px;
+                text-align: left;
+                margin-bottom: 15px;
+
+                a {
+                    display: block;
+                }
+
+                time {
+                    color: #999;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+.page-article-detail {
+    border-top: 45px #000 solid;
+    padding-top: 30px;
+    margin-bottom: 60px;
+    min-height: 500px;
+
+    @media only screen and (min-width:768px) {
+        padding-top: 50px;
+        margin-bottom: 120px;
+        border-top: 78px #000 solid;
+    }
+
+    .article {
+        .title {
+            border-bottom: 1px #ddd solid;
+            color: @color_title;
+            font-size: 28px;
+            font-weight: normal;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .note {
+            color: #999;
+            margin-bottom: 40px;
+
+            .iconfont {
+                color: @color_sub;
+            }
+
+            span {
+                margin-right: 20px;
+            }
+        }
+
+        &>.content{
+            font-size:20px;line-height:1.8;
+        }
+    }
+
+    .page-news .zhuanlan {
+        margin-top: 30px;
+    }
+}
+
+.page-search {
+    border-top: 45px #000 solid;
+    padding-top: 30px;
+    margin-bottom: 60px;
+    min-height: 500px;
+
+    @media only screen and (min-width:768px) {
+        padding-top: 50px;
+        margin-bottom: 120px;
+        border-top: 78px #000 solid;
+    }
+
+    .searchform {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 50px;
+        color: @color_title;
+
+        @media only screen and (min-width:768px) {
+            text-align: left;
+        }
+
+
+
+        span {
+            color: @color_sub;
+        }
+
+        .formInline {
+            display: inline-block;
+            border: 1px #ddd solid;
+            height: 32px;
+            width: 230px;
+            position: relative;
+            border-radius: 16px;
+            padding: 0 8px;
+
+
+            @media only screen and (min-width:768px) {
+                margin-left: 15px;
+            }
+
+            input {
+                width: 180px;
+                height: 30px;
+                border: none;
+                box-shadow: none;
+            }
+
+            button {
+                position: absolute;
+                top: 0;
+                right: 5px;
+                z-index: 1000;
+                height: 30px;
+                border: none;
+                background-color: transparent;
+                padding: 0;
+                line-height: 1;
+                width: 30px;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+    }
+}

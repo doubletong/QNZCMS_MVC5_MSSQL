@@ -55,9 +55,20 @@ namespace TZGCMS.Service
         private BaseRepository<Link> _linkRepository;
 
         private BaseRepository<Chronicle> _chronicleRepository;
+        private BaseRepository<Job> _jobRepository;
         #endregion
 
         #region Constructors and Destructors
+
+        public BaseRepository<Job> JobRepository
+        {
+            get
+            {
+                if (this._jobRepository == null)
+                    this._jobRepository = new BaseRepository<Job>(Context);
+                return _jobRepository;
+            }
+        }
         public BaseRepository<Chronicle> ChronicleRepository
         {
             get

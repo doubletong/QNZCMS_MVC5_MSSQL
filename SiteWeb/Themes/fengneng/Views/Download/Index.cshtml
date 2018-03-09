@@ -1,0 +1,130 @@
+﻿@model DocumentListFVM
+@{
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : "下载中心";
+}
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+
+}
+
+<!-- PAGE TITLE ================================================== -->
+<div class="container page-downloads">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="page-title">
+                <h2>@ViewBag.Title</h2>
+                <p>
+                    DOWNLOADS
+                </p>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="categories">
+                <div class="btn-group" role="group" aria-label="...">
+                    @{
+                        var className = (Model.CateId != 0) ? "btn-default" : "btn-warning";
+                    }
+                    <a href="@Url.Action("index")" class="btn @className">
+                        所有
+                    </a>
+                    @foreach (var category in Model.Categories)
+                    {
+                        var className1 = (Model.CateId != category.Id) ? "btn-default" : "btn-warning";
+                        <a href="@Url.Action("index",new { cateId = category.Id })" class="btn @className1" title="@category.Title">
+                            @category.Title
+                        </a>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<!-- products   ================================================== -->
+<section class="container page-downloads m-b-50">
+    <table id="productlist" class="table table-hover table-striped table-vmiddle table-download">
+        <thead>
+            <tr>
+                <th></th>
+                <th>主题</th>
+                <th>分类</th>
+                <th>文件大小</th>
+                <th>下载次数</th>
+                <th>下载密码</th>
+                <th>下载</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var doc in Model.Documents)
+            {
+                <tr>
+                    <td><img src="@string.Format("/areas/admin/content/img/ext/{0}.png",doc.Extension)" alt="@doc.Extension" /></td>
+                    <td>@doc.Title</td>
+                    <td>@doc.CategoryTitle</td>
+                    <td>@string.Format("{0}mb", doc.FileSize)</td>
+                    <td>@doc.DownloadCount</td>
+
+
+                    @if (!doc.IsVIP)
+                    {
+                        <td>
+                            <span>@doc.Password</span>
+                        </td>
+                        <td><a href="@Url.Action("Detail",new { id= doc.Id})" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-cloud-download"></span> 下载</a></td>
+                    }
+                    else
+                    {
+                        if (User.Identity.IsAuthenticated && User.IsInRole("客户"))
+                        {
+                            <td>
+                                <span>@doc.Password</span>
+                            </td>
+                            <td><a href="@Url.Action("Detail",new { id= doc.Id})" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-cloud-download"></span> 下载</a></td>
+                        }
+                        else
+                        {
+                            <td>
+                                <span>请<a href="@Url.Action("Register","Account")">注册</a>会员，并联系客服授权下载！</span>
+                            </td>
+                            <td><a href="@Url.Action("Detail",new { id= doc.Id})" target="_blank" class="btn btn-default disabled"><span class="glyphicon glyphicon-cloud-download"></span> 下载</a></td>
+                        }
+
+                    }
+
+
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+    @if (Model.Documents.Any())
+    {
+        @Html.PagedListPager((IPagedList)Model.Documents, page => Url.Action("Index", new { page, cateId = Model.CateId }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <span class="glyphicon glyphicon-info-sign"></span> 未找到任何文档
+        </div>
+    }
+
+</section>
+
+@section footer{
+    <script>
+        $(function () {
+            $("#mainav li").eq(4).addClass("active");
+        })
+    </script>
+
+}

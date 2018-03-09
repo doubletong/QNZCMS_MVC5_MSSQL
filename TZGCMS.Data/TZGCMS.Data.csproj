@@ -67,6 +67,7 @@
     <Compile Include="Entity\Identity\Role.cs" />
     <Compile Include="Entity\Identity\User.cs" />
     <Compile Include="Entity\Identity\UserSafety.cs" />
+    <Compile Include="Entity\Job.cs" />
     <Compile Include="Entity\Links\Link.cs" />
     <Compile Include="Entity\Links\LinkCategory.cs" />
     <Compile Include="Entity\Logs\Log.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Mapping\DocumentMap.cs" />
     <Compile Include="Mapping\DocumentCategoryMap.cs" />
     <Compile Include="Mapping\ChronicleMap.cs" />
+    <Compile Include="Mapping\JobMap.cs" />
     <Compile Include="Mapping\ProductCategoryMap.cs" />
     <Compile Include="Mapping\ProductMap.cs" />
     <Compile Include="Mapping\ReservationMap.cs" />

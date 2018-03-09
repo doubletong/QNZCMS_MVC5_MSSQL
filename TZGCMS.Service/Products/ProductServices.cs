@@ -22,6 +22,7 @@ namespace TZGCMS.Service.Products
         IEnumerable<Product> GetRecommendElements(int count);
         List<Product> GetPagedElements(int pageIndex, int pageSize, string keyword, int categoryId, out int totalCount);
         List<Product> GetActivePagedElements(int pageIndex, int pageSize, string keyword, int categoryId, out int totalCount);
+        List<Product> GetActivePagedElements(int pageIndex, int pageSize, string keyword, string seoName, out int totalCount);
         Product GetById(int id);
 
         bool Update(Product Product);
@@ -114,6 +115,35 @@ namespace TZGCMS.Service.Products
 
             return Products;
         }
+
+        public List<Product> GetActivePagedElements(int pageIndex, int pageSize, string keyword, string seoName, out int totalCount)
+        {
+            var category = _unitOfWork.ProductCategoryRepository.GetFirstOrDefault(d => d.SeoName == seoName);
+            var totalIQuery = _unitOfWork.ProductRepository.Table.AsQueryable().Where(d => d.Active == true);
+            if (!string.IsNullOrEmpty(keyword))
+                totalIQuery = totalIQuery.Where(g => g.ProductName.Contains(keyword) || g.ProductNo.Contains(keyword) || g.Body.Contains(keyword));
+            if (category!=null)
+                totalIQuery = totalIQuery.Where(g => g.Categories.Any(c => c.Id == category.Id));
+
+            totalCount = totalIQuery.Count();
+
+            //get list
+            List<Product> Products;
+            Expression<Func<Product, bool>> filter = g => g.Active == true;
+            Expression<Func<Product, bool>> filterByKeyword = g => g.ProductName.Contains(keyword) || g.ProductNo.Contains(keyword) || g.Body.Contains(keyword);
+            Expression<Func<Product, bool>> filterByCategoryId = g => g.Categories.Any(c => c.Id == category.Id);
+
+            if (!string.IsNullOrEmpty(keyword))
+                filter = filter.AndAlso(filterByKeyword);
+
+            if (category != null)
+                filter = filter.AndAlso(filterByCategoryId);
+
+            Products = _unitOfWork.ProductRepository.GetPagedElements(pageIndex, pageSize, (c => c.Id), filter, false, (d => d.Categories)).ToList();
+
+            return Products;
+        }
+
         public Product GetById(int id)
         {
             return _unitOfWork.ProductRepository.GetById(id);

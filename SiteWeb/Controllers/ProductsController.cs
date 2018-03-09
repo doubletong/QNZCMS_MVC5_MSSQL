@@ -14,13 +14,14 @@ using TZGCMS.Service.Products;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
-    public class ProductController : BaseController
+    //[RoutePrefix("products")]
+    public class ProductsController : BaseController
     {
         private readonly IProductCategoryServices _categoryService;
         private readonly IProductServices _productService;
         private readonly ILoggingService _logger;
         private readonly IPageMetaServices _pageMetaService;
-        public ProductController(IProductServices productService,IProductCategoryServices categoryService,IPageMetaServices pageMetaService, ILoggingService logger)
+        public ProductsController(IProductServices productService,IProductCategoryServices categoryService,IPageMetaServices pageMetaService, ILoggingService logger)
         {
             _categoryService = categoryService;
             _productService = productService;
@@ -28,18 +29,22 @@ namespace TZGCMS.SiteWeb.Controllers
             _logger = logger;
         }
         // GET: Product
-        public ActionResult Index(int? page, int? cateId)
+        [Route("products")]
+        [Route("products/page-{page}", Name = "pageProducts")]
+        [Route("products/category-{seoName}", Name = "caegoryProducts")]
+        [Route("products/category-{seoName}/page-{page}", Name = "caegoryPageProducts")]
+        public ActionResult Index(int? page, string seoName)
         {
             var vm = new ProductListFVM
             {
                 Categories = _categoryService.GetActiveItems(),
-                CategoryId = cateId??0,
+                SeoName = seoName,
                 PageIndex = page ?? 1,
-                PageSize = SettingsManager.Product.PageSize
+                PageSize =  3 //SettingsManager.Product.PageSize
              };
         
             int totalCount;
-            var list = _productService.GetActivePagedElements(vm.PageIndex -1 , vm.PageSize, string.Empty, vm.CategoryId, out totalCount);
+            var list = _productService.GetActivePagedElements(vm.PageIndex -1 , vm.PageSize, string.Empty, vm.SeoName, out totalCount);
          
             vm.TotalCount = totalCount;
             vm.Products = new StaticPagedList<Product>(list, vm.PageIndex, vm.PageSize, vm.TotalCount);

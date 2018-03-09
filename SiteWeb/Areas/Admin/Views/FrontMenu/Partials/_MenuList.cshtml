@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Menu>
         
-@ShowTree(Model)
+@ShowTree(Model.Where(d=>d.ParentId==null))
 
 @helper ShowTree(IEnumerable<Menu> menus,bool isExpand = true)
 {

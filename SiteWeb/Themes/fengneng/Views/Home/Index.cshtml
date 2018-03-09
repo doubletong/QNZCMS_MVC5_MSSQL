@@ -1,0 +1,65 @@
+﻿@{
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : SettingsManager.Contact.CompanyName;
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+    <link href="~/Plugins/bxslider/dist/jquery.bxslider.min.css" rel="stylesheet" />
+}
+
+
+@Html.Action("Carousels", "Ad", new { code = "A1001" })
+
+<section class="section2 container">
+    <div class="row">
+        <div class="col-md-8 col-lg-9">
+            @Html.Action("HomeNews", "Article", new { seoName = "news", count = 8 })
+            <hr class="nomt" />
+            <p class="text-center">
+                <a href="/article" class="btn btn-b-orange btn-lg">更多文章</a>
+            </p>
+
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <aside class="chart">
+                <h3 class="title">动态数据</h3>
+                <img src="~/Themes/PingAn/Content/img/chart.png" alt="动态数据" />
+            </aside>
+            @Html.Action("HotNews", "Article", new { count = 8 })
+            <p class="text-center">
+                <a href="/article" class="btn btn-b-orange">更多文章</a>
+            </p>
+
+        </div>
+    </div>
+
+</section>
+<section class="section3">
+    @Html.Action("SingleAd", "Ad", new { code = "A1002" })
+</section>
+
+
+
+@section footer{
+    <script src="~/Plugins/bxslider/dist/jquery.bxslider.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('.bxslider').bxSlider({
+                mode: 'fade',
+                captions: true,
+                auto: true,
+                controls: false
+            });
+            $(".bx-caption span,.bx-pager").addClass("container");
+        });
+    </script>
+
+
+}

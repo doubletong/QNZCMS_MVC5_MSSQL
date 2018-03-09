@@ -1,0 +1,80 @@
+﻿
+@{
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : "关于我们";
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+}
+
+
+<div class="banner">
+    <div class="container page-title">
+        <h1>关于蜂能</h1>
+        <h3>About FONENG</h3>
+    </div>
+</div>
+<!-- PAGE TITLE ================================================== -->
+<div class="container page-about">
+    <header class="title">
+        <h2>简介</h2>
+    </header>
+    <div class="intro">
+        <p>
+            <strong>深圳市比方创展科技有限公司</strong>于2008年成立，是一家专业从事手机周边配件（移动电源，充电器，数据线，耳机）产品的设计，研发创新，生产，销售于一体的高新技术企业，拥有员工300余人，厂房面积达10000平米，月产量达2000000PCS，能高效的完成客户的订单量，达到行业领先水平，公司产品均通过CE/FCC/ROHS/MSDS等多项认证，公司也顺利通过ISO9001∶2008质量管理体系认证。
+
+        </p>
+        <p>
+            公司秉承 诚信为本 创新为魂的经营理念，为全球消费者提供 环保，安全，可信赖的移动数码周边产品，让每一款产品都更加贴合生活，更加实用，更加便捷
+        </p>
+        <p>
+            公司通过整合自身在行业的研发创新领先资源，2012年全力推出公司自主品牌经过6年的品牌推广，蜂能品牌代理商已经覆盖全国各省市及 印度，泰国，缅甸，越南，老挝，马来西亚等国家，
+        </p>
+        <p>截止目前蜂能品牌签约代理商160余家，终端形象展示近2000家，合作终端多达数万家，深得广泛的客户认可和支持。</p>
+        <p>
+            蜂能品牌坚持以注重细节，注重服务，帮助客户，成就客户的服务态度来帮助客户解决合作过程中遇到的一切问题，帮助客户实现快速成长与公司共同进步，实现共赢！
+        </p>
+
+
+    </div>
+    <header class="title">
+        <h2>品牌的由来</h2>
+    </header>
+    <div class="intro">
+        <p>
+            <strong>蜂</strong>寓意着我们的团队具备蜜蜂，勤奋，团结，有序以及无私奉献的精神，产品设计团队具备像蜜蜂一样灵敏的市场嗅觉能力。
+        </p>
+    </div>
+    <header class="title">
+        <h2>品牌愿景</h2>
+    </header>
+    <div class="intro">
+        <p>
+            诠释品质生活，让更多人用上好的产品，享受品质生活
+        </p>
+    </div>
+</div>
+
+
+
+    @section footer{
+
+        <script>
+            $(function () {
+                $(".tab-header a").click(function (e) {
+                    e.preventDefault();
+                    $(".tab-header a.active").removeClass("active");
+                    $(this).addClass("active");
+                    var tab = $(this).attr("data-id");
+                    $(".tabone.active").removeClass("active");
+                    $("#" + tab).addClass("active");
+                })
+            })
+        </script>
+    }

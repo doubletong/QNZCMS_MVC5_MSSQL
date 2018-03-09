@@ -14,5 +14,9 @@
   {
     "outputFile": "Themes/PingAn/Content/css/Main.css",
     "inputFile": "Themes/PingAn/Content/css/Main.less"
+  },
+  {
+    "outputFile": "Themes/fengneng/Content/css/Main.css",
+    "inputFile": "Themes/fengneng/Content/css/Main.less"
   }
 ]

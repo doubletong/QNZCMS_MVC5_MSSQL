@@ -60,6 +60,7 @@ namespace TZGCMS.Data.Entity
         public virtual DbSet<Link> Links { get; set; }
 
         public virtual DbSet<Chronicle> Chronicles { get; set; }
+        public virtual DbSet<Job> Jobs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -99,6 +100,7 @@ namespace TZGCMS.Data.Entity
             modelBuilder.Configurations.Add(new LinkCategoryMap());
 
             modelBuilder.Configurations.Add(new ChronicleMap());
+            modelBuilder.Configurations.Add(new JobMap());
             //throw new UnintentionalCodeFirstException();
         }
 

@@ -537,4 +537,10 @@
   <data name="Style" xml:space="preserve">
     <value>样式</value>
   </data>
+  <data name="WorkAddress" xml:space="preserve">
+    <value>工作地点</value>
+  </data>
+  <data name="WorkType" xml:space="preserve">
+    <value>工作类型</value>
+  </data>
 </root>

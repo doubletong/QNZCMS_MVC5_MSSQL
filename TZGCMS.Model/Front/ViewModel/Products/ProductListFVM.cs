@@ -10,7 +10,7 @@ namespace TZGCMS.Model.Front.ViewModel.Products
 {
     public class ProductListFVM
     {
-        public int CategoryId { get; set; }
+        public string SeoName { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
         public int TotalCount { get; set; }

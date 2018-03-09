@@ -84,6 +84,7 @@
     <Compile Include="Identity\RoleServices.cs" />
     <Compile Include="Identity\UserServices.cs" />
     <Compile Include="BaseRepository.cs" />
+    <Compile Include="Jobs\JobServices.cs" />
     <Compile Include="Links\LinkServices.cs" />
     <Compile Include="Links\LinkCategoryService.cs" />
     <Compile Include="LuceneSearch\GoLucene.cs" />

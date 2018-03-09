@@ -1,0 +1,48 @@
+﻿@model TZGCMS.Data.Entity.Job
+<tr class="item-container" id="@string.Format("container{0}",Model.Id)">
+
+    <td>
+        @Model.Post
+    </td>
+
+    <td>
+        @Model.SeoName
+    </td>
+
+    <td>
+        @Model.Category
+    </td>
+    <td>
+        @Model.Address
+    </td>
+    <td>
+        @Model.CreatedDate.ToShortDateString()
+    </td>
+    <td>
+        @if (Model.Active)
+        {
+            <a href="#" data-url="@Url.Action("IsActive", new {id = Model.Id})" class="active-item" title="激活" data-action="锁定">
+                <i class="fa fa-check text-success"></i>
+            </a>
+
+        }
+        else
+        {
+            <a href="#" data-url="@Url.Action("IsActive", new {id = Model.Id})" class="active-item" title="锁定" data-action="激活">
+                <i class="fa fa-remove text-danger"></i>
+            </a>
+        }
+    </td>
+    <td>
+        @Ajax.RawActionLink("<i class='fa fa-edit fa-fw'></i>",
+                             "Edit", "Job",
+                             new { id = Model.Id },
+                             new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
+                             new { @class = "btn btn-primary btn-sm" })
+
+        <a href="#" data-url="@Url.Action("Delete", new {id = Model.Id})" class="delete-item btn btn-danger btn-sm" title="删除图片">
+            <i class="fa fa-trash-o fa-fw"></i>
+        </a>
+    </td>
+</tr>
+

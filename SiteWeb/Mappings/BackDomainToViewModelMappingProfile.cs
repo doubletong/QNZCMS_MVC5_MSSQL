@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using TZGCMS.Data.Entity;
 using TZGCMS.Data.Entity.Ads;
 using TZGCMS.Data.Entity.Articles;
 using TZGCMS.Data.Entity.Chronicles;
@@ -16,6 +17,7 @@ using TZGCMS.Model.Admin.InputModel.Chronicles;
 using TZGCMS.Model.Admin.InputModel.Doc;
 using TZGCMS.Model.Admin.InputModel.Emails;
 using TZGCMS.Model.Admin.InputModel.Identity;
+using TZGCMS.Model.Admin.InputModel.Jobs;
 using TZGCMS.Model.Admin.InputModel.Links;
 using TZGCMS.Model.Admin.InputModel.LuceneSearch;
 using TZGCMS.Model.Admin.InputModel.Menus;
@@ -192,8 +194,8 @@ namespace TZGCMS.SiteWeb.Mappings
 
             //CreateMap<JobVM, Job>();
             //CreateMap<Job, JobVM>();
-            //CreateMap<JobIM, Job>();
-            //CreateMap<Job, JobIM>();
+            CreateMap<JobIM, Job>();
+            CreateMap<Job, JobIM>();
 
             //CreateMap<TeamVM, Team>();
             //CreateMap<Team, TeamVM>();

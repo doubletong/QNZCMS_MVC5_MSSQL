@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Chronicle>
+@{
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : "活动大事记";
+
+    int month = 0;
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+    <link href="~/Plugins/bxslider/dist/jquery.bxslider.min.css" rel="stylesheet" />
+
+
+}
+@Html.Partial("Header")
+@Html.Action("Carousels", "Ad", new { code = "A1003" })
+
+<div class="container page-about page-chronicle">
+    <header class="title">
+        <h2>@string.Format("{0}年活动大事记", ViewData["Year"])</h2>
+    </header>
+    <div class="yearselect">
+        <a href="#" class="btn btn-default">
+            年份 <i class="iconfont icon-down"></i>
+        </a>
+        <ul class="years">
+            @foreach (var item in DateTimeHelper.GetYearList(2017))
+            {
+                if (item == (int)ViewData["Year"])
+                {
+                    <li><a class="active" href="@Url.Action("Index",new { year = item})">@item</a></li>
+                }
+                else
+                {
+                    <li><a href="@Url.Action("Index",new { year = item})">@item</a></li>
+                }
+
+            }
+        </ul>
+    </div>
+    <div class="chro-list">
+        <i class="iconfont icon-time1"></i>
+        @foreach (var item in Model)
+        {
+
+            <div class="box">
+                @if (month != item.Month)
+                {
+                    month = item.Month;
+                    <div class="month">
+                        @string.Format("{0}月", item.Month)
+                    </div>
+                }
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="thumb">
+                            <a href="@Url.Action("Detail", new {id=item.Id})">
+                                <img src="@item.Thumbnail" alt="@item.Title" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="txt">
+                            <h3><a href="@Url.Action("Detail", new {id=item.Id})">@item.Title</a></h3>
+                            <p>@item.Summary</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+
+    </div>
+</div>
+
+
+@section footer{
+    <script src="~/Plugins/bxslider/dist/jquery.bxslider.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('.bxslider').bxSlider({
+                mode: 'fade',
+                captions: true,
+                auto: true,
+                controls: false
+            });
+            $(".bx-caption span,.bx-pager").addClass("container");
+
+            $(".yearselect").hover(function () {
+                $(".years").fadeIn();
+            }, function () {
+                $(".years").fadeOut();
+            })
+        });
+    </script>
+
+
+}

@@ -151,6 +151,15 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 {0}值必须大于等于{1}小于等于{2} 的本地化字符串。
+        /// </summary>
+        public static string RangeInt {
+            get {
+                return ResourceManager.GetString("RangeInt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 不允许输入空白 的本地化字符串。
         /// </summary>
         public static string RENotWhiteSpace {
