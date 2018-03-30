@@ -43,8 +43,8 @@
     <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
       <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PanGu, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PanGu.Segment.0.0.3\lib\PanGu.dll</HintPath>
@@ -91,6 +91,8 @@
     <Compile Include="PageMetas\PageMetaServices.cs" />
     <Compile Include="Products\ProductCategoryServices.cs" />
     <Compile Include="Products\ProductServices.cs" />
+    <Compile Include="OutletServices.cs" />
+    <Compile Include="Teams\TeamServices.cs" />
     <Compile Include="Videos\ReservationServices.cs" />
     <Compile Include="Videos\VideoServices.cs" />
     <Compile Include="Pages\PageServices.cs" />
@@ -131,5 +133,6 @@
     <Content Include="Dict\Synonym.txt" />
     <Content Include="Dict\Wildcard.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

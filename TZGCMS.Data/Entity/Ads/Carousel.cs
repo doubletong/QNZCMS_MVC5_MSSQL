@@ -33,5 +33,10 @@ namespace TZGCMS.Data.Entity.Ads
         {
             get { return Position != null ? Position.Title : string.Empty; }
         }
+        [NotMapped]
+        public string PositionTitleAndSize
+        {
+            get { return Position != null ? Position.TitleAndSize : string.Empty; }
+        }
     }
 }

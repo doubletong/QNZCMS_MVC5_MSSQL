@@ -1,0 +1,371 @@
+﻿@import '_variables.less';
+@import '_mixins.less';
+@import '_common.less';
+@import '_owl.less';
+@import '_customBootstrap.less';
+@import '_nav.less';
+@import '_table.less';
+@import '_page-contact.less';
+@import '_form.less';
+@import '_button.less';
+@import '_page-article.less';
+@import '_page-about.less';
+@import '_page-product.less';
+@import '_page-job.less';
+@import '_page_download.less';
+
+@import '_pagination.less';
+
+
+html,body{
+    margin:0;padding:0;
+}
+body {
+    position: relative;
+    font-family: @font-family-base;
+    .font-size(1.6);
+    color: @color_text;
+    background-color: #fff;
+    line-height:1.6;
+}
+a {
+    color: @color_link;
+    text-decoration: none;
+
+    &:hover {
+        color: @color_sub;
+        text-decoration: none;
+    }
+}
+
+
+
+figure{
+    margin:0;
+}
+.clearfix{overflow:auto;_height:1%}
+
+
+.divider{
+    border:none;border-bottom:1px #ddd dashed;
+}
+
+.pageHeader {
+    background-color: @color_sub;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 45px;
+    transition: all 800ms ease;
+    z-index: 392;
+    box-shadow:0 0 12px rgba(0,0,0,.15);
+
+    @media only screen and (min-width: 768px) {
+        height: 70px;
+        background-color: @color_sub;
+    }
+
+    .logo {
+        padding-top: 5px;
+        display: block;
+        text-decoration: none;      
+        overflow: hidden;
+
+        @media only screen and (min-width: 768px) {
+            padding-top: 14px;
+           
+        }
+
+        @media only screen and (min-width: 992px) {
+            
+        }
+
+        @media only screen and (min-width: 1200px) {
+            width: auto;
+            overflow: visible;
+            padding-top: 15px;
+        }
+
+        img {
+            width: 155px;
+
+            @media only screen and (min-width: 768px) {
+                width: auto;
+            }
+        }
+    }
+
+    .openmenu {
+        height: 36px;
+        width: 36px;
+        position: absolute;
+        top: 2px;
+        right: 15px;
+
+        a {
+            text-decoration: none;
+            color: #333;
+
+            .iconfont {
+                .font-size(2.8);
+                height: 40px;
+                width: 40px;
+                display: block;
+                text-align: center;
+
+                @media only screen and (min-width: 768px) {
+                    .font-size(3.6);
+                }
+            }
+        }
+
+        @media only screen and (min-width:768px) {
+            top: 8px;
+        }
+
+        @media only screen and (min-width:1201px) {
+            display: none;
+        }
+    }
+
+    &.fixed-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 6000;
+    }
+}
+
+.section2 {
+    margin-bottom: 50px;
+
+    .lastestNews {
+        .section-title {
+            border-bottom: 1px #e0e0e0 solid;
+            height: 51px;
+            margin-bottom: 6px;
+
+            h2 {
+                height: 50px;
+                border-bottom: @color_sub 4px solid;
+                display: inline-block;
+                margin: 0;
+                line-height: 46px;
+                font-size: 18px;
+                color: @color_title;
+                font-weight: normal;
+            }
+        }
+
+        .box {
+            padding: 25px 0 20px 0;
+
+            @media only screen and (min-width:768px) {
+                padding: 50px 15px 40px 0;
+            }
+
+            &:hover {
+                background-color: #f5f5f5;
+            }
+
+            .thumb {
+                img {
+                    width: 100%;
+                }
+            }
+
+            .title {
+                font-size: 24px;
+                color: @color_title;
+                margin: 0 0 10px;
+                text-align: justify;
+            }
+
+            .note {
+                color: #999;
+
+                .iconfont {
+                    font-size: 20px;
+                    color: @color_sub;
+                }
+            }
+
+            p {
+                color: #999;
+            }
+        }
+    }
+
+    hr.nomt {
+        margin-top: 0;
+    }
+
+    .chart {
+        border-top: 1px #e0e0e0 solid;
+        margin-top: 50px;
+        text-align: center;
+
+        .art-title {
+            margin: 0;
+            display: inline-block;
+            border-top: 2px @color_sub solid;
+            height: 56px;
+            line-height: 48px;
+            font-size: 18px;
+            color: @color_title;
+            font-weight: normal;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        &.zhuanlan {
+            background-color: #fafafa;
+            padding: 0 15px 25px;
+
+            ul {
+                .mplnone;
+
+                li {
+                    background: url(../img/dot.png) no-repeat left 11px;
+                    padding-left: 20px;
+                    text-align: left;
+                    margin-bottom: 15px;
+
+                    a {
+                        display: block;
+                    }
+
+                    time {
+                        color: #999;
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+.section3 {
+    margin-bottom: 50px;
+
+    @media only screen and (min-width:768px) {
+        margin-bottom: 120px;
+    }
+
+    .ad {
+        img {
+            width: 100%
+        }
+    }
+}
+
+
+.map_canvas {
+    height: 640px !important;
+
+    @media only screen and (min-width:768px) {
+        height: 600px !important;
+    }
+}
+.map_canvas1 {
+    height: 768px !important;
+
+    @media only screen and (min-width:768px) {
+        height: 800px !important;
+    }
+}
+.lastproducts {
+    text-align: center;
+    color: #000;
+
+    .title {
+        h2 {
+            font-size:32px;position:relative;padding-bottom:10px;margin:0;
+            &:after {
+                content: " ";
+                display: block;
+                width: 70px;
+                position: absolute;
+                left: 50%;
+                margin-left: -35px;
+                height: 3px;
+                background-color: #ffe800;
+                bottom: 0;
+            }
+        }
+        p{
+            color:#999;
+        }
+    }
+}
+
+.page-footer {
+    width: 100%;
+    background: @color_sub url(../img/chemicalbonds.png) no-repeat center bottom;
+    color: #fff;
+    font-size: 14px;
+    border-top: 3px #000 solid;
+
+    a {
+        color: #fff;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+
+
+    .copyright {
+        padding: 20px 0 20px;
+    }
+
+    .top {
+        height: 40px;
+        width: 128px;
+        border-left: 2px #373737 solid;
+        border-right: 2px #373737 solid;
+        margin: 0 auto;
+        display: none;
+
+        @media only screen and (min-width:768px) {
+            display: block;
+        }
+    }
+
+    .qrcode {
+        width: 200px;
+        height: 220px;
+        border: 8px #373737 solid;
+        background-color: #000;
+        text-align: center;
+        padding-top: 30px;
+        margin: 0 auto 50px;
+        color: #fff;
+
+
+
+        @media only screen and (min-width:768px) {
+            margin: 0 auto 30px;
+        }
+
+        img {
+            margin-bottom: 15px;
+            border: 5px #fff solid;
+            background-color: #fff;
+        }
+
+        strong {
+            font-size: 20px;
+            font-weight: normal;
+            display: block;
+            text-align: center;
+        }
+    }
+}
+

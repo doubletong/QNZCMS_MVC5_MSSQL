@@ -1,0 +1,86 @@
+﻿@model TZGCMS.Data.Entity.Articles.Article
+@{
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : Model.Title;
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+}
+
+
+
+
+<div class="container">
+
+    <ol class="breadcrumb">
+        <li><a href="/">首页</a></li>
+
+        <li><a href="@Url.Action("Index")">新闻资讯</a></li>
+
+        <li class="active">@Model.Title</li>
+    </ol>
+</div>
+
+
+
+<!-- BLOG   ================================================== -->
+<section class="container page-news">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 animated fadeInLeft">
+            <div class="article">
+                <h2 class="title">@Model.Title</h2>
+
+                <div class="note">
+                    <ul>
+                        <li>
+                            By @Model.Source
+                        </li>
+                        <li>
+                            @string.Format("{0:D}", Model.Pubdate)
+                        </li>
+                    </ul>
+                </div>
+                <div class="content">
+                    @Html.Raw(Model.Body)
+                </div>
+
+
+            </div>
+            <div class="nav-page">
+                <div class="col-xs-6 prev">
+                    @if (ViewBag.Prev != null)
+                    {
+                        <a href="@Url.Action("Detail", new { id=ViewBag.Prev})">上一篇</a>
+                    }
+
+                </div>
+                <div class="col-xs-6 next">
+                    @if (ViewBag.Next != null)
+                    {
+                        <a href="@Url.Action("Detail", new { id=ViewBag.Next})">下一篇</a>
+                    }
+
+                </div>
+                <div class="back">
+                    <a href="@Url.Action("Index")"><i class="iconfont icon-remove"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@section footer{
+    <script>
+        $(function () {
+            $("#mainav li").eq(1).addClass("active");
+        })
+    </script>
+
+}

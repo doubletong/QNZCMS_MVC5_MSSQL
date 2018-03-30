@@ -194,5 +194,14 @@ namespace TZGCMS.Resources.Admin {
                 return ResourceManager.GetString("StringLengthWithMiniLength", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 请输入有效的数字 的本地化字符串。
+        /// </summary>
+        public static string ValidNumber {
+            get {
+                return ResourceManager.GetString("ValidNumber", resourceCulture);
+            }
+        }
     }
 }

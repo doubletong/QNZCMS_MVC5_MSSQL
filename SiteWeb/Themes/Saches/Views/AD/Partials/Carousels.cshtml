@@ -1,0 +1,12 @@
+﻿@model  IEnumerable<Carousel>
+<!-- slider start -->
+@if (Model != null)
+{
+    <div class="bxslider">
+        @foreach (var ad in Model)
+        {  
+        <div style="background-image:url(@ad.ImageUrl)"><a href="@ad.WebLink"><img src="@ad.ImageUrl" title="@ad.Title" class="hidden" ></a></div>
+        }    
+    </div>
+}
+<!-- slider end -->

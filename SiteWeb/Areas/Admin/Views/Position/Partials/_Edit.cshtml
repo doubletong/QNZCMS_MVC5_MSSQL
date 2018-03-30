@@ -23,10 +23,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">@($"编辑{EntityNames.Position}")</h4>
+                    <h4 class="modal-title" id="myModalLabel">@string.Format("编辑{0}", EntityNames.Position)</h4>
                 </div>
                 <div class="modal-body">
-                    
+
                     <div class="form-group">
                         @Html.LabelFor(model => model.Title, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
@@ -66,7 +66,22 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ImageWidth, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.ImageWidth, new { @class = "form-control", type = "number", placeholder = Labels.ImageWidth })
 
+                            @Html.ValidationMessageFor(model => model.ImageWidth)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ImageHeight, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.ImageHeight, new { @class = "form-control", type = "number", placeholder = Labels.ImageHeight })
+
+                            @Html.ValidationMessageFor(model => model.ImageHeight)
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <div class="col-md-5 col-md-offset-2">

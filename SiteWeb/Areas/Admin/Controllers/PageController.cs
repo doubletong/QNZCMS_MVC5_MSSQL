@@ -184,13 +184,6 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 var old = _pageServices.GetById(page.Id);
                 var editPage = _mapper.Map(page, old);
 
-
-                //editPage.Title = page.Title;
-                //editPage.Body = page.Body;
-                //editPage.Active = page.Active;
-                //editPage.SeoName = page.SeoName;
-                //editPage.TemplateName = page.TemplateName;
-
                 _pageServices.Update(editPage);
 
                 var pageMeta = _pageMetaServices.GetPageMeta(ModelType.PAGE, editPage.Id.ToString());

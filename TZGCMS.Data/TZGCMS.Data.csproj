@@ -71,10 +71,12 @@
     <Compile Include="Entity\Links\Link.cs" />
     <Compile Include="Entity\Links\LinkCategory.cs" />
     <Compile Include="Entity\Logs\Log.cs" />
+    <Compile Include="Entity\Outlet.cs" />
     <Compile Include="Entity\PageMetas\PageMeta.cs" />
     <Compile Include="Entity\Pages\Page.cs" />
     <Compile Include="Entity\Products\Product.cs" />
     <Compile Include="Entity\Products\ProductCategory.cs" />
+    <Compile Include="Entity\Team.cs" />
     <Compile Include="Entity\TZGEntities.cs" />
     <Compile Include="Entity\Videos\Reservation.cs" />
     <Compile Include="Entity\Videos\VideoCategory.cs" />
@@ -85,6 +87,8 @@
     <Compile Include="Enums\ModelType.cs" />
     <Compile Include="Enums\Status.cs" />
     <Compile Include="Enums\TagType.cs" />
+    <Compile Include="Mapping\OutletMap.cs" />
+    <Compile Include="Mapping\TeamMap.cs" />
     <Compile Include="Mapping\LinkMap.cs" />
     <Compile Include="Mapping\LinkCategoryMap.cs" />
     <Compile Include="Mapping\DocumentMap.cs" />

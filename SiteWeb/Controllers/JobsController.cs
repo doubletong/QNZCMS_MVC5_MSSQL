@@ -30,7 +30,7 @@ namespace TZGCMS.SiteWeb.Controllers
                 SeoName = job?.SeoName
             };
             var url = Request.RawUrl;
-            ViewBag.PageMeta = await db.PageMeta.FirstOrDefaultAsync(d=>d.ModelType == ModelType.MENU && d.ObjectId==url );
+            ViewBag.PageMeta = await db.PageMetas.FirstOrDefaultAsync(d=>d.ModelType == ModelType.MENU && d.ObjectId==url );
 
             return View(vm);
         }

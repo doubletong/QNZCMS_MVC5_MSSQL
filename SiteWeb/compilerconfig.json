@@ -18,5 +18,9 @@
   {
     "outputFile": "Themes/fengneng/Content/css/Main.css",
     "inputFile": "Themes/fengneng/Content/css/Main.less"
+  },
+  {
+    "outputFile": "Themes/Saches/Content/css/Main.css",
+    "inputFile": "Themes/Saches/Content/css/Main.less"
   }
 ]

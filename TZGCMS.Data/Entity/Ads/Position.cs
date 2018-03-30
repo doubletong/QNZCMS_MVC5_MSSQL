@@ -16,6 +16,8 @@ namespace TZGCMS.Data.Entity.Ads
         public  string Title { get; set; }
         public  string Sketch { get; set; }
         public  string Code { get; set; }
+        public int ImageWidth { get; set; }
+        public int ImageHeight { get; set; }
         public  int? Importance { get; set; }
         public  bool Active { get; set; }
         public  DateTime CreatedDate { get; set; }
@@ -23,5 +25,11 @@ namespace TZGCMS.Data.Entity.Ads
         public  DateTime? UpdatedDate { get; set; }
         public  string UpdatedBy { get; set; }
         public virtual  ICollection<Carousel> Carousels { get; set; }
+
+        [NotMapped]
+        public string TitleAndSize
+        {
+            get { return $"{Title}（{ImageWidth}x{ImageHeight}像素）";  }
+        }
     }
 }

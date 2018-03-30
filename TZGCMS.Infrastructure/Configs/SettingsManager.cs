@@ -30,7 +30,8 @@
 
         public static ProductSettings Product => SettingLoader.LoadConfig<ProductSettings>();
         public static DocSettings Doc => SettingLoader.LoadConfig<DocSettings>();
-      
+        public static OutletSettings Outlet => SettingLoader.LoadConfig<OutletSettings>();
+        
 
         public static ArticleSettings Article
         {

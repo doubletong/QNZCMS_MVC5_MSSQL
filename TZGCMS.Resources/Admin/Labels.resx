@@ -543,4 +543,16 @@
   <data name="WorkType" xml:space="preserve">
     <value>工作类型</value>
   </data>
+  <data name="Photo" xml:space="preserve">
+    <value>照片</value>
+  </data>
+  <data name="ContactMan" xml:space="preserve">
+    <value>联系人</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="Coordinate" xml:space="preserve">
+    <value>坐标</value>
+  </data>
 </root>

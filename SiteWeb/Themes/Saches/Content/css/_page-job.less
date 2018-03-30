@@ -1,0 +1,94 @@
+﻿
+.page-jion {
+    padding-top: 20px;
+
+    .posts {
+        background-color: #f7f7f7;
+        margin-top: 20px;
+
+        ul {
+            .mplnone;
+
+            li {
+                height: 63px;
+
+                a {
+                    display: block;
+                    line-height: 63px;
+                    height: 63px;
+                    font-size: 18px;
+                    padding-left: 18px;
+                    text-decoration: none;
+                    color: #333;
+                    transition:all .25s;
+
+                    &:hover {
+                        color: #fff;
+                        background-color:  @color_sub;
+                    }
+
+                    &.active {
+                        background-color: @color_sub;
+                        color: #fff;
+                        height: 63px;
+                        line-height: 63px;
+                    }
+                }
+            }
+        }
+    }
+
+    .content-job {
+
+        h2.title {
+            font-size: 30px;
+            border-left: 2px @color_sub solid;
+            line-height: 1;
+            color: #000;
+            padding-left: 20px;
+        }
+
+        .note {
+            height: 75px;
+            border-bottom: 3px #eee solid;
+
+            ul {
+                .mplnone;
+
+                li {
+                    float: left;
+                    height: 38px;
+                    line-height: 38px;
+                    color: #999;
+                    width: 215px;
+
+                    &.add {
+                        background-image: url(../img/icon_05.jpg);
+                    }
+
+                    &.date {
+                        background-image: url(../img/icon_07.jpg);
+                    }
+                }
+            }
+        }
+
+        .job-body {
+            margin-bottom: 80px;
+
+            li {
+                line-height: 1.8;
+            }
+        }
+
+        .job-footer {
+            background-color: @color_sub;
+            color: #000;
+            text-align: center;
+            padding: 10px;
+            border-radius: 25px;
+            font-size: 16px;
+            margin-bottom: 50px;
+        }
+    }
+}

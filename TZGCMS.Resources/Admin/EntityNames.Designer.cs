@@ -322,6 +322,15 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 销售中心 的本地化字符串。
+        /// </summary>
+        public static string Outlet {
+            get {
+                return ResourceManager.GetString("Outlet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 页面 的本地化字符串。
         /// </summary>
         public static string Page {

@@ -204,6 +204,9 @@
   <data name="OrderDetail" xml:space="preserve">
     <value>订单明细</value>
   </data>
+  <data name="Outlet" xml:space="preserve">
+    <value>销售中心</value>
+  </data>
   <data name="Page" xml:space="preserve">
     <value>页面</value>
   </data>

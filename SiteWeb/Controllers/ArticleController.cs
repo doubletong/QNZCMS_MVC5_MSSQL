@@ -14,7 +14,7 @@ using TZGCMS.Service.PageMetas;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
-    public class ArticleController : Controller
+    public class ArticleController : BaseController
     {
         private readonly IArticleServices _articleServices;
         private IArticleCategoryServices _categoryService;

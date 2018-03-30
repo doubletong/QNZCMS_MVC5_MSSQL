@@ -97,7 +97,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.HeadCode, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">
-                                    <div id="DivHeadCode" style="min-height:250px"></div>
+                                    <div id="DivHeadCode" style="min-height:250px">@Model.HeadCode</div>
                                     @Html.HiddenFor(model => model.HeadCode)
                                     @Html.ValidationMessageFor(model => model.HeadCode)
                                 </div>
@@ -105,7 +105,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.FooterCode, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">
-                                    <div id="DivFooterCode" style="min-height:250px"></div>
+                                    <div id="DivFooterCode" style="min-height:250px">@Model.FooterCode</div>
                                     @Html.HiddenFor(model => model.FooterCode)
                                     @Html.ValidationMessageFor(model => model.FooterCode)
                                 </div>
@@ -171,6 +171,7 @@
     editor1.setOption("maxLines", 30);
 
     editor1.getSession().on('change', function (e) {
-        $("#FooterCode").val(editor.getValue())
+        $("#FooterCode").val(editor1.getValue());
+
     });
 </script>

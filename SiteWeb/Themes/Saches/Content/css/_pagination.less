@@ -1,0 +1,113 @@
+﻿.nav-page {
+    position: relative;
+    height: 120px;
+
+    a {
+        display: block;
+        height: 56px;
+        text-align: right;
+        background-color: #f7f7f7;
+        color: #666;
+        line-height: 56px;
+        text-decoration: none;
+        -moz-transition: all .3s ease-in-out 0s;
+        -o-transition: all .3s ease-in-out 0s;
+        -webkit-transition: all .3s ease-in-out 0s;
+        transition: all .3s ease-in-out 0s;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        &:hover {
+            background-color: @color_main;
+            color: #fff;
+        }
+    }
+
+    div.prev, div.next {
+    }
+
+    div.prev {
+        a {
+            padding-right: 60px;
+            margin: 0 -15px;
+
+            &:hover {
+                padding-right: 75px;
+
+                @media only screen and (min-width: 768px) {
+                    padding-right: 135px;
+                }
+
+                &:after {
+                    content: ' ';
+                    display: inline-block;
+                    border: 5px #fff solid;
+                    border-color: transparent;
+                    border-right-color: #fff;
+                    position: absolute;
+                    right: 60px;
+                    top: 23px;
+                    z-index: 50;
+                }
+            }
+        }
+    }
+
+    div.next {
+        a {
+            text-align: left;
+            margin: 0 -15px;
+            padding-left: 60px;
+
+            &:hover {
+                padding-left: 75px;
+
+                @media only screen and (min-width: 768px) {
+                    padding-left: 135px;
+                }
+
+                &:before {
+                    content: ' ';
+                    display: inline-block;
+                    border: 5px #fff solid;
+                    border-color: transparent;
+                    border-left-color: #fff;
+                    position: absolute;
+                    left: 60px;
+                    top: 23px;
+                    z-index: 50;
+                }
+            }
+        }
+    }
+
+    .back {
+        position: absolute;
+        left: 50%;
+        width: 56px;
+        text-align: center;
+        margin-left: -28px;
+        background-color: #eee;
+
+        a {
+            text-align: center;
+
+            .iconfont {
+                font-size: 24px;
+            }
+        }
+    }
+}
+
+.pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus {
+    background-color: @color_sub;
+    border-color: @color_sub;color:#000;
+    color:#fff;
+}
+.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
+    color: #777;
+    background-color: #eee;
+    border-color: #eee;
+    cursor: not-allowed;
+}

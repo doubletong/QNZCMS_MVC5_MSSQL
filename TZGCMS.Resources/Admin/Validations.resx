@@ -162,4 +162,7 @@
   <data name="StringLengthWithMiniLength" xml:space="preserve">
     <value>{0}长度不可越过{1} 必须至少包含 {2} 个字符</value>
   </data>
+  <data name="ValidNumber" xml:space="preserve">
+    <value>请输入有效的数字</value>
+  </data>
 </root>

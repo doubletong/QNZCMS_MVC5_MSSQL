@@ -34,8 +34,8 @@ namespace TZGCMS.Data.Entity
         public virtual DbSet<Video> Video { get; set; }
         public virtual DbSet<Reservation> Reservation { get; set; }
 
-        public virtual DbSet<Page> Page { get; set; }
-        public virtual DbSet<PageMeta> PageMeta { get; set; }
+        public virtual DbSet<Page> Pages { get; set; }
+        public virtual DbSet<PageMeta> PageMetas { get; set; }
 
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
@@ -61,7 +61,8 @@ namespace TZGCMS.Data.Entity
 
         public virtual DbSet<Chronicle> Chronicles { get; set; }
         public virtual DbSet<Job> Jobs { get; set; }
-
+        public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<Outlet> Outlets { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder); 
@@ -101,6 +102,8 @@ namespace TZGCMS.Data.Entity
 
             modelBuilder.Configurations.Add(new ChronicleMap());
             modelBuilder.Configurations.Add(new JobMap());
+            modelBuilder.Configurations.Add(new TeamMap());
+            modelBuilder.Configurations.Add(new OutletMap());
             //throw new UnintentionalCodeFirstException();
         }
 

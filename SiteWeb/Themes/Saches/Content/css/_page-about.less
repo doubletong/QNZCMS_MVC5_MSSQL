@@ -1,0 +1,170 @@
+﻿.banner {
+    background: url(../img/banner/bg2_002.jpg) no-repeat center top;
+    height: 300px;
+    padding-top: 80px;
+    background-size: cover;
+
+    @media only screen and (min-width:768px) {
+        height: 450px;
+        padding-top: 136px;
+    }
+
+    .page-title {
+        background: url(../img/title.png) no-repeat 15px 60px;
+        color: #000;
+        padding-left: 100px;
+        padding-top: 50px;
+        background-size: 65px 65px;
+
+        @media only screen and (min-width:768px) {
+            padding-left: 135px;
+            background: url(../img/title.png) no-repeat left 60px;
+            background-size: 101px 101px;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin: 0;
+            font-weight: normal;
+
+            @media only screen and (min-width:768px) {
+                font-size: 50px;
+            }
+        }
+
+        h3 {
+            margin: 0;
+            font-weight: normal;
+            font-size: 18px;
+
+            @media only screen and (min-width:768px) {
+                font-size: 24px;
+            }
+        }
+    }
+
+    .des {
+        color: #fff;
+
+        h2 {
+            font-size: 30px;
+            margin: 0;
+            font-weight: normal;
+        }
+    }
+
+    &.banner-brand {
+        background: url(../img/banner/brand_banner.jpg) no-repeat center top;
+        background-size: cover;
+    }
+
+    &.banner-job {
+        background: url(../img/banner/slide21.jpg) no-repeat center top;
+        background-size: cover;
+    }
+
+    &.banner-customize {
+        background: url(../img/banner/custom_banner.jpg) no-repeat center top;
+        background-size: cover;
+    }
+}
+
+.page-about {
+    padding-top: 30px;
+    margin-bottom: 60px;
+
+    @media only screen and (min-width:768px) {
+        padding-top: 75px;
+        margin-bottom: 120px;
+    }
+
+    .title {
+        text-align: center;
+        border-bottom: 1px #f0f0f0 solid;
+        width: 300px;
+        margin: 0 auto 35px;
+        height: 50px;
+
+        h2 {
+            display: inline-block;
+            height: 50px;
+            padding: 0 15px;
+            margin: 0;
+            color: @color_title;
+            position: relative;
+
+            &:after {
+                content: " ";
+                display: block;
+                width: 70px;
+                position: absolute;
+                left: 50%;
+                margin-left: -35px;
+                height: 3px;
+                background-color: @color_sub;
+                bottom: 0;
+            }
+        }
+    }
+
+    p {
+        line-height: 1.8;
+    }
+
+    .intro {
+        margin-bottom: 60px;
+
+        p {
+            text-indent: 2em;
+            text-align: justify;
+        }
+    }
+
+
+    .box {
+        border: 1px #ddd solid;
+        padding: 15px;
+        text-align: center;
+        margin-bottom: 65px;
+
+        h2 {
+            margin-top: -39px;
+            background-color: @color_sub;
+            width: 250px;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: normal;
+            color:#fff;
+            font-size: 18px;
+            line-height: 45px;
+            border-radius: 23px;
+            height: 45px;
+
+            @media only screen and (min-width: 768px) {
+                font-size: 20px;
+                width: 296px;
+            }
+
+            i {
+                position: absolute;
+                left: 0;
+                top: 11px;
+                z-index: 100;
+
+                &:last-child {
+                    right: 0;
+                    left: auto;
+                }
+            }
+        }
+
+        p {
+            font-size: 16px;
+
+            @media only screen and (min-width: 768px) {
+                font-size: 20px;
+            }
+        }
+    }
+}

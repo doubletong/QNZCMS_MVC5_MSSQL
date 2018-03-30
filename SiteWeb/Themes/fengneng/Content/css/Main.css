@@ -101,6 +101,11 @@
     height: 500px;
   }
 }
+@media only screen and (min-width: 992px) {
+  .bxslider {
+    height: 760px;
+  }
+}
 .bxslider div {
   background-size: cover;
   background-repeat: no-repeat;
@@ -113,6 +118,11 @@
 @media only screen and (min-width: 768px) {
   .bxslider a {
     height: 500px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .bxslider a {
+    height: 760px;
   }
 }
 .dl-horizontal dt {
@@ -168,8 +178,7 @@
   height: 45px;
   line-height: 45px;
   padding: 0 25px;
-  border-radius: 15px;
-  color: #fff;
+  color: #333;
 }
 @media only screen and (min-width: 768px) {
   .navbar ul.mainav > li > a {
@@ -183,7 +192,8 @@
   transition: all .25s;
 }
 .navbar ul.mainav > li > a:hover {
-  color: #ffe800;
+  color: #000;
+  font-weight: bold;
 }
 .navbar ul.mainav > li > a:hover .iconfont {
   transform: rotate(180deg);
@@ -238,8 +248,9 @@
 .navbar ul.mainav > li.downav .subnav li.current a {
   background-color: #ffe800;
 }
-.navbar ul.mainav li.active a {
-  color: #ffe800;
+.navbar ul.mainav li.active > a {
+  color: #000;
+  font-weight: bold;
 }
 .pusher {
   position: fixed;
@@ -252,9 +263,9 @@
   display: none;
 }
 .pusher .rightnav {
-  background-color: #fff;
-  width: 150px;
-  right: -150px;
+  background-color: #ffe800;
+  width: 200px;
+  right: -200px;
   top: 0;
   position: absolute;
   height: 100%;
@@ -267,27 +278,43 @@
   padding: 0;
   list-style: none;
 }
-.pusher .rightnav ul.mainav li {
+.pusher .rightnav ul.mainav > li {
   padding: 3px 15px;
 }
-.pusher .rightnav ul.mainav li a {
+.pusher .rightnav ul.mainav > li > a {
   color: #000;
   font-size: 16px;
   display: block;
-  padding: 5px 15px;
+  padding: 0 15px;
   text-decoration: none;
-  border-radius: 6px;
+  height: 31px;
+  line-height: 29px;
+  border-radius: 16px;
+  border: 1px #000 solid;
 }
-.pusher .rightnav ul.mainav li a:hover {
+.pusher .rightnav ul.mainav > li > a:hover {
   color: #fff699;
   background-color: #000000;
 }
-.pusher .rightnav ul.mainav li a.contact {
-  display: none;
+.pusher .rightnav ul.mainav > li .subnav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-.pusher .rightnav ul.mainav li.active a {
-  background-color: #ffe800;
-  color: #fff;
+.pusher .rightnav ul.mainav > li .subnav li {
+  padding: 0 15px;
+}
+.pusher .rightnav ul.mainav > li .subnav li a {
+  display: block;
+  padding: 5px 0;
+  padding-left: 31px;
+}
+.pusher .rightnav ul.mainav > li .subnav li.current a {
+  border-bottom: 2px #000 solid;
+}
+.pusher .rightnav ul.mainav > li.active > a {
+  background-color: #000;
+  color: #ffe800;
 }
 /*
 	Max width before this PARTICULAR table gets nasty
@@ -347,10 +374,7 @@
     content: "下载次数";
   }
   .table-download td:nth-of-type(6):before {
-    content: "下载密码";
-  }
-  .table-download td:nth-of-type(7):before {
-    content: "下载";
+    content: "";
   }
 }
 /* Smartphones (portrait and landscape) ----------- */
@@ -384,25 +408,59 @@
   color: #333333;
   margin: 0 0 20px;
 }
-.page-contact h4.setitle {
-  font-size: 18px;
-  font-weight: normal;
-  color: #222222;
-  margin: 0 0 5px;
+@media only screen and (min-width: 992px) {
+  .page-contact .salers {
+    padding: 15px 100px;
+  }
 }
-.page-contact ul {
+.page-contact .saler {
+  text-align: center;
+}
+@media only screen and (min-width: 992px) {
+  .page-contact .saler {
+    padding: 0 15px;
+  }
+}
+.page-contact .saler h3 {
+  color: #000;
+}
+.page-contact .saler .avatar {
+  border-radius: 50%;
+  padding: 5px;
+  border: 1px #eee solid;
+}
+.page-contact .saler dl {
+  background-color: #ffe800;
+  border-radius: 6px;
+  color: #000;
+  padding: 8px 15px;
+}
+.page-contact .saler dl dd {
+  padding: 0;
+  margin: 0;
+}
+.contactus {
+  background-color: #f7f7f7;
+  padding: 25px 0;
+}
+.contactus h4.setitle {
+  font-size: 24px;
+  color: #000;
+  text-align: center;
+}
+.contactus ul {
   margin: 0;
   padding: 0;
   list-style: none;
   margin-bottom: 30px;
 }
-.page-contact ul li {
-  border-bottom: #eeeeee 1px solid;
+.contactus ul li {
+  border-bottom: #ddd 1px solid;
   padding: 8px 0;
 }
 .baidumap {
   width: 100%;
-  height: 450px;
+  height: 550px;
   margin-bottom: 50px;
 }
 .sendform .box-header {
@@ -696,7 +754,7 @@ input.input-validation-error {
 }
 .banner .page-title {
   background: url(../img/title.png) no-repeat 15px 60px;
-  color: #fff;
+  color: #000;
   padding-left: 100px;
   padding-top: 50px;
   background-size: 65px 65px;
@@ -738,9 +796,15 @@ input.input-validation-error {
 }
 .banner.banner-brand {
   background: url(../img/banner/brand_banner.jpg) no-repeat center top;
+  background-size: cover;
 }
 .banner.banner-job {
   background: url(../img/banner/slide21.jpg) no-repeat center top;
+  background-size: cover;
+}
+.banner.banner-customize {
+  background: url(../img/banner/custom_banner.jpg) no-repeat center top;
+  background-size: cover;
 }
 .page-about {
   padding-top: 30px;
@@ -915,6 +979,7 @@ input.input-validation-error {
   border-radius: 16px;
   border: 1px #eee solid;
   transition: all .25s;
+  margin-bottom: 8px;
 }
 @media only screen and (min-width: 768px) {
   .page-products .categories .categorybox a {
@@ -982,6 +1047,12 @@ input.input-validation-error {
   color: #999;
   margin: 0;
 }
+.page-products .pagination-container {
+  text-align: center;
+}
+.page-products .note {
+  text-align: left;
+}
 .page-jion {
   padding-top: 20px;
 }
@@ -1017,9 +1088,9 @@ input.input-validation-error {
 }
 .page-jion .content-job h2.title {
   font-size: 30px;
-  border-left: 2px #36c1a7 solid;
+  border-left: 2px #ffe800 solid;
   line-height: 1;
-  color: #36c1a7;
+  color: #000;
   padding-left: 20px;
 }
 .page-jion .content-job .note {
@@ -1058,6 +1129,70 @@ input.input-validation-error {
   border-radius: 25px;
   font-size: 16px;
   margin-bottom: 50px;
+}
+.page-downloads .categories {
+  text-align: center;
+  padding-bottom: 25px;
+  padding-top: 120px;
+}
+.page-downloads .categories a {
+  display: inline-block;
+  padding: 0 25px;
+  height: 35px;
+  line-height: 33px;
+  border: 1px #eee solid;
+  border-radius: 23px;
+  transition: all .25s;
+  margin: 0 5px 10px;
+}
+@media only screen and (min-width: 768px) {
+  .page-downloads .categories a {
+    padding: 0 35px;
+    height: 45px;
+    line-height: 43px;
+  }
+}
+.page-downloads .categories a:hover {
+  background-color: #ffe800;
+  color: #000;
+  border-color: #ffe800;
+}
+.page-downloads .categories a.active {
+  background-color: #ffe800;
+  color: #000;
+  border-color: #ffe800;
+}
+.page-downloads .table-download {
+  margin-top: 35px;
+}
+.page-downloads .table-download > thead {
+  border-bottom: none !important;
+  background-color: #333;
+}
+.page-downloads .table-download > thead > tr > th {
+  font-weight: normal;
+  color: #fff;
+  font-size: 14px;
+  border-bottom: none;
+}
+.page-downloads .table-download > tbody tr td {
+  border: none;
+}
+.page-downloads .table-download > tbody tr td .btn-down {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: inline-block;
+  line-height: 70px;
+  text-align: center;
+  background-color: #eee;
+  color: #000;
+}
+.page-downloads .table-download > tbody tr td .btn-down .iconfont {
+  font-size: 42px;
+}
+.page-downloads .table-download > tbody tr td .btn-down:hover {
+  background-color: #ffe800;
 }
 .nav-page {
   position: relative;
@@ -1144,6 +1279,27 @@ input.input-validation-error {
 .nav-page .back a .iconfont {
   font-size: 24px;
 }
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span,
+.pagination > .active > span:hover,
+.pagination > .active > span:focus {
+  background-color: #ffe800;
+  border-color: #ffe800;
+  color: #000;
+}
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus {
+  color: #777;
+  background-color: #eee;
+  border-color: #eee;
+  cursor: not-allowed;
+}
 html,
 body {
   margin: 0;
@@ -1177,7 +1333,7 @@ figure {
   border-bottom: 1px #ddd dashed;
 }
 .pageHeader {
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: #ffe800;
   position: absolute;
   left: 0;
   top: 0;
@@ -1185,29 +1341,23 @@ figure {
   height: 45px;
   transition: all 800ms ease;
   z-index: 392;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
 }
 @media only screen and (min-width: 768px) {
   .pageHeader {
     height: 70px;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #ffe800;
   }
 }
 .pageHeader .logo {
   padding-top: 5px;
   display: block;
   text-decoration: none;
-  width: 40px;
   overflow: hidden;
 }
 @media only screen and (min-width: 768px) {
   .pageHeader .logo {
-    padding-top: 8px;
-    width: 60px;
-  }
-}
-@media only screen and (min-width: 992px) {
-  .pageHeader .logo {
-    width: 60px;
+    padding-top: 14px;
   }
 }
 @media only screen and (min-width: 1200px) {
@@ -1218,7 +1368,7 @@ figure {
   }
 }
 .pageHeader .logo img {
-  width: 165px;
+  width: 155px;
 }
 @media only screen and (min-width: 768px) {
   .pageHeader .logo img {
@@ -1234,7 +1384,7 @@ figure {
 }
 .pageHeader .openmenu a {
   text-decoration: none;
-  color: #fff;
+  color: #333;
 }
 .pageHeader .openmenu a .iconfont {
   font-size: 28px;
@@ -1253,7 +1403,7 @@ figure {
     top: 8px;
   }
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1201px) {
   .pageHeader .openmenu {
     display: none;
   }
@@ -1366,52 +1516,61 @@ figure {
 .section3 .ad img {
   width: 100%;
 }
+.map_canvas {
+  height: 640px !important;
+}
+@media only screen and (min-width: 768px) {
+  .map_canvas {
+    height: 600px !important;
+  }
+}
+.map_canvas1 {
+  height: 768px !important;
+}
+@media only screen and (min-width: 768px) {
+  .map_canvas1 {
+    height: 800px !important;
+  }
+}
+.lastproducts {
+  text-align: center;
+  color: #000;
+}
+.lastproducts .title h2 {
+  font-size: 32px;
+  position: relative;
+  padding-bottom: 10px;
+  margin: 0;
+}
+.lastproducts .title h2:after {
+  content: " ";
+  display: block;
+  width: 70px;
+  position: absolute;
+  left: 50%;
+  margin-left: -35px;
+  height: 3px;
+  background-color: #ffe800;
+  bottom: 0;
+}
+.lastproducts .title p {
+  color: #999;
+}
 .page-footer {
   width: 100%;
-  background-color: #0a0a0a;
-  color: #b2b2b2;
+  background: #ffe800 url(../img/chemicalbonds.png) no-repeat center bottom;
+  color: #000;
   font-size: 14px;
+  border-top: 3px #000 solid;
 }
 .page-footer a {
-  color: #ffe800;
+  color: #000;
 }
 .page-footer a:hover {
   text-decoration: underline;
 }
-.page-footer .links {
-  padding-top: 40px;
-  margin-bottom: 20px;
-}
-.page-footer .links h3.title {
-  font-size: 14px;
-  font-weight: normal;
-  color: #ffe800;
-  margin: 12px 0 20px;
-}
-.page-footer .links ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-align: center;
-}
-.page-footer .links ul li {
-  display: inline-block;
-  margin-right: 5px;
-  margin-left: 5px;
-  margin-bottom: 29px;
-}
-@media only screen and (min-width: 768px) {
-  .page-footer .links ul li {
-    float: left;
-    margin-right: 10px;
-    margin-left: 0;
-    margin-bottom: 29px;
-  }
-}
 .page-footer .copyright {
-  background: url(../img/bot_logo.png) no-repeat left center;
-  padding: 20px 0 20px 60px;
-  border-top: 1px #666 solid;
+  padding: 20px 0 20px;
 }
 .page-footer .top {
   height: 40px;
@@ -1428,8 +1587,9 @@ figure {
 }
 .page-footer .qrcode {
   width: 200px;
-  height: 280px;
+  height: 220px;
   border: 8px #373737 solid;
+  background-color: #000;
   text-align: center;
   padding-top: 30px;
   margin: 0 auto 50px;
@@ -1437,12 +1597,13 @@ figure {
 }
 @media only screen and (min-width: 768px) {
   .page-footer .qrcode {
-    margin: 0 auto;
+    margin: 0 auto 30px;
   }
 }
 .page-footer .qrcode img {
   margin-bottom: 15px;
   border: 5px #fff solid;
+  background-color: #fff;
 }
 .page-footer .qrcode strong {
   font-size: 20px;

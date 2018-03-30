@@ -58,7 +58,7 @@ namespace TZGCMS.Model.Admin.ViewModel.FileManager
         public static IEnumerable<FileVM> GetFileList(string rootPath, string webPath)
         {
             return new DirectoryInfo(rootPath).GetFiles()
-                .Where(dir => !dir.Name.StartsWith("_")).Select(f => new FileVM
+                .Where(dir => !dir.Name.StartsWith("_")).OrderByDescending(d=>d.CreationTime).Select(f => new FileVM
                 {
                     Name = f.Name,
                     Extension = f.Extension.Replace(".", ""),

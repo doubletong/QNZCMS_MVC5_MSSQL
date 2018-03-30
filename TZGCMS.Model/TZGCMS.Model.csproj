@@ -37,6 +37,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="PagedList">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
@@ -44,12 +47,23 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -85,9 +99,11 @@
     <Compile Include="Admin\InputModel\Menus\MenuCategoryIM.cs" />
     <Compile Include="Admin\InputModel\Menus\MenuIM.cs" />
     <Compile Include="Admin\InputModel\ModuleSet.cs" />
+    <Compile Include="Admin\InputModel\Outlets\OutletIM.cs" />
     <Compile Include="Admin\InputModel\Pages\PageIM.cs" />
     <Compile Include="Admin\InputModel\Products\ProductCategoryIM.cs" />
     <Compile Include="Admin\InputModel\Products\ProductIM.cs" />
+    <Compile Include="Admin\InputModel\Teams\TeamIM.cs" />
     <Compile Include="Admin\InputModel\Videos\VideoCategoryIM.cs" />
     <Compile Include="Admin\InputModel\Videos\VideoIM.cs" />
     <Compile Include="Admin\ViewModel\Ads\CarouselListVM.cs" />
@@ -122,6 +138,7 @@
     <Compile Include="Admin\ViewModel\LuceneSearch\SearchData.cs" />
     <Compile Include="Admin\ViewModel\LuceneSearch\SelectedList.cs" />
     <Compile Include="Admin\ViewModel\Menus\MoveMenuVM.cs" />
+    <Compile Include="Admin\ViewModel\Outlets\OutletListVM.cs" />
     <Compile Include="Admin\ViewModel\Pages\PageListVM.cs" />
     <Compile Include="Admin\ViewModel\Pages\PageVM.cs" />
     <Compile Include="Admin\ViewModel\Products\CategoryListVM.cs" />
@@ -130,6 +147,7 @@
     <Compile Include="Admin\ViewModel\System\LogSearchVM.cs" />
     <Compile Include="Admin\ViewModel\System\LogVM.cs" />
     <Compile Include="Admin\ViewModel\Menus\LeftNavVM.cs" />
+    <Compile Include="Admin\ViewModel\Teams\TeamListVM.cs" />
     <Compile Include="Admin\ViewModel\Videos\ReservationListVM.cs" />
     <Compile Include="Admin\ViewModel\Videos\VideoCategoryListVM.cs" />
     <Compile Include="Admin\ViewModel\Videos\VideoCategoryVM.cs" />

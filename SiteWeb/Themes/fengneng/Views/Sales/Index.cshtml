@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Outlet>
+@{
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : "销售网络";
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+
+}
+
+
+
+<div id="map_canvas" class="map_canvas1"></div>
+
+
+@section footer{
+
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=G7h0sKsr60IFU3OrHRmKTRzD"></script>
+    <script>
+        // 百度地图API功能
+        var map = new BMap.Map("map_canvas");
+        map.addControl(new BMap.NavigationControl());
+        map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
+        map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+        //  map.setMapStyle({ style: 'grayscale' });
+        map.centerAndZoom(new BMap.Point(107.332593, 34.898554), 5);
+
+        var data = @Html.Raw(System.Web.Helpers.Json.Encode(Model));
+
+       
+        $.each(data, function (key, office) {
+            //  console.log(office.Title);
+
+            var vPoint = office.Coordinate;
+            var points = vPoint.split(',');
+            //debugger;
+            var point = new BMap.Point(points[0], points[1]);
+            var marker1 = new BMap.Marker(point);  // 创建标注
+            // var marker1 = new BMap.Marker(point);
+            map.addOverlay(marker1);              // 将标注添加到地图中
+            // marker1.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+            var sContent = "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + office.Name + "</h4>" +
+                "<p>地址：" + office.Address + " <br/>" +
+                "联系人：" + office.ContactMan + "</div> 电话：" + office.Phone + "</div>";
+
+            //创建信息窗口
+            var infoWindow1 = new BMap.InfoWindow(sContent);
+            marker1.addEventListener("click", function () { this.openInfoWindow(infoWindow1); });
+
+        });
+
+            //$("<ul/>", {
+            //    "class": "my-new-list",
+            //    html: items.join("")
+            //}).appendTo("body");
+  
+
+        $(function () {
+            //$('#mainav>ul>li:nth-of-type(6)').addClass('pure-menu-selected');
+            //var wh = $(window).height();
+            //var head = $(".page-footer").height();
+            //$("#map_canvas").height(wh - head);
+        });
+
+     
+    </script>
+
+
+}

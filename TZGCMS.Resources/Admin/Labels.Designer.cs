@@ -70,6 +70,15 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 地址 的本地化字符串。
+        /// </summary>
+        public static string Address {
+            get {
+                return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 相册 的本地化字符串。
         /// </summary>
         public static string Album {
@@ -250,11 +259,29 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 联系人 的本地化字符串。
+        /// </summary>
+        public static string ContactMan {
+            get {
+                return ResourceManager.GetString("ContactMan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 内容 的本地化字符串。
         /// </summary>
         public static string Content {
             get {
                 return ResourceManager.GetString("Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 坐标 的本地化字符串。
+        /// </summary>
+        public static string Coordinate {
+            get {
+                return ResourceManager.GetString("Coordinate", resourceCulture);
             }
         }
         
@@ -840,6 +867,15 @@ namespace TZGCMS.Resources.Admin {
         public static string Phone {
             get {
                 return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 照片 的本地化字符串。
+        /// </summary>
+        public static string Photo {
+            get {
+                return ResourceManager.GetString("Photo", resourceCulture);
             }
         }
         

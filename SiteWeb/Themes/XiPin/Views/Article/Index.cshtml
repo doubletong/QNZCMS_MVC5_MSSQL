@@ -14,20 +14,21 @@
 }
 
 
-<div class="container sitepath">
-    <ol class="breadcrumb">
-        <li><a href="/">首页</a></li>
-        <li class="active">新闻资讯</li>
-    </ol>
-</div>
+
 
 
 <!-- BLOG ================================================== -->
-<section class="container page-news">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1 animated fadeInLeft">
+        <section class="container page-news">
+            <div class="sitepath">
+                <ol class="breadcrumb">
+                    <li><a href="/">首页</a></li>
+                    <li class="active">新闻资讯</li>
+                </ol>
+            </div>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 animated fadeInLeft">
 
-            @foreach (var post in Model.Articles)
+                    @foreach (var post in Model.Articles)
             {
 
                 <a class="item" href="@Url.Action("detail",new { id = post.Id})">
@@ -53,30 +54,30 @@
                     </div>
                 </a>
 
-            }
-            @if (Model.Articles.Any())
+    }
+                    @if (Model.Articles.Any())
             {
                 <div class="text-center">
                     @Html.PagedListPager((IPagedList)Model.Articles, page => Url.Action("Index", new { page }))
                 </div>
-            }
-            else
-            {
-                <div class="alert alert-info">
-                    <i class="iconfont icon-info"></i>  未找到任何项。
-                </div>
-            }
-
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <i class="iconfont icon-info"></i>  未找到任何项。
         </div>
+}
+
+                </div>
 
 
 
-    </div>
+            </div>
 
 
 
 
 
-</section>
+        </section>
 
 

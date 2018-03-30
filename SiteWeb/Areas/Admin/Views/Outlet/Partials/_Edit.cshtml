@@ -1,0 +1,122 @@
+﻿
+@model OutletIM
+
+@using (Ajax.BeginForm("Edit", "Outlet",
+        new AjaxOptions()
+        {
+            HttpMethod = "POST",
+            OnBegin = "onBegin",
+            OnComplete = "onComplete",
+            OnSuccess = "updateSuccess",
+            //OnFailure = "handleError",
+            //  UpdateTargetId = "RoleList"
+
+        }, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+
+    <!--  Modal -->
+    <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">@string.Format("编辑{0}",EntityNames.Outlet)</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, new { @class = "col-sm-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = Labels.Name })
+
+                            @Html.ValidationMessageFor(model => model.Name)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Address, new { @class = "col-sm-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Address, new { @class = "form-control", placeholder = Labels.Post })
+
+                            @Html.ValidationMessageFor(model => model.Address)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Coordinate, new { @class = "col-md-2 control-label" })
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.Coordinate, new { @class = "form-control", placeholder = ModelMetadata.FromLambdaExpression(x => x.Coordinate, ViewData).Watermark })
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-map-marker"></span> 坐标拾取</button>
+                                </span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Coordinate)
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContactMan, new { @class = "col-sm-2 control-label" })
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(model => model.ContactMan, new { @class = "form-control", placeholder = Labels.Description })
+
+                            @Html.ValidationMessageFor(model => model.ContactMan)
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Phone, new { @class = "col-sm-2 control-label" })
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = Labels.Description })
+
+                            @Html.ValidationMessageFor(model => model.Phone)
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Importance, new { @class = "col-sm-2 control-label" })
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(model => model.Importance, new { @class = "form-control", type = "number", placeholder = Labels.Importance })
+
+                            @Html.ValidationMessageFor(model => model.Importance)
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="form-group">
+
+                        <div class="col-sm-10 col-md-offset-2">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(model => model.Active)  @Html.DisplayNameFor(model => model.Active)
+                                </label>
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Active)
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button class="btn btn-primary" type="submit" id="btnSave"><i class="fa fa-save fa-fw"></i>保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
+</script>

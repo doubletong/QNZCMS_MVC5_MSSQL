@@ -63,13 +63,12 @@
                 </section>
                 <h3>产品描述 <small>Product description</small></h3>
             </div>
-            <div class="well">
+            <div class="well note">
                 <ul class="row">
-                    <li class="col-sm-3"><label>型号：</label>@Model.ProductNo</li>
-                    <li class="col-sm-3"><label>品名：</label>@Model.ProductName</li>
-                    <li class="col-sm-3"><label>类别：</label>@Model.CategoryTitle</li>
-                    <li class="col-sm-3"><label>查看：</label>@Model.ViewCount</li>
-
+                    <li class="col-xs-6 col-sm-3"><label>型号：</label>@Model.ProductNo</li>
+                    <li class="col-xs-6 col-sm-3"><label>品名：</label>@Model.ProductName</li>
+                    <li class="col-xs-6 col-sm-3"><label>类别：</label>@Model.CategoryTitle</li>
+                    <li class="col-xs-6 col-sm-3"><label>查看：</label>@Model.ViewCount</li>
                 </ul>
             </div>
             <div class="body-product">
@@ -93,7 +92,8 @@
 
     <script>
         $(function () {
-            $("#mainav li").eq(2).addClass("active");
+            $(".mainav>li:nth-of-type(2)").addClass("active");
+           
             $('.owl-carousel').owlCarousel({
                 margin:0,
                 loop: true,

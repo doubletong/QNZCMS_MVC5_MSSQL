@@ -3,11 +3,11 @@
 
     <td>
         <a href="@string.Format("{0}?width=800", Model.ImageUrl)" data-toggle="lightbox" data-gallery="multiimages" data-title="@Model.Title">
-            <img class="img-thumbnail" src="@string.Format("{0}?height=45", Model.ImageUrl)" />
+            <img class="img-thumbnail" src="@string.Format("{0}?height=45", Model.ImageUrl)" style="height:45px;" />
         </a>
     </td>
     <td>
-        @Model.PositionTitle
+        @Model.PositionTitleAndSize
     </td>
     <td>
         @Model.Title

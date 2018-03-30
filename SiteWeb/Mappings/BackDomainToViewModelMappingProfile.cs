@@ -21,8 +21,10 @@ using TZGCMS.Model.Admin.InputModel.Jobs;
 using TZGCMS.Model.Admin.InputModel.Links;
 using TZGCMS.Model.Admin.InputModel.LuceneSearch;
 using TZGCMS.Model.Admin.InputModel.Menus;
+using TZGCMS.Model.Admin.InputModel.Outlets;
 using TZGCMS.Model.Admin.InputModel.Pages;
 using TZGCMS.Model.Admin.InputModel.Products;
+using TZGCMS.Model.Admin.InputModel.Teams;
 using TZGCMS.Model.Admin.InputModel.Videos;
 using TZGCMS.Model.Admin.ViewModel.Ads;
 using TZGCMS.Model.Admin.ViewModel.Articles;
@@ -82,7 +84,8 @@ namespace TZGCMS.SiteWeb.Mappings
             CreateMap<Product, ProductIM>();
             CreateMap<ProductIM, Product>();
 
-
+            CreateMap<Outlet, OutletIM>();
+            CreateMap<OutletIM, Outlet>();
             //CreateMap<TechnologyIM, SIG.DAL.Dapper.Model.Technology>();
             //CreateMap<SIG.DAL.Dapper.Model.Technology, TechnologyIM>();
 
@@ -199,8 +202,8 @@ namespace TZGCMS.SiteWeb.Mappings
 
             //CreateMap<TeamVM, Team>();
             //CreateMap<Team, TeamVM>();
-            //CreateMap<TeamIM, SIG.DAL.Dapper.Model.Team>();
-            //CreateMap<SIG.DAL.Dapper.Model.Team, TeamIM>();
+            CreateMap<TeamIM, Team>();
+            CreateMap<Team, TeamIM>();
 
             //CreateMap<ClientVM, Client>();
             //CreateMap<Client, ClientVM>();

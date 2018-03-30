@@ -10,5 +10,11 @@
     "inputFiles": [
       "Themes/Default/Content/js/app.js"
     ]
+  },
+  {
+    "outputFileName": "Themes/fengneng/Content/css/hover.min.css",
+    "inputFiles": [
+      "Themes/fengneng/Content/css/hover.css"
+    ]
   }
 ]

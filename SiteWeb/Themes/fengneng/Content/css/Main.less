@@ -12,6 +12,7 @@
 @import '_page-about.less';
 @import '_page-product.less';
 @import '_page-job.less';
+@import '_page_download.less';
 
 @import '_pagination.less';
 
@@ -50,7 +51,7 @@ figure{
 }
 
 .pageHeader {
-    background-color: rgba(0, 0, 0,.9);
+    background-color: @color_sub;
     position: absolute;
     left: 0;
     top: 0;
@@ -58,26 +59,26 @@ figure{
     height: 45px;
     transition: all 800ms ease;
     z-index: 392;
+    box-shadow:0 0 12px rgba(0,0,0,.15);
 
     @media only screen and (min-width: 768px) {
         height: 70px;
-        background-color: rgba(0, 0, 0,.8);
+        background-color: @color_sub;
     }
 
     .logo {
         padding-top: 5px;
         display: block;
-        text-decoration: none;
-        width: 40px;
+        text-decoration: none;      
         overflow: hidden;
 
         @media only screen and (min-width: 768px) {
-            padding-top: 8px;
-            width: 60px;
+            padding-top: 14px;
+           
         }
 
         @media only screen and (min-width: 992px) {
-            width: 60px;
+            
         }
 
         @media only screen and (min-width: 1200px) {
@@ -87,7 +88,7 @@ figure{
         }
 
         img {
-            width: 165px;
+            width: 155px;
 
             @media only screen and (min-width: 768px) {
                 width: auto;
@@ -104,7 +105,7 @@ figure{
 
         a {
             text-decoration: none;
-            color: #fff;
+            color: #333;
 
             .iconfont {
                 .font-size(2.8);
@@ -123,7 +124,7 @@ figure{
             top: 8px;
         }
 
-        @media only screen and (min-width:992px) {
+        @media only screen and (min-width:1201px) {
             display: none;
         }
     }
@@ -264,56 +265,64 @@ figure{
 }
 
 
+.map_canvas {
+    height: 640px !important;
+
+    @media only screen and (min-width:768px) {
+        height: 600px !important;
+    }
+}
+.map_canvas1 {
+    height: 768px !important;
+
+    @media only screen and (min-width:768px) {
+        height: 800px !important;
+    }
+}
+.lastproducts {
+    text-align: center;
+    color: #000;
+
+    .title {
+        h2 {
+            font-size:32px;position:relative;padding-bottom:10px;margin:0;
+            &:after {
+                content: " ";
+                display: block;
+                width: 70px;
+                position: absolute;
+                left: 50%;
+                margin-left: -35px;
+                height: 3px;
+                background-color: #ffe800;
+                bottom: 0;
+            }
+        }
+        p{
+            color:#999;
+        }
+    }
+}
 
 .page-footer {
     width: 100%;
-    background-color: #0a0a0a;
-    color: #b2b2b2;
+    background: @color_sub url(../img/chemicalbonds.png) no-repeat center bottom;
+    color: #000;
     font-size: 14px;
+    border-top: 3px #000 solid;
 
     a {
-        color: @color_sub;
+        color: #000;
 
         &:hover {
             text-decoration: underline;
         }
     }
 
-    .links {
-        padding-top: 40px;
-        margin-bottom: 20px;
 
-        h3.title {
-            font-size: 14px;
-            font-weight: normal;
-            color: @color_sub;
-            margin: 12px 0 20px;
-        }
-
-        ul {
-            .mplnone;
-            text-align: center;
-
-            li {
-                display: inline-block;
-                margin-right: 5px;
-                margin-left: 5px;
-                margin-bottom: 29px;
-
-                @media only screen and (min-width:768px) {
-                    float: left;
-                    margin-right: 10px;
-                    margin-left: 0;
-                    margin-bottom: 29px;
-                }
-            }
-        }
-    }
 
     .copyright {
-        background: url(../img/bot_logo.png) no-repeat left center;
-        padding: 20px 0 20px 60px;
-        border-top: 1px #666 solid;
+        padding: 20px 0 20px;
     }
 
     .top {
@@ -331,20 +340,24 @@ figure{
 
     .qrcode {
         width: 200px;
-        height: 280px;
+        height: 220px;
         border: 8px #373737 solid;
+        background-color: #000;
         text-align: center;
         padding-top: 30px;
         margin: 0 auto 50px;
         color: #fff;
 
+
+
         @media only screen and (min-width:768px) {
-            margin: 0 auto;
+            margin: 0 auto 30px;
         }
 
         img {
             margin-bottom: 15px;
             border: 5px #fff solid;
+            background-color: #fff;
         }
 
         strong {

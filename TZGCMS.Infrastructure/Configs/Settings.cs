@@ -128,6 +128,12 @@ namespace TZGCMS.Infrastructure.Configs
 
     }
 
+    [XmlRoot("Settings")]
+    public class OutletSettings : BaseSettings
+    {
+
+    }
+
     [XmlRoot("Settings")]//serializable attribute
     public class LuceneSettings : BaseSettings
     {

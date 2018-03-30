@@ -39,7 +39,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             ViewBag.PageSizes = new SelectList(Site.PageSizes());
 
             var positionList = _positionService.GetAll().OrderByDescending(c => c.Importance).ToList();
-            var positions = new SelectList(positionList, "Id", "Title");
+            var positions = new SelectList(positionList, "Id", "TitleAndSize");
             ViewBag.Positions = positions;
 
             return View(carouselListVM);
@@ -77,7 +77,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             };
 
             var positionList = _positionService.GetAll().OrderByDescending(c => c.Importance).ToList();
-            var positions = new SelectList(positionList, "Id", "Title");
+            var positions = new SelectList(positionList, "Id", "TitleAndSize");
             ViewBag.Positions = positions;
 
             return PartialView("_AddCarousel", vCarousel);
@@ -116,7 +116,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 var vm = _mapper.Map<CarouselIM>(vCarousel);
 
                 var positionList = _positionService.GetAll().OrderByDescending(c => c.Importance).ToList();
-                var positions = new SelectList(positionList, "Id", "Title");
+                var positions = new SelectList(positionList, "Id", "TitleAndSize");
                 ViewBag.Positions = positions;
 
                 return PartialView("_EditCarousel", vm);

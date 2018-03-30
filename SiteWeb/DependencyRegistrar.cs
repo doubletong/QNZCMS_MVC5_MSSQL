@@ -17,10 +17,12 @@ using TZGCMS.Service.Emails;
 using TZGCMS.Service.Identity;
 using TZGCMS.Service.Jobs;
 using TZGCMS.Service.Links;
+using TZGCMS.Service.Outlets;
 using TZGCMS.Service.PageMetas;
 using TZGCMS.Service.Pages;
 using TZGCMS.Service.Products;
 using TZGCMS.Service.Systems;
+using TZGCMS.Service.Teams;
 using TZGCMS.Service.Videos;
 using TZGCMS.SiteWeb.Mappings;
 
@@ -80,6 +82,7 @@ namespace TZGCMS.SiteWeb
             builder.RegisterType<CarouselServices>().As<ICarouselServices>().InstancePerLifetimeScope();
 
             builder.RegisterType<JobServices>().As<IJobServices>().InstancePerLifetimeScope();
+            builder.RegisterType<TeamServices>().As<ITeamServices>().InstancePerLifetimeScope();
 
             builder.RegisterType<BackupServices>().As<IBackupServices>().InstancePerLifetimeScope();
             builder.RegisterType<LogServices>().As<ILogServices>().InstancePerLifetimeScope();
@@ -92,6 +95,7 @@ namespace TZGCMS.SiteWeb
             builder.RegisterType<LinkServices>().As<ILinkServices>().InstancePerLifetimeScope();
 
             builder.RegisterType<ChronicleServices>().As<IChronicleServices>().InstancePerLifetimeScope();
+            builder.RegisterType<OutletServices>().As<IOutletServices>().InstancePerLifetimeScope();
             // MVC - Set the dependency resolver to be Autofac.
 
 
