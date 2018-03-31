@@ -334,19 +334,39 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
                 var result = _articleServices.Create(newArticle);
 
-                if (result!=null)
+                if (result != null)
                 {
-                    var pageMeta = new PageMeta()
-                    {
-                        ObjectId = result.ToString(),
-                        Title = string.IsNullOrEmpty(vm.SEOTitle) ? vm.Title : vm.SEOTitle,
-                        Keyword = string.IsNullOrEmpty(vm.Keywords) ? vm.Title : vm.Keywords.Replace('，', ','),
-                        Description = vm.SEODescription,
-                        ModelType = ModelType.ARTICLE
-                    };
-                    _pageMetaServices.Create(pageMeta);
+                    _pageMetaServices.SetPageMeta(ModelType.ARTICLE, result.Id.ToString(),result.Title, vm.SEOTitle,vm.Keywords,vm.SEODescription);
+
                 }
-                
+
+                if (!string.IsNullOrEmpty(vm.Thumbnail))
+                {
+                    if (ImageHandler.CheckImageSize(Server.MapPath(vm.Thumbnail), SettingsManager.Article.ThumbWidth, SettingsManager.Article.ThumbHeight))
+                    {
+                        AR.SetWarning(Messages.ThumbnailSizeNotOK);
+                        return Json(AR, JsonRequestBehavior.DenyGet);
+                    }
+                    if (ImageHandler.CheckImageType(Server.MapPath(vm.Thumbnail)))
+                    {
+                        AR.SetWarning(Messages.ThumbnailExtensionNotOK);
+                        return Json(AR, JsonRequestBehavior.DenyGet);
+                    }
+                }
+                if (!string.IsNullOrEmpty(vm.FullImage))
+                {
+                    if (ImageHandler.CheckImageSize(Server.MapPath(vm.FullImage), SettingsManager.Article.ImageWidth, SettingsManager.Article.ImageHeight))
+                    {
+                        AR.SetWarning(Messages.FullImageSizeNotOK);
+                        return Json(AR, JsonRequestBehavior.DenyGet);
+                    }
+                    if (ImageHandler.CheckImageType(Server.MapPath(vm.FullImage)))
+                    {
+                        AR.SetWarning(Messages.FullImageExtensionNotOK);
+                        return Json(AR, JsonRequestBehavior.DenyGet);
+                    }
+                }
+                   
 
                 AR.SetSuccess(String.Format(Messages.AlertCreateSuccess, EntityNames.Article));
                 return Json(AR, JsonRequestBehavior.DenyGet);
@@ -409,25 +429,35 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 var editArticle = _mapper.Map<ArticleIM, Article>(vm);
 
                 _articleServices.Update(editArticle);
+                _pageMetaServices.SetPageMeta(ModelType.ARTICLE, vm.Id.ToString(), vm.Title, vm.SEOTitle, vm.Keywords, vm.SEODescription);
 
-                var pageMeta = _pageMetaServices.GetPageMeta(ModelType.ARTICLE, editArticle.Id.ToString());
-                pageMeta = pageMeta ?? new PageMeta();
-
-                pageMeta.ObjectId = vm.Id.ToString();
-                pageMeta.Title = string.IsNullOrEmpty(vm.SEOTitle) ? vm.Title : vm.SEOTitle;
-                pageMeta.Keyword = string.IsNullOrEmpty(vm.Keywords) ? vm.Title : vm.Keywords.Replace('，', ',');
-                pageMeta.Description = vm.SEODescription;
-                pageMeta.ModelType = ModelType.ARTICLE;
-
-                if (pageMeta.Id > 0)
+                //图片检测
+                if (!string.IsNullOrEmpty(vm.Thumbnail))
                 {
-                    _pageMetaServices.Update(pageMeta);
+                    if (!ImageHandler.CheckImageSize(Server.MapPath(vm.Thumbnail), SettingsManager.Article.ThumbWidth, SettingsManager.Article.ThumbHeight))
+                    {
+                        AR.SetWarning(Messages.ThumbnailSizeNotOK);
+                        return Json(AR, JsonRequestBehavior.DenyGet);
+                    }
+                    if (!ImageHandler.CheckImageType(Server.MapPath(vm.Thumbnail)))
+                    {
+                        AR.SetWarning(Messages.ThumbnailExtensionNotOK);
+                        return Json(AR, JsonRequestBehavior.DenyGet);
+                    }
                 }
-                else
+                if (!string.IsNullOrEmpty(vm.FullImage))
                 {
-                    _pageMetaServices.Create(pageMeta);
+                    if (!ImageHandler.CheckImageSize(Server.MapPath(vm.FullImage), SettingsManager.Article.ImageWidth, SettingsManager.Article.ImageHeight))
+                    {
+                        AR.SetWarning(Messages.FullImageSizeNotOK);
+                        return Json(AR, JsonRequestBehavior.DenyGet);
+                    }
+                    if (!ImageHandler.CheckImageType(Server.MapPath(vm.FullImage)))
+                    {
+                        AR.SetWarning(Messages.FullImageExtensionNotOK);
+                        return Json(AR, JsonRequestBehavior.DenyGet);
+                    }
                 }
-               
 
                 AR.SetSuccess(String.Format(Messages.AlertUpdateSuccess, EntityNames.Article));
                 return Json(AR, JsonRequestBehavior.DenyGet);

@@ -15,6 +15,7 @@ namespace TZGCMS.Service.PageMetas
         bool Update(PageMeta pageMeta);
         PageMeta Create(PageMeta pageMeta);
         bool Delete(PageMeta pageMeta);
+        void SetPageMeta(ModelType modelType, string objectId, string objectTitle, string title,string keywords,string description);
     }
     public class PageMetaServices: IPageMetaServices
     {
@@ -37,6 +38,46 @@ namespace TZGCMS.Service.PageMetas
         public bool Delete(PageMeta pageMeta)
         {
             return _unitOfWork.PageMetaRepository.Delete(pageMeta);
+        }
+        public void SetPageMeta(ModelType modelType, string objectId, string objectTitle, string title, string keywords, string description)
+        {
+            var pageMeta = this.GetPageMeta(ModelType.ARTICLE, objectId);
+            if (pageMeta != null)
+            {               
+
+                if (!string.IsNullOrEmpty(title) || !string.IsNullOrEmpty(keywords) || !string.IsNullOrEmpty(description))
+                {
+                    pageMeta.ObjectId = objectId;
+                    pageMeta.Title = string.IsNullOrEmpty(title) ? objectTitle : title;
+                    pageMeta.Keyword = string.IsNullOrEmpty(keywords) ? objectTitle : keywords.Replace('，', ',');
+                    pageMeta.Description = description;
+                    pageMeta.ModelType = ModelType.ARTICLE;
+
+                    Update(pageMeta);
+                }
+                else
+                {
+                    this.Delete(pageMeta);
+                }                   
+               
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(title) || !string.IsNullOrEmpty(keywords) || !string.IsNullOrEmpty(description))
+                {
+                    pageMeta = new PageMeta()
+                    {
+                        ObjectId = objectId,
+                        Title = string.IsNullOrEmpty(title) ? objectTitle : title,
+                        Keyword = string.IsNullOrEmpty(keywords) ? objectTitle : keywords.Replace('，', ','),
+                        Description = description,
+                        ModelType = ModelType.ARTICLE
+                    };
+                    this.Create(pageMeta);
+                }
+               
+            }
+            
         }
     }
 }

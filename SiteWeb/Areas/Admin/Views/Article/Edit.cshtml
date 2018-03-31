@@ -70,7 +70,7 @@
                                     <button class="btn btn-default" id="btnThumbnail" type="button">浏览…</button>
                                 </span>
                             </div><!-- /input-group -->
-                            <span class="help-block">@string.Format("图像大小：{0}x{1} 像素", SettingsManager.Article.ThumbWidth, SettingsManager.Article.ThumbHeight)</span>
+                            <span class="help-block">@string.Format("图像大小：{0}x{1} 像素", SettingsManager.Article.ThumbWidth, SettingsManager.Article.ThumbHeight) <a href="/bbi-admin/info/site#newsSet" title="设置"><i class="fa fa-cog"></i></a></span>
                        
                             @Html.ValidationMessageFor(model => model.Thumbnail)
                         </div>
@@ -85,7 +85,7 @@
                                     <button class="btn btn-default" id="btnFullImage" type="button">浏览…</button>
                                 </span>
                             </div><!-- /input-group -->
-                            <span class="help-block">@string.Format("图像大小：{0}x{1} 像素", SettingsManager.Article.ImageWidth, SettingsManager.Article.ImageHeight)</span>
+                            <span class="help-block">@string.Format("图像大小：{0}x{1} 像素", SettingsManager.Article.ImageWidth, SettingsManager.Article.ImageHeight) <a href="/bbi-admin/info/site#newsSet" title="设置"><i class="fa fa-cog"></i></a></span>
                       
                             @Html.ValidationMessageFor(model => model.FullImage)
                         </div>

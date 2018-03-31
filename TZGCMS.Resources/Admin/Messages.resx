@@ -225,4 +225,16 @@
   <data name="HasChildCanNotDelete" xml:space="preserve">
     <value>此{0}下面还有{1}存在，不能删除！</value>
   </data>
+  <data name="ThumbnailExtensionNotOK" xml:space="preserve">
+    <value>缩略图格式不正确</value>
+  </data>
+  <data name="ThumbnailSizeNotOK" xml:space="preserve">
+    <value>缩略图尺寸不正确</value>
+  </data>
+  <data name="FullImageExtensionNotOK" xml:space="preserve">
+    <value>大图格式不正确</value>
+  </data>
+  <data name="FullImageSizeNotOK" xml:space="preserve">
+    <value>大图尺寸不正确</value>
+  </data>
 </root>

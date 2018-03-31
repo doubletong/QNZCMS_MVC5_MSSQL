@@ -52,7 +52,6 @@ namespace TZGCMS.Infrastructure.Helper
             {
                 return true;
             }
-
             return false;
         }
 
@@ -315,6 +314,14 @@ namespace TZGCMS.Infrastructure.Helper
 
             return lst;
         }
+        public static bool CheckImageSize(string imagePath,int width, int height)
+        {
 
+            Image img = Image.FromFile(imagePath);
+            if (img.Width != width || img.Height != height)
+                return false;
+
+            return true;             
+        }
     }
 }
