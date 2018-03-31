@@ -22,6 +22,7 @@ namespace TZGCMS.SiteWeb.Controllers
             _pageMetaService = pageMetaService;
             _logger = logger;
         }
+
         [SIGActionFilter]
         public ActionResult Index()
         {
@@ -44,28 +45,12 @@ namespace TZGCMS.SiteWeb.Controllers
         //}
 
 
-        public ActionResult About()
-        {
-            if (Request.Browser.IsMobileDevice)
-            {
-                return View("About.mobile");
-            }
-            return View();
-        }
         public ActionResult CloseSite()
         {           
             return View();
         }
         
 
-        public ActionResult Celebs()
-        {
-            if (Request.Browser.IsMobileDevice)
-            {
-                return View("Celebs.mobile");
-            }
-            return View();
-        }
         
         public ActionResult testA()
         {

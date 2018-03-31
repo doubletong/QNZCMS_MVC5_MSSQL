@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using TZGCMS.Data.Entity;
 using TZGCMS.Data.Enums;
+using TZGCMS.SiteWeb.Filters;
 
 namespace TZGCMS.SiteWeb.Controllers.Pages
 {
@@ -12,6 +13,7 @@ namespace TZGCMS.SiteWeb.Controllers.Pages
     {
         private TZGEntities db = new TZGEntities();
         // GET: Pages     
+        [SIGActionFilter]
         public ActionResult Index(string seoName)
         {
             var page = db.Pages.FirstOrDefault(d => d.Active && d.SeoName == seoName);

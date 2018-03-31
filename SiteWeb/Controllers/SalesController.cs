@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using TZGCMS.Data.Entity;
 using TZGCMS.Model.Front.ViewModel.Jobs;
 using TZGCMS.Data.Enums;
+using TZGCMS.SiteWeb.Filters;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
@@ -18,7 +19,7 @@ namespace TZGCMS.SiteWeb.Controllers
         private TZGEntities db = new TZGEntities();
 
         // GET: Jobs
-      
+        [SIGActionFilter]
         public async Task<ActionResult> Index()
         {
             var vm = await db.Outlets.Where(d => d.Active).ToListAsync();            

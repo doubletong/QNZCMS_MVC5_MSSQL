@@ -11,6 +11,7 @@ using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Model.Front.ViewModel.Articles;
 using TZGCMS.Service.Articles;
 using TZGCMS.Service.PageMetas;
+using TZGCMS.SiteWeb.Filters;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
@@ -25,7 +26,7 @@ namespace TZGCMS.SiteWeb.Controllers
             _categoryService = categoryService;
             _pageMetaService = pageMetaService;
         }
-     
+        [SIGActionFilter]
         public ActionResult Index(int? page)
         {
 

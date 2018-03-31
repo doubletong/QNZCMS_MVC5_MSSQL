@@ -1,0 +1,70 @@
+﻿@{
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : SettingsManager.Contact.CompanyName;
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+    <style>
+        /*.pageHeader .logo {
+            display: none !important;
+        }*/
+    </style>
+}
+
+@Html.Partial("Header")
+
+
+<section class="container" style="padding-top:150px;padding-bottom:80px;">
+    <p>@SettingsManager.Site.CloseInfo</p>
+</section>
+
+
+
+@section footer{
+<script src="/Themes/PingAn/Content/js/jquery.placeholder.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('input, textarea').placeholder();    
+
+            $(".section-title h2").on("click", function () {
+                $(".section-title h2.active").removeClass("active");
+                $(this).addClass("active");
+                var $index = $(this).index();
+                $(".tabContent .lastestNews.active").removeClass("active");
+                $(".tabContent .lastestNews").eq($index).addClass("active");
+            });
+
+            $("#zhuanlan .more").click(function (e) {
+                e.preventDefault();
+                if ($(this).attr("disabled") === "disabled") {
+                    return;
+                }
+                var $that = $(this);
+                $that.closest("p").before('<p id="loading" class="text-center"><img src="/Themes/PingAn/Content/img/30.gif"/></p>')
+                var pageIndex = $that.attr("data-page");
+               // alert(pageIndex);
+                var pageSize = $that.attr("data-size");
+                var url = "@Url.Action("LoadPageNews","Article")?seoName=articles&pageSize=" + pageSize + "&page=" + pageIndex;
+                $.get(url, function (d) {
+                    if ($.trim(d).length > 0) {
+                        // $("#zhuanlan").appendTo(d,);
+                        $that.closest("p").before(d)
+                        $that.attr("data-page", parseInt(pageIndex) + 1);
+                    } else {
+                        $that.text("已全部加载").attr("disabled","disabled");
+                    }
+                    $("#zhuanlan #loading").remove();
+                    
+                  //  debugger;
+                })
+            })
+        });
+    </script>
+}

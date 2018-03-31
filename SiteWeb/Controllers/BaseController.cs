@@ -8,7 +8,7 @@ using TZGCMS.SiteWeb.Filters;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
-    [SIGActionFilter]
+    
     public class BaseController : Controller
     {
          public AjaxResultVM AR = new AjaxResultVM();

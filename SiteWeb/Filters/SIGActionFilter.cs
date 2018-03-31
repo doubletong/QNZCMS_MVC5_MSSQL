@@ -14,7 +14,6 @@ namespace TZGCMS.SiteWeb.Filters
         {
             if (SettingsManager.Site.IsClose)
             {
-               // RedirectToRouteResult()
                 var controller = (BaseController)filterContext.Controller;
                 filterContext.Result = controller.RedirectToAction("CloseSite", "Home");
             }

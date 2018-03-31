@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using TZGCMS.Data.Entity;
 using TZGCMS.Model.Front.ViewModel.Jobs;
 using TZGCMS.Data.Enums;
+using TZGCMS.SiteWeb.Filters;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
@@ -18,6 +19,7 @@ namespace TZGCMS.SiteWeb.Controllers
         private TZGEntities db = new TZGEntities();
 
         // GET: Jobs
+        [SIGActionFilter]
         [Route("jobs")]
         [Route("jobs/{seoName}", Name = "jobDetail")]
         public async Task<ActionResult> Index(string seoName)

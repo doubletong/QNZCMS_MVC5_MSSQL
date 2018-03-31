@@ -11,6 +11,7 @@ using TZGCMS.Infrastructure.Logging;
 using TZGCMS.Model.Front.ViewModel.Products;
 using TZGCMS.Service.PageMetas;
 using TZGCMS.Service.Products;
+using TZGCMS.SiteWeb.Filters;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
@@ -29,10 +30,12 @@ namespace TZGCMS.SiteWeb.Controllers
             _logger = logger;
         }
         // GET: Product
+        [SIGActionFilter]
         [Route("products")]
         [Route("products/page-{page}", Name = "pageProducts")]
         [Route("products/category-{seoName}", Name = "caegoryProducts")]
         [Route("products/category-{seoName}/page-{page}", Name = "caegoryPageProducts")]
+       
         public ActionResult Index(int? page, string seoName)
         {
             var vm = new ProductListFVM

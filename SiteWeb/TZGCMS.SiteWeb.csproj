@@ -3486,6 +3486,8 @@
     </Content>
     <Content Include="Themes\Saches\Views\WeiXin\OAuthSnsApiBase.cshtml" />
     <Content Include="Themes\Saches\Views\WeiXin\OAuthSnsApiUserInfo.cshtml" />
+    <Content Include="Themes\XiPin\Views\Home\CloseSite.cshtml" />
+    <Content Include="Themes\Saches\Views\Home\CloseSite.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
