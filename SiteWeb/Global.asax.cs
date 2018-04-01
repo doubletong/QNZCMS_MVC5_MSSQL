@@ -11,6 +11,7 @@ using System.Web.Security;
 using TZGCMS.Data.Entity.Identity;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.SiteWeb.App_Start;
+using TZGCMS.SiteWeb.Mappings;
 
 namespace TZGCMS.SiteWeb
 {
@@ -21,6 +22,8 @@ namespace TZGCMS.SiteWeb
             AreaRegistration.RegisterAllAreas();
 
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            //autoMapper config
+            AutoMapperConfiguration.Configure();
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using AutoMapper;
 
-namespace SiteWeb.Mappings
+namespace TZGCMS.SiteWeb.Mappings
 {
     public class AutoMapperConfiguration
     {
@@ -12,8 +12,8 @@ namespace SiteWeb.Mappings
         {
             Mapper.Initialize(x =>
             {
-                x.AddProfile<DomainToViewModelMappingProfile>();
-                x.AddProfile<ViewModelToDomainMappingProfile>();
+                x.AddProfile<BackDomainToViewModelMappingProfile>();
+                x.AddProfile<FrontDomainToViewModelMappingProfile>();
             });
         }
 

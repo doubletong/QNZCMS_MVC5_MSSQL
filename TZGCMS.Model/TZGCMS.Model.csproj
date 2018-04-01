@@ -166,6 +166,7 @@
     <Compile Include="Front\ViewModel\Jobs\PageJobVM.cs" />
     <Compile Include="Front\ViewModel\Pages\PageFVM.cs" />
     <Compile Include="Front\ViewModel\Products\ProductListFVM.cs" />
+    <Compile Include="Front\ViewModel\Products\ProductVM.cs" />
     <Compile Include="Front\ViewModel\Videos\VideoCategoryFVM.cs" />
     <Compile Include="Front\ViewModel\Videos\VideoFVM.cs" />
     <Compile Include="Inputs\Articles\ArticleIM.cs" />
