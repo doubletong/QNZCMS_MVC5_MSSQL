@@ -29,7 +29,7 @@ namespace TZGCMS.Model.Front.InputModel.Emails
         [Display(ResourceType = typeof(Labels), Name = "Country")]
         [Required(ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "Required")]
         public string Country { get; set; }
-        [Display(ResourceType = typeof(Labels), Name = "Country")]
+        [Display(ResourceType = typeof(Labels), Name = "Company")]
         public string Company { get; set; }
         [Display(ResourceType = typeof(Labels), Name = "Phone")]      
         public string Phone { get; set; }
