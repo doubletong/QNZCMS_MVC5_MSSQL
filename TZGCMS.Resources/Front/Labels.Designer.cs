@@ -545,5 +545,13 @@ namespace TZGCMS.Resources.Front {
                 return ResourceManager.GetString("UserName", resourceCulture);
             }
         }
+        /// <summary>
+        ///   查找类似 国家 的本地化字符串。
+        /// </summary>
+        public static string Country {
+            get {
+                return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
     }
 }

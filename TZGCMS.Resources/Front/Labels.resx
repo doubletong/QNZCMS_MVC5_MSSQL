@@ -279,4 +279,7 @@
   <data name="UserName" xml:space="preserve">
     <value>帐号</value>
   </data>
+   <data name="Country" xml:space="preserve">
+    <value>国家</value>
+  </data>
 </root>
