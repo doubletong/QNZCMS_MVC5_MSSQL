@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace TZGCMS.Infrastructure.Helper
 {
-    public class File
+    public class FileHelper
     {
         public static byte[] GetBytesFromFile(string fullFilePath)
         {
@@ -49,6 +49,50 @@ namespace TZGCMS.Infrastructure.Helper
                 extensions.Add(new SelectListItem { Value = item, Text = item });
             }
             return extensions;
+        }
+
+        /// <summary>
+        /// 生成文件名
+        /// </summary>
+        /// <param name="filaName"></param>
+        /// <param name="localPath"></param>
+        /// <param name="ex"></param>
+        /// <returns></returns>
+        public static string GetFileName(string filaName, string localPath, string ex)
+        {
+            filaName = filaName.Replace("(", "");
+            filaName = filaName.Replace(")", "");
+
+            var filePathName = filaName + ex;
+
+            var savePath = Path.Combine(localPath, filePathName);
+            if (System.IO.File.Exists(savePath))
+            {
+                if (filaName.Contains("_"))
+                {
+                    var lastNum = filaName.Substring(filaName.LastIndexOf("_") + 1);
+                    int num;
+                    if (int.TryParse(lastNum, out num))
+                    {
+                        num++;
+                        filaName = filaName.Substring(0, filaName.LastIndexOf("_")) + "_" + num.ToString();
+                    }
+                    else
+                    {
+                        filaName = filaName + "_1";
+                    }
+                }
+                else
+                {
+                    filaName = filaName + "_1";
+
+                }
+                return GetFileName(filaName, localPath, ex);
+            }
+            else
+            {
+                return filaName;
+            }
         }
     }
 }

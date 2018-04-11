@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>@ViewBag.Title - @SettingsManager.Contact.CompanyShortName</title>
+    <title>@ViewBag.Title - @SettingsManager.Site.SiteName</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -65,35 +65,26 @@
     <footer class="page-footer">
         <div class="container">
             <div class="row">
-                <div class="col-md-9">
-                 
-                    <div class="copyright">
-                        <p><img src="~/Themes/@SettingsManager.Site.Theme/Content/img/logo_bot.png" /></p>
-                        <p>
-                            版权所有：@SettingsManager.Contact.CompanyName<br />
-                            &copy; Copyright 2018 SHENZHEN BESKY ELECTRONIC TECHNOLOGY CO.,LTD 粤公网安备：<a href="http://www.miitbeian.gov.cn">@SettingsManager.Site.WebNumber</a>
-                        </p>
+                <div class="col-md-2"><p class="logo"><img src="~/Themes/@SettingsManager.Site.Theme/Content/img/logo_bot.png" class="img-responsive" /></p></div>
+                    <div class="col-md-8">
+                        <div class="copyright">                           
+                            <p>
+                                版权所有：深圳市黑鸟志有限公司<br />
+                                &copy; Copyright 2018 SHENZHEN BESKY ELECTRONIC TECHNOLOGY CO.,LTD <br /> 粤公网安备：<a href="http://www.miitbeian.gov.cn">@SettingsManager.Site.WebNumber</a>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <!-- BEGIN CALL TO ACTION PANEL ================================================== -->
+                    <!-- BEGIN CALL TO ACTION PANEL ================================================== -->
 
-                <div class="col-md-3">
-                    <div class="top"></div>
-                    <figure class="qrcode">
-
-                        <img src="@SettingsManager.Social.WeiXingCode" />
-
-                        <figcaption>
-                            关注微信公众号
-                        </figcaption>
-                    </figure>
+                    <div class="col-md-2">
+                        <div class="qrcode">
+                            <img src="/Themes/@SettingsManager.Site.Theme/Content/img/qrcode_150.png" />                            
+                        </div>
+                    </div>
 
 
                 </div>
-
-
             </div>
-        </div>
 
 
 

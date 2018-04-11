@@ -409,9 +409,10 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             {
                 return Json(new { jsonrpc = 2.0, error = new { code = 102, message = "保存失败" }, id = "id" });
             }
-
+            var fileName = Path.GetFileNameWithoutExtension(file.FileName);
             string ex = Path.GetExtension(file.FileName);
-            filePathName = Guid.NewGuid().ToString("N") + ex;
+            fileName = FileHelper.GetFileName(fileName, localPath, ex);
+            filePathName = fileName + ex;
             if (!Directory.Exists(localPath))
             {
                 Directory.CreateDirectory(localPath);

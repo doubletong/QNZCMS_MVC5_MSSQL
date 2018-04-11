@@ -105,7 +105,7 @@ figure{
 
         a {
             text-decoration: none;
-            color: #333;
+            color: #fff;
 
             .iconfont {
                 .font-size(2.8);
@@ -306,65 +306,39 @@ figure{
 
 .page-footer {
     width: 100%;
-    background: @color_sub url(../img/chemicalbonds.png) no-repeat center bottom;
-    color: #fff;
+    background: #f7f7f7 url(../img/body-bg.png);
     font-size: 14px;
-    border-top: 3px #000 solid;
+
 
     a {
-        color: #fff;
+        color: #333;
 
         &:hover {
             text-decoration: underline;
         }
     }
 
-
-
-    .copyright {
-        padding: 20px 0 20px;
+    .logo {
+        padding-top: 15px;
     }
 
-    .top {
-        height: 40px;
-        width: 128px;
-        border-left: 2px #373737 solid;
-        border-right: 2px #373737 solid;
-        margin: 0 auto;
-        display: none;
-
-        @media only screen and (min-width:768px) {
-            display: block;
-        }
+    .copyright {
+        padding: 18px 0 20px;
     }
 
     .qrcode {
-        width: 200px;
-        height: 220px;
-        border: 8px #373737 solid;
-        background-color: #000;
         text-align: center;
-        padding-top: 30px;
-        margin: 0 auto 50px;
-        color: #fff;
-
-
+        padding-top: 20px;
+        font-size: 12px;
 
         @media only screen and (min-width:768px) {
-            margin: 0 auto 30px;
+            margin: 0 auto 15px;
+            text-align: right;
         }
 
         img {
-            margin-bottom: 15px;
-            border: 5px #fff solid;
-            background-color: #fff;
-        }
-
-        strong {
-            font-size: 20px;
-            font-weight: normal;
-            display: block;
-            text-align: center;
+            margin-bottom: 10px;
+            width: 90px;
         }
     }
 }

@@ -162,9 +162,17 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         [HttpGet]
         public FileResult Download(string filePath, string fileName)
         {
-            var downPath = Server.MapPath(filePath);
-            return File(downPath, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
-            //  return File(downPath, "application/octet-stream", CurrentFileName);
+            if (filePath.StartsWith(SettingsManager.Site.DatabaseBackupDir))
+            {
+                var downPath = Server.MapPath(filePath);
+                if (System.IO.File.Exists(downPath))
+                {
+                    return File(downPath, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+                }
+                
+            }
+           
+            return null;
         }
 
         [HttpPost]

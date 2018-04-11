@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,7 @@ namespace TZGCMS.Data.Entity.Products
         public string UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
 
+        [NotMapped]
         public string CategoryTitle
         {
             get
@@ -47,6 +49,19 @@ namespace TZGCMS.Data.Entity.Products
                 }
 
                 return string.Empty;
+            }
+
+        }
+        [NotMapped]
+        public string[] Photos
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(ImageUrl))
+                {
+                    return ImageUrl.Split('|');
+                }
+                return null;
             }
 
         }

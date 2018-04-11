@@ -19,125 +19,77 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         {           
             _logger = logger;
         }
-        public ViewResult Index()
-        {
+        //public ViewResult Index()
+        //{
           
-            var cfe = SettingsManager.Contact;
-            var sle = SettingsManager.Social;
+        //    var cfe = SettingsManager.Contact;
 
-            CompanyInfoIM com = new CompanyInfoIM
-            {
-                Contact = new ContactIM
-                {
-                    CompanyName = cfe.CompanyName,
-                    CompanyShortName = cfe.CompanyShortName,
-                    Address = cfe.Address,
-                    Coordinate = cfe.Coordinate,
-                    ContactMan = cfe.ContactMan,
-                    Fax = cfe.Fax,
-                    Phone = cfe.Phone,
-                    ZipCode = cfe.ZipCode,
-                    Mobile = cfe.Mobile,
-                    MailTo = cfe.MailTo,
-                    MailCC = cfe.MailCC,
-                },
-                Social = new SocialIM
-                {
-                    Oicq = sle.Oicq,
-                    OicqTwo = sle.OicqTwo,
-                    SinaWeibo = sle.SinaWeibo,
-                    WeiXing = sle.WeiXing,
-                    WeiXingCode = sle.WeiXingCode
-                }
-            };
+        //    CompanyInfoIM com = new CompanyInfoIM
+        //    {
+        //        Contact = new ContactIM
+        //        {
+        //            CompanyName = cfe.CompanyName,
+        //            CompanyShortName = cfe.CompanyShortName,
+        //            Address = cfe.Address,
+        //            Coordinate = cfe.Coordinate,
+        //            ContactMan = cfe.ContactMan,
+        //            Fax = cfe.Fax,
+        //            Phone = cfe.Phone,
+        //            ZipCode = cfe.ZipCode,
+        //            Mobile = cfe.Mobile,
+        //            MailTo = cfe.MailTo,
+        //            MailCC = cfe.MailCC,
+        //        }
+        //    };
 
 
 
-            return View(com);
-        }
+        //    return View(com);
+        //}
 
 
-        [HttpPost]
-        public ActionResult Contact(ContactIM vm)
-        {
-            _logger.Info("创建数据库备份：");
-            if (!ModelState.IsValid)
-            {
-                var errorMessage = GetModelErrorMessage();
+        //[HttpPost]
+        //public ActionResult Contact(ContactIM vm)
+        //{
+        //    _logger.Info("创建数据库备份：");
+        //    if (!ModelState.IsValid)
+        //    {
+        //        var errorMessage = GetModelErrorMessage();
 
-                AR.Setfailure(errorMessage);
-                return Json(AR, JsonRequestBehavior.DenyGet);
-            }
-            try
-            {
-                var xmlFile = Server.MapPath("~/Config/ContactSettings.config");
-                XDocument doc = XDocument.Load(xmlFile);
+        //        AR.Setfailure(errorMessage);
+        //        return Json(AR, JsonRequestBehavior.DenyGet);
+        //    }
+        //    try
+        //    {
+        //        var xmlFile = Server.MapPath("~/Config/ContactSettings.config");
+        //        XDocument doc = XDocument.Load(xmlFile);
 
-                var item = doc.Descendants("Settings").FirstOrDefault();
-                item.Element("CompanyName").SetValue(vm.CompanyName);
-                item.Element("CompanyShortName").SetValue(vm.CompanyShortName ?? "");
-                item.Element("Address").SetValue(vm.Address);
-                item.Element("Coordinate").SetValue(vm.Coordinate ?? "");
-                item.Element("ContactMan").SetValue(vm.ContactMan);
-                item.Element("Fax").SetValue(vm.Fax ?? "");
-                item.Element("Phone").SetValue(vm.Phone);
-                item.Element("ZipCode").SetValue(vm.ZipCode ?? "");
-                item.Element("Mobile").SetValue(vm.Mobile ?? "");
-                item.Element("MailTo").SetValue(vm.MailTo);
-                item.Element("MailCC").SetValue(vm.MailCC ?? "");
-                doc.Save(xmlFile);
+        //        var item = doc.Descendants("Settings").FirstOrDefault();
+        //        item.Element("CompanyName").SetValue(vm.CompanyName);
+        //        item.Element("CompanyShortName").SetValue(vm.CompanyShortName ?? "");
+        //        item.Element("Address").SetValue(vm.Address);
+        //        item.Element("Coordinate").SetValue(vm.Coordinate ?? "");
+        //        item.Element("ContactMan").SetValue(vm.ContactMan);
+        //        item.Element("Fax").SetValue(vm.Fax ?? "");
+        //        item.Element("Phone").SetValue(vm.Phone);
+        //        item.Element("ZipCode").SetValue(vm.ZipCode ?? "");
+        //        item.Element("Mobile").SetValue(vm.Mobile ?? "");
+        //        item.Element("MailTo").SetValue(vm.MailTo);
+        //        item.Element("MailCC").SetValue(vm.MailCC ?? "");
+        //        doc.Save(xmlFile);
 
-                return Json(AR, JsonRequestBehavior.DenyGet);
-            }
-            catch (Exception ex)
-            {
-                AR.Setfailure(ex.Message);
-                return Json(AR, JsonRequestBehavior.DenyGet);
-            }
+        //        return Json(AR, JsonRequestBehavior.DenyGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        AR.Setfailure(ex.Message);
+        //        return Json(AR, JsonRequestBehavior.DenyGet);
+        //    }
 
-            //TempData["message"] = "保存成功！";          
+        //    //TempData["message"] = "保存成功！";          
 
-        }
-
-
-        [HttpPost]
-        public JsonResult Social(SocialIM vm)
-        {
-            if (!ModelState.IsValid)
-            {
-
-                var errorMessage = GetModelErrorMessage();
-                AR.Setfailure(errorMessage);
-
-                return Json(AR, JsonRequestBehavior.DenyGet);
-            }
-
-            try
-            {
-                var xmlFile = Server.MapPath("~/Config/SocialSettings.config");
-                XDocument doc = XDocument.Load(xmlFile);
-
-                var item = doc.Descendants("Settings").FirstOrDefault();
-                item.Element("Oicq").SetValue(vm.Oicq ?? "");
-                item.Element("OicqTwo").SetValue(vm.OicqTwo ?? "");
-                item.Element("SinaWeibo").SetValue(vm.SinaWeibo ?? "");
-                item.Element("WeiXing").SetValue(vm.WeiXing ?? "");
-                item.Element("WeiXingCode").SetValue(vm.WeiXingCode ?? "");
-
-                doc.Save(xmlFile);
-
-                return Json(AR, JsonRequestBehavior.DenyGet);
-            }
-            catch (Exception ex)
-            {
-                AR.Setfailure(ex.Message);
-                return Json(AR, JsonRequestBehavior.DenyGet);
-            }
-
-
-        }
-
-
+        //}
+        
 
 
 
@@ -166,6 +118,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                     GoogleAnalyticsID = info.GoogleAnalyticsID,
                     LoginLogo = info.LoginLogo,
                     DashboardLogo = info.DashboardLogo,
+                    MailTo = info.MailTo
                 },
                 ProductSet = new ProductSetIM
                 {
@@ -506,6 +459,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 item.Element("CloseInfo").SetValue(vm.CloseInfo ?? "");
                 item.Element("DashboardLogo").SetValue(vm.DashboardLogo ?? "");
                 item.Element("LoginLogo").SetValue(vm.LoginLogo ?? "");
+                item.Element("MailTo").SetValue(vm.MailTo ?? "");
                 doc.Save(xmlFile);
 
                 return Json(AR, JsonRequestBehavior.DenyGet);
@@ -520,66 +474,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         }
 
 
-        // GET: /bbi_Admin/Info/EmailSet     邮箱服务设置
-
-        //public ViewResult EmailSet()
-        //{
-        //    var smtp = SettingsManager.SMTP;
-        //    EmailSetVM emailSetVM = new EmailSetVM
-        //    {
-        //        From = smtp.From,
-        //        SmtpServer = smtp.SmtpServer,
-        //        Port = smtp.Port,
-        //        UserName = smtp.UserName,
-        //        Password = smtp.Password,
-        //        EnableSsl = smtp.EnableSsl
-        //    };
-        //    return View(emailSetVM);
-        //}
-
-
-
-        //[HttpPost]
-        //public JsonResult EditEmailSet(EmailSetVM vm)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        var errorMessage = GetModelErrorMessage();
-
-        //        AR.Setfailure(errorMessage);
-        //        return Json(AR, JsonRequestBehavior.DenyGet);
-        //    }
-
-        //    try
-        //    {
-        //        var xmlFile = Server.MapPath("~/Config/SMTPSettings.config");
-        //        XDocument doc = XDocument.Load(xmlFile);
-        //        var item = doc.Descendants("Settings").FirstOrDefault();
-
-        //        item.Element("From").SetValue(vm.From ?? "");
-        //        item.Element("SmtpServer").SetValue(vm.SmtpServer ?? "");
-        //        item.Element("Port").SetValue(vm.Port);
-        //        item.Element("UserName").SetValue(vm.UserName ?? "");
-
-        //        if (!string.IsNullOrEmpty(vm.Password))
-        //        {
-        //            var pw =  EncryptionHelper.Encrypt(vm.Password);
-        //            item.Element("Password").SetValue(pw);
-        //        }
-
-        //        item.Element("EnableSsl").SetValue(vm.EnableSsl);
-
-        //        doc.Save(xmlFile);
-
-        //        return Json(AR, JsonRequestBehavior.DenyGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        AR.Setfailure(ex.Message);
-        //        return Json(AR, JsonRequestBehavior.DenyGet);
-        //    }
-
-        //}
+        
 
     }
 }

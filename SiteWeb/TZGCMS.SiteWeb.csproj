@@ -249,6 +249,7 @@
     <Compile Include="Controllers\ADController.cs" />
     <Compile Include="Controllers\api\ArticlesController.cs" />
     <Compile Include="Controllers\api\CarouselsController.cs" />
+    <Compile Include="Controllers\api\OutletsController.cs" />
     <Compile Include="Controllers\api\PagesController.cs" />
     <Compile Include="Controllers\api\ProductsController.cs" />
     <Compile Include="Controllers\api\VideosController.cs" />
@@ -2764,16 +2765,13 @@
     <Content Include="Areas\Admin\Views\Nav\Partials\_Crumbs.cshtml" />
     <Content Include="Areas\Admin\Views\Nav\Partials\_LeftNav - 复制.cshtml" />
     <Content Include="Areas\Admin\Views\Nav\Partials\_LeftNav.cshtml" />
-    <Content Include="Areas\Admin\Views\Info\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Info\Site.cshtml" />
     <Content Include="Areas\Admin\Views\Info\Partials\_Article.cshtml" />
     <Content Include="Areas\Admin\Views\Info\Partials\_Case.cshtml" />
-    <Content Include="Areas\Admin\Views\Info\Partials\_Contact.cshtml" />
     <Content Include="Areas\Admin\Views\Info\Partials\_Photo.cshtml" />
     <Content Include="Areas\Admin\Views\Info\Partials\_Post.cshtml" />
     <Content Include="Areas\Admin\Views\Info\Partials\_Product.cshtml" />
     <Content Include="Areas\Admin\Views\Info\Partials\_Site.cshtml" />
-    <Content Include="Areas\Admin\Views\Info\Partials\_Social.cshtml" />
     <Content Include="Areas\Admin\Views\File\FinderForTinyMCE.cshtml" />
     <Content Include="Areas\Admin\Views\File\Index.cshtml" />
     <Content Include="Areas\Admin\Views\File\Partials\_PopuFinder.cshtml" />
@@ -3076,7 +3074,6 @@
     <Content Include="Themes\Saches\Content\img\banner\custom_banner.jpg" />
     <Content Include="Themes\Saches\Content\img\banner\slide21.jpg" />
     <Content Include="Themes\Saches\Content\img\bendiyinle.svg" />
-    <Content Include="Themes\Saches\Content\img\bois-7.jpg" />
     <Content Include="Themes\Saches\Content\img\chemicalbonds.png" />
     <Content Include="Themes\Saches\Content\img\ebook\usb_charger\Page_1_SC120.jpg" />
     <Content Include="Themes\Saches\Content\img\ebook\usb_charger\Page_2_SC220.jpg" />

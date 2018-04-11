@@ -6,7 +6,6 @@ namespace TZGCMS.Model.Admin.InputModel
     public class CompanyInfoIM
     {
         public ContactIM Contact { get; set; }
-        public SocialIM Social { get; set; }
     }
     public class ContactIM
     {
@@ -65,27 +64,5 @@ namespace TZGCMS.Model.Admin.InputModel
        
     }
 
-    public class SocialIM
-    {
-        [Display(Name = "腾讯QQ一", Prompt = "腾讯QQ一")]      
-        [QQ]
-        public string Oicq { get; set; }
-
-        [Display(Name = "腾讯QQ二", Prompt = "腾讯QQ二")]    
-        [QQ]
-        public string OicqTwo { get; set; }
-
-
-        [Display(Name = "新浪微博")]
-        [Url(ErrorMessage = "网址格式不正确")]
-        [DataType(DataType.Url)]
-        public string SinaWeibo { get; set; }
-
-        [Display(Name = "微信帐号")]
-        public string WeiXing { get; set; }
-
-        [Display(Name = "微信二维码")]
-        [DataType(DataType.ImageUrl)]
-        public string WeiXingCode { get; set; }
-    }
+   
 }

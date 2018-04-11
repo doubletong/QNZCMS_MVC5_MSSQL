@@ -173,11 +173,15 @@ namespace TZGCMS.Service.Products
             editProduct.Importance = im.Importance;
 
             editProduct.Categories.Clear();
-            var lCategories = (from c in _unitOfWork.ProductCategoryRepository.GetAll()
-                               where im.PostCategoryIds.Contains(c.Id.ToString())
-                               select c).ToList();
-            
-            editProduct.Categories = lCategories;                 
+            if (im.PostCategoryIds!=null)
+            {
+                var lCategories = (from c in _unitOfWork.ProductCategoryRepository.GetAll()
+                                   where im.PostCategoryIds.Contains(c.Id.ToString())
+                                   select c).ToList();
+
+                editProduct.Categories = lCategories;
+            }
+                
 
             return _unitOfWork.ProductRepository.Update(editProduct);
         }
@@ -201,12 +205,15 @@ namespace TZGCMS.Service.Products
                 ImageUrl = im.ImageUrl,
                 Importance = im.Importance
             };
+            if (im.PostCategoryIds!=null)
+            {
+                var lCategories = (from c in _unitOfWork.ProductCategoryRepository.GetAll()
+                                   where im.PostCategoryIds.Contains(c.Id.ToString())
+                                   select c).ToList();
 
-            var lCategories = (from c in _unitOfWork.ProductCategoryRepository.GetAll()
-                               where im.PostCategoryIds.Contains(c.Id.ToString())
-                               select c).ToList();
-
-            newProduct.Categories = lCategories;
+                newProduct.Categories = lCategories;
+            }
+          
 
             return _unitOfWork.ProductRepository.Insert(newProduct);
         }

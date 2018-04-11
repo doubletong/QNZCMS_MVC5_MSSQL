@@ -407,7 +407,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
         // POST: Users/Delete/5
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public JsonResult Delete(Guid id)
         {
             var user = _userServices.GetById(id);

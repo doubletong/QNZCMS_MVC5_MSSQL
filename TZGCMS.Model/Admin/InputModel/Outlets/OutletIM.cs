@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TZGCMS.Model.Validation;
 using TZGCMS.Resources.Admin;
 
 namespace TZGCMS.Model.Admin.InputModel.Outlets
@@ -17,6 +18,7 @@ namespace TZGCMS.Model.Admin.InputModel.Outlets
         [Required(ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "Required")]
         [MaxLength(50, ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "MaxLength")]
         [Display(ResourceType = typeof(Labels), Name = "Coordinate")]
+        [Coordinate]
         public string Coordinate { get; set; }
 
         [Display(ResourceType = typeof(Labels), Name = "ContactMan")]

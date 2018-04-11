@@ -80,7 +80,6 @@
     <Compile Include="Admin\InputModel\Articles\ArticleIM.cs" />
     <Compile Include="Admin\InputModel\Articles\FilterTemplateIM.cs" />
     <Compile Include="Admin\InputModel\Chronicles\ChronicleIM.cs" />
-    <Compile Include="Admin\InputModel\CompanyInfoIM.cs" />
     <Compile Include="Admin\InputModel\Doc\DocumentCategoryIM.cs" />
     <Compile Include="Admin\InputModel\Doc\DocumentIM.cs" />
     <Compile Include="Admin\InputModel\Emails\EmailAccountIM.cs" />
@@ -164,7 +163,9 @@
     <Compile Include="Front\ViewModel\Articles\CommentFVM.cs" />
     <Compile Include="Front\ViewModel\Doc\DocumentListFVM.cs" />
     <Compile Include="Front\ViewModel\Jobs\PageJobVM.cs" />
+    <Compile Include="Front\ViewModel\Outlets\OutletFVM.cs" />
     <Compile Include="Front\ViewModel\Pages\PageFVM.cs" />
+    <Compile Include="Front\ViewModel\Products\ProductCategoryVM.cs" />
     <Compile Include="Front\ViewModel\Products\ProductListFVM.cs" />
     <Compile Include="Front\ViewModel\Products\ProductVM.cs" />
     <Compile Include="Front\ViewModel\Videos\VideoCategoryFVM.cs" />

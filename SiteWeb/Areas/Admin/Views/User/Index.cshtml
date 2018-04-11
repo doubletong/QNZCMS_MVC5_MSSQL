@@ -9,96 +9,96 @@
 
 @section header{
 
- }
+}
 
-            <div class="panel panel-default">
-                <header class="panel-heading">
-                    @Ajax.RawActionLink("<i class='fa fa-plus fa-fw'></i>创建新用户",
-                        "Create", "User",
-                        new { },
-                        new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete" },
-                        new { title = "创建新用户", @class = "btn btn-primary pull-right" })
-                 
+<div class="panel panel-default">
+    <header class="panel-heading">
+        @Ajax.RawActionLink("<i class='fa fa-plus fa-fw'></i>创建新用户",
+                 "Create", "User",
+                 new { },
+                 new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete" },
+                 new { title = "创建新用户", @class = "btn btn-primary pull-right" })
 
-                    @using (Html.BeginForm("Index", "User", FormMethod.Get, new { @class = "form-inline" }))
-                    {
-                        <div class="form-group">
-                            <label class="sr-only" for="Username">用户名</label>
-                            @Html.EditorFor(model => model.Keyword, new { htmlAttributes = new { @class = "form-control", placeholder = "用户名" } })
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="StartDate">开始日期</label>
-                            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", placeholder = "开始日期" } })
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="EndDate">结束日期</label>
-                            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", placeholder = "结束日期" } })
-                        </div>
-                        @Html.DropDownListFor(model => model.RoleId, (IEnumerable<SelectListItem>)ViewBag.Roles, string.Format("--{0}--", EntityNames.Role), new { @class = "form-control" })
-                        @*<div class="form-group">
-                @Html.DropDownList("DepartmentId", null, "--所属部门--", htmlAttributes: new { @class = "form-control" })
+
+        @using (Html.BeginForm("Index", "User", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <div class="form-group">
+                <label class="sr-only" for="Username">用户名</label>
+                @Html.EditorFor(model => model.Keyword, new { htmlAttributes = new { @class = "form-control", placeholder = "用户名" } })
             </div>
             <div class="form-group">
-                @Html.DropDownList("PositionId", null, "--所在岗位--", htmlAttributes: new { @class = "form-control" })
-            </div>*@
-                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> 搜索</button>
+                <label class="sr-only" for="StartDate">开始日期</label>
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", placeholder = "开始日期" } })
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="EndDate">结束日期</label>
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", placeholder = "结束日期" } })
+            </div>
+            @Html.DropDownListFor(model => model.RoleId, (IEnumerable<SelectListItem>)ViewBag.Roles, string.Format("--{0}--", EntityNames.Role), new { @class = "form-control" })
+            @*<div class="form-group">
+                    @Html.DropDownList("DepartmentId", null, "--所属部门--", htmlAttributes: new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.DropDownList("PositionId", null, "--所在岗位--", htmlAttributes: new { @class = "form-control" })
+                </div>*@
+            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> 搜索</button>
 
-                    }
-                </header>
-          
-                <table class="table table-bordered table-striped table-vmiddle">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>头像</th>
-                            <th>
-                                用户名
-                            </th> 
-                            <th>
-                                邮箱
-                            </th> 
-                            <th>
-                                姓名
-                            </th>                           
-                            <th>
-                               手机
-                            </th>
-                                                 
-                            <th>
-                               激活？
-                            </th>
-                            <th>
-                                创建日期
-                            </th>                         
-                          
-                        </tr>
-                    </thead>
-                    <tbody id="tbList">
-                        @foreach (var item in Model.Users)
-                        {
-                            Html.RenderPartial("_UserItem", item);
-                        }
-                    </tbody>                    
-                </table>
-                <div class="panel-footer">                   
+        }
+    </header>
 
-                    <div class="row">
-                        <div class="col-sm-7">
-                            @Html.PagedListPager(Model.Users, page => Url.Action("Index",
-           new { page, keyword = Model.Keyword, startDate = Model.StartDate, endDate = Model.EndDate,roleId=Model.RoleId }))
-                        </div>
-                        <div class="col-sm-5">
-                            <div class="form-inline text-right">
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
-                                    @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
-                                </div>
-                            </div>
-                        </div>
+    <table class="table table-bordered table-striped table-vmiddle">
+        <thead>
+            <tr>
+                <th></th>
+                <th>头像</th>
+                <th>
+                    用户名
+                </th>
+                <th>
+                    邮箱
+                </th>
+                <th>
+                    姓名
+                </th>
+                <th>
+                    手机
+                </th>
+
+                <th>
+                    激活？
+                </th>
+                <th>
+                    创建日期
+                </th>
+
+            </tr>
+        </thead>
+        <tbody id="tbList">
+            @foreach (var item in Model.Users)
+            {
+                Html.RenderPartial("_UserItem", item);
+            }
+        </tbody>
+    </table>
+    <div class="panel-footer">
+
+        <div class="row">
+            <div class="col-sm-7">
+                @Html.PagedListPager(Model.Users, page => Url.Action("Index",
+new { page, keyword = Model.Keyword, startDate = Model.StartDate, endDate = Model.EndDate, roleId = Model.RoleId }))
+            </div>
+            <div class="col-sm-5">
+                <div class="form-inline text-right">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
+                        @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
                     </div>
                 </div>
             </div>
-     
+        </div>
+    </div>
+</div>
+
 
 
 <div id="edit-container">
@@ -110,11 +110,14 @@
 </div>
 
 
+<form id="anti-form" method="post">
+    @Html.AntiForgeryToken()
+</form>
 
 @section Footer {
 
     @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
- 
+
 
     <script>
         var modelName = "@EntityNames.User";
@@ -134,7 +137,7 @@
             $("#btnSave i").removeClass("fa-spinner fa-spin").addClass("fa-save")
         }
 
-        
+
         function onSuccess(data) {
             var title = '@ViewBag.PageTitle';
             Common.ShowBoxWithFuncBack(data, title, submitSuccess);
@@ -153,7 +156,7 @@
             }
         }
 
-          
+
 
         //========== edit user ===========
         function onAjaxEditComplete() {
@@ -200,7 +203,7 @@
             $('#ModalEdit').modal('hide');
         }
         //========== end edit user ===========
-            
+
 
         $(function () {
 
@@ -237,7 +240,7 @@
                 });
 
             });
-                      
+
 
 
             //active

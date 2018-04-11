@@ -165,6 +165,13 @@ namespace TZGCMS.Model.Admin.InputModel
         [Display(ResourceType = typeof(Labels), Name = "GoogleAnalyticsID")]
         public string GoogleAnalyticsID { get; set; }
 
+        [Display(ResourceType = typeof(Labels), Name = "Email")]
+        [Required(ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "Required")]
+        [EmailAddress(ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "EmailAddressInvalidFormat")]   
+        [StringLength(150, ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "MaxLength")]
+        public string MailTo { get; set; }
+
+
         [Display(ResourceType = typeof(Labels), Name = "DashboardLogo")]
         public string DashboardLogo { get; set; }
 

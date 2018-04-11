@@ -106,7 +106,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             var categorys = _categoryServices.GetAll().OrderByDescending(m => m.Importance).ToList();
             var lCategorys = new SelectList(categorys, "Id", "Title");
             ViewBag.Categories = lCategorys;
-            var exts = new SelectList(Infrastructure.Helper.File.GetExtensions(), "Value", "Text");         
+            var exts = new SelectList(Infrastructure.Helper.FileHelper.GetExtensions(), "Value", "Text");         
             ViewBag.Extensions = exts;
 
             return View(Document);
@@ -181,7 +181,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             var categorys = _categoryServices.GetAll().OrderByDescending(m => m.Importance).ToList();
             var lCategorys = new SelectList(categorys, "Id", "Title");
             ViewBag.Categories = lCategorys;
-            var exts = new SelectList(Infrastructure.Helper.File.GetExtensions(), "Value", "Text");
+            var exts = new SelectList(Infrastructure.Helper.FileHelper.GetExtensions(), "Value", "Text");
             ViewBag.Extensions = exts;
 
             return View(editDocument);

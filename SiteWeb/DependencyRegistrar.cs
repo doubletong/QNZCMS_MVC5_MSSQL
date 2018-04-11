@@ -55,7 +55,8 @@ namespace TZGCMS.SiteWeb
             //installation localization service            
             builder.RegisterType<LoggingService>().As<ILoggingService>().InstancePerLifetimeScope();
             builder.RegisterType<CacheService>().As<ICacheService>();
-            builder.RegisterType<TZGCMS.Infrastructure.Email.SMTPService>().As<TZGCMS.Infrastructure.Email.IEmailService>();
+            //builder.RegisterType<TZGCMS.Infrastructure.Email.SMTPService>().As<TZGCMS.Infrastructure.Email.IEmailService>();
+            builder.RegisterType<TZGCMS.Infrastructure.Email.AIMSMTPService>().As<TZGCMS.Infrastructure.Email.IEmailService>();
 
             builder.RegisterType<UserServices>().As<IUserServices>().InstancePerLifetimeScope();
             builder.RegisterType<RoleServices>().As<IRoleServices>().InstancePerLifetimeScope();

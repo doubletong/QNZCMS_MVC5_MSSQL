@@ -28,7 +28,14 @@
                         @Html.TextBoxFor(model => model.SiteDomainName, new { @class = "form-control", placeholder = "http://" })
                         @Html.ValidationMessageFor(model => model.SiteDomainName)
                     </div>
+                </div>
 
+                  <div class="form-group">
+                    @Html.LabelFor(model => model.MailTo, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(model => model.MailTo, new { @class = "form-control", placeholder = "邮箱" })
+                        @Html.ValidationMessageFor(model => model.MailTo)
+                    </div>
                 </div>
 
                 <div class="form-group">

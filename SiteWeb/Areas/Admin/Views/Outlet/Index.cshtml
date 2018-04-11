@@ -179,6 +179,14 @@
 
     <script>
 
+        $.validator.addMethod('coordinate', function (value, element) {
+            if (value.length > 0)
+                return /^[0-9]+(\.[0-9]+),[0-9]+(\.[0-9]+)$/.test(value)
+            return true;
+        });
+
+        $.validator.unobtrusive.adapters.addBool("coordinate");
+
 
         function OnSuccessLink(data) {
             Common.ShowBox(data.Status, data.Message, "操作")

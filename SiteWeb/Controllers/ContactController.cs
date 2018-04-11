@@ -64,7 +64,7 @@ namespace TZGCMS.SiteWeb.Controllers
 
             try
             {
-                _emailService.SendMail(vm.Name, SettingsManager.Contact.MailTo, SettingsManager.Contact.MailTo, SettingsManager.Contact.MailCC,
+                _emailService.SendMail(vm.Name, SettingsManager.Site.MailTo, SettingsManager.Site.MailTo, string.Empty,
                  vm.Subject, emailBody, emailAccount.Smtpserver, emailAccount.Email, SettingsManager.Site.SiteName,
                  emailAccount.UserName, EncryptionHelper.Decrypt(emailAccount.Password), (int)emailAccount.Port, emailAccount.EnableSsl);
 
@@ -74,7 +74,7 @@ namespace TZGCMS.SiteWeb.Controllers
                     Body = emailBody,
                     Subject = vm.Subject,
                     MailTo = vm.Email,
-                    MailCc = SettingsManager.Contact.MailCC,
+                    MailCc = string.Empty,
                     Active = true,
                     CreatedBy = vm.Name,
                     CreatedDate = DateTime.Now

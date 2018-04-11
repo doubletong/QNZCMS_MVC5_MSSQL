@@ -56,7 +56,10 @@ namespace TZGCMS.Infrastructure.Configs
         public string GoogleAnalyticsID { get; set; }
 
         [XmlElement("DatabaseBackupDir")]
-        public string DatabaseBackupDir { get; set; }               
+        public string DatabaseBackupDir { get; set; }
+
+        [XmlElement("MailTo")]
+        public string MailTo { get; set; }
 
         /// <summary>
         /// 缓存时间
@@ -258,73 +261,48 @@ namespace TZGCMS.Infrastructure.Configs
 
     }
 
-    /// <summary>
-    /// 联系表单设置
-    /// </summary>
-    [XmlRoot("Settings")]//serializable attribute
-    public class ContactSettings
-    {
-        /// <summary>
-        /// 公司名称
-        /// </summary>
-        [XmlElement("CompanyName")]
-        public string CompanyName { get; set; }
+    ///// <summary>
+    ///// 联系表单设置
+    ///// </summary>
+    //[XmlRoot("Settings")]//serializable attribute
+    //public class ContactSettings
+    //{
+    //    /// <summary>
+    //    /// 公司名称
+    //    /// </summary>
+    //    [XmlElement("CompanyName")]
+    //    public string CompanyName { get; set; }
 
-        [XmlElement("CompanyShortName")]
-        public string CompanyShortName { get; set; }
+    //    [XmlElement("CompanyShortName")]
+    //    public string CompanyShortName { get; set; }
 
-        [XmlElement("Address")]
-        public string Address { get; set; }
+    //    [XmlElement("Address")]
+    //    public string Address { get; set; }
 
-        [XmlElement("Coordinate")]
-        public string Coordinate { get; set; }
+    //    [XmlElement("Coordinate")]
+    //    public string Coordinate { get; set; }
 
-        [XmlElement("ContactMan")]
-        public string ContactMan { get; set; }
+    //    [XmlElement("ContactMan")]
+    //    public string ContactMan { get; set; }
 
-        [XmlElement("Fax")]
-        public string Fax { get; set; }
+    //    [XmlElement("Fax")]
+    //    public string Fax { get; set; }
 
-        [XmlElement("Phone")]
-        public string Phone { get; set; }
+    //    [XmlElement("Phone")]
+    //    public string Phone { get; set; }
 
-        [XmlElement("ZipCode")]
-        public string ZipCode { get; set; }
-        [XmlElement("Mobile")]
-        public string Mobile { get; set; }
+    //    [XmlElement("ZipCode")]
+    //    public string ZipCode { get; set; }
+    //    [XmlElement("Mobile")]
+    //    public string Mobile { get; set; }
 
-        [XmlElement("MailTo")]
-        public string MailTo { get; set; }
+    //    [XmlElement("MailTo")]
+    //    public string MailTo { get; set; }
 
-        [XmlElement("MailCC")]
-        public string MailCC { get; set; }      
-    }
-
-    /// <summary>
-    /// 社交设置
-    /// </summary>
-    [XmlRoot("Settings")]//serializable attribute
-    public class SocialSettings
-    {
-        
-        [XmlElement("Oicq")]
-        public string Oicq { get; set; }
-
-        [XmlElement("OicqTwo")]
-        public string OicqTwo { get; set; }
-
-        [XmlElement("SinaWeibo")]
-        public string SinaWeibo { get; set; }
-
-        [XmlElement("WeiXing")]
-        public string WeiXing { get; set; }
-
-        [XmlElement("WeiXingCode")]
-        public string WeiXingCode { get; set; }
-
-        
-    }
-   
+    //    [XmlElement("MailCC")]
+    //    public string MailCC { get; set; }      
+    //}
+    
     /// <summary>
     /// 角色设置
     /// </summary>

@@ -14,4 +14,15 @@ namespace TZGCMS.Model.Front.ViewModel.Products
         public string ProductName { get; set; }
         public string Thumbnail { get; set; }
     }
+
+    public class ProductDetailVM
+    {
+        public int Id { get; set; }
+
+        public string ProductNo { get; set; }
+        public string ProductName { get; set; }
+        public string Thumbnail { get; set; }
+        public string Body { get; set; }
+        public string[] Photos { get; set; }
+    }
 }

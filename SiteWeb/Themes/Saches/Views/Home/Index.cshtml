@@ -1,7 +1,7 @@
 ﻿@{
 
     PageMeta pm = (PageMeta)ViewBag.PageMeta;
-    ViewBag.Title = pm != null ? pm.Title : SettingsManager.Contact.CompanyName;
+    ViewBag.Title = pm != null ? pm.Title : SettingsManager.Site.SiteName;
 }
 
 @section header{

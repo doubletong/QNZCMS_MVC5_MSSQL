@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AegisImplicitMail, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AIM.1.0.3\lib\AegisImplicitMail.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.7.2.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.7.2\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -68,6 +71,7 @@
     <Compile Include="Configs\SettingLoader.cs" />
     <Compile Include="Configs\Settings.cs" />
     <Compile Include="Configs\SettingsManager.cs" />
+    <Compile Include="Email\AIMSMTPService.cs" />
     <Compile Include="Email\EmailServiceFactory.cs" />
     <Compile Include="Email\IEmailService.cs" />
     <Compile Include="Email\SMTPService.cs" />
@@ -84,7 +88,7 @@
     <Compile Include="Helper\DateTimeHelper.cs" />
     <Compile Include="Helper\Encryption.cs" />
     <Compile Include="Helper\EncryptionHelper.cs" />
-    <Compile Include="Helper\File.cs" />
+    <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Helper\Hash.cs" />
     <Compile Include="Helper\IdentityGenerator.cs" />
     <Compile Include="Helper\ImageHandler.cs" />

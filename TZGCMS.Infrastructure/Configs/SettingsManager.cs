@@ -69,22 +69,14 @@
 
         public static LogSettings Log => SettingLoader.LoadConfig<LogSettings>();
 
-        public static ContactSettings Contact
-        {
-            get
-            {
-                return SettingLoader.LoadConfig<ContactSettings>();
-            }
-        }
+        //public static ContactSettings Contact
+        //{
+        //    get
+        //    {
+        //        return SettingLoader.LoadConfig<ContactSettings>();
+        //    }
+        //}
 
-        public static SocialSettings Social
-        {
-            get
-            {
-                return SettingLoader.LoadConfig<SocialSettings>();
-            }
-        }
-        
 
         public static RoleSettings Role
         {

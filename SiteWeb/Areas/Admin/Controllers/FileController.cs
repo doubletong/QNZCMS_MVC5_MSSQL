@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using TZGCMS.Infrastructure.Configs;
+using TZGCMS.Infrastructure.Helper;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
@@ -108,7 +109,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 Directory.CreateDirectory(localPath);
             }
 
-            fileName = GetFileName(fileName, localPath, ex);
+            fileName = FileHelper.GetFileName(fileName, localPath, ex);
             filePathName = fileName + ex;
             file.SaveAs(Path.Combine(localPath, filePathName));
 
@@ -123,43 +124,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
         }
 
-
-        public string GetFileName(string filaName, string localPath, string ex)
-        {
-            filaName = filaName.Replace("(", "");
-            filaName = filaName.Replace(")", "");
-
-            var filePathName = filaName + ex;
-
-            var savePath = Path.Combine(localPath, filePathName);
-            if (System.IO.File.Exists(savePath))
-            {
-                if (filaName.Contains("_"))
-                {
-                    var lastNum = filaName.Substring(filaName.LastIndexOf("_") + 1);
-                    int num;
-                    if (int.TryParse(lastNum, out num))
-                    {
-                        num++;
-                        filaName = filaName.Substring(0, filaName.LastIndexOf("_")) + "_" + num.ToString();
-                    }
-                    else
-                    {
-                        filaName = filaName + "_1";
-                    }
-                }
-                else
-                {
-                    filaName = filaName + "_1";
-
-                }
-                return GetFileName(filaName, localPath, ex);
-            }
-            else
-            {
-                return filaName;
-            }
-        }
+       
 
 
     }

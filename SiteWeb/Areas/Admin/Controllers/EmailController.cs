@@ -136,7 +136,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             }
             try
             {
-                _emailingService.SendMail(SettingsManager.Site.SiteName, SettingsManager.Contact.MailTo, vm.MailTo, string.Empty, vm.Subject, vm.Body,
+                _emailingService.SendMail(SettingsManager.Site.SiteName, SettingsManager.Site.MailTo, vm.MailTo, string.Empty, vm.Subject, vm.Body,
                     smtp.Smtpserver, smtp.Email, SettingsManager.Site.SiteName, smtp.UserName, EncryptionHelper.Decrypt(smtp.Password), smtp.Port, smtp.EnableSsl);
 
                 AR.SetSuccess(String.Format(Messages.AlertSendSuccess, EntityNames.Email));
