@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TZGCMS.Data.Entity.Emails;
@@ -21,30 +23,44 @@ namespace TZGCMS.SiteWeb.Controllers
         private readonly IEmailTemplateServices _templateService;
         private readonly IEmailServices _emailListService;
         private readonly IEmailAccountServices _accountService;
-        private readonly IPageMetaServices _pageMetaService;
+    
         public ContactController(
             IEmailTemplateServices templateService,
             IEmailServices emailListService,
             IEmailAccountServices accountService,
-            TZGCMS.Infrastructure.Email.IEmailService emailService, IPageMetaServices pageMetaService)
+            TZGCMS.Infrastructure.Email.IEmailService emailService)
         {
             _emailService = emailService;
             _templateService = templateService;
             _emailListService = emailListService;
             _accountService = accountService;
-            _pageMetaService = pageMetaService;
         }
         // GET: Contact
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var url = Request.RawUrl;
-            ViewBag.PageMeta = _pageMetaService.GetPageMeta(ModelType.MENU, url);
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == ModelType.MENU && d.ObjectId == url);
             return View();
         }
 
         [HttpPost]
         public JsonResult SendEmail(EmailIM vm)
         {
+
+            if (!ModelState.IsValid)
+            {
+                AR.Setfailure(GetModelErrorMessage());
+                return Json(AR, JsonRequestBehavior.DenyGet);
+            }
+
+            if (Session["SigCaptcha"] != null && Session["SigCaptcha"].ToString().ToLower() != vm.CaptchaText.ToLower())
+            {
+                ModelState.AddModelError(string.Empty, "验证码不正确!");
+                AR.Setfailure(GetModelErrorMessage());
+                return Json(AR, JsonRequestBehavior.DenyGet);
+               // return View(model);
+            }
+
             var template = _templateService.GetEmailTemplateByTemplateNo("T003");
             if (template == null)
             {

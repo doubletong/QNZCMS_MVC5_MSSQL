@@ -54,6 +54,7 @@
     <Compile Include="Entity\Articles\ArticleCategory.cs" />
     <Compile Include="Entity\Articles\Comment.cs" />
     <Compile Include="Entity\Articles\FilterTemplate.cs" />
+    <Compile Include="Entity\Case.cs" />
     <Compile Include="Entity\Chronicles\Chronicle.cs" />
     <Compile Include="Entity\Doc\Document.cs" />
     <Compile Include="Entity\Doc\DocumentCategory.cs" />

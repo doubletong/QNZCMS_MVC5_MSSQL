@@ -19,6 +19,9 @@ namespace TZGCMS.Model.Front.InputModel.Emails
         [Display(ResourceType = typeof(Labels), Name = "Message")]
         [Required(ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "Required")]
         public string Body { get; set; }
+        [Display(ResourceType = typeof(Labels), Name = "CaptchaText")]
+        [Required(ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "Required")]
+        public string CaptchaText { get; set; }
     }
 
     public class ContactIM

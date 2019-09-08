@@ -58,8 +58,9 @@ namespace TZGCMS.SiteWeb.Mappings
             CreateMap<MenuIM, Menu>();
             CreateMap<Menu, FrontMenuIM>();
             CreateMap<FrontMenuIM, Menu>();
-            //CreateMap<Menu, UserMenuDTO>();
 
+            CreateMap<MenuCategoryIM, MenuCategory>();
+            CreateMap<MenuCategory, MenuCategoryIM>();
             //CreateMap<MenuCategory, MenuCategoryVM>();
             //CreateMap<MenuCategoryIM, SIG.DAL.Dapper.Model.MenuCategory>();
             //CreateMap<SIG.DAL.Dapper.Model.MenuCategory, MenuCategoryIM>();

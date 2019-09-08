@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using TZGCMS.Data.Entity;
 using TZGCMS.Data.Entity.Identity;
 using TZGCMS.Model.Admin.ViewModel;
 
@@ -9,6 +10,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
     public class BaseController : Controller
     {
         public AjaxResultVM AR = new AjaxResultVM();
+        public TZGEntities _db = new TZGEntities();
         protected virtual new CustomPrincipal User
         {
             get { return HttpContext.User as CustomPrincipal; }
@@ -55,6 +57,15 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
                 return sw.GetStringBuilder().ToString();
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

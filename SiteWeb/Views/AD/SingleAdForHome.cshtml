@@ -1,0 +1,15 @@
+﻿@model Carousel
+
+@if (Model != null)
+{
+    <div class="banner banner-home" style="background-image:url('@Model.ImageUrl')">
+        <div class="title-page">
+            <h1><strong>孚瑞美</strong>   为改变而来</h1>
+            <p>
+                @Model.Description
+            </p>
+            <a href="@Model.WebLink" class="more">了解更多 <i class="iconfont icon-right"></i></a>
+        </div>
+
+    </div>
+}

@@ -9,24 +9,14 @@ namespace TZGCMS.SiteWeb.Controllers
 {
     public class ADController : BaseController
     {
-        private readonly ICarouselServices _carouselService;
-        private readonly IPositionServices _postionService;
-      //  private readonly IMapper _mapper;
-        public ADController(ICarouselServices carouselService, IPositionServices postionService /*IMapper mapper*/)
-        {
-            _carouselService = carouselService;
-            _postionService = postionService;
-          
-            //_mapper = mapper;
-        }
-
+       
 
         // GET: Carousel
         public PartialViewResult Carousels(string code)
         {
-            var carousels = _carouselService.GetActiveElements(code);
+            var carousels = _db.Carousels.Where(d => d.Active && d.Position.Code == code).OrderByDescending(d => d.ImageUrl).ToList();
 
-            if (carousels == null)
+            if (!carousels.Any())
             {
                 TempData["Error"] = $"{code}广告位不存在！";
                 return PartialView(null);
@@ -41,18 +31,30 @@ namespace TZGCMS.SiteWeb.Controllers
 
         public PartialViewResult SingleAd(string code)
         {
-            var carousels = _carouselService.GetActiveElements(code);
+            var carousel = _db.Carousels.OrderByDescending(d => d.ImageUrl).FirstOrDefault(d => d.Active && d.Position.Code == code);
 
-            if (carousels == null)
+            if (carousel == null)
+            {
+                TempData["Error"] = $"{code}广告位不存在！";
+                return PartialView(null);
+            }
+            else
+            {              
+                return PartialView(carousel);
+            }
+        }
+        public PartialViewResult SingleAdForHome(string code)
+        {
+            var carousel = _db.Carousels.OrderByDescending(d => d.ImageUrl).FirstOrDefault(d => d.Active && d.Position.Code == code);
+
+            if (carousel == null)
             {
                 TempData["Error"] = $"{code}广告位不存在！";
                 return PartialView(null);
             }
             else
             {
-                //var carousels = _carouselService.f(position.Id).OrderByDescending(m => m.Importance);
-                ////var list = _mapper.Map<IEnumerable<Carousel>, IEnumerable<CarouselVM>>(position.Carousels.OrderByDescending(m => m.Importance));
-                return PartialView(carousels.FirstOrDefault());
+                return PartialView(carousel);
             }
         }
     }

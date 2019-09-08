@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Product>
+<hr class="divider hidden-xs" />
+
+<section class="container lastproducts">
+    <header class="title">
+        <h2>推荐产品</h2>
+        <p>
+            诠释品质生活，让更多人用上好的产品，享受品质生活
+        </p>
+    </header>
+</section>
+
+<section class="container page-products">
+    <div id="productlist" class="row">
+        @foreach (var product in Model)
+        {
+            Html.RenderPartial("PartialProductBox", product);
+        }
+
+    </div>
+</section>

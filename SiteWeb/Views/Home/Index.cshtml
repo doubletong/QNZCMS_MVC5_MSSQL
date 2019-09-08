@@ -1,0 +1,50 @@
+﻿@model TZGCMS.Model.Front.HomeVM
+@{
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : SettingsManager.Site.SiteName;
+
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+    <link href="~/Plugins/bxslider/dist/jquery.bxslider.min.css" rel="stylesheet" />
+}
+
+@Html.Action("SingleAdForHome", "AD", new { code = "A1001"})
+
+
+
+<div class="page page-home">
+    <section class="container s1">
+        <h2 class="title title-section">轻钢结构建筑智能制造设备生产厂商</h2>
+        <p class="p-md">
+            佛山市孚瑞美科技有限公司（FrameMac），是一家技术领先的轻钢结构建筑智能制造设备生产厂商，提供软硬件一体化的全自动轻钢建筑框架生
+            产解决方案。“FrameMac”解决方案实现了由CAD建筑设计软件到生产加工、建造安装的“端到端”生产无缝连接。
+        </p>
+    </section>
+</div>
+
+
+
+@section footer{
+    <script src="~/Plugins/bxslider/dist/jquery.bxslider.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('.bxslider').bxSlider({
+                mode: 'fade',
+                captions: true,
+                auto: true,
+                controls: false
+            });
+            $(".bx-caption span,.bx-pager").addClass("container");
+        });
+    </script>
+
+
+}

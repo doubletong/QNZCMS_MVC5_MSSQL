@@ -43,7 +43,7 @@ namespace TZGCMS.SiteWeb.Controllers
                 Categories = _categoryService.GetActiveItems(),
                 SeoName = seoName,
                 PageIndex = page ?? 1,
-                PageSize =  3 //SettingsManager.Product.PageSize
+                PageSize = SettingsManager.Product.PageSize
              };
         
             int totalCount;

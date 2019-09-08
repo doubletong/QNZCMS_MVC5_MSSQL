@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using TZGCMS.Data.Entity;
 using TZGCMS.Data.Entity.Identity;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Model.Front.ViewModel;
@@ -12,7 +13,7 @@ namespace TZGCMS.SiteWeb.Controllers
     public class BaseController : Controller
     {
          public AjaxResultVM AR = new AjaxResultVM();
-
+         public TZGEntities _db = new TZGEntities();
         //protected new CustomPrincipal User
         //{
         //    get { return HttpContext.User as CustomPrincipal; }
@@ -93,6 +94,14 @@ namespace TZGCMS.SiteWeb.Controllers
         public new RedirectToRouteResult RedirectToAction(string action, string controller)
         {
             return base.RedirectToAction(action, controller);
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

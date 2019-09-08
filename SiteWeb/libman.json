@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jquery.blockUI@2.70",
+      "destination": "Plugins/blockUI"
+
+    }
+  ]
+}

@@ -3,28 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 using TZGCMS.Service.Identity;
+using System.Threading.Tasks;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
     public class MenuController : BaseController
     {
-        private readonly IMenuServices _menuServices;
-        public MenuController(IMenuServices menuServices)
+    
+   
+        public PartialViewResult SiteNav(int cid)
         {
-            _menuServices = menuServices;            
-        }
-        // GET: Menu
-        public PartialViewResult Mainav()
-        {
-            var menus = _menuServices.GetMenusByCategoryId(2);
-
-            return PartialView("_SiteNav", menus);
-        }
-        public PartialViewResult SiteNav()
-        {          
-            var vm = _menuServices.GetMenusByCategoryId(2).Where(m=>m.Active);
+            var vm =  _db.Menu.Include(d => d.ChildMenus).Where(m => m.Active && m.CategoryId == cid)
+                .OrderBy(d => d.Importance).ToList();
             return PartialView("_SiteNav", vm);
+        }
+        public PartialViewResult SiteFooterNav(int cid)
+        {
+            var vm = _db.Menu.Include(d=>d.ChildMenus).Where(m => m.Active && m.CategoryId == cid)
+                .OrderBy(d=>d.Importance).ToList();
+            return PartialView("_SiteFooterNav", vm);
         }
     }
 }

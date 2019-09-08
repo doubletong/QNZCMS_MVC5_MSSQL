@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TZGCMS.Data.Entity.Links
 {
+   
     public class Link : IAuditedEntity
     {
         public int Id { get; set; }

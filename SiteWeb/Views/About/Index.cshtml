@@ -1,0 +1,143 @@
+﻿@{
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : "关于我们";
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+}
+
+
+@Html.Action("SingleAd", "AD", new { code = "A1002"})
+
+
+<!-- PAGE TITLE ================================================== -->
+<div class="page page-about">
+    <section class="container s1">
+        <h2 class="title-section">公司简介</h2>
+        <div class="intro">
+            <div class="row">
+                <div class="col-md-auto">
+                    <div class="video-container">
+                        <video src="/content/img/space.mp4" poster="/content/img/space.jpg" controls="controls">
+                            您的浏览器不支持 video 标签。
+                        </video>
+                    </div>
+                   
+                </div>
+                <div class="col-md">
+                    <h3 class="title title-v2">佛山市孚瑞美科技有限公司</h3>
+                    <p>
+                        佛山市孚瑞美科技有限公司（FrameMac），是一家技术领先的轻钢结构建筑智能制造设备生产厂商，提供软硬件一体化的全自动轻钢建筑框架生产解决方案。“FrameMac”解决方案实现了由CAD建筑设计软件到生产加工、建造安装的“端到端”生产无缝连接。其生产系统集成世界领先的VERTEX轻钢结构设计软件，产品符合澳新等发达国家的建筑规范与冷弯薄壁轻钢（LGS）结构建筑设计标准，同时，也可以针对其它的CAD建筑结构设计软件，开发相应的机器端接口，满足客户的“本地化”需求。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="s2">
+        <div class="container">
+            <h2 class="title-section">为什么选择我们？</h2>
+            <div class="c1">
+                <div class="row">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="item">
+                            <p class="num">
+                                <i>1</i>
+                            </p>
+                            <p>FrameMac 生产控制系统的软件设计与硬件配置，采用国际主流厂家的方式，坚持以“操作者为对象”的理念，配备独立的工业级触摸屏电脑，加上界面友好，所见即所得的生产控制软件，降低了对操作人员的要求，使现场生产人员对制造设备有充分的“控制感”，而不是使用一台普通的商用笔记本电脑来传送数据及控制机器，将设计与生产流程混淆.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="item item1">
+                            <p class="num">
+                                <i>2</i>
+                            </p>
+                            <p>FrameMac制造设备的传动系统采用伺服电机直联齿轮箱设计，齿轮面经磨齿，淬硬处理，齿轮箱底部存油，运动过程中溅油润滑。此为世界著名滚压成型机厂家--意大利“DALLAN”的传动系统通用设计，广泛用于3mm以下薄料的滚压成型，系统稳定，传动平稳。与伺服电机、普通齿轮、链条组成的传动系统比较，具有产品尺寸精度高，传动噪音低，保养维修简单的优越性。</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="item item2">
+                            <p class="num">
+                                <i>3</i>
+                            </p>
+                            <p>FrameMac 拥有自有知识产权的 FrameMac LGS maker 生产控制软件，FrameMac具备强大的软件开发能力，能根据客户的特殊需求，开发除VERTEX之外的各种建筑钢结构设计软件的FrameMac制造设备“机器端”接口，使客户在FrameMac 解决方案之内拥有更多的建筑设计软件选择权限。</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="item item3">
+                            <p class="num">
+                                <i>4</i>
+                            </p>
+                            <p>
+                                FrameMac依托强大的技术实力，通过对不同客户的服务与交流，我们将不断对整个系统改进与完善，我们努力追求为客户提供最尖端的技术及最大的产业价值。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+       
+        
+    </section>
+
+    <div class="container s3">
+        <h2 class="title-section">专利&证书</h2>
+       
+        <div class="row">
+            <div class="col-md">
+                <div class="pic">
+                    <img src="~/Content/img/ca_1.jpg" alt="" />
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="pic">
+                    <img src="~/Content/img/ca_2.jpg" alt="" />
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="pic">
+                    <img src="~/Content/img/ca_3.jpg" alt="" />
+                </div>
+            </div>
+        </div>
+       
+
+
+    </div>
+
+
+    <div class="contact_bar">  
+        <div class="txt">
+            <div class="row align-items-center justify-content-md-center">
+                <div class="col-auto"> 有兴趣了解更多？</div>
+                <div class="col-auto"><a href="/contact">联系我们</a></div>
+            </div>
+       
+        </div>
+    </div>
+</div>
+
+
+
+@section footer{
+
+<script>
+    $(function () {
+        $(".tab-header a").click(function (e) {
+            e.preventDefault();
+            $(".tab-header a.active").removeClass("active");
+            $(this).addClass("active");
+            var tab = $(this).attr("data-id");
+            $(".tabone.active").removeClass("active");
+            $("#" + tab).addClass("active");
+        })
+    })
+</script>
+    }

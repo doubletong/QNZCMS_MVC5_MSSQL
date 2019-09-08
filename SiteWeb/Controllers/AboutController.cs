@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,18 +12,12 @@ namespace TZGCMS.SiteWeb.Controllers
 {
     public class AboutController : BaseController
     {
-        private readonly ILoggingService _logger;
-        private readonly IPageMetaServices _pageMetaService;
-        public AboutController(IPageMetaServices pageMetaService, ILoggingService logger)
-        {
-            _pageMetaService = pageMetaService;
-            _logger = logger;
-        }
+      
         // GET: About
-        public ActionResult Index()
+        public async System.Threading.Tasks.Task<ActionResult> Index()
         {
             var url = Request.RawUrl;
-            ViewBag.PageMeta = _pageMetaService.GetPageMeta(ModelType.MENU, url);
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == ModelType.MENU && d.ObjectId == url);
 
             return View();
         }

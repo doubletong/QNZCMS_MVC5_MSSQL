@@ -6685,51 +6685,74 @@ input, textarea, button {
 .page-service .a1 .item4 {
   background-image: url(../img/service_b4.jpg); }
 
-.page-nuclear .intro .p1 {
-  margin-bottom: 1rem; }
-  @media (min-width: 768px) {
-    .page-nuclear .intro .p1 {
-      margin-bottom: 2rem; } }
-  @media (min-width: 992px) {
-    .page-nuclear .intro .p1 {
-      margin-bottom: 3rem; } }
+.page-cases .title-section {
+  text-align: center; }
 
-.page-nuclear .intro .txt {
-  color: #999;
-  text-align: justify;
-  margin-bottom: 1rem; }
-  @media (min-width: 768px) {
-    .page-nuclear .intro .txt {
-      margin-bottom: 2rem; } }
-  @media (min-width: 992px) {
-    .page-nuclear .intro .txt {
-      margin-bottom: 3rem; } }
-  .page-nuclear .intro .txt .title {
-    color: #ff7c2c;
-    font-size: 1.25rem; }
-    .page-nuclear .intro .txt .title img {
-      vertical-align: middle;
-      display: inline-block;
-      margin-right: 10px; }
-  .page-nuclear .intro .txt.t3 {
-    margin-bottom: 0; }
+.page-cases .s1 {
+  margin-bottom: 5rem; }
+  .page-cases .s1 .pic {
+    padding-top: 1.2rem; }
+  .page-cases .s1 ul {
+    list-style-image: url(../img/plus.png); }
 
-.page-nuclear .intro .list {
-  list-style: none;
-  margin: 0;
-  padding: 0; }
+.page-cases .contact_bar {
+  margin-bottom: 3rem; }
 
-.page-nuclear .intro .p2 {
-  padding-top: 1rem; }
-  @media (min-width: 768px) {
-    .page-nuclear .intro .p2 {
-      padding-top: 2rem; } }
+.page-cases .s2 {
+  background: url(../img/case_bg.jpg) no-repeat center bottom;
+  background-size: cover;
+  padding-top: 3rem;
+  padding-bottom: 3rem; }
+  .page-cases .s2 .title-section {
+    margin-bottom: 3rem; }
+  .page-cases .s2 .item {
+    margin: 2rem auto;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: #fff; }
+    .page-cases .s2 .item img {
+      display: block; }
+
+.page-cases .caselist .item {
+  margin: 0 -15px 0; }
   @media (min-width: 992px) {
-    .page-nuclear .intro .p2 {
-      padding-top: 3rem; } }
-  .page-nuclear .intro .p2 img {
+    .page-cases .caselist .item {
+      margin: 0 -8px 16px; } }
+  .page-cases .caselist .item a {
     display: block;
-    margin: 0 auto; }
+    overflow: hidden;
+    position: relative; }
+    .page-cases .caselist .item a img {
+      width: 100%;
+      display: block;
+      transition: all .2s; }
+    .page-cases .caselist .item a .txt {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 300;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 1rem;
+      color: #fff;
+      opacity: 0;
+      transition: all .2s; }
+      .page-cases .caselist .item a .txt h3 {
+        font-weight: lighter;
+        margin: 0; }
+      .page-cases .caselist .item a .txt p {
+        font-size: 0.75rem;
+        position: absolute;
+        right: 1rem;
+        bottom: 1rem;
+        margin: 0;
+        position: absolute; }
+    .page-cases .caselist .item a:hover img {
+      transform: scale(1.1); }
+    .page-cases .caselist .item a:hover .txt {
+      opacity: 1; }
 
 .page-contact {
   padding-bottom: 0; }

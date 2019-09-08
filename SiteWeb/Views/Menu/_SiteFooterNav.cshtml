@@ -1,0 +1,45 @@
+﻿
+@model IEnumerable<Menu>
+<div class="row botnav">
+    @foreach (var item in Model.Where(d => d.ParentId == null))
+    {
+        <div class="col-6 col-md @(item.ChildMenus.Any() ? "downav" : "") @(item.Url.Equals(Request.RawUrl) || (item.ChildMenus.Any() && item.ChildMenus.Select(m=>m.Url).Contains(Request.RawUrl)) ?"active":"")">
+
+            <a href="@(item.Url=="#"?"javascript:void(0);":item.Url)" class="node">
+                @item.Title               
+            </a>
+
+            @if (item.ChildMenus.Any())
+            {
+                <ul class="bot_subnav">
+
+                    @foreach (var subItem in item.ChildMenus)
+                    {
+
+                        if (subItem.Url.Equals(Request.RawUrl))
+                        {
+                            <li class="current">
+                                <a href="@subItem.Url">
+                                    @subItem.Title
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="@subItem.Url">
+                                    @subItem.Title
+                                </a>
+                            </li>
+                        }
+
+                    }
+
+                </ul>
+            }
+        </div>
+
+    }
+
+</div>
+

@@ -25,7 +25,7 @@ namespace TZGCMS.Data.Entity
             : base("name=TZGEntities")
         {
         }
-
+        public virtual DbSet<Case> Cases { get; set; }
         public virtual DbSet<ArticleCategory> ArticleCategory { get; set; }
         public virtual DbSet<Article> Article { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }

@@ -1,0 +1,106 @@
+﻿
+@{
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : "服务";
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+}
+
+
+@Html.Action("SingleAd", "AD", new { code = "A1003" })
+
+
+<div class="page page-service">
+    <section class="s1 container">
+        <h2 class="title-section">FrameMac服务</h2>
+
+        <p class="p1">
+            轻钢结构是一种年轻而极具生命力的钢结构体系，已广泛应用于一般工农业、商业、服务性建筑，
+            如办公楼、别墅、仓库、体育场馆、娱乐、旅游建筑和低、多层住宅建筑等领域，还可用于旧房增层、改造、加固和建材缺乏地区、倍受业主青睐.
+        </p>
+
+        <div class="a1">
+            <div class="row no-gutters">
+                <div class="col-md-6 col-lg-3">
+                    <div class="item item1">
+                        <aside>
+                            <div class="icon"><img src="/Content/img/icon4.png" alt="售前服务"></div>
+                            <div class="txt">
+                                <h4>售前服务</h4>
+                                <p>具备自主的软硬件、固件开发、存储算法及小型化、高可靠性的嵌入式工艺开发能力，是国内少数兼具芯片设计与封测制造能力的存储企业​​</p>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="item item2">
+                        <aside>
+                            <div class="icon"><img src="/Content/img/icon1.png" alt="房屋设计"></div>
+                            <div class="txt">
+                                <h4>房屋设计</h4>
+                                <p>
+                                    我司的轻钢结构房屋设人员为国内顶尖设计师，在国内从事钢结构房屋设计十年以上，有相当丰富的经验。我司可根据客户需求，针对每个客户设计出达到客户需求并符合安全标准的房屋。
+                                </p>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="item item3">
+                        <aside>
+                            <div class="icon"><img src="/Content/img/icon3.png" alt="房屋设计"></div>
+                            <div class="txt">
+                                <h4>设计审核</h4>
+                                <p>佰维可根据客户具体需求，“菜单式”搭配产品组合及技术，最大化满足不同应用场景下的存储需求，持续为客户创造价值</p>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="item item4">
+                        <aside>
+                            <div class="icon"><img src="/Content/img/icon2.png" alt="房屋设计"></div>
+                            <div class="txt">
+                                <h4>售后服务</h4>
+                                <p>客户遍布五大洲，全球服务据点包括深圳总部、美国、韩国、香港分公司，一共11个业务服务中心，第一时间响应当地客户需求</p>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+<div class="contact_bar">
+    <div class="txt">
+        <div class="row align-items-center justify-content-md-center">
+            <div class="col-auto">有项目想采用FRAMEMAC轻钢建筑技术？</div>
+            <div class="col-auto"><a href="/contact">联系我们</a></div>
+        </div>
+
+    </div>
+</div>
+
+@section footer{
+
+    <script>
+        $(function () {
+            $(".tab-header a").click(function (e) {
+                e.preventDefault();
+                $(".tab-header a.active").removeClass("active");
+                $(this).addClass("active");
+                var tab = $(this).attr("data-id");
+                $(".tabtwo.active").removeClass("active");
+                $("#" + tab).addClass("active");
+            })
+        })
+    </script>
+}
