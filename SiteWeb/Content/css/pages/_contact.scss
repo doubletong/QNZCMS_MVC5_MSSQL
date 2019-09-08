@@ -1,0 +1,143 @@
+
+
+.page-contact {
+    padding-bottom: 0;
+
+    .s1 {
+        margin-bottom: 3rem;
+
+        .title-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .baidumap {
+            height: 450px;
+
+            img {
+                max-width: none !important;
+            }
+        }
+    }
+
+    .s2 {
+        padding-bottom: 5rem;
+
+        ul {
+            @include reset-list;
+
+            li {
+
+
+                @include respond-above (sm) {
+                    font-size: rem(18);
+                }
+
+                @include respond-above (md) {
+                    font-size: rem(20);
+                }
+            }
+        }
+    }
+
+    .s3 {
+        background: $color-primary url(../img/contact_bg.jpg) no-repeat center top;
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+        color: #fff;
+        position: relative;
+
+        &::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: 0;
+            border: 40px solid #fff;
+            border-bottom-color: transparent;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            width: 0;
+            height: 0;
+            z-index: 100;
+            margin-left: -40px;
+        }
+
+        h3 {
+            font-size: rem(30);
+            margin: 0;
+            line-height: 1;
+        }
+
+        p {
+            padding-top: 0;
+        }
+
+
+        .contact-form {
+            padding-top: 1rem;
+            margin-bottom: 2rem;
+
+            .form-group {
+                margin-bottom: 1rem;
+
+                .form-control {
+                    width: 100%;
+                    padding: .8rem 1rem;
+                    border: none;
+                    background-color: rgba(255,255,255,.8);
+                    outline: none;
+                }
+
+                img {
+                    height: 43px;
+                }
+            }
+
+            .actions {
+                text-align: center;
+
+                @include respond-above (sm) {
+                    text-align: left;
+                }
+            }
+
+            .btn-send {
+                padding: .6em 3rem;
+                background-color: #fff;
+                color: $color-primary;
+                border: none;
+                cursor: pointer;
+                transition: all .2s;
+                font-size: rem(20);
+
+                &:hover {
+                    box-shadow: 0 0 16rem rgba(0,0,0,.1);
+                }
+            }
+        }
+
+        .downloads {
+           
+            .pic {
+                margin-bottom: .6rem;
+            }
+
+            .link {
+                text-align: center;
+
+                a {
+                    background-color: #fff;
+                    color: $color-primary;
+                    display: inline-block;
+                    padding: .5rem 1.5rem;
+                    font-size: rem(18);
+
+                    .iconfont {
+                        font-size: rem(18);
+                    }
+                }
+            }
+        }
+    }
+}

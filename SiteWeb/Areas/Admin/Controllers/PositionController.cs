@@ -150,6 +150,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             newPosition.Code = vm.Code;
             newPosition.Importance = vm.Importance;
             newPosition.Sketch = vm.Sketch;
+            newPosition.ImageWidth = vm.ImageWidth;
+            newPosition.ImageHeight = vm.ImageHeight;
             newPosition.Active = vm.Active;
             newPosition.UpdatedBy = Site.CurrentUserName;
             newPosition.UpdatedDate = DateTime.Now;

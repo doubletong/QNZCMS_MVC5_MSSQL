@@ -1,0 +1,97 @@
+.page-cooperate {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    @include respond-above(md) {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+
+    @include respond-above(lg) {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+
+
+    .list {
+        max-width: rem(800);
+        margin: 0 auto;
+        position: relative;
+
+
+        &::after {
+            height: 100%;
+            width: 2px;
+            content: " ";
+            position: absolute;
+            left: rem(35);
+            top: 0;
+            background-color: $color-primary;
+            z-index: -1;
+            @include respond-above(sm) {
+                left: rem(50);
+            }
+        }
+
+        .box {
+            margin-bottom: 4rem;
+            position: relative;
+
+            .down {
+                position: absolute;
+                left: rem(25);
+                background-color: #fff;
+                border-radius: 50%;
+                width: 22px;
+                height: 22px;
+                ;
+                bottom: 0rem;
+                text-align: center;
+                border: $color-primary 1px solid;
+                line-height: 20px;
+                @include respond-above(sm) {
+                    left: rem(40); bottom: -2.7rem;
+                }
+            }
+        }
+
+        .txt {
+
+
+            h3 {
+                margin: 0;
+                font-size: rem(24);
+                color: $color-text-heading;
+            }
+
+            p {
+                margin: 0;
+                color: $color-text-weak;
+            }
+        }
+    }
+
+    .icon {
+        background-color: $color-primary;
+        background-position: center center;
+        background-repeat: no-repeat;
+
+        width: 70px;
+        height:70px;
+        line-height: 70px;      
+        border-radius: 50%;
+        text-align: center;
+        @include respond-above(sm) {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+        }
+        .iconfont{
+            font-size: 2rem;
+            @include respond-above(sm) {
+                font-size: 3rem;
+            }
+        }
+    }
+
+}

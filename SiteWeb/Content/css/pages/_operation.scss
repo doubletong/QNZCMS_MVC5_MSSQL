@@ -1,0 +1,165 @@
+.page-operation-detail {
+    .se-title {
+        font-size: rem(30);
+        color: $color-text-heading;
+    }
+
+    .pdf {
+        position: relative;
+        padding: 0 3rem;
+        height: 40px;
+        border-radius: 20px;
+        line-height: 40px;
+        background: #d7ddeb url(../img/PDF.png) no-repeat 1rem center;
+        margin-bottom: rem(24);
+
+        .title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        a {
+            position: absolute;
+            right: 1rem;
+            top: 0;
+            color: $color-primary;
+
+            .iconfont {
+                font-size: rem(22);
+            }
+        }
+
+        &:hover {
+            background-color: #fff;
+        }
+    }
+}
+
+
+.page-operation {
+
+    .list-disease {
+        border-top: 1px #d2d2d2 solid;
+    }
+
+    .s2 {
+        position: relative;       
+        min-height: 450px;
+        @include respond-above (md) {
+            padding-left: 337px;
+        }
+
+    }
+
+}
+
+.list-categories {
+   margin-bottom: 1rem;
+   
+
+    @include respond-above (md) {
+        margin-bottom: 0;
+        width: 230px;
+        position: absolute;
+        left: 50%;
+        top: 0;
+        z-index: 100;
+        margin-left: -465px;
+    }
+    @include respond-above (lg) {
+        margin-left: -570px;
+    }
+    @media (min-width:1440px) {
+        margin-left: -590px;
+    }
+
+    &.fixed_for_top {
+        position: fixed;
+    }
+ 
+
+    h3.title {
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        font-size: rem(18);
+        color: $color-primary;
+        background-color: #dbe2f1;
+        font-weight: normal;
+        box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.1);
+        margin: 0;
+        display: none;
+        @include respond-above (md) {
+            display: block;
+        }
+    }
+
+    ul {
+        @include reset-list;
+        max-height: 350px;        
+        overflow-y: auto;
+
+
+
+        @media (min-height:600px)  {
+            max-height: 450px;     
+        }
+        @media (min-height:700px) {
+            max-height: 550px;     
+        }
+        @media (min-height:800px) {
+            max-height: 650px;     
+        }
+        @media (min-height:900px) {
+            max-height: 750px;     
+        }
+        &::-webkit-scrollbar {
+            width: 10px;
+            background-color: #F5F5F5;
+        }
+        &::-webkit-scrollbar-track {
+         
+            background-color: #F5F5F5;
+           
+        }
+        &::-webkit-scrollbar-thumb {
+         
+            background-color: #dbe2f1;
+        }
+
+        li {
+            padding: 0 1rem;
+            display: inline-block;
+            margin-bottom: 5px;
+            background-color: #fff;
+            @include respond-above (md) {
+               display: block; margin-bottom: 0;
+            }
+            a {
+            
+                display: block;
+                height: rem(35);         
+                line-height: rem(35);
+                padding-left: rem(26);
+                color: #666;
+                background-position: left center;
+                background-repeat: no-repeat;
+                background-size: auto 1rem;
+               
+              
+                &.active{
+                    color: $color-primary;
+                    font-weight: bold;
+                }
+                @include respond-above (md) {
+                    background-size: auto auto;
+                    line-height: rem(69);
+                    padding-left: rem(50);  height: 70px;
+                    border-bottom: 1px #eceff6 solid;
+                    line-height: rem(69); 
+                 }
+            }
+        }
+    }
+}

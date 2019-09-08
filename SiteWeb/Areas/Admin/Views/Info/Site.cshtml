@@ -13,7 +13,7 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">全局</a></li>
-                @*<li role="presentation"><a href="#productSet" aria-controls="blog" role="tab" data-toggle="tab">产品</a></li>*@
+                <li role="presentation"><a href="#productSet" aria-controls="blog" role="tab" data-toggle="tab">产品</a></li>
                 <li role="presentation"><a href="#videoSet" aria-controls="videoSet" role="tab" data-toggle="tab">视频直播</a></li>
                 <li role="presentation"><a href="#newsSet" aria-controls="profile" role="tab" data-toggle="tab">新闻</a></li>
                 @*<li role="presentation"><a href="#blog" aria-controls="blog" role="tab" data-toggle="tab">博客</a></li>
@@ -30,10 +30,10 @@
                     <br />
                     @Html.Partial("_Site", Model.SiteInfo)
                 </div>
-                @*<div role="tabpanel" class="tab-pane" id="productSet">
+                <div role="tabpanel" class="tab-pane" id="productSet">
                     <br />
                     @Html.Partial("_Product", Model.ProductSet)
-                </div>*@
+                </div>
                 <div role="tabpanel" class="tab-pane" id="videoSet">
                     <br />
                     @Html.Partial("_Video", Model.VideoSet)

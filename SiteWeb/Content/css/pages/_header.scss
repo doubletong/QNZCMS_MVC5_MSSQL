@@ -1,0 +1,195 @@
+.site-header {
+    transition: all .2s;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 3000;
+    width: 100%;
+    background-color: transparent;
+
+    @include respond-above(md) {
+        position: absolute;
+    }
+
+    .topcol {
+        height: 60px;
+        color: #fff;
+
+        .row {
+            height: 100%;
+
+            .icon {
+                width: 27px;
+                height: 27px;
+                border-radius: 50%;
+                background-color: #fff;
+                color: #666;
+                margin: 0 .5rem 0 1.2rem;
+                line-height: 27px;
+                text-align: center;
+            }
+
+
+
+            img {
+                margin: 0 .5rem 0 1.2rem;
+                display: block;
+            }
+        }
+    }
+
+    .logo_nav {
+        height: 88px;
+    }
+
+    .logo {
+        background: url(../img/logo.png) no-repeat center center;
+        width: 290px;
+        height: 55px;
+        display: block;
+        /*img {
+            max-width: 100%;
+            transition: all .2s;
+            display: block;
+        }*/
+    }
+
+    .navbar {
+        text-align: right;
+    }
+
+    .mainav {
+        @include reset-list;
+        display: none;
+
+        @include respond-above(md) {
+            display: block;
+        }
+
+        & > li {
+            display: inline-block;
+            position: relative;
+            margin-left: 2rem;
+
+            & > a {
+                display: block;
+                color: #fff;
+                position: relative;
+                padding: .3rem 0;
+            }
+
+            &.active {
+                a {
+                    color: $color-primary;
+                }
+            }
+        }
+    }
+
+
+    &.fixheader {
+        background-color: rgba(232, 56, 13,.9);
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        z-index: 8000;
+
+        .langs {
+
+            a {
+                color: $color-primary;
+                background: #fff;
+                transition: all .2s;
+
+                @include hover {
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+
+    .searchbox {
+        display: block;
+        border-width: 1px;
+        border-color: rgb(255, 255, 255);
+        border-style: solid;
+        border-radius: 15px;
+        width: 118px;
+        height: 30px;
+
+
+        input {
+            width: 100%;
+            padding: 0 1rem;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+        }
+
+        button {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            outline: none;
+
+            .iconfont {
+                font-size: 1rem;
+            }
+        }
+    }
+
+   
+}
+.header-white {
+    .site-header {
+        .topcol {
+            color: #333;
+
+            .row {
+                height: 100%;
+
+                .icon {
+                    background-image: -moz-linear-gradient( 180deg, rgb(255,186,44) 0%, rgb(255,79,79) 100%);
+                    background-image: -webkit-linear-gradient( 180deg, rgb(255,186,44) 0%, rgb(255,79,79) 100%);
+                    background-image: -ms-linear-gradient( 180deg, rgb(255,186,44) 0%, rgb(255,79,79) 100%);
+                    color: #fff;
+                }
+            }
+        }
+
+        .logo {
+            background: url(../img/logo_color.png) no-repeat center center;
+        }
+
+        .mainav {
+            & > li {
+
+                & > a {
+                    color: #333;
+                }
+
+                &.active {
+                    a {
+                        color: $color-primary;
+                    }
+                }
+            }
+        }
+
+        .searchbox {
+            border-color: #333;
+
+
+            input {
+                color: #333;
+            }
+
+            button {
+                color: #333;
+            }
+        }
+    }
+}

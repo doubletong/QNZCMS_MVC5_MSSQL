@@ -22,5 +22,9 @@
   {
     "outputFile": "Themes/Saches/Content/css/Main.css",
     "inputFile": "Themes/Saches/Content/css/Main.less"
+  },
+  {
+    "outputFile": "Content/css/styles.css",
+    "inputFile": "Content/css/styles.scss"
   }
 ]

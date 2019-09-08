@@ -1,0 +1,66 @@
+.btn {
+  
+    font-size: rem(14);
+    display: inline-block;
+    border: none;
+    padding: .7rem 1.5rem;
+    text-align: center;
+    color: #666;
+    transition: all .25s;
+    background-color: #eee;
+    border-radius: 25px;
+    @include respond-above(sm) {
+    
+        padding: .8rem 2rem;
+        font-size: 1rem; border-radius: 34px;      
+    }
+    @include respond-above(md) {
+       
+        padding: 1rem 2.5rem;
+        font-size: 1rem; border-radius: 30px;      
+    }
+    @include respond-above(lg) {  
+        padding: 1.25rem 3.5rem;
+        font-size: 1rem; border-radius: 34px;      
+    }
+    
+    &:hover {
+        background-color: darken(#eee, 6%);
+        color: #333;
+    }
+}
+
+.btn-white {
+    border: 1px #fff solid;
+    color: $color-primary;
+    background-color: #fff;
+    &:hover {
+        transform: translateX(5px);
+        color: $color-primary;  background-color: #fff;
+    }
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: $color-primary;
+    border: none;
+    &:hover {
+        background-color: darken($color-primary, 6%);
+        color: #fff;
+        border-color: #000;
+    }
+}
+
+.btn-black {
+    border-color: #333;
+    color: #333;
+    &:hover {
+        background-color: #333;
+        color: #fff;
+    }
+}
+
+.btn-block {
+    width: 100%;
+    display: block;
+}

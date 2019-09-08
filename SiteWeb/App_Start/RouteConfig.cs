@@ -18,7 +18,7 @@ namespace TZGCMS.SiteWeb
                name: "SinglePage",
                url: "{seoName}",
                defaults: new { controller = "Pages", action = "Index" },
-               constraints: new { seoName = @"^(?!article|products|jobs|sales|download)([a-z0-9]+)$" },
+               constraints: new { seoName = @"^(?!article|products|jobs|contact|download|about|services)([a-z0-9]+)$" },
                namespaces: new string[] { "TZGCMS.SiteWeb.Controllers.Pages" }
            );
 

@@ -1,0 +1,104 @@
+.pagination {
+    text-align: center;
+    list-style: none;
+    padding: 1rem 0;
+    font-size: rem(14);
+    color: $color-text-weak;
+
+    @include respond-above(md) {
+        padding: 2rem 0;
+    }
+
+    @include respond-above(lg) {
+        padding: 3rem 0;
+    }
+
+    li {
+        display: inline-block;
+        margin: 0 .2rem;
+
+        a {
+            display: block;
+            border: 10px solid;
+            height: 40px;
+            line-height: 38px;
+            text-align: center;
+            padding: 0 .9rem;
+            background-color: #fff;
+            text-align: center;
+            color: $color-text-weak;
+            border: 1px solid #ff6f2e;
+            border-radius: 4px;
+
+            @include hover {
+                color: #FFF;
+                background-color: $color-primary;
+                border: 1px $color-primary solid;
+            }
+
+            &.prev,
+            &.next {
+                padding: 0 1rem;
+            }
+
+            &.more {
+                border: none;
+
+                @include hover {
+                    color: $color-primary;
+                    background-color: #fff;
+                    border: none;
+                }
+            }
+        }
+
+        &.active {
+            a {
+                background-color: $color-primary;
+                color: #fff;
+                border: 1px $color-primary solid;
+                background-image: -moz-linear-gradient( 90deg, rgb(255,57,56) 0%, rgb(255,160,37) 100%);
+                background-image: -webkit-linear-gradient( 90deg, rgb(255,57,56) 0%, rgb(255,160,37) 100%);
+                background-image: -ms-linear-gradient( 90deg, rgb(255,57,56) 0%, rgb(255,160,37) 100%);
+            }
+        }
+
+        &.disabled {
+            a {
+                background-color: #eee;
+                color: $color-text-weak;
+                cursor: no-drop;
+            }
+        }
+    }
+
+    input.pagenum {
+        border: none;
+        border-bottom: $color-primary 1px solid;
+        text-align: center;
+        width: 50px;
+        background-color: transparent;
+        outline: none;
+        color: $color-primary;
+    }
+
+    a.go {
+        display: inline-block;
+        border-radius: 14px;
+        height: 28px;
+        line-height: 26px;
+        font-size: rem(14);
+        padding: 0 1rem;
+        background-color: $color-primary;
+        text-align: center;
+        color: #fff;
+        margin-left: .5rem;
+    }
+}
+
+.nav-page {
+    a {
+        color: $color-primary;
+    }
+}
+

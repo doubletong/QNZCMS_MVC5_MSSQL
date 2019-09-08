@@ -32,24 +32,7 @@ namespace TZGCMS.SiteWeb.App_Start
                  "~/Areas/{2}/Views/{1}/Partials/{0}.cshtml",
                  "~/Areas/{2}/Views/Shared/Partials/{0}.cshtml"
              };
-            ViewLocationFormats = new[]
-            {
-                //{2}：主题名称
-                 "~/Themes/{2}/Views/{1}/{0}.cshtml",
-                 "~/Themes/{2}/Views/Shared/{0}.cshtml"
-             };
-            MasterLocationFormats = new[]
-            {
-                //{2}：主题名称
-                 "~/Themes/{2}/Views/{1}/Layouts/{0}.cshtml",
-                 "~/Themes/{2}/Views/Shared/Layouts/{0}.cshtml"
-             };
-            PartialViewLocationFormats = new[]
-            {
-                //{2}：主题名称
-                 "~/Themes/{2}/Views/{1}/Partials/{0}.cshtml",
-                 "~/Themes/{2}/Views/Shared/Partials/{0}.cshtml"
-             };
+     
 
         }
         protected override bool FileExists(ControllerContext controllerContext, string virtualPath)

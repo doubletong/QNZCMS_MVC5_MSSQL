@@ -1,0 +1,39 @@
+{
+  "name": "elfinder",
+  "authors": [
+    "Dmitry \"dio\" Levashov <dio@std42.ru>",
+    "Troex Nevelin <troex@fury.scancode.ru>",
+    "Alexey Sukhotin <strogg@yandex.ru>",
+    "Naoki Sawada <hypweb@gmail.com>"
+  ],
+  "description": "Open-source file manager for web, written in JavaScript using jQuery and jQuery UI.",
+  "dependencies": {
+    "jquery": "1.8.0 - 3",
+    "jquery-ui": "^1.9.x"
+  },
+  "keywords": [
+    "filemanager",
+    "jquery",
+    "jquery-ui",
+    "javascript",
+    "php"
+  ],
+  "license": "BSD-3-Clause",
+  "homepage": "https://github.com/Studio-42/elFinder",
+  "ignore": [
+    "**/.*",
+    "jquery",
+    "php"
+  ],
+  "version": "2.1.44",
+  "_release": "2.1.44",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.1.44",
+    "commit": "f603b5931797845cc8d074c8fd63dc81195d2000"
+  },
+  "_source": "https://github.com/Studio-42/elFinder.git",
+  "_target": "^2.1.44",
+  "_originalSource": "elfinder",
+  "_direct": true
+}

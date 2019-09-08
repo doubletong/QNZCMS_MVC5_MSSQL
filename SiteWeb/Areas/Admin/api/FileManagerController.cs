@@ -82,24 +82,27 @@ namespace TZGCMS.SiteWeb.Areas.Admin.api
         [HttpGet]
         public HttpResponseMessage Download(string filePath)
         {
-            if (filePath.StartsWith("/Uploads/"))
+            HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
+            var myPath = filePath.ToLower();
+
+            if (myPath.StartsWith("/Uploads/"))
             {
                 var path = HostingEnvironment.MapPath(filePath);
                 if (File.Exists(path))
                 {
-                    HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
+                   
                     var stream = new FileStream(path, FileMode.Open);
                     result.Content = new StreamContent(stream);
                     result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
                     result.Content.Headers.ContentDisposition.FileName = Path.GetFileName(path);
                     result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
                     result.Content.Headers.ContentLength = stream.Length;
-                    return result;
+                   
                 }
            
             }
 
-            return null;
+            return result;
 
         }
         /// <summary>
