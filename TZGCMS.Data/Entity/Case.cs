@@ -26,7 +26,7 @@ namespace TZGCMS.Data.Entity
         [StringLength(150)]
         public string Thumbnail { get; set; }
 
-        public bool? Active { get; set; }
+        public bool Active { get; set; }
 
         public DateTime? Pubdate { get; set; }
 

@@ -26,5 +26,17 @@
   {
     "outputFile": "Content/css/styles.css",
     "inputFile": "Content/css/styles.scss"
+  },
+  {
+    "outputFile": "Areas/Admin/Content/css2019/Style.css",
+    "inputFile": "Areas/Admin/Content/css2019/Style.scss"
+  },
+  {
+    "outputFile": "Areas/Admin/Content/js/App2019.es5.js",
+    "inputFile": "Areas/Admin/Content/js/App2019.js"
+  },
+  {
+    "outputFile": "Areas/Admin/Content/css/Style.css",
+    "inputFile": "Areas/Admin/Content/css/Style.scss"
   }
 ]

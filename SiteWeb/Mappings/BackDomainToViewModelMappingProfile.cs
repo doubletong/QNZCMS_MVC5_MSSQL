@@ -11,6 +11,7 @@ using TZGCMS.Data.Entity.Logs;
 using TZGCMS.Data.Entity.Pages;
 using TZGCMS.Data.Entity.Products;
 using TZGCMS.Data.Entity.Videos;
+using TZGCMS.Model;
 using TZGCMS.Model.Admin.InputModel.Ads;
 using TZGCMS.Model.Admin.InputModel.Articles;
 using TZGCMS.Model.Admin.InputModel.Chronicles;
@@ -223,8 +224,8 @@ namespace TZGCMS.SiteWeb.Mappings
 
             //CreateMap<WorkVM, Work>();
             //CreateMap<Work, WorkVM>();
-            //CreateMap<WorkIM, SIG.DAL.Dapper.Model.Work>();
-            //CreateMap<SIG.DAL.Dapper.Model.Work, WorkIM>();
+            CreateMap<CaseIM, Case>();
+            CreateMap<Case, CaseIM>();
 
             //CreateMap<PostCategoryVM, PostCategory>();
             //CreateMap<PostCategory, PostCategoryVM>();

@@ -22,27 +22,27 @@ namespace TZGCMS.Model
 
         
     }
+    public class CaseListFrontVM
+    {
+
+        public int PageIndex { get; set; }
+        public int PageSize { get; set; }
+        public int TotalCount { get; set; }
+        public StaticPagedList<CaseVM> Cases { get; set; }
+   
+    }
+
+    public class CaseVM
+    {
+        public int Id { get; set; } 
+        public string Title { get; set; }
+        public string Thumbnail { get; set; }
+        public DateTime Pubdate { get; set; }
+        public string Summary { get; set; }
+
+    }
     public class CaseIM {
-        //public int Id { get; set; }
-
-        //[Required]
-        //[StringLength(100)]
-        //public string Title { get; set; }
-
-        //public string Body { get; set; }
-
-        //public string Summary { get; set; }
-
-
-        //[StringLength(150)]
-        //public string Thumbnail { get; set; }
-
-        //public bool? Active { get; set; }
-
-        //public DateTime? Pubdate { get; set; }
-
-
-
+     
         public int Id { get; set; }
         [Display(ResourceType = typeof(Labels), Name = "Title")]
         [Required(ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "Required")]
@@ -55,8 +55,6 @@ namespace TZGCMS.Model
 
         [Display(ResourceType = typeof(Labels), Name = "Summary")]
         public string Summary { get; set; }
-
-
 
 
         [Display(ResourceType = typeof(Labels), Name = "Thumbnail")]

@@ -1,0 +1,38 @@
+﻿@import "_variables.scss";
+
+#menu1{
+    &>.menuTree{
+        padding-left:15px;
+    }
+}
+
+.menuTree{
+    li{
+        padding-top:6px;padding-bottom:6px;font-size:14px;
+       a{
+           color:#ccc;font-size:14px;
+           &:hover{
+               color:$colorAssistant;
+           }
+       }
+      
+        ul{
+            list-style:none;padding:0;margin:0 0 0 5px;
+            li{
+                border-left:1px #ddd solid;padding-left:25px;background:url(../img/line.png) no-repeat left 16px;
+            }
+        }
+      
+        
+    }
+}
+
+.menuTreeRole{
+    li{
+         padding-top:3px;padding-bottom:3px;
+        label{
+            font-weight:normal;
+        }
+        
+    }
+}

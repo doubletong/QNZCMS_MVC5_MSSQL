@@ -16,5 +16,17 @@
     "inputFiles": [
       "Themes/fengneng/Content/css/hover.css"
     ]
+  },
+  {
+    "outputFileName": "Areas/Admin/Content/fonts/iconfont.min.css",
+    "inputFiles": [
+      "Areas/Admin/Content/fonts/iconfont.css"
+    ]
+  },
+  {
+    "outputFileName": "Areas/Admin/Content/js/App2019.min.js",
+    "inputFiles": [
+      "Areas/Admin/Content/js/App2019.js"
+    ]
   }
 ]

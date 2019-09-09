@@ -555,4 +555,7 @@
   <data name="Coordinate" xml:space="preserve">
     <value>坐标</value>
   </data>
+  <data name="Case" xml:space="preserve">
+    <value>案例</value>
+  </data>
 </root>

@@ -30,10 +30,10 @@ namespace TZGCMS.SiteWeb
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 
-            //Remove All View Engine including Webform and Razor
-            ViewEngines.Engines.Clear();
-            //Register Razor View Engine
-            ViewEngines.Engines.Add(new CSharpRazorViewEngine());
+            ////Remove All View Engine including Webform and Razor
+            //ViewEngines.Engines.Clear();
+            ////Register Razor View Engine
+            //ViewEngines.Engines.Add(new CSharpRazorViewEngine());
             
 
             //log config

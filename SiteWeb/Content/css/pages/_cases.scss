@@ -1,4 +1,6 @@
 .page-cases {
+    background-color: #f6f6f6;
+
     .title-section {
         text-align: center;
     }
@@ -26,7 +28,7 @@
         padding-bottom: 3rem;
 
         .title-section {
-            margin-bottom:3rem;
+            margin-bottom: 3rem;
         }
 
         .item {
@@ -42,63 +44,65 @@
         }
     }
 
-    .caselist {
-        .item {
-            margin: 0 -15px 0;
+    .s3 {
+        padding-top: 5rem;
 
-            @include respond-above(md) {
-                margin: 0 -8px 16px;
-            }
+        .title-section {
+            margin-bottom: 3rem;
+        }
 
-            a {
+        .caselist {
+            .item {
+                margin-bottom: 2rem;
+                background-color: #fff;
                 display: block;
-                overflow: hidden;
-                position: relative;
 
-                img {
-                    width: 100%;
+                .pic {
                     display: block;
-                    transition: all .2s;
+                    overflow: hidden;
+                    position: relative;
+
+                    img {
+                        width: 100%;
+                        display: block;
+                        transition: all .2s;
+                    }
                 }
 
                 .txt {
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 300;
-                    background-color: rgba(0,0,0,.5);
-                    padding: 1rem;
-                    color: #fff;
-                    opacity: 0;
-                    transition: all .2s;
+                    padding: 0 1rem;
+                    height: 170px;
 
                     h3 {
-                        font-weight: lighter;
-                        margin: 0;
+                        font-size: rem(20);
                     }
 
                     p {
-                        font-size: rem(12);
-                        position: absolute;
-                        right: 1rem;
-                        bottom: 1rem;
-                        margin: 0;
-                        position: absolute;
+                        span {
+                            color: $color-primary;
+                        }
                     }
                 }
 
                 &:hover {
+                    box-shadow: 0 0 20px rgba(0,0,0,.1);
+
                     img {
                         transform: scale(1.1);
                     }
-
-                    .txt {
-                        opacity: 1;
-                    }
                 }
             }
+        }
+    }
+}
+
+.page-case-detail {
+    padding-top:2rem;
+    .article {
+        margin-bottom:3rem;
+        .title-article{
+            text-align:center;
+            font-size:rem(24);
         }
     }
 }

@@ -5,7 +5,10 @@
     {
       "library": "jquery.blockUI@2.70",
       "destination": "Plugins/blockUI"
-
+    },
+    {
+      "library": "twitter-bootstrap@4.3.1",
+      "destination": "Areas/Admin/Content/Bootstrap4"
     }
   ]
 }

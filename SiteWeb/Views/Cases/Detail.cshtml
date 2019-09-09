@@ -1,0 +1,60 @@
+﻿@model Case
+@{
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : "工程案例";
+    ViewBag.HeaderClass = "header-white";
+
+    var prevArt = (Case)ViewBag.Prev;
+    var nextArt = (Case)ViewBag.Next;
+}
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+}
+
+
+@Html.Action("SingleAd", "AD", new { code = "A1006" })
+
+
+<!-- BLOG   ================================================== -->
+<section class="page page-case-detail">
+    <div class="container">
+        <div class="article">
+            <div class="title-article">
+                <h2>@Model.Title</h2>
+            </div>
+
+
+            <div class="content">
+                @Html.Raw(Model.Body)
+            </div>
+
+        </div>
+
+        <div class="nav-page">
+
+            @if (ViewBag.Prev != null)
+            {
+                <p>上一篇：  <a href="@Url.Action("Detail", new { id=prevArt.Id})">@prevArt.Title</a></p>
+            }
+
+
+            @if (ViewBag.Next != null)
+            {
+                <p>
+                    下一篇： <a href="@Url.Action("Detail", new { id=nextArt.Id})">@nextArt.Title</a>
+                </p>
+            }
+
+
+
+        </div>
+    </div>
+
+
+</section>

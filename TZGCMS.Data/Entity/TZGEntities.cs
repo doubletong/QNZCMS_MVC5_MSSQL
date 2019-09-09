@@ -2,6 +2,7 @@
 using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using TZGCMS.Data.Entity.Ads;
 using TZGCMS.Data.Entity.Articles;
 using TZGCMS.Data.Entity.Chronicles;
@@ -109,9 +110,16 @@ namespace TZGCMS.Data.Entity
 
         public override int SaveChanges()
         {
+            AddUpdateUserInfo();
+
+            return base.SaveChanges();
+        }
+
+        private void AddUpdateUserInfo()
+        {
             var addedAuditedEntities = ChangeTracker.Entries<IAuditedEntity>()
-              .Where(p => p.State == EntityState.Added)
-              .Select(p => p.Entity);
+                          .Where(p => p.State == EntityState.Added)
+                          .Select(p => p.Entity);
 
             var modifiedAuditedEntities = ChangeTracker.Entries<IAuditedEntity>()
               .Where(p => p.State == EntityState.Modified)
@@ -129,15 +137,18 @@ namespace TZGCMS.Data.Entity
             {
                 modified.UpdatedDate = now;
                 modified.UpdatedBy = Site.CurrentUserName;
-                
+
                 base.Entry(modified).Property(x => x.CreatedBy).IsModified = false;
                 base.Entry(modified).Property(x => x.CreatedDate).IsModified = false;
-               
-            }
 
-            return base.SaveChanges();
+            }
         }
 
+        public override Task<int> SaveChangesAsync()
+        {
+            AddUpdateUserInfo();
 
+            return base.SaveChangesAsync();
+        }
     }
 }

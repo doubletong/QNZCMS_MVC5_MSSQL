@@ -44,7 +44,9 @@ namespace TZGCMS.Data.Enums
         [Display(Name = "视频分类")]
         VIDEOCATEGORY = 18,
         [Display(Name = "公司纪事")]
-        CHRONICLE = 18
+        CHRONICLE = 19,
+        [Display(Name = "案例")]
+        CASE = 20
 
 
 

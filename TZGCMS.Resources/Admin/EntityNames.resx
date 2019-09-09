@@ -135,6 +135,9 @@
   <data name="Cart" xml:space="preserve">
     <value>购物车</value>
   </data>
+  <data name="Case" xml:space="preserve">
+    <value>案例</value>
+  </data>
   <data name="Category" xml:space="preserve">
     <value>分类</value>
   </data>
@@ -274,9 +277,9 @@
     <value>视频分类</value>
   </data>
   <data name="Work" xml:space="preserve">
-    <value>案例</value>
+    <value>作品</value>
   </data>
   <data name="WorkCategory" xml:space="preserve">
-    <value>案例分类</value>
+    <value>作品分类</value>
   </data>
 </root>

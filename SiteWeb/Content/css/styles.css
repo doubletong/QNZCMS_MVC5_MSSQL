@@ -6685,74 +6685,68 @@ input, textarea, button {
 .page-service .a1 .item4 {
   background-image: url(../img/service_b4.jpg); }
 
-.page-cases .title-section {
-  text-align: center; }
-
-.page-cases .s1 {
-  margin-bottom: 5rem; }
-  .page-cases .s1 .pic {
-    padding-top: 1.2rem; }
-  .page-cases .s1 ul {
-    list-style-image: url(../img/plus.png); }
-
-.page-cases .contact_bar {
-  margin-bottom: 3rem; }
-
-.page-cases .s2 {
-  background: url(../img/case_bg.jpg) no-repeat center bottom;
-  background-size: cover;
-  padding-top: 3rem;
-  padding-bottom: 3rem; }
-  .page-cases .s2 .title-section {
+.page-cases {
+  background-color: #f6f6f6; }
+  .page-cases .title-section {
+    text-align: center; }
+  .page-cases .s1 {
+    margin-bottom: 5rem; }
+    .page-cases .s1 .pic {
+      padding-top: 1.2rem; }
+    .page-cases .s1 ul {
+      list-style-image: url(../img/plus.png); }
+  .page-cases .contact_bar {
     margin-bottom: 3rem; }
-  .page-cases .s2 .item {
-    margin: 2rem auto;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background-color: #fff; }
-    .page-cases .s2 .item img {
+  .page-cases .s2 {
+    background: url(../img/case_bg.jpg) no-repeat center bottom;
+    background-size: cover;
+    padding-top: 3rem;
+    padding-bottom: 3rem; }
+    .page-cases .s2 .title-section {
+      margin-bottom: 3rem; }
+    .page-cases .s2 .item {
+      margin: 2rem auto;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background-color: #fff; }
+      .page-cases .s2 .item img {
+        display: block; }
+  .page-cases .s3 {
+    padding-top: 5rem; }
+    .page-cases .s3 .title-section {
+      margin-bottom: 3rem; }
+    .page-cases .s3 .caselist .item {
+      margin-bottom: 2rem;
+      background-color: #fff;
       display: block; }
+      .page-cases .s3 .caselist .item .pic {
+        display: block;
+        overflow: hidden;
+        position: relative; }
+        .page-cases .s3 .caselist .item .pic img {
+          width: 100%;
+          display: block;
+          transition: all .2s; }
+      .page-cases .s3 .caselist .item .txt {
+        padding: 0 1rem;
+        height: 170px; }
+        .page-cases .s3 .caselist .item .txt h3 {
+          font-size: 1.25rem; }
+        .page-cases .s3 .caselist .item .txt p span {
+          color: #ff7c2c; }
+      .page-cases .s3 .caselist .item:hover {
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); }
+        .page-cases .s3 .caselist .item:hover img {
+          transform: scale(1.1); }
 
-.page-cases .caselist .item {
-  margin: 0 -15px 0; }
-  @media (min-width: 992px) {
-    .page-cases .caselist .item {
-      margin: 0 -8px 16px; } }
-  .page-cases .caselist .item a {
-    display: block;
-    overflow: hidden;
-    position: relative; }
-    .page-cases .caselist .item a img {
-      width: 100%;
-      display: block;
-      transition: all .2s; }
-    .page-cases .caselist .item a .txt {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 300;
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 1rem;
-      color: #fff;
-      opacity: 0;
-      transition: all .2s; }
-      .page-cases .caselist .item a .txt h3 {
-        font-weight: lighter;
-        margin: 0; }
-      .page-cases .caselist .item a .txt p {
-        font-size: 0.75rem;
-        position: absolute;
-        right: 1rem;
-        bottom: 1rem;
-        margin: 0;
-        position: absolute; }
-    .page-cases .caselist .item a:hover img {
-      transform: scale(1.1); }
-    .page-cases .caselist .item a:hover .txt {
-      opacity: 1; }
+.page-case-detail {
+  padding-top: 2rem; }
+  .page-case-detail .article {
+    margin-bottom: 3rem; }
+    .page-case-detail .article .title-article {
+      text-align: center;
+      font-size: 1.5rem; }
 
 .page-contact {
   padding-bottom: 0; }
@@ -7009,7 +7003,7 @@ input, textarea, button {
       padding: 2rem 0; } }
   @media (min-width: 1200px) {
     .pagination {
-      padding: 3rem 0; } }
+      padding: 2rem 0; } }
   .pagination li {
     display: inline-block;
     margin: 0 .2rem; }

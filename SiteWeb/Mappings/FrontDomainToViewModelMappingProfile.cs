@@ -5,6 +5,7 @@ using TZGCMS.Data.Entity.Articles;
 using TZGCMS.Data.Entity.Pages;
 using TZGCMS.Data.Entity.Products;
 using TZGCMS.Data.Entity.Videos;
+using TZGCMS.Model;
 using TZGCMS.Model.Front.InputModel.Articles;
 using TZGCMS.Model.Front.ViewModel.Ads;
 using TZGCMS.Model.Front.ViewModel.Articles;
@@ -51,8 +52,8 @@ namespace TZGCMS.SiteWeb.Mappings
             //CreateMap<Work, WorkVM>();
             //CreateMap<Solution, SolutionVM>();
 
-            //CreateMap<Link, LinkVM>();
-            //CreateMap<LinkCategory, LinkCategoryVM>();       
+            CreateMap<Case, CaseVM>();
+            CreateMap<CaseVM, Case>();
             //CreateMap<Photo, PhotoVM>();
 
             CreateMap<Product, ProductVM>();

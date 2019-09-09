@@ -1,4 +1,4 @@
-﻿
+﻿@model CaseListFrontVM
 @{
 
     PageMeta pm = (PageMeta)ViewBag.PageMeta;
@@ -126,7 +126,27 @@
         </div>
     </section>
 
-    <section class="container s3">
-        <h2 class="title-section">认证与合作</h2>
+    <section class="container s3" id="s3">
+        <h2 class="title-section">客户案例</h2>
+        <div class="caselist">
+            <div class="row">
+                @foreach (var item in Model.Cases)
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <a href="@Url.Action("Detail",new { id=item.Id})" class="item">
+                            <div class="pic"><img src="@item.Thumbnail" alt="@item.Title" /></div>
+                            <div class="txt">
+                                <h3>@item.Title</h3>
+                                <p>@item.Summary <span>查看详情</span></p>
+                            </div>
+                        </a>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <div class="text-center">
+            @Html.PagedListPager((IPagedList)Model.Cases, page => Url.Action("Index", new { page }) + "#s3", PagedListRenderOptions.OnlyShowFivePagesAtATime)
+        </div>
     </section>
 </div>

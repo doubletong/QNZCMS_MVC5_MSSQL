@@ -142,7 +142,7 @@ input:-webkit-autofill:active {
     padding: 15px;
     border-bottom: 1px #222222 solid; }
     .leftcol .logo img {
-      max-height: 51px; }
+      max-width: 100%; }
 
 .rightcol {
   margin: 0 0 0 170px;
@@ -503,4 +503,3 @@ footer.page-footer {
 /*===  module menu  ===*/
 .menuTree {
   list-style: none; }
-

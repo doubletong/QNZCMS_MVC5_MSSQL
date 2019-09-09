@@ -1,0 +1,16 @@
+﻿
+<nav class="navbar  page-header">
+    <a class="navbar-brand" href="#" id="openav">
+        <i class="iconfont icon-menu"></i>
+    </a>
+
+    <div class="navbar-text col-auto">
+
+    </div>
+    <form id="frmlogout" action="@Url.Action("LogOff", "Account",new { area = "" })" method="post" class="form-inline ">
+        您好，<span>@User.Identity.Name</span> <img class="avatar" src="@((User as CustomPrincipal).Avatar)" /> |
+
+        <a href="javascript:{}" onclick="document.getElementById('frmlogout').submit();return false;" class="ml-3">退出 <i class="iconfont icon-logout"></i></a>
+    </form>
+
+</nav>
