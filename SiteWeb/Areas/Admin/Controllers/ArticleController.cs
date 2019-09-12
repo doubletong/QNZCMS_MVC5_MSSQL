@@ -20,6 +20,7 @@ using TZGCMS.Resources.Admin;
 using TZGCMS.Service.LuceneSearch;
 using TZGCMS.Model.Admin.ViewModel.LuceneSearch;
 using TZGCMS.SiteWeb.Filters;
+using TZGCMS.Model;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {

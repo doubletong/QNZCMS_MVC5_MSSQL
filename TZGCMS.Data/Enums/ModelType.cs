@@ -46,7 +46,9 @@ namespace TZGCMS.Data.Enums
         [Display(Name = "公司纪事")]
         CHRONICLE = 19,
         [Display(Name = "案例")]
-        CASE = 20
+        CASE = 20,
+        [Display(Name = "产品")]
+        SIMPLEPRODUCT = 21
 
 
 

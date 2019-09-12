@@ -9,6 +9,11 @@
     {
       "library": "twitter-bootstrap@4.3.1",
       "destination": "Areas/Admin/Content/Bootstrap4"
+    },
+    {
+      "library": "Swiper@4.5.0",
+      "destination": "Plugins/swiper"
     }
   ]
 }
+

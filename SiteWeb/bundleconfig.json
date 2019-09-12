@@ -28,5 +28,11 @@
     "inputFiles": [
       "Areas/Admin/Content/js/App2019.js"
     ]
+  },
+  {
+    "outputFileName": "Plugins/tinymce/plugins/multipleimages/plugin.min.js",
+    "inputFiles": [
+      "Plugins/tinymce/plugins/multipleimages/plugin.js"
+    ]
   }
 ]

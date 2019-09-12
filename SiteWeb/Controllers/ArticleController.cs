@@ -1,4 +1,6 @@
-﻿using PagedList;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,6 +11,8 @@ using System.Web.Mvc;
 using TZGCMS.Data.Entity.Articles;
 using TZGCMS.Data.Enums;
 using TZGCMS.Infrastructure.Configs;
+using TZGCMS.Model;
+using TZGCMS.Model.Admin.ViewModel.Articles;
 using TZGCMS.Model.Front.ViewModel.Articles;
 using TZGCMS.Service.Articles;
 using TZGCMS.Service.PageMetas;
@@ -18,48 +22,36 @@ namespace TZGCMS.SiteWeb.Controllers
 {
     public class ArticleController : BaseController
     {
-        private readonly IArticleServices _articleServices;
-        private IArticleCategoryServices _categoryService;
-        private readonly IPageMetaServices _pageMetaService;
-        public ArticleController(IArticleServices articleServices, IArticleCategoryServices categoryService, IPageMetaServices pageMetaService)
+        private readonly IMapper _mapper;
+
+        public ArticleController(IMapper mapper)
         {
-            _articleServices = articleServices;
-            _categoryService = categoryService;
-            _pageMetaService = pageMetaService;
+            _mapper = mapper;
         }
         [SIGActionFilter]
-        public ActionResult Index(int? page)
+        public async Task<ActionResult> Index(int? page)
         {
 
-            var vm = new ArticleListVM
+            var vm = new FrontArticleListVM
             {
-
-
-                //if (categoryId != null)
-                //{
-                //    vm.CategoryId = (int)categoryId;
-                //    vm.CurrentCategory = _categoryService.GetById(categoryId.Value);
-                //}
-
-
-                //vm.Keyword = keyword;
                 PageIndex = page ?? 1,
                 PageSize = SettingsManager.Article.FrontPageSize
             };
-            int totalCount;
-            var list = _articleServices.GetActivePagedElements(vm.PageIndex-1, vm.PageSize,string.Empty, 0, out totalCount);
-            //var categoryVMList = _mapper.Map<List<Article>, List<ArticleVM>>(goodslist);
-            vm.TotalCount = totalCount;
 
-            vm.Articles = new StaticPagedList<Article>(list, vm.PageIndex, vm.PageSize, vm.TotalCount); 
+            var query = _db.Article.Where(d => d.Active).AsQueryable();
+          
+            var list = await query.OrderByDescending(d => d.Pubdate)
+                .ThenByDescending(d => d.Id).Skip((vm.PageIndex - 1) * vm.PageSize)
+                .Take(vm.PageSize).ProjectTo<ArticleVM>(_mapper.ConfigurationProvider).ToListAsync();
+             
+            vm.TotalCount = await query.CountAsync();
 
-            //vm.Categories = _categoryService.GetActiveItems().OrderByDescending(c => c.Importance);
-            //var categoryList = _categoryService.GetActiveItems().OrderByDescending(c => c.Importance).ToList();
-            //var categories = new SelectList(categoryList, "Id", "Title");
-            //ViewBag.Categories = categories;
+            vm.Articles = new StaticPagedList<ArticleVM>(list, vm.PageIndex, vm.PageSize, vm.TotalCount);
+
+
 
             var url = Request.RawUrl;
-            ViewBag.PageMeta = _pageMetaService.GetPageMeta(ModelType.MENU, url);
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == ModelType.MENU && d.ObjectId == url);
 
             return View(vm);
         }
@@ -80,7 +72,7 @@ namespace TZGCMS.SiteWeb.Controllers
 
         //    vm.Articles = new StaticPagedList<Article>(list, vm.PageIndex, vm.PageSize, vm.TotalCount);
 
-      
+
 
         //    var url = Request.RawUrl;
         //    ViewBag.PageMeta = _pageMetaService.GetPageMeta(ModelType.MENU, url);
@@ -88,12 +80,13 @@ namespace TZGCMS.SiteWeb.Controllers
         //    return View(vm);
         //}
 
-        //[HttpGet]
-        //public PartialViewResult RecentNews(string seoName, int count)
-        //{
-        //    var articleList = _articleServices.RecentNews(seoName, count);           
-        //    return PartialView(articleList);
-        //}
+        [HttpGet]
+        public PartialViewResult RecentNews(int count)
+        {
+            var articleList = _db.Article.Where(d=>d.Active)
+                .OrderByDescending(d=>d.Pubdate).Take(count).ProjectTo<ArticleVM>().ToList();
+            return PartialView("_RecentNews", articleList);
+        }
 
         //[HttpGet]
         //public PartialViewResult HotNews(int count)

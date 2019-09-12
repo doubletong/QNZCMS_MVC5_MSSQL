@@ -1,0 +1,288 @@
+﻿@model SimpleProductListVM
+
+@{
+    ViewBag.PageTitle = "产品列表";
+    ViewBag.Title = ViewBag.PageTitle + "_内容";
+}
+
+@section Header{
+
+
+    <link href="~/Plugins/ekko-lightbox/dist/ekko-lightbox.min.css" rel="stylesheet" />
+
+    <link href="~/plugins/SigFinder/SigFinder.min.css" rel="stylesheet" />
+    <link href="~/plugins/webuploader/webuploader.css" rel="stylesheet" />
+}
+
+
+<div class="panel panel-default sig-panel-tabs">
+    <header class="panel-heading">
+        <div class="row">
+            <div class="col-sm-8">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="Keyword">关键字</label>
+                        @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
+              
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search fa-fw"></i>查找</button>
+                </form>
+            </div>
+            <div class="col-sm-4 text-right">
+                <a href="@Url.Action("Edit")" class="btn btn-primary"><i class='fa fa-plus fa-fw'></i>添加产品</a>
+                <a class="btn btn-default createIndex" href="#" data-url="@Url.Action("CreateIndex")"><i class="fa fa-server"></i> @Buttons.CreateIndex</a>
+            </div>
+        </div>
+    </header>
+
+    <table class="table table-hover table-striped table-vmiddle">
+        <thead>
+            <tr>
+
+                <th>
+                    缩略图
+                </th>
+                <th>
+                    产品型号
+                </th>
+                <th>
+                    产品名称
+                </th>
+
+                <th>
+                    排序
+                </th>
+                <th>
+                    显示
+                </th>
+                <th>
+                    激活
+                </th>
+                <th>
+                    推荐
+                </th>
+
+                <th>
+                    创建日期
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Product in Model.Products)
+            {
+                Html.RenderPartial("_ProductItem", Product);
+
+            }
+        </tbody>
+
+    </table>
+
+
+    <footer class="panel-footer">
+        <div class="row">
+            <div class="col-sm-7">
+                @Html.PagedListPager(Model.Products, page => Url.Action("Index", new { page = page,  keyword = Model.Keyword }))
+            </div>
+            <div class="col-sm-5">
+                <div class="form-inline text-right">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
+                        @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </footer>
+
+
+</div>
+
+<!-- end main container -->
+@Html.Action("PopuFinder", "File")
+
+<div id="edit-container">
+</div>
+
+<form id="anti-form" method="post">
+    @Html.AntiForgeryToken()
+</form>
+
+
+@section footer {
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+
+    <script src="~/Plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
+    <script src="/Plugins/webuploader/webuploader.min.js"></script>
+    <script src="/Plugins/SigFinder/FileManager.js"></script>
+
+    <script>
+        function SetThumbnail() {
+            var fileUrl = $("#fileList .item.active").attr("data-file");
+            $('#Thumbnail').val(fileUrl);
+            $('#fileManagerModal').modal('hide');
+        }
+
+        //function SetImageUrl(fileUrl) {
+        //    $('#ImageUrl').val(fileUrl);
+        //}
+
+
+        function OnSuccessLink(data) {
+            Common.ShowBox(data.Status, data.Message, "操作")
+        }
+
+
+
+
+        function onBegin() {
+            $("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin")
+        }
+        function onComplete() {
+            $("#btnSave i").removeClass("fa-spinner fa-spin").addClass("fa-save")
+        }
+
+
+        @*function updateSuccess(data) {
+
+            switch (data.Status) {
+                case 2:
+                    toastr.error(data.Message, '@ViewBag.Title');
+                    break;
+                case 1:
+                    toastr.success(data.Message, '@ViewBag.Title');
+                    $('#ModalEdit').modal('hide');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                    break;
+                case 4:
+                    toastr.warning(data.Message, "@ViewBag.Title")
+                    break;
+            }
+
+        }*@
+
+        //======== upload product photos ================
+        //function SetThumbnail(fileUrl) {
+        //    $('#ImgURL').val(fileUrl);
+        //}
+
+        function uploadSuccess(data) {
+            Common.ShowBox(data.Status, data.Message, "操作");
+            var url = "/bbi-Admin/Product/GetPhotos?productId=" + data.Data;
+            $("#photos-container").load(url);
+        }
+
+
+        function onAjaxPhotosComplete() {
+            $('#ModalPhotoEdit').modal();
+
+            $("#btnThumbnail").on("click", function () {
+                $('#fileManagerModal').modal();
+                $("#selectImage").unbind('click');
+                $("#selectImage").bind("click", function () {
+                    SetThumbnail();
+                });
+            });
+
+
+            //delete
+            $(document).on("click", '.deletePhoto-item', function (e) {
+                e.preventDefault();
+                var url = $(this).attr('data-url');
+
+                bootbox.setLocale("zh_CN");
+
+                bootbox.confirm("是否确定删除该项？", function (result) {
+                    if (result) {
+                        $.post(url, $("#anti-form").serialize(), function (data) {
+
+                            Common.ShowBox(data.Status, data.Message, "操作")
+
+                            var url = "/bbi-Admin/Product/GetPhotos?productId=" + data.Data;
+                            $("#photos-container").load(url);
+                        });
+                    }
+                });
+            });
+        }
+        //======== end upload product photos ================
+
+        $(function () {
+            //lightbox events
+            $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+
+            $(document).on("change", '#PageSize', function (e) {
+                e.preventDefault();
+
+                var url = "@Url.Action("PageSizeSet")", title = "分页设置", pageSize = $(this).val();
+                Common.PageSizeSet(url, title, pageSize, setPageSizeFunc);
+
+            });
+
+            function setPageSizeFunc() {
+                location.reload();
+            }
+
+
+            $(document).on("click", '.active-item','.recommend-item', function (e) {
+            //$('.recommend-item,.active-item').click(function (e) {
+                e.preventDefault();
+                var url = $(this).attr('data-url'), title = $(this).attr('data-action'), that = $(this);
+                Common.SingleActionWithFuncBack(url, title, that, submitFunc);
+
+              //  Common.SingleAction(url, title, true);
+            });
+
+
+            function submitFunc(that, data) {
+                var tr = that.closest('.item-container').replaceWith(data);
+            }
+
+             //delete
+            $(document).on("click", '.delete-item', function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('data-url');
+                var that = $(this);
+                bootbox.setLocale("zh_CN");
+                bootbox.confirm("你确定要删除此项吗？", function (result) {
+                    /*DELETE*/
+                    if (result) {
+                        var title = "@ViewBag.Title";
+                        Common.DeleteItem(url, title, that);
+                    }
+
+                });
+
+            });
+
+            // create index
+            $(document).on("click", '.createIndex', function (e) {
+                e.preventDefault();
+                var url = $(this).attr('data-url');
+                var that = $(this);
+                bootbox.setLocale("zh_CN");
+                bootbox.confirm("你确定要创建索引目录吗？", function (result) {
+                    if (result) {
+                        var title = "创建索引目录";
+                        $.post(url, function (data) {
+                            Common.ShowBox(data.Status, data.Message, title);
+                        })
+                    }
+                });
+
+            });
+
+        });
+    </script>
+
+}

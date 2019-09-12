@@ -167,7 +167,7 @@ namespace TZGCMS.Service.Products
             editProduct.Recommend = im.Recommend;
             editProduct.Active = im.Active;
             editProduct.Body = im.Body;
-            editProduct.Description = im.Description;
+            editProduct.Description = im.Summary;
             editProduct.ImageUrl = im.ImageUrl;
            
             editProduct.Importance = im.Importance;
@@ -201,7 +201,7 @@ namespace TZGCMS.Service.Products
                 Recommend = im.Recommend,
                 Active = im.Active,
                 Body = im.Body,
-                Description = im.Description,
+                Description = im.Summary,
                 ImageUrl = im.ImageUrl,
                 Importance = im.Importance
             };

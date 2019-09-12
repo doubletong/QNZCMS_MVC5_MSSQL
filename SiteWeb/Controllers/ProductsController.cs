@@ -1,84 +1,99 @@
-﻿using PagedList;
-using System;
-using System.Collections.Generic;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using PagedList;
+using System.Data.Entity;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using TZGCMS.Data.Entity.Products;
 using TZGCMS.Data.Enums;
-using TZGCMS.Infrastructure.Configs;
-using TZGCMS.Infrastructure.Logging;
-using TZGCMS.Model.Front.ViewModel.Products;
-using TZGCMS.Service.PageMetas;
-using TZGCMS.Service.Products;
-using TZGCMS.SiteWeb.Filters;
+using TZGCMS.Model;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
-    //[RoutePrefix("products")]
     public class ProductsController : BaseController
     {
-        private readonly IProductCategoryServices _categoryService;
-        private readonly IProductServices _productService;
-        private readonly ILoggingService _logger;
-        private readonly IPageMetaServices _pageMetaService;
-        public ProductsController(IProductServices productService,IProductCategoryServices categoryService,IPageMetaServices pageMetaService, ILoggingService logger)
+        private readonly IMapper _mapper;
+        public ProductsController(IMapper mapper)
         {
-            _categoryService = categoryService;
-            _productService = productService;
-            _pageMetaService = pageMetaService;
-            _logger = logger;
+
+            _mapper = mapper;
         }
-        // GET: Product
-        [SIGActionFilter]
-        [Route("products")]
-        [Route("products/page-{page}", Name = "pageProducts")]
-        [Route("products/category-{seoName}", Name = "caegoryProducts")]
-        [Route("products/category-{seoName}/page-{page}", Name = "caegoryPageProducts")]
-       
-        public ActionResult Index(int? page, string seoName)
+
+        public async System.Threading.Tasks.Task<ActionResult> Index()
         {
-            var vm = new ProductListFVM
-            {
-                Categories = _categoryService.GetActiveItems(),
-                SeoName = seoName,
-                PageIndex = page ?? 1,
-                PageSize = SettingsManager.Product.PageSize
-             };
-        
-            int totalCount;
-            var list = _productService.GetActivePagedElements(vm.PageIndex -1 , vm.PageSize, string.Empty, vm.SeoName, out totalCount);
-         
-            vm.TotalCount = totalCount;
-            vm.Products = new StaticPagedList<Product>(list, vm.PageIndex, vm.PageSize, vm.TotalCount);
-           
+                    
+
+            var list = await _db.SimpleProducts.Where(d => d.Active)
+                .OrderByDescending(d => d.Importance).ThenByDescending(d => d.Id)            
+                .ProjectTo<SimpleProductVM>(_mapper.ConfigurationProvider).ToListAsync();
+
+       
 
             var url = Request.RawUrl;
-            ViewBag.PageMeta = _pageMetaService.GetPageMeta(ModelType.MENU, url);
-            return View(vm);
-        }
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == ModelType.MENU && d.ObjectId == url);
 
-        public PartialViewResult HomeCategories(int count)
-        {
-            var cates = _categoryService.GetActiveItems().Take(count);
-            return PartialView(cates);
-        }
+            return View(list);
 
-        public PartialViewResult HomeProducts(int count)
-        {
-            var cates = _productService.GetRecommendElements(count);
-            return PartialView(cates);
-        }
 
-        public ActionResult Detail(int id)
+        }
+        // GET: Products
+        //public async System.Threading.Tasks.Task<ActionResult> Index(int? page)
+        //{
+
+        //    var vm = new SimpleProductListVM
+        //    {
+        //        PageIndex = page ?? 1,
+        //        PageSize = 6
+        //    };
+
+        //    var query = _db.SimpleProducts.Where(d => d.Active).AsQueryable();
+
+
+        //    var list = await query.OrderByDescending(d => d.Importance).ThenByDescending(d => d.Id)
+        //        .Skip((vm.PageIndex - 1) * vm.PageSize).Take(vm.PageSize)
+        //        .ProjectTo<SimpleProductVM>(_mapper.ConfigurationProvider).ToListAsync();
+
+        //    vm.TotalCount = await query.CountAsync();
+        //    vm.Products = new StaticPagedList<SimpleProductVM>(list, vm.PageIndex, vm.PageSize, vm.TotalCount);
+
+
+        //    var url = Request.RawUrl;
+        //    ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == ModelType.MENU && d.ObjectId == url);
+
+        //    return View(vm);
+
+
+        //}
+
+        public async Task<ActionResult> Detail(int id)
         {
-            var product = _productService.GetById(id);
+            var product = await _db.SimpleProducts.FindAsync(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
             product.ViewCount++;
-            _productService.Update(product);
+            _db.Entry(product).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
 
-            ViewBag.PageMeta = _pageMetaService.GetPageMeta(ModelType.PRODUCT, id.ToString());
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == ModelType.SIMPLEPRODUCT && d.ObjectId == id.ToString());       
 
             return View(product);
+        }
+
+        [Route("products/train/{seoName}")]
+        public async Task<ActionResult> Train(string seoName)
+        {
+
+            var page = await _db.Pages.FirstOrDefaultAsync(d => d.Active && d.SeoName == seoName);
+            if (page == null)
+                return HttpNotFound();
+
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == ModelType.PAGE && d.ObjectId == page.Id.ToString());
+
+            return View(page);
+            
         }
     }
 }

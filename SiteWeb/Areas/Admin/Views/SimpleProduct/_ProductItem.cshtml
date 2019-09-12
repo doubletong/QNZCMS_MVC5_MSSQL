@@ -1,0 +1,68 @@
+﻿@model  SimpleProductVM
+<tr class="item-container">
+   
+    <td>
+        @if (!string.IsNullOrEmpty(Model.Thumbnail))
+    {
+        <a href="@Model.Thumbnail" data-toggle="lightbox" title="@Model.ProductName">
+            <img class="img-thumbnail" src="@string.Format("{0}?height=40", Model.Thumbnail)" alt="@Model.ProductName" />
+        </a>
+        }
+
+
+    </td>
+    <td>
+        @Model.ProductNo
+    </td>
+    <td>
+        @Model.ProductName
+    </td>
+
+
+    <td>
+        @Model.Importance
+    </td>
+    <td>
+        @Model.ViewCount
+    </td>
+    <td>
+        @if (Model.Active)
+        {
+            <a href="#" data-url="@Url.Action("Active", new {id = Model.Id})" class="active-item" title="激活" data-action="锁定">
+                <i class="fa fa-check text-success"></i>
+            </a>
+        }
+        else
+        {
+            <a href="#" data-url="@Url.Action("Active", new {id = Model.Id})" class="active-item" title="锁定" data-action="激活">
+                <i class="fa fa-remove text-danger"></i>
+            </a>
+        }
+    </td>
+    <td>
+        @if (Model.Recommend)
+        {
+            <a href="#" data-url="@Url.Action("Recommend", new {id = Model.Id})" class="active-item" title="首页推荐" data-action="撤消推荐">
+                <i class="fa fa-check text-success"></i>
+            </a>
+
+        }
+        else
+        {
+            <a href="#" data-url="@Url.Action("Recommend", new {id = Model.Id})" class="active-item" title="撤消推荐" data-action="首页推荐">
+                <i class="fa fa-remove text-danger"></i>
+            </a>
+        }
+    </td>
+
+
+    <td>@Model.CreatedDate.ToShortDateString()</td>
+    <td>     
+        @*<a href="@Url.Action("UploadPhotos",new {productId = Model.Id})" class="btn btn-primary btn-sm" title="@Buttons.Edit"><i class='fa fa-picture-o fa-fw'></i></a>*@
+        <a href="@Url.Action("Edit",new {id = Model.Id})" class="btn btn-primary btn-sm" title="@Buttons.Edit"><i class='fa fa-edit fa-fw'></i></a>
+        <a href="#" data-url="@Url.Action("Delete", new {id = Model.Id})" class="btn btn-danger btn-sm delete-item" title="@Buttons.Delete">
+            <i class="fa fa-trash-o fa-fw"></i>
+        </a>
+    </td>
+
+</tr>

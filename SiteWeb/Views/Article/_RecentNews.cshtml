@@ -1,0 +1,18 @@
+﻿
+@model IEnumerable<ArticleVM>
+
+    
+        @foreach (var item in Model)
+        {
+            <a href="@Url.Action("detail",new { id = item.Id})" class="item">
+                <h3 class="title">
+                    @item.Title
+                </h3>
+                <p>
+                    @item.Summary <span>查看详情</span>
+                </p>
+                <time>@string.Format("{0:d}", item.Pubdate)</time>
+            </a>
+        }
+
+    

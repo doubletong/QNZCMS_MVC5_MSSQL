@@ -1,9 +1,8 @@
-﻿@model Product
-
+﻿@model SimpleProduct
 @{
-
     PageMeta pm = (PageMeta)ViewBag.PageMeta;
-    ViewBag.Title = pm != null ? pm.Title : Model.ProductName + Model.ProductNo;
+    ViewBag.Title = pm != null ? pm.Title : Model.ProductName;
+
 }
 
 @section header{
@@ -12,110 +11,78 @@
         <meta name="description" content="@pm.Description" />
         <meta name="keywords" content="@pm.Keyword" />
     }
-
-    <link href="~/Plugins/OwlCarousel/dist/assets/owl.carousel.min.css" rel="stylesheet" />
-    <link href="~/Plugins/OwlCarousel/dist/assets/owl.theme.default.min.css" rel="stylesheet" />
-    <link href="~/Plugins/OwlCarousel/dist/assets/owl.theme.green.min.css" rel="stylesheet" />
-    <link href="~/Plugins/share/css/share.min.css" rel="stylesheet" />
 }
 
-<div class="container">
-    <ol class="breadcrumb">
-        <li><a href="/">首页</a></li>
-        <li><a href="@Url.Action("Index")">产品展示</a></li>
-        <li class="active">@Model.ProductName</li>
-    </ol>
-</div>
 
+@Html.Action("SingleAd", "AD", new { code = "A1007" })
 
-
-<!-- PAGE TITLE ================================================== -->
-<div class="container pt40">
-    <header class="title">
-        <h2 class="animated fadeInLeftBig text-center">@Model.ProductName</h2>
-        @*<p class="animated fadeInRightBig">
-                @Model.Product.Summary
-            </p>*@
-    </header>
-</div>
-
-
-
-<section class="container page-products m-b-50">
-    <div class="row ">
-        <div class="col-md-10 col-md-offset-1">
-            <!-- PROJECT SLIDER   ================================================== -->
-            @if (!string.IsNullOrEmpty(Model.ImageUrl))
-            {
-
-                <div class="owl-carousel">
-                    @foreach (var photo in Model.ImageUrl.Split('|'))
-                    {
-                        <div class="item"><img src="@photo" /></div>
-                    }
-                </div>
-
-            }
-            <hr />
-            <div class="product-title">
-
-                <h3>产品描述 <small>Product description</small></h3>
+<div class="page page-product-detail">
+    <div class="container">
+        <div class="title title-section">
+            产品中心
+        </div>
+        <div class="showfull">
+            <h3 class="title-pro">@Model.ProductName</h3>
+            <div class="pic">
+                <img src="@Model.ImageUrl" alt="@Model.ProductName" />
             </div>
-            <div class="well note">
-                <ul class="row">
-                    <li class="col-xs-6 col-sm-3"><label>型号：</label>@Model.ProductNo</li>
-                    <li class="col-xs-6 col-sm-3"><label>品名：</label>@Model.ProductName</li>
-                    <li class="col-xs-6 col-sm-3"><label>类别：</label>@Model.CategoryTitle</li>
-                    <li class="col-xs-6 col-sm-3"><label>查看：</label>@Model.ViewCount</li>
-                </ul>
-            </div>
-            <div class="body-product">
-                @Html.Raw(Model.Body)
-            </div>
-            <div class="social-share text-center"></div>
+        </div>
+    </div>
 
+    <div class="contact_bar">
+        <div class="txt">
+            <div class="row align-items-center justify-content-md-center">
+                <div class="col-auto"> 想了解FRAMEMAC产品设备价格吗？</div>
+                <div class="col-auto"><a href="/contact">联系我们</a></div>
+            </div>
 
         </div>
     </div>
-</section>
+    <section class="s3">
+        <div class="tab-header">
+            <div class="container">
+                <nav id="subnav">
+                    <a href="#" data-id="content01" class="active">产品概述</a>
+                    <a href="#" data-id="content02">产品参数</a>
+                    <a href="#" data-id="content03">产品细节</a>
+                    <a href="#" data-id="content04">产品控制</a>
+                    <a href="#" data-id="content05">产品视频</a>
+                </nav>
+            </div>
+        </div>
 
+        <div class="container" id="tab-content">
+            <div id="content01" class="content active">
+                @Html.Raw(Model.Body)
+            </div>
+            <div id="content02" class="content">
+                @Html.Raw(Model.Parameters)
+            </div>
+            <div id="content03" class="content">
+                @Html.Raw(Model.Specific)
+            </div>
+            <div id="content04" class="content">
+                @Html.Raw(Model.Controls)
+            </div>
+            <div id="content05" class="content">
+                @Html.Raw(Model.Videos)
+            </div>
+        </div>
+    </section>
+</div>
 
-@section footer {
-
-    <script src="~/Plugins/OwlCarousel/dist/owl.carousel.min.js"></script>
-    <script src="~/Plugins/share/js/jquery.share.min.js"></script>
+@section footer{
     <script>
-        $(function () {
-            $(".mainav>li:nth-of-type(2)").addClass("active");
+        $(function (e) {
+            $("#subnav a").click(function (e) {
+                e.preventDefault();
+                $(this).addClass("active").siblings().removeClass("active");
 
-            var owl = $('.owl-carousel');
-            owl.owlCarousel({
-                items: 1,
-                loop: true,
-                margin: 0,
-                autoplay: true,
-                autoplayTimeout: 3000, nav: true,
-                navText: ["<i class='iconfont icon-arrowleft'></i>", "<i class='iconfont icon-arrowright'></i>"],
-                dots:true,
-                autoplayHoverPause: true
+                var c = $(this).attr("data-id");
+                $("#" + c).addClass("active").siblings().removeClass("active");
             });
-
-            //$('.owl-carousel').owlCarousel({
-            //    margin: 0,
-            //    loop: true,
-            //    autoplay: true,
-            //    autoHeight: true,
-            //    autoplayTimeout: 2000,
-            //    autoplayHoverPause: true,
-            //    nav: true,
-            //    navText: ["<i class='iconfont icon-arrowleft'></i>", "<i class='iconfont icon-arrowright'></i>"],
-            //    responsiveClass: true,
-            //    items: 1
-            //})
-
-
-        });
+        })
 
     </script>
-
-}
+    
+    }

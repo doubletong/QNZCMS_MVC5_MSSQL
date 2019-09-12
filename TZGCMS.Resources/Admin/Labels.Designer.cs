@@ -286,6 +286,15 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 产品控制 的本地化字符串。
+        /// </summary>
+        public static string Controls {
+            get {
+                return ResourceManager.GetString("Controls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 坐标 的本地化字符串。
         /// </summary>
         public static string Coordinate {
@@ -853,6 +862,15 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 产品参数 的本地化字符串。
+        /// </summary>
+        public static string Parameters {
+            get {
+                return ResourceManager.GetString("Parameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 父级分类 的本地化字符串。
         /// </summary>
         public static string ParentCategory {
@@ -1141,6 +1159,15 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 产品细节 的本地化字符串。
+        /// </summary>
+        public static string Specific {
+            get {
+                return ResourceManager.GetString("Specific", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 SSL 的本地化字符串。
         /// </summary>
         public static string SSL {
@@ -1299,6 +1326,15 @@ namespace TZGCMS.Resources.Admin {
         public static string Value {
             get {
                 return ResourceManager.GetString("Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 视频 的本地化字符串。
+        /// </summary>
+        public static string Video {
+            get {
+                return ResourceManager.GetString("Video", resourceCulture);
             }
         }
         

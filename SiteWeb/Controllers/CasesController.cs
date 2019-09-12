@@ -34,7 +34,7 @@ namespace TZGCMS.SiteWeb.Controllers
             var vm = new CaseListFrontVM
             {
                 PageIndex = page ?? 1,
-                PageSize = 2
+                PageSize = 6
             };
 
             var query = _db.Cases.Where(d => d.Active).AsQueryable();
@@ -85,6 +85,14 @@ namespace TZGCMS.SiteWeb.Controllers
             return View(model);
 
 
+        }
+
+        [HttpGet]
+        public   ActionResult RecommendCases(int count)
+        {
+            var vm = _db.Cases.Where(d => d.Active).OrderByDescending(d => d.Pubdate).Take(count)
+                .ProjectTo<CaseVM>(_mapper.ConfigurationProvider).ToList();
+            return PartialView("_RecommendCases", vm);
         }
     }
 }

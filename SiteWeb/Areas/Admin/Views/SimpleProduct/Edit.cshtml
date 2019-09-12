@@ -1,0 +1,407 @@
+﻿@model SimpleProductIM
+
+@{
+    ViewBag.Title = "编辑产品";
+    ViewBag.PageTitle = ViewBag.Title + "_内容";
+
+}
+@section Header{
+
+    <link href="~/Plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/plugins/SigFinder/SigFinder.min.css" rel="stylesheet" />
+    <link href="~/plugins/webuploader/webuploader.css" rel="stylesheet" />
+}
+
+
+
+@using (Ajax.BeginForm("Edit", null, new AjaxOptions()
+{
+
+    HttpMethod = "POST",
+    OnBegin = "onBeginSave",
+    OnComplete = "onCompleteSave",
+    OnSuccess = "updateSuccess"
+
+}, new { @class = "form-horizontal", role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.Id)
+
+
+
+    <div class="panel panel-default sig-panel-tabs">
+        <header class="panel-heading">
+            <h3 class="panel-title">@ViewBag.Title</h3>
+        </header>
+
+        <section class="panel-body">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#product" aria-controls="product" role="tab" data-toggle="tab">@ViewBag.Title</a></li>
+                <li role="presentation"><a href="#seo" aria-controls="seo" role="tab" data-toggle="tab">SEO设置</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content" style="padding-top:30px;">
+                <div role="tabpanel" class="tab-pane active" id="product">
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProductNo, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.ProductNo, new { @class = "form-control", placeholder = Labels.ProductNo })
+                            @Html.ValidationMessageFor(model => model.ProductNo)
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProductName, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.ProductName, new { @class = "form-control", placeholder = Labels.ProductName })
+                            @Html.ValidationMessageFor(model => model.ProductName)
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Importance, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Importance, new { @class = "form-control", type = "number", placeholder = Labels.Importance })
+
+                            @Html.ValidationMessageFor(model => model.Importance)
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Thumbnail, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.Thumbnail, new { @class = "form-control", placeholder = Labels.Thumbnail })
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" id="btnThumbnail" type="button">浏览…</button>
+                                </span>
+                            </div><!-- /input-group -->
+                            <span class="help-block">图像大小：380x250 像素</span>
+                            @Html.ValidationMessageFor(model => model.Thumbnail)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ImageUrl, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.ImageUrl, new { @class = "form-control", placeholder = Labels.FullImage })
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" id="btnImageUrl" type="button">浏览…</button>
+                                </span>
+                            </div><!-- /input-group -->
+                            <span class="help-block">图像大小：820x420 像素</span>
+                            @Html.ValidationMessageFor(model => model.ImageUrl)
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Body, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.Body, new { @class = "form-control", placeholder = Labels.Content })
+                            @Html.ValidationMessageFor(model => model.Body)
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Parameters, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.Parameters, new { @class = "form-control", placeholder = Labels.Parameters })
+                            @Html.ValidationMessageFor(model => model.Parameters)
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Specific, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.Specific, new { @class = "form-control", placeholder = Labels.Specific })
+                            @Html.ValidationMessageFor(model => model.Specific)
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Controls, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.Controls, new { @class = "form-control", placeholder = Labels.Controls })
+                            @Html.ValidationMessageFor(model => model.Controls)
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Videos, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.Videos, new { @class = "form-control", placeholder = Labels.Video })
+                            @Html.ValidationMessageFor(model => model.Videos)
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Summary, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.Summary, new { @class = "form-control", placeholder = Labels.Summary })
+                            @Html.ValidationMessageFor(model => model.Summary)
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(model => model.Recommend)  @Html.DisplayNameFor(model => model.Recommend)  @Html.ValidationMessageFor(model => model.Recommend)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(model => model.Active)  @Html.DisplayNameFor(model => model.Active)  @Html.ValidationMessageFor(model => model.Active)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="seo">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = Labels.Title })
+
+                            @Html.ValidationMessageFor(model => model.Title)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Keywords, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Keywords, new { @class = "form-control", placeholder = Labels.KeyWords })
+
+                            @Html.ValidationMessageFor(model => model.Keywords)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SEODescription, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.SEODescription, new { @class = "form-control", placeholder = Labels.Description })
+
+                            @Html.ValidationMessageFor(model => model.SEODescription)
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- /.tab-content -->
+        </section>
+        <footer class="panel-footer text-center">
+            <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save fa-fw"></i>  @Buttons.Update </button>
+            <a href="@Url.Action("Index")" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> @Buttons.Back</a>
+        </footer>
+
+    </div>
+
+}
+
+@Html.Action("PopuFinder", "File")
+
+@section Footer {
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+    <script src="/Plugins/webuploader/webuploader.min.js"></script>
+    <script src="/Plugins/SigFinder/FileManager.js"></script>
+    <script src="~/plugins/tinymce/tinymce.min.js"></script>
+
+
+    <script src="~/Plugins/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="~/Plugins/bootstrap-select/dist/js/i18n/defaults-zh_CN.min.js"></script>
+
+    <script>
+
+
+
+       function SetThumbnail() {
+            var fileUrl = $("#fileList .item.active").attr("data-file");
+            $('#Thumbnail').val(fileUrl);
+            $('#fileManagerModal').modal('hide');
+        }
+
+        function SetImageUrl() {
+            var fileUrl = $("#fileList .item.active").attr("data-file");
+            $('#ImageUrl').val(fileUrl);
+            $('#fileManagerModal').modal('hide');
+        }
+
+        function onBeginSave() {
+            $("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin");
+        }
+        function onCompleteSave() {
+            $("#btnSave i").removeClass("fa-spinner fa-spin").addClass("fa-save");
+        }
+
+        function updateSuccess(data) {
+            var title = '@ViewBag.Title';
+        Common.ShowBox(data.Status, data.Message, title);
+    }
+
+        function initMCEexact(e) {
+            tinymce.init({
+                mode: "exact",
+                elements: e,
+                height: 280,
+                language: 'zh_CN',
+                theme: 'modern',
+                convert_urls: false,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                    'searchreplace wordcount visualblocks visualchars code fullscreen',
+                    'insertdatetime media nonbreaking save table contextmenu directionality',
+                    'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+                ],
+                toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image print preview media | forecolor backcolor emoticons | codesample',
+                image_advtab: true,
+                templates: [
+                    { title: 'Test template 1', content: 'Test 1' },
+                    { title: 'Test template 2', content: 'Test 2' }
+                ],
+                //picture manager
+                file_browser_callback: callSigFinder,
+                templates: [
+                    { title: 'Some title 1', description: 'Some desc 1', content: 'My content' },
+                    { title: 'Some title 2', description: 'Some desc 2', url: 'development.html' }
+                ],
+                setup: function (editor) {
+                    editor.on('init', function (args) {
+                        editor = args.target;
+
+                        editor.on('NodeChange', function (e) {
+                            if (e && e.element.nodeName.toLowerCase() == 'img') {
+                                tinyMCE.DOM.setAttribs(e.element, { 'width': null, 'height': null });
+                            }
+                        });
+                    });
+                }
+
+            });
+        }
+
+        initMCEexact("Body");
+        initMCEexact("Parameters");
+        initMCEexact("Specific");
+        initMCEexact("Controls");
+        initMCEexact("Videos");
+
+
+        function callSigFinder(field_name, url, type, win) {
+            var roxyFileman = '@Url.Action("FinderForTinyMCE","File",new { area="Admin"})';
+            tinyMCE.activeEditor.windowManager.open({
+                file: roxyFileman,
+                title: 'SigFinder',
+                width: 850,
+                height: 655,
+                resizable: "yes",
+                plugins: "media",
+                inline: "yes",
+                close_previous: "no"
+            }, { window: win, input: field_name });
+            return false;
+
+        }
+
+
+
+
+    $(function () {
+        $("#btnThumbnail").on("click", function () {
+            $('#fileManagerModal').modal();
+            $("#selectImage").unbind('click');
+            $("#selectImage").bind("click", function () {
+                SetThumbnail();
+            });
+        });
+        $("#btnImageUrl").on("click", function () {
+            $('#fileManagerModal').modal();
+            $("#selectImage").unbind('click');
+            $("#selectImage").bind("click", function () {
+                SetImageUrl();
+            });
+        });
+
+
+             $(document).on("click", '.btnRemove', function (e) {
+                e.preventDefault();
+                var item = $(this).closest(".file-item");
+                var imgName = $(this).attr('data-img');
+                var url = "@Url.Action("RemoveImage")";
+
+                $.post(url, { img: imgName }, function (data) {
+
+                    if (data.Status === 1) {
+                        item.remove();
+
+
+                        var images = $("#ImageUrl").val();
+                        var ar = images.split("|");
+                        var i = ar.indexOf(imgName);
+                        if (i != -1) {
+                            ar.splice(i, 1);
+                        }
+                        $("#ImageUrl").val(ar.join("|"));
+
+                    }
+                    if (data.Status === 2) {
+                        toastr.error(data.Message)
+                    }
+                });
+
+            });
+
+
+        $('.selectpicker').selectpicker();
+
+             //var $form = $('form');
+             //var $validate = $form.validate();
+             //var errorClass = "has-error";
+             ////var successClass = "has-success";
+             //$validate.settings.errorClass = errorClass;
+             //var previousEPMethod = $validate.settings.errorPlacement;
+             //$validate.settings.errorPlacement = $.proxy(function (error, inputElement) {
+             //        if (previousEPMethod) {
+             //                previousEPMethod(error, inputElement);
+             //            }
+             //        inputElement.parent().addClass(errorClass)
+             //    }, $form[0]);
+
+             //var previousSuccessMethod = $validate.settings.success;
+             //$validate.settings.success = $.proxy(function (error) {
+             //        //we first need to remove the class, cause the unobtrusive success method removes the node altogether
+             //    error.parent().parent().removeClass(errorClass)
+             //        if (previousSuccessMethod) {
+             //                previousSuccessMethod(error);
+             //            }
+             //    });
+
+
+        });
+    </script>
+}

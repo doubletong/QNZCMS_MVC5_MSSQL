@@ -558,4 +558,16 @@
   <data name="Case" xml:space="preserve">
     <value>案例</value>
   </data>
+  <data name="Controls" xml:space="preserve">
+    <value>产品控制</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>产品参数</value>
+  </data>
+  <data name="Specific" xml:space="preserve">
+    <value>产品细节</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>视频</value>
+  </data>
 </root>

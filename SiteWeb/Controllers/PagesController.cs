@@ -11,26 +11,19 @@ namespace TZGCMS.SiteWeb.Controllers.Pages
 {
     public class PagesController : BaseController
     {
-        private TZGEntities db = new TZGEntities();
+       
         // GET: Pages     
         [SIGActionFilter]
         public ActionResult Index(string seoName)
         {
-            var page = db.Pages.FirstOrDefault(d => d.Active && d.SeoName == seoName);
+            var page = _db.Pages.FirstOrDefault(d => d.Active && d.SeoName == seoName);
             if (page == null)
                 return HttpNotFound();
 
-            ViewBag.PageMeta = db.PageMetas.FirstOrDefault(d=>d.ModelType == ModelType.PAGE && d.ObjectId == page.Id.ToString());
+            ViewBag.PageMeta = _db.PageMetas.FirstOrDefault(d=>d.ModelType == ModelType.PAGE && d.ObjectId == page.Id.ToString());
             return View(page);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+
     }
 }

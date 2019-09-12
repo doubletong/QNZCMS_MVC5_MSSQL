@@ -113,10 +113,10 @@ namespace TZGCMS.SiteWeb.Mappings
             CreateMap<DocumentIM, Document>();
             CreateMap<Document, DocumentIM>();
 
-            //CreateMap<GoodsCategoryVM, GoodsCategory>();
-            //CreateMap<GoodsCategory, GoodsCategoryVM>();
-            //CreateMap<GoodsCategoryIM, GoodsCategory>();
-            //CreateMap<GoodsCategory, GoodsCategoryIM>();
+            CreateMap<SimpleProductVM, SimpleProduct>();
+            CreateMap<SimpleProduct, SimpleProductVM>();
+            CreateMap<SimpleProductIM, SimpleProduct>();
+            CreateMap<SimpleProduct, SimpleProductIM>();
 
             //CreateMap<Goods, GoodsVM>().ForMember(d => d.CategoryTitle, opt => opt.MapFrom(source => source.GoodsCategory.Title));
             //CreateMap<Goods, GoodsIM>();

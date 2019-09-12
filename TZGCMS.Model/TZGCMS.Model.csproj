@@ -113,8 +113,6 @@
     <Compile Include="Admin\ViewModel\Articles\ArticleCategoryListVM.cs" />
     <Compile Include="Admin\ViewModel\Articles\ArticleCategoryVM.cs" />
     <Compile Include="Admin\ViewModel\Articles\CommentListVM.cs" />
-    <Compile Include="Admin\ViewModel\Articles\ArticleListVM.cs" />
-    <Compile Include="Admin\ViewModel\Articles\ArticleVM.cs" />
     <Compile Include="Admin\ViewModel\Articles\FilterTemplateListVM.cs" />
     <Compile Include="Admin\ViewModel\Articles\FilterTemplateVM.cs" />
     <Compile Include="Admin\ViewModel\Chronicles\ChronicleListVM.cs" />
@@ -152,6 +150,7 @@
     <Compile Include="Admin\ViewModel\Videos\VideoCategoryVM.cs" />
     <Compile Include="Admin\ViewModel\Videos\VideoListVM.cs" />
     <Compile Include="Admin\ViewModel\Videos\VideoVM.cs" />
+    <Compile Include="ArticleVM.cs" />
     <Compile Include="CaseVM.cs" />
     <Compile Include="Front\HomeVM.cs" />
     <Compile Include="Front\InputModel\Articles\CommentFIM.cs" />
@@ -173,8 +172,10 @@
     <Compile Include="Front\ViewModel\Videos\VideoCategoryFVM.cs" />
     <Compile Include="Front\ViewModel\Videos\VideoFVM.cs" />
     <Compile Include="Inputs\Articles\ArticleIM.cs" />
+    <Compile Include="Pages\PagesProductVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Admin\ViewModel\AjaxResultVM.cs" />
+    <Compile Include="SimpleProductVM.cs" />
     <Compile Include="Validation\ChinaMobileAttribute.cs" />
     <Compile Include="Validation\ChinaPhoneAttribute.cs" />
     <Compile Include="Validation\CNAndENAttribute.cs" />

@@ -30,6 +30,12 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         {
             return View();
         }
+
+        public ActionResult FinderForMultipleImages()
+        {
+            return View();
+        }
+
         [AllowAnonymous]
         public ActionResult FinderForCkeditor()
         {

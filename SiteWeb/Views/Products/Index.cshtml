@@ -1,4 +1,4 @@
-﻿@model ProductListFVM
+﻿@model IEnumerable<SimpleProductVM>
 @{
     PageMeta pm = (PageMeta)ViewBag.PageMeta;
     ViewBag.Title = pm != null ? pm.Title : "产品展示";
@@ -13,69 +13,82 @@
 
 @Html.Action("SingleAd", "AD", new { code = "A1007" })
 
-<!-- PAGE TITLE ================================================== -->
-<div class="container page-products">
+<div class="page page-products">
+    <section class="container s1">
+        <h2 class="title title-section">产品中心</h2>
+        <div class="productlist">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4">
+                        <a href="@Url.Action("Detail", new { id= item.Id})" class="item">
+                            <div class="pic"><img src="@item.Thumbnail" alt="@item.ProductName" /></div>
+                            <div class="text">
+                                <h3>@item.ProductName</h3>
+                                <p>@item.Summary</p>
+                                <div class="more">查看更多</div>
+                            </div>
+                        </a>
 
+                    </div>
+                }
 
-    @{
-        var allClass = string.IsNullOrEmpty(Model.SeoName) ? "active" : "";
-    }
-    <div id="filter" class="categories">
-        <div class="categorybox">
-            <a href="@Url.Action("index")" title="所有产品" class="@allClass" data-toggle="tooltip" data-placement="bottom">
-                全部
-            </a>
+            </div>
         </div>
-        @foreach (var category in Model.Categories)
-        {
-            var className = (Model.SeoName == category.SeoName) ? "active" : "";
-            <div class="categorybox">
-                <a href="@Url.RouteUrl("caegoryProducts",new {  seoName = category.SeoName})" class="@className" title="@category.Title" data-toggle="tooltip" data-placement="bottom">
-                    @category.Title
-                </a>
+    </section>
+    <div class="contact_bar">
+        <div class="txt">
+            <div class="row align-items-center justify-content-md-center">
+                <div class="col-auto">想了解FRAMEMAC产品设备？</div>
+                <div class="col-auto"><a href="/contact">联系我们</a></div>
             </div>
 
-        }
-
+        </div>
     </div>
+
+    <section class="container s2">
+        <h2 class="title title-section">培训中心</h2>
+
+        <div class="pxlist">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="item">
+                        <h3>
+                            课程介绍
+                        </h3>
+
+                        <a href="/products/train/intro" class="more">查看更多 <img src="~/Content/img/arrow-right.png" alt="arrow right" /></a>
+                        <p>
+                            储能式结构，节能环保。液压部件为德国博世力士乐产品。
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="item">
+                        <h3>
+                            课程展示
+                        </h3>
+
+                        <a href="/products/train/course" class="more">查看更多 <img src="~/Content/img/arrow-right.png" alt="arrow right" /></a>
+                        <p>
+                            储能式结构，节能环保。液压部件为德国博世力士乐产品。
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="item">
+                        <h3>
+                            课程安排
+                        </h3>
+
+                        <a href="/products/train/arrangement" class="more">查看更多 <img src="~/Content/img/arrow-right.png" alt="arrow right" /></a>
+                        <p>
+                            储能式结构，节能环保。液压部件为德国博世力士乐产品。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </div>
-
-<hr />
-
-<!-- products   ================================================== -->
-<section class="container page-products m-b-50">
-    <div id="productlist" class="row">
-        @foreach (var product in Model.Products)
-        {
-            Html.RenderPartial("PartialProductBox", product);
-        }
-    </div>
-    @if (Model.Products.Any())
-    {
-        if (string.IsNullOrEmpty(Model.SeoName))
-        {
-            @Html.PagedListPager((IPagedList)Model.Products, page => Url.RouteUrl("pageProducts", new { page = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
-        }
-        else
-        {
-            @Html.PagedListPager((IPagedList)Model.Products, page => Url.RouteUrl("caegoryPageProducts", new { page = page, seoName = Model.SeoName }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
-        }
-
-    }
-    else
-    {
-        <div class="alert alert-info">
-            <span class="iconfont icon-info"></span> 未找到任何产品
-        </div>
-    }
-
-</section>
-@section footer{
-    <script>
-        $(function () {
-            $("#mainav li").eq(2).addClass("active");
-        })
-    </script>
-
-}

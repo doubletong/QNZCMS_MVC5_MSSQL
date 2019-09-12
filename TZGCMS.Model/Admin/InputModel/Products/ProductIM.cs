@@ -15,18 +15,19 @@ namespace TZGCMS.Model.Admin.InputModel.Products
 
         [Display(ResourceType = typeof(Labels), Name = "ProductNo")]
         [Required(ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "Required")]
+      
         public string ProductNo { get; set; }
         [Display(ResourceType = typeof(Labels), Name = "ProductName")]
         [Required(ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "Required")]
         public string ProductName { get; set; }
 
 
-        [Display(ResourceType = typeof(Labels), Name = "Content")]
+        [Display(ResourceType = typeof(Labels), Name = "Description")]
         [AllowHtml]
         public string Body { get; set; }
-
-        [Display(ResourceType = typeof(Labels), Name = "Description")]
-        public string Description { get; set; }
+     
+        [Display(ResourceType = typeof(Labels), Name = "Summary")]
+        public string Summary { get; set; }
         [Display(ResourceType = typeof(Labels), Name = "Importance")]
         public int Importance { get; set; }
 

@@ -1,0 +1,21 @@
+﻿
+@model IEnumerable<CaseVM>
+
+
+    <div class="caselist">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <a href="@Url.Action("Detail",new { id=item.Id})" class="item">
+                        <div class="pic"><img src="@item.Thumbnail" alt="@item.Title" /></div>
+                        <div class="txt">
+                            <h3>@item.Title</h3>
+                            <p>@item.Summary <span>查看详情</span></p>
+                        </div>
+                    </a>
+                </div>
+            }
+
+        </div>
+    </div>

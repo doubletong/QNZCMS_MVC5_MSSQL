@@ -156,33 +156,24 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                     _db.Entry(editCase).State = EntityState.Modified;
                     await _db.SaveChangesAsync();
 
-                    var pageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == ModelType.CASE && d.ObjectId == editCase.Id.ToString());
+                    var pageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == ModelType.CASE && d.ObjectId == editCase.Id.ToString());         
 
-                    if (pageMeta != null)
+                    pageMeta = pageMeta ?? new PageMeta();
+                    pageMeta.ObjectId = vm.Id.ToString();
+                    pageMeta.Title = string.IsNullOrEmpty(vm.Title) ? vm.Title : vm.Title;
+                    pageMeta.Keyword = string.IsNullOrEmpty(vm.Keywords) ? vm.Title : vm.Keywords.Replace('，', ',');
+                    pageMeta.Description = vm.SEODescription;
+                    pageMeta.ModelType = ModelType.CASE;
+
+                    if (pageMeta.Id > 0)
                     {
-                        pageMeta.Title = vm.SEOTitle;
-                        pageMeta.Keyword = vm.Keywords;
-                        pageMeta.Description = vm.SEODescription;
-
                         _db.Entry(pageMeta).State = EntityState.Modified;
-                        await _db.SaveChangesAsync();
                     }
                     else
                     {
-                        if (!string.IsNullOrEmpty(vm.Keywords) || !string.IsNullOrEmpty(vm.SEODescription))
-                        {
-                            var pm = new PageMeta
-                            {
-                                Title = vm.SEOTitle,
-                                Description = vm.SEODescription,
-                                Keyword = vm.Keywords,
-                                ModelType = ModelType.CASE,
-                                ObjectId = editCase.Id.ToString()
-                            };
-                            _db.PageMetas.Add(pm);
-                            await _db.SaveChangesAsync();
-                        }
+                        _db.PageMetas.Add(pageMeta);
                     }
+                    await _db.SaveChangesAsync();            
 
 
 

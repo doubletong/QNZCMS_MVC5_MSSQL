@@ -1,0 +1,79 @@
+﻿@model ProductListFVM
+@{
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : "产品展示";
+}
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+}
+
+@Html.Action("SingleAd", "AD", new { code = "A1007" })
+
+<!-- PAGE TITLE ================================================== -->
+<div class="container page-products">
+
+
+    @{
+        var allClass = string.IsNullOrEmpty(Model.SeoName) ? "active" : "";
+    }
+    <div id="filter" class="categories">
+        <div class="categorybox">
+            <a href="@Url.Action("index")" title="所有产品" class="@allClass" data-toggle="tooltip" data-placement="bottom">
+                全部
+            </a>
+        </div>
+        @foreach (var category in Model.Categories)
+        {
+            var className = (Model.SeoName == category.SeoName) ? "active" : "";
+            <div class="categorybox">
+                <a href="@Url.RouteUrl("caegoryProducts",new {  seoName = category.SeoName})" class="@className" title="@category.Title" data-toggle="tooltip" data-placement="bottom">
+                    @category.Title
+                </a>
+            </div>
+
+        }
+
+    </div>
+</div>
+
+<hr />
+<!-- products   ================================================== -->
+<section class="container page-products m-b-50">
+    <div id="productlist" class="row">
+        @foreach (var product in Model.Products)
+        {
+            Html.RenderPartial("PartialProductBox", product);
+        }
+    </div>
+    @if (Model.Products.Any())
+    {
+        if (string.IsNullOrEmpty(Model.SeoName))
+        {
+            @Html.PagedListPager((IPagedList)Model.Products, page => Url.RouteUrl("pageProducts", new { page = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+        }
+        else
+        {
+            @Html.PagedListPager((IPagedList)Model.Products, page => Url.RouteUrl("caegoryPageProducts", new { page = page, seoName = Model.SeoName }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+        }
+
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <span class="iconfont icon-info"></span> 未找到任何产品
+        </div>
+    }
+
+</section>
+@section footer{
+    <script>
+        $(function () {
+            $("#mainav li").eq(2).addClass("active");
+        })
+    </script>
+
+}

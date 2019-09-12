@@ -1,0 +1,26 @@
+﻿@model TZGCMS.Data.Entity.Pages.Page
+@{
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : Model.Title;
+}
+
+@section header{
+    @if (pm != null)
+        {
+            <meta name="description" content="@pm.Description" />
+            <meta name="keywords" content="@pm.Keyword" />
+        }
+
+    @Html.Raw(Model.HeadCode)
+}
+
+@Html.Action("SingleAd", "AD", new { code = "A1008" })
+
+@Html.Raw(Model.Body)
+
+    
+
+@section footer{
+    @Html.Raw(Model.FooterCode)
+}
