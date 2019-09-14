@@ -1,0 +1,83 @@
+﻿@model SearchDataIM
+
+@using (Ajax.BeginForm("AddToIndex", "Lucene",
+                new AjaxOptions()
+                {
+                    HttpMethod = "POST",
+                    OnBegin = "onBegin",
+                    OnComplete = "onComplete",
+                    OnSuccess = "updateSuccess",
+                    //OnFailure = "handleError",
+                    //  UpdateTargetId = "RoleList"
+
+                }, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+
+    <!-- 添加菜单 Modal -->
+    <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">添加索引</h4>
+                </div>
+                <div class="modal-body">
+
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = Labels.Title })
+                                    @Html.ValidationMessageFor(model => model.Name)
+                                </div>
+                            </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Url, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Url, new { @class = "form-control", placeholder = Labels.Url })
+                            @Html.ValidationMessageFor(model => model.Url)
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = Labels.Description })
+                            @Html.ValidationMessageFor(model => model.Description)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ImageUrl, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.ImageUrl, new { @class = "form-control", placeholder = Labels.ImageURL })
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" id="btnImageUrl" type="button">浏览…</button>
+                                </span>
+                            </div><!-- /input-group -->                          
+
+                            @Html.ValidationMessageFor(model => model.ImageUrl)
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button class="btn btn-primary" type="submit" id="btnSave"><i class="fa fa-save fa-fw"></i>保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
+</script>

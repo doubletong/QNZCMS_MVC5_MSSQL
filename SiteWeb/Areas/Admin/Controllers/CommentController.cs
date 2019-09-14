@@ -14,8 +14,6 @@ using TZGCMS.Model.Admin.ViewModel;
 using TZGCMS.Data.Entity.PageMetas;
 using TZGCMS.Data.Enums;
 using TZGCMS.Resources.Admin;
-using TZGCMS.Service.LuceneSearch;
-using TZGCMS.Model.Admin.ViewModel.LuceneSearch;
 using TZGCMS.Service.Articles;
 using TZGCMS.Model.Admin.ViewModel.Articles;
 using TZGCMS.Data.Entity.Articles;

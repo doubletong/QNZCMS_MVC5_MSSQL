@@ -37,6 +37,51 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ICU4N, Version=60.0.0.0, Culture=neutral, PublicKeyToken=efb17c8e4f0e291b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICU4N.60.1.0-alpha.53\lib\net45\ICU4N.dll</HintPath>
+    </Reference>
+    <Reference Include="ICU4N.Collation, Version=60.0.0.0, Culture=neutral, PublicKeyToken=efb17c8e4f0e291b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICU4N.Collation.60.1.0-alpha.53\lib\net45\ICU4N.Collation.dll</HintPath>
+    </Reference>
+    <Reference Include="ICU4N.CurrencyData, Version=60.0.0.0, Culture=neutral, PublicKeyToken=efb17c8e4f0e291b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICU4N.CurrencyData.60.1.0-alpha.53\lib\net45\ICU4N.CurrencyData.dll</HintPath>
+    </Reference>
+    <Reference Include="ICU4N.LanguageData, Version=60.0.0.0, Culture=neutral, PublicKeyToken=efb17c8e4f0e291b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICU4N.LanguageData.60.1.0-alpha.53\lib\net45\ICU4N.LanguageData.dll</HintPath>
+    </Reference>
+    <Reference Include="ICU4N.RegionData, Version=60.0.0.0, Culture=neutral, PublicKeyToken=efb17c8e4f0e291b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICU4N.RegionData.60.1.0-alpha.53\lib\net45\ICU4N.RegionData.dll</HintPath>
+    </Reference>
+    <Reference Include="ICU4N.Transliterator, Version=60.0.0.0, Culture=neutral, PublicKeyToken=efb17c8e4f0e291b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICU4N.Transliterator.60.1.0-alpha.53\lib\net45\ICU4N.Transliterator.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=4.0.0.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.4.8.0-beta00006\lib\net45\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.Analysis.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Analysis.Common.4.8.0-beta00006\lib\net45\Lucene.Net.Analysis.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.Analysis.SmartCn, Version=4.0.0.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Analysis.SmartCn.4.8.0-beta00006\lib\net45\Lucene.Net.Analysis.SmartCn.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.Highlighter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Highlighter.4.8.0-beta00006\lib\net45\Lucene.Net.Highlighter.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.ICU, Version=4.0.0.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.ICU.4.8.0-beta00006\lib\net45\Lucene.Net.ICU.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.Memory, Version=4.0.0.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Memory.4.8.0-beta00006\lib\net45\Lucene.Net.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.Queries, Version=4.0.0.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Queries.4.8.0-beta00006\lib\net45\Lucene.Net.Queries.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.QueryParser, Version=4.0.0.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.QueryParser.4.8.0-beta00006\lib\net45\Lucene.Net.QueryParser.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.Sandbox, Version=4.0.0.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Sandbox.4.8.0-beta00006\lib\net45\Lucene.Net.Sandbox.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
@@ -132,8 +177,6 @@
     <Compile Include="Admin\ViewModel\Jobs\JobListVM.cs" />
     <Compile Include="Admin\ViewModel\Links\LinkListVM.cs" />
     <Compile Include="Admin\ViewModel\Links\LinkCategoryListVM.cs" />
-    <Compile Include="Admin\ViewModel\LuceneSearch\SearchData.cs" />
-    <Compile Include="Admin\ViewModel\LuceneSearch\SelectedList.cs" />
     <Compile Include="Admin\ViewModel\Menus\MoveMenuVM.cs" />
     <Compile Include="Admin\ViewModel\Outlets\OutletListVM.cs" />
     <Compile Include="Admin\ViewModel\Pages\PageListVM.cs" />
@@ -172,6 +215,8 @@
     <Compile Include="Front\ViewModel\Videos\VideoCategoryFVM.cs" />
     <Compile Include="Front\ViewModel\Videos\VideoFVM.cs" />
     <Compile Include="Inputs\Articles\ArticleIM.cs" />
+    <Compile Include="Search\LuceneHelper.cs" />
+    <Compile Include="Search\LuceneVM.cs" />
     <Compile Include="Pages\PagesProductVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Admin\ViewModel\AjaxResultVM.cs" />

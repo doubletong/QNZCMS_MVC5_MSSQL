@@ -9,10 +9,9 @@ using TZGCMS.Data.Enums;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.Helper;
 using TZGCMS.Model.Admin.ViewModel;
-using TZGCMS.Model.Admin.ViewModel.LuceneSearch;
+
 using TZGCMS.Model.Admin.ViewModel.Outlets;
 using TZGCMS.Resources.Admin;
-using TZGCMS.Service.LuceneSearch;
 using TZGCMS.Service.PageMetas;
 using TZGCMS.Service.Outlets;
 using TZGCMS.Data.Entity;

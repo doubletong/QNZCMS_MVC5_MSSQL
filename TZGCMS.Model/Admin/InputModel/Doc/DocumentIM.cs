@@ -25,9 +25,7 @@ namespace TZGCMS.Model.Admin.InputModel.Doc
         [Display(ResourceType = typeof(Labels), Name = "FilePath")]
         public string FilePath { get; set; }
         [Display(ResourceType = typeof(Labels), Name = "Importance")]
-        public int Importance { get; set; }
-
-       
+        public int Importance { get; set; }       
 
         [Display(ResourceType = typeof(Labels), Name = "Category")]
         public int CategoryId { get; set; }
@@ -37,8 +35,8 @@ namespace TZGCMS.Model.Admin.InputModel.Doc
         [Display(ResourceType = typeof(Labels), Name = "Product")]
         public string ProductIds { get; set; }
 
-        [Display(ResourceType = typeof(Labels), Name = "DownloadPassword")]
-        public string Password { get; set; }     
+        [Display(ResourceType = typeof(Labels), Name = "Thumbnail")]
+        public string Thumbnail { get; set; }     
 
         [Display(ResourceType = typeof(Labels), Name = "Active")]
         public bool Active { get; set; }

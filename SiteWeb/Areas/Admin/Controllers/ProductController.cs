@@ -14,12 +14,13 @@ using TZGCMS.Data.Entity.Products;
 using TZGCMS.Data.Enums;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.Helper;
+using TZGCMS.Model;
 using TZGCMS.Model.Admin.InputModel.Products;
 using TZGCMS.Model.Admin.ViewModel;
-using TZGCMS.Model.Admin.ViewModel.LuceneSearch;
+
 using TZGCMS.Model.Admin.ViewModel.Products;
+using TZGCMS.Model.Search;
 using TZGCMS.Resources.Admin;
-using TZGCMS.Service.LuceneSearch;
 using TZGCMS.Service.PageMetas;
 using TZGCMS.Service.Products;
 using TZGCMS.SiteWeb.Filters;
@@ -382,7 +383,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                     Url = $"{SettingsManager.Site.SiteDomainName}/product/detail/{m.Id}"
                 }).ToList();
 
-                GoLucene.AddUpdateLuceneIndex(list);
+                LuceneHelper.AddUpdateLuceneIndex(list);
 
                 AR.SetSuccess(String.Format(Messages.AlertActionSuccess, EntityNames.Product));
                 return Json(AR, JsonRequestBehavior.DenyGet);

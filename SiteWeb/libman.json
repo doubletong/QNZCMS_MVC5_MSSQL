@@ -13,6 +13,19 @@
     {
       "library": "Swiper@4.5.0",
       "destination": "Plugins/swiper"
+    },
+
+    {
+      "library": "lightbox2@2.11.1",
+      "destination": "Plugins/lightbox2"
+    },
+    {
+      "library": "jquery-datetimepicker@2.5.20",
+      "destination": "Plugins/datetimepicker"
+    },
+    {
+      "library": "jqueryui@1.12.1",
+      "destination": "Plugins/jqueryui"
     }
   ]
 }

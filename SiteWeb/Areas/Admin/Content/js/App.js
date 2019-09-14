@@ -184,6 +184,86 @@
 
 };
 
+var singleEelFinder = {
+    percent: 70,
+    baseUrl: "/tools/elfinder/default",
+    baseForTingMCEUrl: "/tools/elfinder/ForTinyMCE4",
+    selectActionFunction: null,
+    elFinderCallback: function (fileUrl) {
+        this.selectActionFunction(fileUrl);
+    },
+    open: function () {
+        var w = 800,
+            h = 600; // default sizes
+        if (window.screen) {
+            w = window.screen.width * this.percent / 100;
+            h = window.screen.height * this.percent / 100;
+        }
+        var x = screen.width / 2 - w / 2;
+        var y = screen.height / 2 - h / 2;
+
+        window.open(this.baseUrl, "_blank", 'height=' + h + ',width=' + w + ',left=' + x + ',top=' + y);
+    },
+    elFinderBrowser: function (callback, value, meta) {
+
+        tinyMCE.activeEditor.windowManager.openUrl({
+            url: "/tools/elfinder/ForTinyMCE4",
+            title: '文件管理器',
+            width: 1100,
+            height: 600
+
+        });
+
+        window.addEventListener('message', function (event) {
+            var data = event.data;
+            callback(data.content);
+
+        });
+
+        return false;
+    },
+    ImagesUploadHandler: function (blobInfo, success, failure) {
+        var xhr, formData;
+
+        xhr = new XMLHttpRequest();
+        xhr.withCredentials = false;
+        xhr.open('POST', '/Tools/TinyMCE/TinymceUpload');
+
+        xhr.onload = function () {
+            var json;
+
+            if (xhr.status !== 200) {
+                failure('HTTP Error: ' + xhr.status);
+                return;
+            }
+
+            json = JSON.parse(xhr.responseText);
+
+            if (!json || typeof json.location !== 'string') {
+                failure('Invalid JSON: ' + xhr.responseText);
+                return;
+            }
+
+            success(json.location);
+        };
+
+
+        var description = '';
+
+        jQuery(tinymce.activeEditor.dom.getRoot()).find('img').not('.loaded-before').each(
+            function () {
+                description = $(this).attr("alt");
+                $(this).addClass('loaded-before');
+            });
+
+        formData = new FormData();
+        formData.append('file', blobInfo.blob(), blobInfo.filename());
+        formData.append('description', description); //found now))
+
+        xhr.send(formData);
+        }
+};
+
 
 $(function () {
     var resetwidth = function () {       
@@ -194,11 +274,11 @@ $(function () {
       //  $("#sidebar-nav").height(height);
       //  $("#rightcol").height(height);
 
-        $('#rightcol,#sidebar-nav').css({ 'min-height': height + "px" })
+        $('#rightcol,#sidebar-nav').css({ 'min-height': height + "px" });
         if (winwidth <= 768) {
-            $('#rightcol').css({ 'width': winwidth + "px" })
+            $('#rightcol').css({ 'width': winwidth + "px" });
         } else {
-            $('#rightcol').css({ 'width': "auto" })
+            $('#rightcol').css({ 'width': "auto" });
         }
     }
 

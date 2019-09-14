@@ -95,10 +95,10 @@
                     </div><!-- /.navbar-collapse -->
                 </div>
             </nav>
-            @using (Html.BeginForm("LogOff", "Account",new { area = "" }, FormMethod.Post, new { id = "logoutForm" }))
+            @using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm" }))
             {
-        @Html.AntiForgeryToken()
-}
+                @Html.AntiForgeryToken()
+            }
 
             @Html.Action("Crumbs", "Nav", new { areaName = Html.Area(), controller = Html.Controller(), action = Html.Action() })
             <div class="main-content">
@@ -118,8 +118,8 @@
     <!--[if lte IE 8]>
         <script src="~/scripts/lib/jqueryForIE/jquery-1.11.3.min.js"></script>
     <![endif]-->
-    <!--[if gte IE 9]><!-->
-    <script src="~/scripts/lib/jquery/jquery-2.2.0.min.js"></script>
+    <!--[if gte IE 9]><!-->    
+    <script src="~/Scripts/lib/jquery/jquery-3.3.1.min.js"></script>
     <!--<![endif]-->
 
     <script src="~/Areas/Admin/Content/bootstrap/js/bootstrap.min.js"></script>

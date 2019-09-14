@@ -34,5 +34,11 @@
     "inputFiles": [
       "Plugins/tinymce/plugins/multipleimages/plugin.js"
     ]
+  },
+  {
+    "outputFileName": "Content/js/app.min.js",
+    "inputFiles": [
+      "Content/js/app.js"
+    ]
   }
 ]

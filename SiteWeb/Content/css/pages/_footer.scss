@@ -72,6 +72,10 @@
         }
     }
 
+    .pic {
+        width: 210px;
+    }
+
     .sejiao {
         margin-bottom: 2rem;
 
@@ -133,6 +137,37 @@
         font-size: rem(14);
         border-top: #959595 1px solid;
     }
+
+    .totop {
+        display: block;
+        width: 45px;
+        height: 45px;
+        line-height: 43px;
+        text-align: center;
+        transition: all .2s;
+        background-color: $color-primary;
+        color: #fff;
+
+        @include respond-above(md) {
+            width: 60px;
+            height: 60px;
+            line-height: 56px;
+        }
+
+        .iconfont {
+            font-size: 22px;
+
+            @include respond-above(md) {
+                font-size: 28px;
+            }
+        }
+
+
+        @include hover {
+            transform: scale(1.1);
+            text-decoration: none;
+        }
+    }
 }
 
 .qqservice {
@@ -142,37 +177,3 @@
     z-index: 2000;    
 }
 
-.totop {
-    display: block;
-    width: 45px;
-    height: 45px; 
-    line-height: 43px;
-    border: 1px solid #000;   
-    text-align: center;
-    transition: all .2s;
-    background-color: #fff;
-    color: #000;
-    @include respond-above(md) {
-        width: 60px;
-        height: 60px; 
-        line-height: 56px;
-        border: 2px solid #000;  
-     }
-    .iconfont{
-        font-size: 22px;
-        @include respond-above(md) {
-            font-size: 28px;
-         }
-    }
-   
-
-    @include hover {
-        border-color: $color-primary;  
-        color:  $color-primary;  
-    }
-
-    @include respond-above(sm) {
-        bottom: 2rem;
-        right: 2rem;
-    }
-}

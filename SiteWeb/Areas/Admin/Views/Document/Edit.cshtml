@@ -8,7 +8,7 @@
 @section Header{
     <link href="~/plugins/SigFinder/SigFinder.min.css" rel="stylesheet" />
     <link href="~/plugins/webuploader/webuploader.css" rel="stylesheet" />
-<link href="~/Areas/Admin/Content/bootstrap/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Content/bootstrap/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 }
 
 
@@ -61,44 +61,32 @@
 
                     </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Extension, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.Extension, (SelectList)ViewBag.Extensions, "--请选择文件格式--", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Extension)
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.FileSize, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(model => model.FileSize, new { @class = "form-control", placeholder = Labels.FileSize })
-                            @Html.ValidationMessageFor(model => model.FileSize)
-                        </div>
-                    </div>
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.FilePath, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(model => model.FilePath, new { @class = "form-control", placeholder = Labels.FilePath })
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.FilePath, new { @class = "form-control", placeholder = Labels.FilePath })
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" id="btnFilePath" type="button">浏览…</button>
+                                </span>
+                            </div>
+
                             @Html.ValidationMessageFor(model => model.FilePath)
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Password, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder = Labels.DownloadPassword })
-                            @Html.ValidationMessageFor(model => model.Password)
-                        </div>
-                    </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.ProductIds, new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(model => model.Thumbnail, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(model => model.ProductIds, new { @class = "form-control", placeholder = Labels.Product })
-                            <div class="help-block">多个产品型号请用英文逗号隔开</div>
-                            @Html.ValidationMessageFor(model => model.ProductIds)
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.Thumbnail, new { @class = "form-control", placeholder = Labels.Thumbnail })
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" id="btnThumbnail" type="button">浏览…</button>
+                                </span>
+                            </div>                       
+                            @Html.ValidationMessageFor(model => model.Thumbnail)
                         </div>
                     </div>
 
@@ -110,18 +98,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="col-md-5 col-md-offset-2">
-                            <div class="checkbox">
-                                <label>
-                                    @Html.CheckBoxFor(model => model.IsVIP)  @Html.DisplayNameFor(model => model.IsVIP)
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            @Html.ValidationMessageFor(model => model.IsVIP)
-                        </div>
-                    </div>
+                   
 
 
                     <div class="form-group">
@@ -187,8 +164,8 @@
     <script src="/Plugins/SigFinder/FileManager.js"></script>
     <script src="~/plugins/tinymce/tinymce.min.js"></script>
     <script src="~/plugins/tinymce/langs/zh_CN.js"></script>
-<script src="~/scripts/lib/moment/moment-with-locales.min.js"></script>
-<script src="~/Areas/Admin/Content/bootstrap/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/scripts/lib/moment/moment-with-locales.min.js"></script>
+    <script src="~/Areas/Admin/Content/bootstrap/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 
     <script>
         function SetThumbnail() {
@@ -196,12 +173,13 @@
             $('#Thumbnail').val(fileUrl);
             $('#fileManagerModal').modal('hide');
         }
-
-        function SetFullImage() {
+        function SetFilePath() {
             var fileUrl = $("#fileList .item.active").attr("data-file");
-            $('#FullImage').val(fileUrl);
+            $('#FilePath').val(fileUrl);
             $('#fileManagerModal').modal('hide');
         }
+
+
 
         function onBeginSave() {
             $("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin");
@@ -258,7 +236,15 @@
         }
 
         $(function () {
-            $("#btnThumbnail").on("click", function () {
+            $("#btnFilePath").on("click", function () {
+                $('#fileManagerModal').modal();
+                $("#selectImage").unbind('click');
+                $("#selectImage").bind("click", function () {
+                    SetFilePath();
+                });
+            });
+
+             $("#btnThumbnail").on("click", function () {
                 $('#fileManagerModal').modal();
                 $("#selectImage").unbind('click');
                 $("#selectImage").bind("click", function () {
@@ -266,18 +252,6 @@
                 });
             });
 
-            $("#btnFullImage").on("click", function () {
-                $('#fileManagerModal').modal();
-                $("#selectImage").unbind('click');
-                $("#selectImage").bind("click", function () {
-                    SetFullImage();
-                });
-            });
-
-            $('#datetimepicker2').datetimepicker({
-                locale: 'zh-CN',
-                format: 'L'
-            });
         })
 
     </script>

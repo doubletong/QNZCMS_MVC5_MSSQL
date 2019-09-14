@@ -8,6 +8,7 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.Helper;
+using System.Net;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
@@ -130,7 +131,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
         }
 
-       
+
+        
 
 
     }

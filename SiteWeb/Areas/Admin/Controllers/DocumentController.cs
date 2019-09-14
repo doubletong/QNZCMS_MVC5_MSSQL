@@ -15,6 +15,8 @@ using TZGCMS.Service.Doc;
 using TZGCMS.Model.Admin.ViewModel.Doc;
 using TZGCMS.Data.Entity.Doc;
 using TZGCMS.Model.Admin.InputModel.Doc;
+using System.IO;
+using System.Data.Entity;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
@@ -43,7 +45,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public ActionResult Index(int? page, int? categoryId, string Keyword)
+        public async System.Threading.Tasks.Task<ActionResult> Index(int? page, int? categoryId, string keyword)
         {
 
             var vm = new DocumentListVM
@@ -51,19 +53,30 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 CategoryId = categoryId ?? 0,
                 PageIndex = (page ?? 1),
                 PageSize = SettingsManager.Doc.PageSize,
-                Keyword = Keyword
+                Keyword = keyword
             };
+            var query = _db.Documents.AsQueryable();
 
-            int count;
-            var Documents = _documentServices.GetPagedElements(vm.PageIndex-1, vm.PageSize, vm.Keyword, (int)vm.CategoryId, out count);
+            if (categoryId > 0)
+            {
+                query = query.Where(d => d.CategoryId == categoryId);
+            }
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                query = query.Where(d => d.Title.Contains(keyword));
+            }
+            var list = await query.OrderByDescending(d => d.Importance).ThenByDescending(d=>d.Id)
+                .Skip((vm.PageIndex - 1) * vm.PageSize).Take(vm.PageSize).ToListAsync();          
+           
             
-            vm.TotalCount = count;
+            vm.TotalCount = await query.CountAsync();
 
-            var categoryList = _categoryServices.GetAll().OrderByDescending(c => c.Importance).ToList();
+            var categoryList = await _db.DocumentCategories.OrderByDescending(c => c.Importance).ToListAsync();
             var categories = new SelectList(categoryList, "Id", "Title");
             ViewBag.Categories = categories;
 
-            vm.Documents = new StaticPagedList<Document>(Documents, vm.PageIndex, vm.PageSize, vm.TotalCount);         
+            vm.Documents = new StaticPagedList<Document>(list, vm.PageIndex, vm.PageSize, vm.TotalCount);         
             ViewBag.PageSizes = new SelectList(Site.PageSizes());
 
             return View(vm);
@@ -126,8 +139,12 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             try
             {
 
-                var newDocument = _mapper.Map<DocumentIM, Document>(vm);      
-
+                var newDocument = _mapper.Map<DocumentIM, Document>(vm);
+                var filePath = Server.MapPath(vm.FilePath);
+                var finfo = new FileInfo(filePath);
+                long length = finfo.Length;
+                newDocument.FileSize = length / 1024;
+                newDocument.Extension = finfo.Extension.Remove(0, 1);
                 var result = _documentServices.Create(newDocument);
 
                 //if (result != null)
@@ -153,7 +170,6 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 AR.Setfailure(er.Message);
                 return Json(AR, JsonRequestBehavior.DenyGet);
             }
-
 
         }
 
@@ -202,8 +218,15 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
             try
             {
-                var doc = _documentServices.GetById(vm.Id);               
+                var doc = _documentServices.GetById(vm.Id);
                 var editDocument = _mapper.Map(vm, doc);
+
+                var filePath = Server.MapPath(vm.FilePath);
+                var finfo = new FileInfo(filePath);
+                long length = finfo.Length;
+                editDocument.FileSize = length / 1024;
+                editDocument.Extension = finfo.Extension.Remove(0, 1);
+
                 _documentServices.Update(editDocument);
 
                 //var pageMeta = _pageMetaServices.GetPageMeta(ModelType.Document, editDocument.Id.ToString());
@@ -223,7 +246,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 //{
                 //    _pageMetaServices.Create(pageMeta);
                 //}
-               
+
 
                 AR.SetSuccess(String.Format(Messages.AlertUpdateSuccess, EntityNames.Document));
                 return Json(AR, JsonRequestBehavior.DenyGet);
@@ -234,7 +257,6 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 AR.Setfailure(er.Message);
                 return Json(AR, JsonRequestBehavior.DenyGet);
             }
-
 
         }
 

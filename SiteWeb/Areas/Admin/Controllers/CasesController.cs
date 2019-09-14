@@ -16,12 +16,13 @@ using TZGCMS.Model.Admin.ViewModel;
 using TZGCMS.Data.Entity.PageMetas;
 using TZGCMS.Data.Enums;
 using TZGCMS.Resources.Admin;
-using TZGCMS.Service.LuceneSearch;
-using TZGCMS.Model.Admin.ViewModel.LuceneSearch;
+
+
 using TZGCMS.SiteWeb.Filters;
 using TZGCMS.Model;
 using System.Data.Entity;
 using TZGCMS.Data.Entity;
+using TZGCMS.Model.Search;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
@@ -282,16 +283,18 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         {
             try
             {
-                var list = _db.Cases.Where(d=>d.Active==true).Select(m => new SearchData
+                var cases = _db.Cases.Where(d => d.Active == true).ToList();
+                var list = cases.Select(m => new SearchData
                 {
-                    Id = $"CASE{m.Id}",
+                    Id = "CASE"+m.Id,
                     Name = m.Title,
                     Description = string.IsNullOrEmpty(m.Summary)? StringHelper.StripTagsCharArray(m.Body) : m.Summary,
                     ImageUrl = string.IsNullOrEmpty(m.Thumbnail)?string.Empty: m.Thumbnail,
-                    Url =  $"/cases/detail/{m.Id}"
+                    Url =  "/cases/detail/" + m.Id,
+                    CreatedDate = m.Pubdate
                 }).ToList();
             
-                GoLucene.AddUpdateLuceneIndex(list);
+                LuceneHelper.AddUpdateLuceneIndex(list);
                
                 AR.SetSuccess(String.Format(Messages.AlertActionSuccess, EntityNames.Case));
                 return Json(AR, JsonRequestBehavior.DenyGet);

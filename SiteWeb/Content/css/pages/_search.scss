@@ -1,51 +1,53 @@
-.page-search{
-    padding-top: 0;
-    .search_bg{
-        padding-top: 7rem;
-        background-color: $color-accent;
-        height: 250px;
-        .searchbox{
-           
-        
-            border-bottom: 1px #fff solid;
-            input{
-                width: 100%;
-                font-size: rem(30);
-                padding: .8rem 1rem;
-                background-color: transparent;
-                border:none;
-                outline: none;
-                color:#fff;
-            }
-            button{
-                background-color: transparent;
-                border:none;
-                color: #fff;
-                cursor: pointer;
-                padding: .8rem;
-                .iconfont{
-                    font-size: rem(30);
-                }
-            }
+.banner-search {
+    background-color: #333;
+    padding-top: 16rem;
+    padding-bottom:3rem;
+
+
+    .searchform {
+        max-width: 500px;
+        margin: 0 auto;
+        .form-control{
+            width:100%;
+            padding:.7rem .8rem;
+            border:none;
         }
     }
-    .list-search{
-        .item{
-            display: block;
-            .des{
-                border-bottom: 1px #ddd solid;
+}
+.page-search {
+
+
+    .results {
+        .item {
+            padding: 2rem 0;
+            border-bottom: 1px #ddd solid;
+
+            .thumb {
+                width: 220px;
+            }
+
+
+
+            .des {
                 padding-top: 2rem;
                 padding-bottom: 2.5rem;
-                time{
-                    color:$color-text-weak;
+
+                time {
+                    color: $color-text-weak;
                     font-size: rem(14);
                 }
-                h3{
-                   margin: 0;
+
+                h3 {
+                    margin: 0;
                     font-size: rem(20);
                 }
+
+                strong{
+                    color:$color-primary;
+                }
             }
-            @include hover{
+
+            @include hover {
                 background-color: #d7ddeb;
             }
         }

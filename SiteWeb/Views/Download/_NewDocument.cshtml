@@ -1,0 +1,25 @@
+﻿@model Document
+
+@if (Model != null)
+{
+    <div class="downloads">
+        <h3>
+            下载中心
+        </h3>
+        <p>提交您的服务需求信息即可点击下载</p>
+
+        <div class="row">
+            <div class="col-md-6 col-lg-4">
+                <div class="pic">
+                    <img src="@Model.Thumbnail" alt="@Model.Title" />
+                </div>
+                <div class="link">
+                    <a href="@Url.Action("Detail","Download",new { id= Model.Id})" class="isDisabled">
+                        <i class="iconfont icon-download"></i>  文件下载
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}

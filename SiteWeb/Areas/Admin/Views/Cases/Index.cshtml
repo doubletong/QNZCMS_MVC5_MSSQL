@@ -7,7 +7,8 @@
     ViewBag.PageTitle = ViewBag.Title + "_内容";
 }
 @section Header{
-    <link href="~/Plugins/lightbox/ekko-lightbox.min.css" rel="stylesheet" />
+
+    <link href="~/Plugins/lightbox2/css/lightbox.min.css" rel="stylesheet" />
 }
 
 <div class="row mb-3">
@@ -23,14 +24,14 @@
     </div>
     <div class="col-sm-auto">
         <a class="btn btn-primary" href="@Url.Action("Edit")"><i class="iconfont icon-edit"></i> @string.Format("{0}{1}", Buttons.Add, ViewBag.Title)</a>
-      
+        <a class="btn btn-outline-secondary createIndex" href="#" data-url="@Url.Action("CreateIndex")"><i class="iconfont icon-securityscan"></i> @Buttons.CreateIndex</a>
     </div>
 
 </div>
 
 
 <div class="table-responsive">
-  
+
 
     <table class="table table-hover table-striped table-vmiddle">
         <thead>
@@ -48,7 +49,7 @@
                 <th>
                     发布日期
                 </th>
-             
+
                 <th>
                     显示？
                 </th>
@@ -64,7 +65,7 @@
         </tbody>
 
     </table>
-    
+
 </div>
 
 <div class="container-fluid pt-3" style="background-color: #fff;">
@@ -72,7 +73,7 @@
         <div class="col">
             @Html.PagedListPager(Model.Cases, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }), new PagedListRenderOptions()
             {
-                LiElementClasses = new List<string> { "page-item" }                
+                LiElementClasses = new List<string> { "page-item" }
 
             })
         </div>
@@ -101,7 +102,7 @@
 
 @section footer {
     @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
-    <script src="~/Plugins/lightbox/ekko-lightbox.min.js"></script>
+    <script src="~/Plugins/lightbox2/js/lightbox.min.js"></script>
     <script>
 
 

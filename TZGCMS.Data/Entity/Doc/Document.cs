@@ -20,7 +20,7 @@ namespace TZGCMS.Data.Entity.Doc
         public int DownloadCount { get; set; }
         public int CategoryId { get; set; }
         public string ProductIds { get; set; }
-        public string Password { get; set; }
+        public string Thumbnail { get; set; }
         public virtual DocumentCategory Category { get; set; }
 
         public DateTime CreatedDate { get; set; }

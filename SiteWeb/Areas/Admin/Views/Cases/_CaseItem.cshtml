@@ -3,7 +3,7 @@
 
     <td>
         @if(!string.IsNullOrEmpty(Model.Thumbnail)){ 
-            <a href="@string.Format("{0}?width=800", Model.Thumbnail)" data-toggle="lightbox" data-gallery="multiimages" data-title="@Model.Title">
+            <a href="@string.Format("{0}?width=800", Model.Thumbnail)" data-lightbox="thumbnails" data-title="@Model.Title">
                 <img class="img-thumbnail" src="@string.Format("{0}?height=30", Model.Thumbnail)" />
             </a>
         }        

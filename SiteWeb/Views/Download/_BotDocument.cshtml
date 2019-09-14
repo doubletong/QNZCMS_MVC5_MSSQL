@@ -1,0 +1,15 @@
+﻿
+@model Document
+
+@if (Model != null)
+{
+    <figure class="pic">
+        <img src="@Model.Thumbnail" alt="@Model.Title" />
+        <figcaption>
+            <a href="/contact">
+                画册下载
+            </a>
+        </figcaption>
+    </figure>
+
+}

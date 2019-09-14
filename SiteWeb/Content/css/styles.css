@@ -11,27 +11,11 @@
   font-size: 0.875rem;
   display: inline-block;
   border: none;
-  padding: .7rem 1.5rem;
+  padding: .635rem 1.5rem;
   text-align: center;
   color: #666;
   transition: all .25s;
-  background-color: #eee;
-  border-radius: 25px; }
-  @media (min-width: 768px) {
-    .btn {
-      padding: .8rem 2rem;
-      font-size: 1rem;
-      border-radius: 34px; } }
-  @media (min-width: 992px) {
-    .btn {
-      padding: 1rem 2.5rem;
-      font-size: 1rem;
-      border-radius: 30px; } }
-  @media (min-width: 1200px) {
-    .btn {
-      padding: 1.25rem 3.5rem;
-      font-size: 1rem;
-      border-radius: 34px; } }
+  background-color: #eee; }
   .btn:hover {
     background-color: #dfdfdf;
     color: #333; }
@@ -6984,6 +6968,37 @@ input, textarea, button {
   width: 100%;
   margin-bottom: 30px; }
 
+.banner-search {
+  background-color: #333;
+  padding-top: 16rem;
+  padding-bottom: 3rem; }
+  .banner-search .searchform {
+    max-width: 500px;
+    margin: 0 auto; }
+    .banner-search .searchform .form-control {
+      width: 100%;
+      padding: .7rem .8rem;
+      border: none; }
+
+.page-search .results .item {
+  padding: 2rem 0;
+  border-bottom: 1px #ddd solid; }
+  .page-search .results .item .thumb {
+    width: 220px; }
+  .page-search .results .item .des {
+    padding-top: 2rem;
+    padding-bottom: 2.5rem; }
+    .page-search .results .item .des time {
+      color: #999;
+      font-size: 0.875rem; }
+    .page-search .results .item .des h3 {
+      margin: 0;
+      font-size: 1.25rem; }
+    .page-search .results .item .des strong {
+      color: #ff7c2c; }
+  .page-search .results .item:hover, .page-search .results .item:active, .page-search .results .item:focus {
+    background-color: #d7ddeb; }
+
 .pagination {
   text-align: center;
   list-style: none;
@@ -7107,6 +7122,8 @@ input, textarea, button {
     color: #fff; }
     .site-footer a:hover {
       text-decoration: underline; }
+  .site-footer .pic {
+    width: 210px; }
   .site-footer .sejiao {
     margin-bottom: 2rem; }
     .site-footer .sejiao a {
@@ -7147,38 +7164,31 @@ input, textarea, button {
     text-align: center;
     font-size: 0.875rem;
     border-top: #959595 1px solid; }
+  .site-footer .totop {
+    display: block;
+    width: 45px;
+    height: 45px;
+    line-height: 43px;
+    text-align: center;
+    transition: all .2s;
+    background-color: #ff7c2c;
+    color: #fff; }
+    @media (min-width: 992px) {
+      .site-footer .totop {
+        width: 60px;
+        height: 60px;
+        line-height: 56px; } }
+    .site-footer .totop .iconfont {
+      font-size: 22px; }
+      @media (min-width: 992px) {
+        .site-footer .totop .iconfont {
+          font-size: 28px; } }
+    .site-footer .totop:hover, .site-footer .totop:active, .site-footer .totop:focus {
+      transform: scale(1.1);
+      text-decoration: none; }
 
 .qqservice {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
   z-index: 2000; }
-
-.totop {
-  display: block;
-  width: 45px;
-  height: 45px;
-  line-height: 43px;
-  border: 1px solid #000;
-  text-align: center;
-  transition: all .2s;
-  background-color: #fff;
-  color: #000; }
-  @media (min-width: 992px) {
-    .totop {
-      width: 60px;
-      height: 60px;
-      line-height: 56px;
-      border: 2px solid #000; } }
-  .totop .iconfont {
-    font-size: 22px; }
-    @media (min-width: 992px) {
-      .totop .iconfont {
-        font-size: 28px; } }
-  .totop:hover, .totop:active, .totop:focus {
-    border-color: #ff7c2c;
-    color: #ff7c2c; }
-  @media (min-width: 768px) {
-    .totop {
-      bottom: 2rem;
-      right: 2rem; } }

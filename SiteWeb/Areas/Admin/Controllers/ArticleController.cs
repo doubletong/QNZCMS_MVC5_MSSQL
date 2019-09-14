@@ -8,7 +8,6 @@ using System.Xml.Linq;
 using System.Text;
 using TZGCMS.Service.Articles;
 using TZGCMS.Service.PageMetas;
-using TZGCMS.Model.Admin.ViewModel.Articles;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Data.Entity.Articles;
 using TZGCMS.Infrastructure.Helper;
@@ -17,10 +16,9 @@ using TZGCMS.Model.Admin.InputModel.Articles;
 using TZGCMS.Data.Entity.PageMetas;
 using TZGCMS.Data.Enums;
 using TZGCMS.Resources.Admin;
-using TZGCMS.Service.LuceneSearch;
-using TZGCMS.Model.Admin.ViewModel.LuceneSearch;
 using TZGCMS.SiteWeb.Filters;
 using TZGCMS.Model;
+using TZGCMS.Model.Search;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
@@ -563,11 +561,12 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                     Name = m.Title,
                     Description = string.IsNullOrEmpty(m.Summary)? StringHelper.StripTagsCharArray(m.Body) : m.Summary,
                     ImageUrl = string.IsNullOrEmpty(m.Thumbnail)?string.Empty: m.Thumbnail,
-                    Url = m.CategoryId == 1 ? $"{SettingsManager.Site.SiteDomainName}/news/detail/{m.Id}" : $"{SettingsManager.Site.SiteDomainName}/news/business/{m.Id}"
+                    Url = m.CategoryId == 1 ? $"{SettingsManager.Site.SiteDomainName}/article/detail/{m.Id}" : $"{SettingsManager.Site.SiteDomainName}/article/detail/{m.Id}",
+                    CreatedDate = m.Pubdate
                 }).ToList();
                 //var products = _mapper.Map<List<Product>, List<SearchData>>(list);
 
-                GoLucene.AddUpdateLuceneIndex(list);
+                LuceneHelper.AddUpdateLuceneIndex(list);
                
                 AR.SetSuccess(String.Format(Messages.AlertActionSuccess, EntityNames.Article));
                 return Json(AR, JsonRequestBehavior.DenyGet);

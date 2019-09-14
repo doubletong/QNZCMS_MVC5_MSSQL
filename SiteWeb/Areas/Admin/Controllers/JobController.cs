@@ -9,15 +9,16 @@ using TZGCMS.Data.Enums;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.Helper;
 using TZGCMS.Model.Admin.ViewModel;
-using TZGCMS.Model.Admin.ViewModel.LuceneSearch;
+
 using TZGCMS.Model.Admin.ViewModel.Jobs;
 using TZGCMS.Resources.Admin;
-using TZGCMS.Service.LuceneSearch;
 using TZGCMS.Service.PageMetas;
 using TZGCMS.Service.Jobs;
 using TZGCMS.Data.Entity;
 using PagedList;
 using TZGCMS.Model.Admin.InputModel.Jobs;
+using TZGCMS.Model;
+using TZGCMS.Model.Search;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
@@ -293,7 +294,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                     Url = $"{SettingsManager.Site.SiteDomainName}/jobs/{m.SeoName}"
                 }).ToList();
 
-                GoLucene.AddUpdateLuceneIndex(list);
+                LuceneHelper.AddUpdateLuceneIndex(list);
 
                 AR.SetSuccess(String.Format(Messages.AlertActionSuccess, EntityNames.Job));
                 return Json(AR, JsonRequestBehavior.DenyGet);

@@ -20,7 +20,6 @@ using TZGCMS.Model.Admin.InputModel.Emails;
 using TZGCMS.Model.Admin.InputModel.Identity;
 using TZGCMS.Model.Admin.InputModel.Jobs;
 using TZGCMS.Model.Admin.InputModel.Links;
-using TZGCMS.Model.Admin.InputModel.LuceneSearch;
 using TZGCMS.Model.Admin.InputModel.Menus;
 using TZGCMS.Model.Admin.InputModel.Outlets;
 using TZGCMS.Model.Admin.InputModel.Pages;
@@ -32,7 +31,6 @@ using TZGCMS.Model.Admin.ViewModel.Articles;
 using TZGCMS.Model.Admin.ViewModel.Chronicles;
 using TZGCMS.Model.Admin.ViewModel.Emails;
 using TZGCMS.Model.Admin.ViewModel.Log;
-using TZGCMS.Model.Admin.ViewModel.LuceneSearch;
 using TZGCMS.Model.Admin.ViewModel.Videos;
 
 namespace TZGCMS.SiteWeb.Mappings
