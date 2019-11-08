@@ -1,110 +1,64 @@
-.page-service {
+.page-services {
+    font-size: rem(24);
+
+    .p1 {
+        margin-bottom: 5rem;
+    }
+
     .s1 {
-        .title-section {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
+        margin-bottom: 7rem;
+    }
 
-        .p1 {
-            font-size: 1rem;
-            text-align: center;
-            margin-bottom: 1rem;
+    .p2 {
+        margin-bottom: 3rem;
+    }
 
-            @include respond-above (lg) {
-                font-size: 1rem;
-                margin-bottom: 2rem;
-            }
+    .more {
+        display: block;
+        border: 1px #666 solid;
+        width: 135px;
+        height: 43px;
+        text-align: center;
+        line-height: 41px;
+        font-weight: bold;
+        font-size: 1rem;
+    }
 
-            @include respond-above (xlg) {
-                font-size: rem(18);
-                margin-bottom: 3rem;
-            }
-        }
+    .s2 {
+        margin-bottom: 7rem;
 
-        .a1 {
+        .list {
+            max-width: 1200px;
+            margin: 0 auto;
+
             .item {
-                background-position: center center;
-                background-repeat: no-repeat;
-                background-size: cover;
-                display: block;
-                margin-bottom: 1rem;
+                width: 303px;
+                margin: 0 auto 3rem;
 
-                aside {
-                    background-color: rgba(0, 0, 0, 0.74);
-                    padding: 9rem 3rem 3rem;
-                    height: 100%;
-                    color: #fff;
-                    text-align: center;
-                    transition: all .2s;
-                    box-sizing: border-box;
-                    height: 533px;
+                h3 {
+                    border-bottom: 5px $color-primary solid;
+                    white-space: nowrap;
+                    font-weight: bold;
+                    margin-bottom: 0;
+                    margin-top: 1rem;
+                }
 
-                    .txt {
-                        transition: all .2s;
-                    }
-
-                    .icon {
-                    }
-
-                    h4 {
-                        font-size: rem(26);
-                        line-height: 1;
-
-                        &::after {
-                            content: " ";
-                            display: block;
-                            height: 1px;
-                            background-color: #fff;
-                            width: 46px;
-                            margin: 15px auto 0;
-                            transition: all .2s;
-                        }
-                    }
-
-                    p {
-                        font-size: 1rem;
-                        text-align: justify;
-                        opacity: 0;
-                        transition: all .2s;
-                    }
-
-                    &:hover {
-                        padding: 6rem 3rem 3rem;
-                        background-image: -moz-linear-gradient( 90deg, rgba(255,57,56,0.741) 0%, rgba(255,160,37,0.741) 100%);
-                        background-image: -webkit-linear-gradient( 90deg, rgba(255,57,56,0.741) 0%, rgba(255,160,37,0.741) 100%);
-                        background-image: -ms-linear-gradient( 90deg, rgba(255,57,56,0.741) 0%, rgba(255,160,37,0.741) 100%);
-
-
-
-                        .txt {
-                            margin-top: -10px;
-                        }
-
-
-
-                        p {
-                            opacity: 1;
-                        }
-                    }
+                p {
+                    font-size: rem(20);
+                    margin-top: .5rem;
                 }
             }
         }
+
+        ul.u1 {
+            @include reset-list();
+            margin-bottom: 3rem;
+        }
     }
 
+    .s3 {
+        margin-bottom: 7rem;
 
-    .a1 .item1 {
-        background-image: url(../img/service_b1.jpg);
-    }
-
-    .a1 .item2 {
-        background-image: url(../img/service_b2.jpg);
-    }
-
-    .a1 .item3 {
-        background-image: url(../img/service_b3.jpg);
-    }
-
-    .a1 .item4 {
-        background-image: url(../img/service_b4.jpg);
+        
     }
 }

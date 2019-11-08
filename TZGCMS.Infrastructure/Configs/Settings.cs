@@ -261,48 +261,80 @@ namespace TZGCMS.Infrastructure.Configs
 
     }
 
-    ///// <summary>
-    ///// 联系表单设置
-    ///// </summary>
-    //[XmlRoot("Settings")]//serializable attribute
-    //public class ContactSettings
-    //{
-    //    /// <summary>
-    //    /// 公司名称
-    //    /// </summary>
-    //    [XmlElement("CompanyName")]
-    //    public string CompanyName { get; set; }
+    /// <summary>
+    /// 公司信息设置
+    /// </summary>
+    [XmlRoot("Settings")]//serializable attribute
+    public class CompanySettings
+    {
+        /// <summary>
+        /// 公司名称
+        /// </summary>
+        [XmlElement("CompanyName")]
+        public string CompanyName { get; set; }
 
-    //    [XmlElement("CompanyShortName")]
-    //    public string CompanyShortName { get; set; }
+        [XmlElement("CompanyShortName")]
+        public string CompanyShortName { get; set; }
 
-    //    [XmlElement("Address")]
-    //    public string Address { get; set; }
+        [XmlElement("Address")]
+        public string Address { get; set; }
 
-    //    [XmlElement("Coordinate")]
-    //    public string Coordinate { get; set; }
+        [XmlElement("Coordinate")]
+        public string Coordinate { get; set; }
 
-    //    [XmlElement("ContactMan")]
-    //    public string ContactMan { get; set; }
+        [XmlElement("ContactMan")]
+        public string ContactMan { get; set; }
 
-    //    [XmlElement("Fax")]
-    //    public string Fax { get; set; }
+        [XmlElement("Fax")]
+        public string Fax { get; set; }
 
-    //    [XmlElement("Phone")]
-    //    public string Phone { get; set; }
+        [XmlElement("Phone")]
+        public string Phone { get; set; }
 
-    //    [XmlElement("ZipCode")]
-    //    public string ZipCode { get; set; }
-    //    [XmlElement("Mobile")]
-    //    public string Mobile { get; set; }
+        [XmlElement("ZipCode")]
+        public string ZipCode { get; set; }
+        [XmlElement("Mobile")]
+        public string Mobile { get; set; }
 
-    //    [XmlElement("MailTo")]
-    //    public string MailTo { get; set; }
+        [XmlElement("Email")]
+        public string Email { get; set; }
 
-    //    [XmlElement("MailCC")]
-    //    public string MailCC { get; set; }      
-    //}
-    
+
+        [XmlElement("Email2")]
+        public string Email2 { get; set; }
+
+
+        [XmlElement("Facebook")]
+        public string Facebook { get; set; }
+        [XmlElement("LinkedIn")]
+        public string LinkedIn { get; set; }
+
+        [XmlElement("Youtube")]
+        public string Youtube { get; set; }
+
+        [XmlElement("Oicq")]
+        public string Oicq { get; set; }
+
+
+        [XmlElement("OicqTwo")]
+        public string OicqTwo { get; set; }
+
+        [XmlElement("SinaWeibo")]
+        public string SinaWeibo { get; set; }
+
+        [XmlElement("WeiXing")]
+        public string WeiXing { get; set; }
+
+        [XmlElement("WeiXingCode")]
+        public string WeiXingCode { get; set; }
+
+        [XmlElement("WeiXing2")]
+        public string WeiXing2 { get; set; }
+
+        [XmlElement("WeiXingCode2")]
+        public string WeiXingCode2 { get; set; }
+    }
+
     /// <summary>
     /// 角色设置
     /// </summary>

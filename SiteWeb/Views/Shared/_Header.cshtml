@@ -1,5 +1,73 @@
 ﻿
-<header id="pageHeader" class="site-header">
+
+<header class="site-header @ViewBag.HeaderClassName">
+    <div class="row align-items-end">
+        <div class="col">
+            <div class="logo">
+                <a href="/">
+                    <img src="@(ViewBag.HeaderClassName!=null?"/content/img/1x/logo.png":"/content/img/1x/logo_color.png")" alt="logo" />
+                </a>
+            </div>
+        </div>
+        <div class="col-auto">
+
+            <div class="topcol">
+                <a href="/join">加入我们</a>
+                <a href="/contact">联系我们</a>
+                <a href="#">OA</a>
+                <a href="#">邮箱入口</a>
+                <a href="#"><i class="iconfont icon-search"></i></a>
+                <a href="#">EN</a>
+            </div>
+            @Html.Action("SiteNav", "Menu", new { cid = 2 })
+            @*<ul class="mainav">
+                <li>
+                    <a href="/about">关于研究院</a>
+                    <div class="subnav">
+                        <dl>
+                            <dd><a href="/about#s1">院情简介</a></dd>
+                            <dd><a href="/about#s4">产学研</a></dd>
+                            <dd><a href="/about#s5">目标理念</a></dd>
+                            <dd><a href="/about#s6">荣誉与责任</a></dd>
+                            <dd><a href="/about#s7">加入我们</a></dd>
+
+                        </dl>
+                    </div>
+                </li>
+                <li><a href="">研发平台</a></li>
+                <li><a href="/achievements">科技成果</a></li>
+                <li><a href="">科技服务</a></li>
+                <li><a href="/cooperation">海外合作</a></li>
+                <li><a href="/party">党建工作</a></li>
+            </ul>*@
+        </div>
+    </div>
+    @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">QNZCMS</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>*@
+</header>
+
+
+
+
+@*<header id="pageHeader" class="site-header">
     <div class="container">
         <div class="topcol">
             <div class="row no-gutters align-items-center">
@@ -18,42 +86,40 @@
                     <div class="icon">
                         <i class="iconfont icon-email"></i>
                     </div>
-                    </div>
-                    <div class="col-auto">
-                        Sales@Framemac.com
-                    </div>
-                    <div class="col-auto">
-                        <img src="~/Content/img/lang_cn.png" alt="中文" />
-                    </div>
-                    <div class="col-auto">
-                        CN
-                    </div>
-                    <div class="col-auto">
-                        <img src="~/Content/img/lang_en.png" alt="English" />
-                    </div>
-                    <div class="col-auto">
-                        EN
-                    </div>
-                    <div class="col-auto">
-                        <img src="~/Content/img/lang_es.png" alt="España" />
-                    </div>
-                    <div class="col-auto">
-                        España
-                    </div>
-
                 </div>
+                <div class="col-auto">
+                    Sales@Framemac.com
+                </div>
+                <div class="col-auto">
+                    <a href="#">
+                        <img src="~/Content/img/lang_cn.png" alt="中文" />
+                    </a>
+                </div>
+                <div class="col-auto">
+                    <a href="#">CN</a>
+                </div>
+                <div class="col-auto">
+                    <a href="#"><img src="~/Content/img/lang_en.png" alt="English" /></a>
+                </div>
+                <div class="col-auto">
+                    <a href="#">EN</a>
+                </div>
+                <div class="col-auto">
+                    <a href="#"><img src="~/Content/img/lang_es.png" alt="España" /></a>
+                </div>
+                <div class="col-auto">
+                    <a href="#">España</a>
+                </div>
+
+            </div>
         </div>
         <div class="row logo_nav align-items-center">
             <div class="col-auto">
-                <a href="@Url.Action("Index", "Home")" class="logo">
-                    @*<img src="/Content/img/logo.png" alt="@SettingsManager.Site.SiteName" />*@
+                <a href="@Url.Action("Index", "Home")" id="logo" class="logo">
+                    <img src="/Content/img/logo.png" alt="@SettingsManager.Site.SiteName" />
                 </a>
             </div>
             <div class="col">
-                <div class="openmenu">
-                    <a href="#"><i class="iconfont icon-menu"></i></a>
-                </div>
-
                 <nav class="navbar" role="navigation">
                     @Html.Action("SiteNav", "Menu", new { cid = 2 })
                 </nav>
@@ -62,14 +128,60 @@
                 <form class="form-inline" action="/search">
                     <div class="searchbox">
                         <div class="row no-gutters">
-                            <div class="col"> <input name="SearchTerm"  autocomplete="off" /></div>
+                            <div class="col"> <input name="SearchTerm" autocomplete="off" /></div>
                             <div class="col-auto"><button type="submit"><i class="iconfont icon-search"></i></button></div>
-                        </div>                       
+                        </div>
                     </div>
                 </form>
+                <div class="openav" id="openav">
+                    <span class="item item_top"></span>
+                    <span class="item item_mid"></span>
+                    <span class="item item_bot"></span>
+                </div>
             </div>
         </div>
 
     </div>
 </header>
 
+<nav class="mobile_navbar" id="sitenav" role="navigation">
+    <div class="navlangs">
+        <div class="row">
+            <div class="col-auto">
+                <div class="row no-gutters">
+                    <div class="col-auto">
+                        <a href="#">
+                            <img src="~/Content/img/lang_cn.png" alt="中文" />
+                        </a>
+                    </div>
+                    <div class="col-auto">
+                        <a href="#">CN</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="row no-gutters">
+                    <div class="col-auto">
+                        <a href="#"><img src="~/Content/img/lang_en.png" alt="English" /></a>
+                    </div>
+                    <div class="col-auto">
+                        <a href="#">EN</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="row no-gutters">
+                    <div class="col-auto">
+                        <a href="#"><img src="~/Content/img/lang_es.png" alt="España" /></a>
+                    </div>
+                    <div class="col-auto">
+                        <a href="#">España</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    @Html.Action("SiteNav", "Menu", new { cid = 2 })
+</nav>*@

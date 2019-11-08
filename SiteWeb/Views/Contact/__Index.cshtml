@@ -1,0 +1,164 @@
+﻿@model EmailIM
+@{
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : "联系我们";
+
+    ViewBag.HeaderClass = "header-white";
+}
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+    <link href="~/Plugins/toastr/toastr.min.css" rel="stylesheet" />
+    <style>
+        #success-msg-container,
+        #fail-msg-container {
+            display: none;
+        }
+    </style>
+
+}
+
+@Html.Action("SingleAd", "AD", new { code = "A1005" })
+
+<div class="page page-contact">
+    @Html.Action("Paragraph", "Pages", new { seoName = "contact" })
+
+    <section class="s3" id="s3">
+        <div class="container">
+            <h3>
+                我有此类服务需求
+            </h3>
+            <p>请简要描述您需要的服务类型，我们的服务团队将第一时间给你取的联系。</p>
+            <div class="contact-form">
+                @using (Ajax.BeginForm("SendEmail", null, new AjaxOptions
+                {
+
+                    HttpMethod = "POST",
+                    OnBegin = "onBeginSave",
+                    OnComplete = "onCompleteSave",
+                    OnSuccess = "updateSuccess"
+
+                }, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+
+                    <div class="form-group">
+
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "公司名称" })
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "邮箱" })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "电话" })
+                        @Html.ValidationMessageFor(model => model.Phone)
+                    </div>
+                    <div class="form-group">
+                        @Html.TextAreaFor(m => m.Body, new { @class = "form-control", placeholder = "留言", rows = "8" })
+                        @Html.ValidationMessageFor(model => model.Body)
+
+                    </div>
+                    <div class="form-group">
+                        <div class="row no-gutters">
+                            <div class="col">
+                                @Html.TextBoxFor(m => m.CaptchaText, new { @class = "form-control", placeholder = "验证码" })
+                                @Html.ValidationMessageFor(model => model.CaptchaText)
+                            </div>
+                            <div class="col-auto"><img src='@Url.Action("ShowCaptchaImage","Account")' alt="验证码" /></div>
+                        </div>
+
+                    </div>
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn-send">提 交</button>
+                    </div>
+
+                }
+            </div>
+            @Html.Action("NewDocument", "Download")
+
+
+        </div>
+    </section>
+</div>
+
+
+
+
+@section footer{
+    @Scripts.Render("~/bundles/jqueryvalAjax")
+    <script src="~/plugins/toastr/toastr.min.js"></script>
+    <script src="~/Plugins/blockUI/jquery.blockUI.min.js"></script>
+
+    <script>
+
+    function onBeginSave() {
+       $.blockUI({ message: '<p>提交中...</p>' });
+    }
+    function onCompleteSave() {
+       $.unblockUI();
+    }
+
+    function updateSuccess(data) {
+      
+      //  Common.ShowBox(data.Status, data.Message, title);
+
+        switch (data.Status) {
+            case 1:
+                toastr.success(data.Message)
+                $(".downloads a").removeClass("isDisabled");
+                break;
+            case 2:
+                toastr.error(data.Message)
+                break;
+            case 3:
+                toastr.info(data.Message)
+                break;
+            case 4:
+                toastr.warning(data.Message)
+        }
+    }
+
+    </script>
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=G7h0sKsr60IFU3OrHRmKTRzD"></script>
+    <script>
+        // 百度地图API功能
+        var map = new BMap.Map("map_canvas");
+
+
+        map.addControl(new BMap.NavigationControl());
+        map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
+        map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+
+        map.centerAndZoom(new BMap.Point(113.007022,23.15476), 16);
+        var point = new BMap.Point(113.007022,23.15476);
+
+        // var myIcon = new BMap.Icon("/Themes/fengneng/Content/img/marker.png", new BMap.Size(132, 132));
+        //  var marker1 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
+        var marker1 = new BMap.Marker(point);
+
+        map.addOverlay(marker1);              // 将标注添加到地图中
+        // marker1.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+        var sContent =
+            "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>佛山市孚瑞美科技有限公司</h4>" +
+            "<p>地址：佛山市南海区狮山镇桃园西路狮山罗洞邹边工业区4号 <br/>" +
+            "电话：0757-81230272</p>" +
+            "</div>";
+
+
+        //创建信息窗口
+        var infoWindow1 = new BMap.InfoWindow(sContent);
+        marker1.addEventListener("click", function () { this.openInfoWindow(infoWindow1); });
+
+        // marker1.openInfoWindow(infoWindow1);
+
+    </script>
+}

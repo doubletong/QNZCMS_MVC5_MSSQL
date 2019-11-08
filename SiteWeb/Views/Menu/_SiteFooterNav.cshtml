@@ -3,7 +3,7 @@
 <div class="row botnav">
     @foreach (var item in Model.Where(d => d.ParentId == null))
     {
-        <div class="col-6 col-md @(item.ChildMenus.Any() ? "downav" : "") @(item.Url.Equals(Request.RawUrl) || (item.ChildMenus.Any() && item.ChildMenus.Select(m=>m.Url).Contains(Request.RawUrl)) ?"active":"")">
+        <div class="col @(item.ChildMenus.Any() ? "downav" : "") @(item.Url.Equals(Request.RawUrl) || (item.ChildMenus.Any() && item.ChildMenus.Select(m=>m.Url).Contains(Request.RawUrl)) ?"active":"")">
 
             <a href="@(item.Url=="#"?"javascript:void(0);":item.Url)" class="node">
                 @item.Title               

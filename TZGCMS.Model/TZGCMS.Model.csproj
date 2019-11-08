@@ -214,6 +214,7 @@
     <Compile Include="Front\ViewModel\Products\ProductVM.cs" />
     <Compile Include="Front\ViewModel\Videos\VideoCategoryFVM.cs" />
     <Compile Include="Front\ViewModel\Videos\VideoFVM.cs" />
+    <Compile Include="InfoVM.cs" />
     <Compile Include="Inputs\Articles\ArticleIM.cs" />
     <Compile Include="Search\LuceneHelper.cs" />
     <Compile Include="Search\LuceneVM.cs" />

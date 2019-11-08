@@ -339,32 +339,32 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
                 }
 
-                if (!string.IsNullOrEmpty(vm.Thumbnail))
-                {
-                    if (ImageHandler.CheckImageSize(Server.MapPath(vm.Thumbnail), SettingsManager.Article.ThumbWidth, SettingsManager.Article.ThumbHeight))
-                    {
-                        AR.SetWarning(Messages.ThumbnailSizeNotOK);
-                        return Json(AR, JsonRequestBehavior.DenyGet);
-                    }
-                    if (ImageHandler.CheckImageType(Server.MapPath(vm.Thumbnail)))
-                    {
-                        AR.SetWarning(Messages.ThumbnailExtensionNotOK);
-                        return Json(AR, JsonRequestBehavior.DenyGet);
-                    }
-                }
-                if (!string.IsNullOrEmpty(vm.FullImage))
-                {
-                    if (ImageHandler.CheckImageSize(Server.MapPath(vm.FullImage), SettingsManager.Article.ImageWidth, SettingsManager.Article.ImageHeight))
-                    {
-                        AR.SetWarning(Messages.FullImageSizeNotOK);
-                        return Json(AR, JsonRequestBehavior.DenyGet);
-                    }
-                    if (ImageHandler.CheckImageType(Server.MapPath(vm.FullImage)))
-                    {
-                        AR.SetWarning(Messages.FullImageExtensionNotOK);
-                        return Json(AR, JsonRequestBehavior.DenyGet);
-                    }
-                }
+                //if (!string.IsNullOrEmpty(vm.Thumbnail))
+                //{
+                //    if (ImageHandler.CheckImageSize(Server.MapPath(vm.Thumbnail), SettingsManager.Article.ThumbWidth, SettingsManager.Article.ThumbHeight))
+                //    {
+                //        AR.SetWarning(Messages.ThumbnailSizeNotOK);
+                //        return Json(AR, JsonRequestBehavior.DenyGet);
+                //    }
+                //    if (ImageHandler.CheckImageType(Server.MapPath(vm.Thumbnail)))
+                //    {
+                //        AR.SetWarning(Messages.ThumbnailExtensionNotOK);
+                //        return Json(AR, JsonRequestBehavior.DenyGet);
+                //    }
+                //}
+                //if (!string.IsNullOrEmpty(vm.FullImage))
+                //{
+                //    if (ImageHandler.CheckImageSize(Server.MapPath(vm.FullImage), SettingsManager.Article.ImageWidth, SettingsManager.Article.ImageHeight))
+                //    {
+                //        AR.SetWarning(Messages.FullImageSizeNotOK);
+                //        return Json(AR, JsonRequestBehavior.DenyGet);
+                //    }
+                //    if (ImageHandler.CheckImageType(Server.MapPath(vm.FullImage)))
+                //    {
+                //        AR.SetWarning(Messages.FullImageExtensionNotOK);
+                //        return Json(AR, JsonRequestBehavior.DenyGet);
+                //    }
+                //}
                    
 
                 AR.SetSuccess(String.Format(Messages.AlertCreateSuccess, EntityNames.Article));
@@ -431,32 +431,32 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 _pageMetaServices.SetPageMeta(ModelType.ARTICLE, vm.Id.ToString(), vm.Title, vm.SEOTitle, vm.Keywords, vm.SEODescription);
 
                 //图片检测
-                if (!string.IsNullOrEmpty(vm.Thumbnail))
-                {
-                    if (!ImageHandler.CheckImageSize(Server.MapPath(vm.Thumbnail), SettingsManager.Article.ThumbWidth, SettingsManager.Article.ThumbHeight))
-                    {
-                        AR.SetWarning(Messages.ThumbnailSizeNotOK);
-                        return Json(AR, JsonRequestBehavior.DenyGet);
-                    }
-                    if (!ImageHandler.CheckImageType(Server.MapPath(vm.Thumbnail)))
-                    {
-                        AR.SetWarning(Messages.ThumbnailExtensionNotOK);
-                        return Json(AR, JsonRequestBehavior.DenyGet);
-                    }
-                }
-                if (!string.IsNullOrEmpty(vm.FullImage))
-                {
-                    if (!ImageHandler.CheckImageSize(Server.MapPath(vm.FullImage), SettingsManager.Article.ImageWidth, SettingsManager.Article.ImageHeight))
-                    {
-                        AR.SetWarning(Messages.FullImageSizeNotOK);
-                        return Json(AR, JsonRequestBehavior.DenyGet);
-                    }
-                    if (!ImageHandler.CheckImageType(Server.MapPath(vm.FullImage)))
-                    {
-                        AR.SetWarning(Messages.FullImageExtensionNotOK);
-                        return Json(AR, JsonRequestBehavior.DenyGet);
-                    }
-                }
+                //if (!string.IsNullOrEmpty(vm.Thumbnail))
+                //{
+                //    if (!ImageHandler.CheckImageSize(Server.MapPath(vm.Thumbnail), SettingsManager.Article.ThumbWidth, SettingsManager.Article.ThumbHeight))
+                //    {
+                //        AR.SetWarning(Messages.ThumbnailSizeNotOK);
+                //        return Json(AR, JsonRequestBehavior.DenyGet);
+                //    }
+                //    if (!ImageHandler.CheckImageType(Server.MapPath(vm.Thumbnail)))
+                //    {
+                //        AR.SetWarning(Messages.ThumbnailExtensionNotOK);
+                //        return Json(AR, JsonRequestBehavior.DenyGet);
+                //    }
+                //}
+                //if (!string.IsNullOrEmpty(vm.FullImage))
+                //{
+                //    if (!ImageHandler.CheckImageSize(Server.MapPath(vm.FullImage), SettingsManager.Article.ImageWidth, SettingsManager.Article.ImageHeight))
+                //    {
+                //        AR.SetWarning(Messages.FullImageSizeNotOK);
+                //        return Json(AR, JsonRequestBehavior.DenyGet);
+                //    }
+                //    if (!ImageHandler.CheckImageType(Server.MapPath(vm.FullImage)))
+                //    {
+                //        AR.SetWarning(Messages.FullImageExtensionNotOK);
+                //        return Json(AR, JsonRequestBehavior.DenyGet);
+                //    }
+                //}
 
                 AR.SetSuccess(String.Format(Messages.AlertUpdateSuccess, EntityNames.Article));
                 return Json(AR, JsonRequestBehavior.DenyGet);

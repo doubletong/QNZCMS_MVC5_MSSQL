@@ -1,0 +1,40 @@
+﻿
+
+@model IEnumerable<ArticleVM>
+
+    <section class="s2 container" id="s2">
+        <div class="title title-section">
+            <h2>新闻动态</h2>
+        </div>
+
+        <div class="newslist">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md">
+                        <a href="@Url.Action("detail",new { id = item.Id})" class="item">
+                            <div class="pic">
+                                <img src="@item.Thumbnail" alt="@item.Title" />
+                            </div>
+                            <div class="des">
+                                <div class="time">
+                                    <div class="date">@string.Format("{0:dd}", item.Pubdate)</div>
+                                    <div class="month">
+                                        @string.Format("{0:yyyy.MM}", item.Pubdate)
+                                    </div>
+                                </div>
+                                <h3>
+                                    @item.Title
+                                </h3>
+                                <p>
+                                    @item.Summary
+                                </p>
+                            </div>
+                        </a>
+                    </div>                  
+                }
+
+            </div>
+        </div>
+    </section>
+

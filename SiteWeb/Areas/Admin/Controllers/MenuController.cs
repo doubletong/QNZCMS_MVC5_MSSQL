@@ -11,6 +11,7 @@ using TZGCMS.Data.Enums;
 using TZGCMS.Model.Admin.ViewModel;
 using TZGCMS.Resources.Admin;
 using TZGCMS.Model.Admin.ViewModel.Menus;
+using TZGCMS.Infrastructure.Cache;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
@@ -18,12 +19,14 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
     [SIGAuth]
     public class MenuController : BaseController
     {
+        private readonly ICacheService _cacheService;
         private readonly IMenuCategoryServices _menuCategoryService;
         private readonly IMenuServices _menuService;
         private readonly IMapper _mapper;
 
-        public MenuController(IMenuServices menuService, IMenuCategoryServices menuCategoryService, IMapper mapper)
+        public MenuController(ICacheService cacheService,IMenuServices menuService, IMenuCategoryServices menuCategoryService, IMapper mapper)
         {
+            _cacheService = cacheService;
             _menuService = menuService;
             _menuCategoryService = menuCategoryService;
             _mapper = mapper;
@@ -161,6 +164,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 //_menuService.CreateAndSort(vMenu);           
                 _menuService.ResetSort(menu.CategoryId);
 
+                _cacheService.Invalidate("Menu");
+
                 var menus = _menuService.GetMenusByCategoryId(vMenu.CategoryId);
                 AR.Id = menu.CategoryId;
                 AR.Data = RenderPartialViewToString("_MenuList", menus);
@@ -215,6 +220,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 _menuService.Update(orgMenu);
 
                 // _menuService.ResetSort(orgMenu.CategoryId);
+                _cacheService.Invalidate("Menu");
 
                 var menus = _menuService.GetMenusByCategoryId(vMenu.CategoryId);
                 AR.Id = vMenu.CategoryId;
@@ -268,6 +274,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 //  _menuService.DeleteMenuWithRoles(id);
                 _menuService.ResetSort(vMenu.CategoryId);
 
+                _cacheService.Invalidate("Menu");
+
                 //var menus = await _menuService.GetMenus(cid);
                 //return PartialView("_MenuList", menus);
                 AR.SetSuccess(string.Format(Messages.AlertDeleteSuccess, EntityNames.Menu));
@@ -305,6 +313,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             }
 
             var menus = _menuService.GetMenusByCategoryId(categoryId);
+            _cacheService.Invalidate("Menu");
+
             AR.Id = categoryId;
             AR.Data = RenderPartialViewToString("_MenuList", menus);
 
@@ -326,6 +336,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 menu.IsExpand = !menu.IsExpand;
                 _menuService.Update(menu);
 
+                _cacheService.Invalidate("Menu");
+
                 AR.SetSuccess(Messages.AlertActionSuccess);
                 return Json(AR, JsonRequestBehavior.DenyGet);
 
@@ -343,6 +355,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             {
                 menu.Active = !menu.Active;
                 _menuService.Update(menu);
+
+                _cacheService.Invalidate("Menu");
 
                 AR.SetSuccess(Messages.AlertActionSuccess);
                 return Json(AR, JsonRequestBehavior.DenyGet);
@@ -363,6 +377,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 var menus = _menuService.GetMenusByCategoryId(id);
                 AR.Id = id;
                 AR.Data = RenderPartialViewToString("_MenuList", menus);
+
+                _cacheService.Invalidate("Menu");
 
                 AR.SetSuccess(Messages.AlertActionSuccess);
                 return Json(AR, JsonRequestBehavior.DenyGet);
@@ -405,6 +421,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 _menuService.Update(menu);
 
                 _menuService.ResetSort(menu.CategoryId);
+
+                _cacheService.Invalidate("Menu");
 
                 var menus = _menuService.GetMenusByCategoryId(menu.CategoryId);
                 AR.Id = menu.CategoryId;

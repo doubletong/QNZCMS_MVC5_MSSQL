@@ -24,6 +24,12 @@ namespace TZGCMS.SiteWeb.Controllers.Pages
             return View(page);
         }
 
+        public ActionResult Paragraph(string seoName)
+        {
+            var page = _db.Pages.FirstOrDefault(d => d.Active && d.SeoName == seoName);
+     
+            return PartialView("_Paragraph", page);
+        }
 
     }
 }

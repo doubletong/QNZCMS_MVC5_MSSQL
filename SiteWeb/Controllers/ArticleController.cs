@@ -29,25 +29,72 @@ namespace TZGCMS.SiteWeb.Controllers
             _mapper = mapper;
         }
         [SIGActionFilter]
-        public async Task<ActionResult> Index(int? page)
+        public async Task<ActionResult> Index()
         {
+
+            var vm = new FrontArticlePageVM
+            {
+              
+                NewsList = await _db.Article.Where(d=>d.ArticleCategory.SeoName == "news").Take(5)
+                .OrderByDescending(d=>d.Pubdate).Select(d=> new ArticleVM
+                {
+                    Id = d.Id,
+                    Title = d.Title,
+                    Thumbnail = d.Thumbnail,
+                    Summary = d.Summary,
+                    Pubdate = d.Pubdate
+                }).ToListAsync(),
+                MediaList = await _db.Article.Where(d => d.ArticleCategory.SeoName == "media").Take(5)
+                .OrderByDescending(d => d.Pubdate).Select(d => new ArticleVM
+                {
+                    Id = d.Id,
+                    Title = d.Title,
+                    Thumbnail = d.Thumbnail,
+                    Summary = d.Summary,
+                    Pubdate = d.Pubdate
+                }).ToListAsync(),
+                NoticeList = await _db.Article.Where(d => d.ArticleCategory.SeoName == "notice").Take(5)
+                .OrderByDescending(d => d.Pubdate).Select(d => new ArticleVM
+                {
+                    Id = d.Id,
+                    Title = d.Title,
+                    Thumbnail = d.Thumbnail,
+                    Summary = d.Summary,
+                    Pubdate = d.Pubdate
+                }).ToListAsync()
+            };
+
+            var url = Request.RawUrl;
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == ModelType.MENU && d.ObjectId == url);
+
+            return View(vm);
+        }
+        public async Task<ActionResult> List(string alias, int? page,int? year)
+        {
+            var category = await _db.ArticleCategory.FirstOrDefaultAsync(d => d.SeoName == alias);
+            var query = _db.Article.Where(d => d.Active && d.ArticleCategory.SeoName == alias).AsQueryable();
 
             var vm = new FrontArticleListVM
             {
+                Alias = alias,
+                Years = await query.Select(d => d.Pubdate.Year).OrderByDescending(d=>d).Distinct().ToListAsync(),
+                Year = year,
+                CategoryTitle = category?.Title,
                 PageIndex = page ?? 1,
                 PageSize = SettingsManager.Article.FrontPageSize
             };
 
-            var query = _db.Article.Where(d => d.Active).AsQueryable();
-          
+            if (year != null)
+            {
+                query = query.Where(d => d.Pubdate.Year == year);
+            }           
+
             var list = await query.OrderByDescending(d => d.Pubdate)
                 .ThenByDescending(d => d.Id).Skip((vm.PageIndex - 1) * vm.PageSize)
                 .Take(vm.PageSize).ProjectTo<ArticleVM>(_mapper.ConfigurationProvider).ToListAsync();
-             
+
             vm.TotalCount = await query.CountAsync();
-
             vm.Articles = new StaticPagedList<ArticleVM>(list, vm.PageIndex, vm.PageSize, vm.TotalCount);
-
 
 
             var url = Request.RawUrl;
@@ -55,7 +102,6 @@ namespace TZGCMS.SiteWeb.Controllers
 
             return View(vm);
         }
-
         //public ActionResult Search(string keyword, int? page)
         //{
 
@@ -79,6 +125,23 @@ namespace TZGCMS.SiteWeb.Controllers
 
         //    return View(vm);
         //}
+
+
+        [HttpGet]
+        public PartialViewResult ArtHeader()
+        {
+            //var vm = _db.ArticleCategory.Where(d => d.Active)
+            //    .OrderByDescending(d => d.Importance)
+            //    .Select(d => new ArticleCategoryFVM
+            //    {
+            //        Id = d.Id,
+            //        Title = d.Title,
+            //        Alias = d.SeoName
+            //    }).ToList();
+            //return PartialView("_ArtHeader", vm);
+            return PartialView("_ArtHeader");
+        }
+
 
         [HttpGet]
         public PartialViewResult RecentNews(int count)
@@ -105,7 +168,7 @@ namespace TZGCMS.SiteWeb.Controllers
         public async Task<ActionResult> Detail(int id)
         {
 
-            var model = await _db.Article.FindAsync(id);
+            var model = await _db.Article.Include(d=>d.ArticleCategory).FirstOrDefaultAsync(d=>d.Id == id);
             if (model == null) return HttpNotFound();
 
             model.ViewCount++;

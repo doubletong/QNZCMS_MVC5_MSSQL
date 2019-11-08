@@ -1,7 +1,26 @@
 ﻿
 @model IEnumerable<ArticleVM>
 
-    
+<section class="s5">
+    <div class="top">
+        <div class="container newsbox">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3 class="title title-v2">
+                        新闻中心
+                    </h3>
+                    <div class="first-news">
+                        <h4 class="title">广州住博会2019 FRAMEMAC</h4>
+                        <p>
+                            为轻钢结构是一种年轻而极具生命力的钢结构体系，已广泛应用于一般工农业、商业、服务性建筑，如办公楼、别墅、仓库、体育场馆、娱乐、旅游建筑和低、多层住宅建筑等领域，还可用于旧房增层、改造、加固和建材缺乏地区、运输不便地区、工期紧、活动式可拆迁建筑等，倍受业主青睐..
+                        </p>
+                        <a href="#">查看更多 <i class="iconfont icon-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container newslist">
         @foreach (var item in Model)
         {
             <a href="@Url.Action("detail",new { id = item.Id})" class="item">
@@ -15,4 +34,8 @@
             </a>
         }
 
-    
+    </div>
+    <div class="container text-center">
+        <a href="/cases" class="more">查看更多 <i class="iconfont icon-right"></i></a>
+    </div>
+</section>

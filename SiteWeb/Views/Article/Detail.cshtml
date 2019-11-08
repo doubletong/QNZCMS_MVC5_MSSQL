@@ -17,15 +17,14 @@
 }
 
 
-@Html.Action("SingleAd", "AD", new { code = "A1004" })
-
+@Html.Action("ArtHeader", "Article")
 
 
 <!-- BLOG   ================================================== -->
 <section class="page page-news-detail">
     <div class="container">
         <div class=" article">
-            <div class="title-article">
+            <div class="title title-section">
                 <h2>@Model.Title</h2>
             </div>
 
@@ -36,7 +35,7 @@
                         发布日期：  @string.Format("{0:D}", Model.Pubdate)
                     </li>
                     <li>
-                        分类： @Model.Source
+                        分类： @Model.CategoryTitle
                     </li>
                 </ul>
             </div>

@@ -1,0 +1,27 @@
+.page-institute {
+    .item {
+        display: block;
+        position: relative;
+        padding:3px;
+        .pic {
+            img {
+                display: block;
+            }
+        }
+
+        .title {
+            position:absolute;
+            left:0;top:0;height:100%;
+            width:100%;
+            z-index:100;
+            padding:2rem;
+            h3 {
+                @include vertical-align();
+                margin:0;
+                text-align:center;
+                color:#fff;
+                font-size:rem(28);
+            }
+        }
+    }
+}

@@ -163,7 +163,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public JsonResult Edit(EmailTemplateIM vm)
+        public async System.Threading.Tasks.Task<JsonResult> Edit(EmailTemplateIM vm)
         {
             if (!ModelState.IsValid)
             {
@@ -173,17 +173,18 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
             try
             {
-                var editEmailTemplate = _templateService.GetById(vm.Id);
+                var editEmailTemplate = await _db.EmailTemplates.FindAsync(vm.Id);
+                //_templateService.GetById(vm.Id);
                 editEmailTemplate.Subject = vm.Subject;
                 editEmailTemplate.TemplateNo = vm.TemplateNo;
+                editEmailTemplate.EmailAccountId = vm.EmailAccountId;
                 editEmailTemplate.Body = vm.Body;
                 editEmailTemplate.UpdatedBy = Site.CurrentUserName;
                 editEmailTemplate.UpdatedDate = DateTime.Now;
                 //var editEmailTemplate = _mapper.Map<EmailTemplateIM, EmailTemplate>(template);
-
-                _templateService.Update(editEmailTemplate);
-
-             
+                _db.Entry(editEmailTemplate).State = System.Data.Entity.EntityState.Modified;
+                _db.SaveChanges();
+                // _templateService.Update(editEmailTemplate);             
 
                 AR.SetSuccess(String.Format(Messages.AlertUpdateSuccess, EntityNames.EmailTemplate));
                 return Json(AR, JsonRequestBehavior.DenyGet);

@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Menu>
+    @{ 
+        var url = Request.RawUrl.ToLower();
+    }
+<ul class="mainav list-unstyled">
+    @foreach (var item in Model.Where(d=>d.ParentId==null))
+    {
+        <li class="@(url.StartsWith(item.Url.ToLower()) ?"active":"")">
+
+            <a href="@item.Url" class="">
+                @item.Title              
+            </a>            
+        </li>        
+    }      
+</ul>
+
+

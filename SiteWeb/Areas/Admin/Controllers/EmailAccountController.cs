@@ -106,21 +106,25 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 AR.Setfailure(GetModelErrorMessage());
                 return Json(AR, JsonRequestBehavior.DenyGet);
             }
-            if(!string.IsNullOrEmpty(vm.Password))
+            if (!string.IsNullOrEmpty(vm.Password))
             {
                 vm.Password = EncryptionHelper.Encrypt(vm.Password);
             }
             var emailAccount = _mapper.Map<EmailAccountIM, EmailAccount>(vm);
             emailAccount.CreatedBy = Site.CurrentUserName;
             emailAccount.CreatedDate = DateTime.Now;
-            _emailAccountService.Create(emailAccount);
+            emailAccount.UpdatedDate = DateTime.Now;
 
-           
+            _db.EmailAccounts.Add(emailAccount);
+            _db.SaveChanges();
+            // _emailAccountService.Create(emailAccount);
+
+
 
             int count;
             int pageSize = SettingsManager.EmailAccount.PageSize;
-            var list = _emailAccountService.GetPagedElements(0, pageSize, string.Empty,out count);
-         //   List<EmailAccountVM> emailAccountList = _mapper.Map<List<EmailAccount>, List<EmailAccountVM>>(list);
+            var list = _emailAccountService.GetPagedElements(0, pageSize, string.Empty, out count);
+            //   List<EmailAccountVM> emailAccountList = _mapper.Map<List<EmailAccount>, List<EmailAccountVM>>(list);
             AR.Data = RenderPartialViewToString("_EmailAccountList", list);
 
             AR.SetSuccess(String.Format(Messages.AlertCreateSuccess, EntityNames.EmailAccount));
@@ -170,7 +174,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                     emailAccountIM.Password = pw;
                 }
 
-                _emailService.SendMail(SettingsManager.Site.SiteName, vm.TestEmail, vm.TestEmail, string.Empty,
+                _emailService.SendMail(SettingsManager.Site.SiteName, emailAccountIM.Email, vm.TestEmail, string.Empty,
                     "测试", "测试邮件", emailAccountIM.SmtpServer, emailAccountIM.Email, string.Empty, emailAccountIM.UserName, 
                     emailAccountIM.Password, emailAccountIM.Port, emailAccountIM.EnableSsl);
 

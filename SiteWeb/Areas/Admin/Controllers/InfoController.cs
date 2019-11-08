@@ -7,6 +7,7 @@ using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.Logging;
 using TZGCMS.Model.Admin.InputModel;
 using TZGCMS.Model.Admin.ViewModel;
+using TZGCMS.Model;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
@@ -19,77 +20,97 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         {           
             _logger = logger;
         }
-        //public ViewResult Index()
-        //{
-          
-        //    var cfe = SettingsManager.Contact;
-
-        //    CompanyInfoIM com = new CompanyInfoIM
-        //    {
-        //        Contact = new ContactIM
-        //        {
-        //            CompanyName = cfe.CompanyName,
-        //            CompanyShortName = cfe.CompanyShortName,
-        //            Address = cfe.Address,
-        //            Coordinate = cfe.Coordinate,
-        //            ContactMan = cfe.ContactMan,
-        //            Fax = cfe.Fax,
-        //            Phone = cfe.Phone,
-        //            ZipCode = cfe.ZipCode,
-        //            Mobile = cfe.Mobile,
-        //            MailTo = cfe.MailTo,
-        //            MailCC = cfe.MailCC,
-        //        }
-        //    };
+        public ViewResult Company()
+        {
+            var cfe = SettingsManager.Company;
 
 
+         
+          var      vm = new CompanyIM
+          {
+              CompanyName = cfe.CompanyName,
+              CompanyShortName = cfe.CompanyShortName,
+              Address = cfe.Address,
+              Coordinate = cfe.Coordinate,
+              ContactMan = cfe.ContactMan,
+              Fax = cfe.Fax,
+              Phone = cfe.Phone,
+              ZipCode = cfe.ZipCode,
+              Mobile = cfe.Mobile,
+              Email = cfe.Email,
+              Email2 = cfe.Email2,
 
-        //    return View(com);
-        //}
+              Facebook = cfe.Facebook,
+              LinkedIn = cfe.LinkedIn,
+              Youtube = cfe.Youtube,
+              Oicq = cfe.Oicq,
+              OicqTwo = cfe.OicqTwo,
+              SinaWeibo = cfe.SinaWeibo,
+              WeiXing = cfe.WeiXing,
+              WeiXingCode = cfe.WeiXingCode,
+              WeiXing2 = cfe.WeiXing2,
+              WeiXingCode2 = cfe.WeiXingCode2
+
+          };
 
 
-        //[HttpPost]
-        //public ActionResult Contact(ContactIM vm)
-        //{
-        //    _logger.Info("创建数据库备份：");
-        //    if (!ModelState.IsValid)
-        //    {
-        //        var errorMessage = GetModelErrorMessage();
 
-        //        AR.Setfailure(errorMessage);
-        //        return Json(AR, JsonRequestBehavior.DenyGet);
-        //    }
-        //    try
-        //    {
-        //        var xmlFile = Server.MapPath("~/Config/ContactSettings.config");
-        //        XDocument doc = XDocument.Load(xmlFile);
+            return View(vm);
+        }
 
-        //        var item = doc.Descendants("Settings").FirstOrDefault();
-        //        item.Element("CompanyName").SetValue(vm.CompanyName);
-        //        item.Element("CompanyShortName").SetValue(vm.CompanyShortName ?? "");
-        //        item.Element("Address").SetValue(vm.Address);
-        //        item.Element("Coordinate").SetValue(vm.Coordinate ?? "");
-        //        item.Element("ContactMan").SetValue(vm.ContactMan);
-        //        item.Element("Fax").SetValue(vm.Fax ?? "");
-        //        item.Element("Phone").SetValue(vm.Phone);
-        //        item.Element("ZipCode").SetValue(vm.ZipCode ?? "");
-        //        item.Element("Mobile").SetValue(vm.Mobile ?? "");
-        //        item.Element("MailTo").SetValue(vm.MailTo);
-        //        item.Element("MailCC").SetValue(vm.MailCC ?? "");
-        //        doc.Save(xmlFile);
 
-        //        return Json(AR, JsonRequestBehavior.DenyGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        AR.Setfailure(ex.Message);
-        //        return Json(AR, JsonRequestBehavior.DenyGet);
-        //    }
+        [HttpPost]
+        public ActionResult Company(CompanyIM vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errorMessage = GetModelErrorMessage();
 
-        //    //TempData["message"] = "保存成功！";          
+                AR.Setfailure(errorMessage);
+                return Json(AR, JsonRequestBehavior.DenyGet);
+            }
+            try
+            {
+                var xmlFile = Server.MapPath("~/Config/CompanySettings.config");
+                XDocument doc = XDocument.Load(xmlFile);
 
-        //}
-        
+                var item = doc.Descendants("Settings").FirstOrDefault();
+                item.Element("CompanyName").SetValue(vm.CompanyName);
+                item.Element("CompanyShortName").SetValue(vm.CompanyShortName ?? "");
+                item.Element("Address").SetValue(vm.Address);
+                item.Element("Coordinate").SetValue(vm.Coordinate ?? "");
+                item.Element("ContactMan").SetValue(vm.ContactMan);
+                item.Element("Fax").SetValue(vm.Fax ?? "");
+                item.Element("Phone").SetValue(vm.Phone);
+                item.Element("ZipCode").SetValue(vm.ZipCode ?? "");
+                item.Element("Mobile").SetValue(vm.Mobile ?? "");
+                item.Element("Email").SetValue(vm.Email);
+                item.Element("Email2").SetValue(vm.Email2 ?? "");
+
+                item.Element("Facebook").SetValue(vm.Facebook ?? "");
+                item.Element("LinkedIn").SetValue(vm.LinkedIn ?? "");
+                item.Element("Youtube").SetValue(vm.Youtube ?? "");
+
+                item.Element("Oicq").SetValue(vm.Oicq ?? "");
+                item.Element("OicqTwo").SetValue(vm.OicqTwo ?? "");
+                item.Element("SinaWeibo").SetValue(vm.SinaWeibo ?? "");
+                item.Element("WeiXing").SetValue(vm.WeiXing ?? "");
+                item.Element("WeiXingCode").SetValue(vm.WeiXingCode ?? "");
+                item.Element("WeiXing2").SetValue(vm.WeiXing2 ?? "");
+                item.Element("WeiXingCode2").SetValue(vm.WeiXingCode2 ?? "");
+                doc.Save(xmlFile);
+
+                return Json(AR, JsonRequestBehavior.DenyGet);
+            }
+            catch (Exception ex)
+            {
+                AR.Setfailure(ex.Message);
+                return Json(AR, JsonRequestBehavior.DenyGet);
+            }
+                   
+
+        }
+
 
 
 

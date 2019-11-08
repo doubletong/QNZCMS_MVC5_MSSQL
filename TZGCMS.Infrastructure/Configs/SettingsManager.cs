@@ -3,7 +3,7 @@
     public class SettingsManager
     {
         public static GlobalSettings Site => SettingLoader.LoadConfig<GlobalSettings>();
-
+        public static CompanySettings Company => SettingLoader.LoadConfig<CompanySettings>();
         public static QuestionSettings Question => SettingLoader.LoadConfig<QuestionSettings>();
 
         public static LuceneSettings Lucene => SettingLoader.LoadConfig<LuceneSettings>();

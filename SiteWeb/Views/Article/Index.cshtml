@@ -1,4 +1,4 @@
-﻿@model FrontArticleListVM
+﻿@model FrontArticlePageVM
 @{
 
     PageMeta pm = (PageMeta)ViewBag.PageMeta;
@@ -11,70 +11,154 @@
         <meta name="description" content="@pm.Description" />
         <meta name="keywords" content="@pm.Keyword" />
     }
+    <link href="~/Plugins/swiper/css/swiper.min.css" rel="stylesheet" />
 }
 
-@Html.Action("SingleAd", "AD", new { code = "A1004" })
-
-
+@Html.Action("ArtHeader", "Article")
 
 <!-- BLOG ================================================== -->
 <section class="page page-news">
-    <div class="container">
-      
 
-                @foreach (var post in Model.Articles)
+    <div class="container slider">
+        <!-- Swiper -->
+        <div class="swiper-container gallery-top">
+            <div class="swiper-wrapper">
+                @foreach (var item in Model.NewsList)
                 {
-        <div class="item">
-            <div class="row">
-                <div class="col-md-auto">
-                    <div class="thumbnail">
-                        <a href="@Url.Action("detail",new { id = post.Id})">
-                            <img src="@post.Thumbnail" alt="@post.Title">
+                    <div class="swiper-slide">
+                        <a href="@Url.Action("Detail",new { id = item.Id})" class="item">
+                            <div class="row">
+                                <div class="col-md-auto">
+                                    <img src="@item.Thumbnail" alt="@item.Title" class="thumb" />
+                                </div>
+                                <div class="col-md">
+                                    <div class="txt">
+                                        <h3>@item.Title</h3>
+                                        <p>@item.Summary</p>
+                                    </div>
+                                </div>
+                            </div>
                         </a>
                     </div>
-                </div>
-                <div class="col-md">
-                    <a  href="@Url.Action("detail",new { id = post.Id})">
-                        <div class="des">
-                            <h3>@post.Title</h3>
-                            <div class="note">
-                                <ul>
+                }
 
-                                    <li>
-                                        @string.Format("{0:D}", post.Pubdate)
-                                    </li>
-                                    <li class="category">
-                                         @post.CategoryTitle
-                                    </li>
-                                </ul>
-                            </div>
 
-                            <p>@post.Summary</p>
-
-                        </div>
-                    </a>
-                </div>
             </div>
-          
+            <!-- Add Arrows -->
+            <div class="swiper-button-next swiper-button-white"></div>
+            <div class="swiper-button-prev swiper-button-white"></div>
         </div>
-                    
-
-                }
-                @if (Model.Articles.Any())
-                {
-                    <div class="text-center">
-                        @Html.PagedListPager((IPagedList)Model.Articles, page => Url.Action("Index", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+        <div class="row align-items-center">
+            <div class="col-md-10">
+                <div class="swiper-container gallery-thumbs">
+                    <div class="swiper-wrapper">
+                        @foreach (var item in Model.NewsList)
+                        {
+                            <div class="swiper-slide" style="background-image:url('@item.Thumbnail')"></div>
+                        }
                     </div>
-                }
-                else
-                {
-                    <div class="alert alert-info">
-                        <i class="iconfont icon-info"></i>  未找到任何项。
-                    </div>
-                }
-
+                </div>
             </div>
+            <div class="col-md-2">
+                <a href="@Url.Action("List",new { alias = "news"})" class="more">更多要闻</a>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="container newslist">
+        <div class="title title-section">
+            <h2>媒体报道</h2>
+        </div>
+        @foreach (var post in Model.MediaList)
+        {
+            <a class="item" href="@Url.Action("Detail",new { id = post.Id})">
+                <div class="row align-items-center">
+
+                    <div class="col-md-auto">
+                        <h3>@post.Title</h3>
+                    </div>
+                    @if (post.Pubdate.AddDays(1) > DateTime.Now)
+                    {
+                        <div class="col-md-auto">
+                            <time>NEW</time>
+                        </div>
+                    }
+
+                    <div class="col-md">
+                        <div class="pubdate">
+                            @string.Format("{0:yyyy.MM.dd}", post.Pubdate)
+                        </div>
+                    </div>
+                </div>
+
+            </a>
+
+
+        }
+        <div class="more"><a href="@Url.Action("List",new { alias = "media"})">查看更多</a></div>
+
+    </div>
+
+    <div class="container newslist">
+        <div class="title title-section">
+            <h2>通知公告</h2>
+        </div>
+        @foreach (var post in Model.NoticeList)
+        {
+            <a class="item" href="@Url.Action("Detail",new { id = post.Id})">
+                <div class="row align-items-center">
+
+                    <div class="col-md-auto">
+                        <h3>@post.Title</h3>
+                    </div>
+                    @if (post.Pubdate.AddDays(1) > DateTime.Now)
+                    {
+                        <div class="col-md-auto">
+                            <time>NEW</time>
+                        </div>
+                    }
+
+                    <div class="col-md">
+                        <div class="pubdate">
+                            @string.Format("{0:yyyy.MM.dd}", post.Pubdate)
+                        </div>
+                    </div>
+                </div>
+
+            </a>
+
+
+        }
+        <div class="more"><a href="@Url.Action("List",new { alias = "news"})">查看更多</a></div>
+    </div>
+
 
 </section>
 
 
+@section footer{
+    <script src="~/Plugins/swiper/js/swiper.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+        var galleryThumbs = new Swiper('.gallery-thumbs', {
+            spaceBetween: 10,
+            slidesPerView: 5,
+            freeMode: true,
+            watchSlidesVisibility: true,
+            watchSlidesProgress: true,
+        });
+        var galleryTop = new Swiper('.gallery-top', {
+            spaceBetween: 10,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            thumbs: {
+                swiper: galleryThumbs
+            }
+        });
+    </script>
+
+}

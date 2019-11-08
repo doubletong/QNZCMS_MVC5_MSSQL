@@ -1,0 +1,30 @@
+﻿
+@model IEnumerable<ArticleVM>
+
+<section class="s5">
+    <div class="top">
+        <div class="container newsbox">           
+            <h3 class="title title-v2">
+                新闻中心
+            </h3>                                  
+        </div>
+    </div>
+    <div class="container newslist">
+        @foreach (var item in Model)
+        {
+            <a href="@Url.Action("detail",new { id = item.Id})" class="item">
+                <h3 class="title">
+                    @item.Title
+                </h3>
+                <p>
+                    @item.Summary <span>查看详情</span>
+                </p>
+                <time>@string.Format("{0:d}", item.Pubdate)</time>
+            </a>
+        }
+
+    </div>
+    <div class="container text-center">
+        <a href="/cases" class="more">查看更多 <i class="iconfont icon-right"></i></a>
+    </div>
+</section>

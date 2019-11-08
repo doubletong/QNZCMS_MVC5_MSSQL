@@ -2,7 +2,7 @@
 @{
 
     PageMeta pm = (PageMeta)ViewBag.PageMeta;
-    ViewBag.Title = pm != null ? pm.Title : "服务";
+    ViewBag.Title = pm != null ? pm.Title : "科技服务";
 }
 
 @section header{
@@ -12,80 +12,160 @@
         <meta name="keywords" content="@pm.Keyword" />
     }
 }
+<div class="banner banner-services">
+    <h3>科技服务</h3>
+    <h4>Technology Services</h4>
+    <hr />
+    <nav>
+        <a href="#s1">投资孵化</a>
+        <a href="#s2">创新基地</a>
+        <a href="#s3">科技金融</a>
+        <a href="#s4">人才培训</a>
+    </nav>
+</div>
 
 
-@Html.Action("SingleAd", "AD", new { code = "A1003" })
+@*@Html.Action("Paragraph", "Pages", new { seoName = "service" })*@
 
-
-<div class="page page-service">
-    <section class="s1 container">
-        <h2 class="title-section">FrameMac服务</h2>
-
+<div class="page page-services">
+    <div class="container">
         <p class="p1">
-            轻钢结构是一种年轻而极具生命力的钢结构体系，已广泛应用于一般工农业、商业、服务性建筑，
-            如办公楼、别墅、仓库、体育场馆、娱乐、旅游建筑和低、多层住宅建筑等领域，还可用于旧房增层、改造、加固和建材缺乏地区、倍受业主青睐.
+            以提高科技成果转化及企业创新孵化的成功率为目标，以培育关键领域核心技术科技项目及战略新兴产业为导向，扮演“全要素
+            创新科技服务提供方+战略投资者”角色，为科技成果转化、国际技术转移及企业成长提供包括技术、人才、载体、资金支持在内的
+            投资孵化服务，支持高科技创新企业的高速发展。
         </p>
+        <section class="s1" id="s1">
+            <div class="title title-section">
+                <h2>投资孵化</h2>
+            </div>
 
-        <div class="a1">
-            <div class="row no-gutters">
-                <div class="col-md-6 col-lg-3">
-                    <div class="item item1">
-                        <aside>
-                            <div class="icon"><img src="/Content/img/icon4.png" alt="售前服务"></div>
-                            <div class="txt">
-                                <h4>售前服务</h4>
-                                <p>具备自主的软硬件、固件开发、存储算法及小型化、高可靠性的嵌入式工艺开发能力，是国内少数兼具芯片设计与封测制造能力的存储企业​​</p>
-                            </div>
-                        </aside>
+            <div class="pic">
+                <img src="/Content/img/ser01.png" alt="投资孵化" />
+            </div>
+            <p class="p2">
+                以提高科技成果转化及企业创新孵化的成功率为目标，以培育关键领域核心技术科技项目及战略新兴产业为导向，扮演“全要素
+                创新科技服务提供方+战略投资者”角色，为科技成果转化、国际技术转移及企业成长提供包括技术、人才、载体、资金支持在内的
+                投资孵化服务，支持高科技创新企业的高速发展。
+            </p>
+            <a href="#" class="more">了解详情</a>
+        </section>
+        <section class="s2" id="s2">
+            <div class="title title-section">
+                <h2>创新基地</h2>
+            </div>
+            <p class="p2">
+                创新基地作为科技创新服务体系的重要平台，汇集了包括众创空间、孵化器、加速器、创新基地等承载科技创新企业各个成长阶段
+                服务需求的空间载体，助力企业从初创阶段到快速成长阶段的发展，并通过全球创新服务网络对接海外资源，引进海外项目和海
+                归团队，助力区域产业升级。依托创新基地的布局，聚集和整合企业在经营发展过程中所需的各种创新要素，力合科创集团为创新
+                基地内企业提供科技孵化全过程服务。
+            </p>
+            <div class="list">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="item">
+                            <div class="pic"><img src="/Content/img/ser07.jpg" alt="" /></div>
+                            <h3>清华信息港（深圳）</h3>
+                            <p>
+                                2002年1月开始运营<br />
+                                信息技术产业孵化基地
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="item item2">
-                        <aside>
-                            <div class="icon"><img src="/Content/img/icon1.png" alt="房屋设计"></div>
-                            <div class="txt">
-                                <h4>房屋设计</h4>
-                                <p>
-                                    我司的轻钢结构房屋设人员为国内顶尖设计师，在国内从事钢结构房屋设计十年以上，有相当丰富的经验。我司可根据客户需求，针对每个客户设计出达到客户需求并符合安全标准的房屋。
-                                </p>
-                            </div>
-                        </aside>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="item">
+                            <div class="pic"><img src="/Content/img/ser06.jpg" alt="" /></div>
+                            <h3>清华科技园（珠海）</h3>
+                            <p>
+                                2001年7月开始运营<br />
+                                国家级科技企业孵化器<br />
+                                国家级众创空间<br />
+                                电子信息与大健康创新领航基地
+
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="item item3">
-                        <aside>
-                            <div class="icon"><img src="/Content/img/icon3.png" alt="房屋设计"></div>
-                            <div class="txt">
-                                <h4>设计审核</h4>
-                                <p>佰维可根据客户具体需求，“菜单式”搭配产品组合及技术，最大化满足不同应用场景下的存储需求，持续为客户创造价值</p>
-                            </div>
-                        </aside>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="item">
+                            <div class="pic"><img src="/Content/img/ser02.jpg" alt="" /></div>
+                            <h3>江苏数字信息产业园（无锡）</h3>
+                            <p>
+                                2008年12月开始运营
+                                <br />
+                                国家级科技企业孵化器 <br />
+                                长三角数字信息高科技产业基地
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="item item4">
-                        <aside>
-                            <div class="icon"><img src="/Content/img/icon2.png" alt="房屋设计"></div>
-                            <div class="txt">
-                                <h4>售后服务</h4>
-                                <p>客户遍布五大洲，全球服务据点包括深圳总部、美国、韩国、香港分公司，一共11个业务服务中心，第一时间响应当地客户需求</p>
-                            </div>
-                        </aside>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="item">
+                            <div class="pic"><img src="/Content/img/ser04.jpg" alt="" /></div>
+                            <h3>力合佛山科技园（南海）</h3>
+                            <p>
+                                2014年5月开始运营<br />
+                                国家级科技企业孵化器<br />
+                                国家级众创空间<br />
+                                粤港澳大湾区智能制造示范基地
+                            </p>
+                        </div>
                     </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="item">
+                            <div class="pic"><img src="/Content/img/ser05.jpg" alt="" /></div>
+                            <h3>力合双清创新基地（东莞）</h3>
+                            <p>
+                                2013年12月开始运营<br />
+                                智能制造生态产业链创新基地<br />
+                                广深科技走廊示范服务基地
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="item">
+                            <div class="pic"><img src="/Content/img/ser03.jpg" alt="" /></div>
+                            <h3>力合惠州创新基地（仲恺）</h3>
+                            <p>
+                                2018年4月开始运营<br />
+                                致力打造电子信息与智能制造<br />
+                                硬科技领域科技创新服务基地
+                            </p>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
-        </div>
-    </section>
-
-</div>
-<div class="contact_bar">
-    <div class="txt">
-        <div class="row align-items-center justify-content-md-center">
-            <div class="col-auto">有项目想采用FRAMEMAC轻钢建筑技术？</div>
-            <div class="col-auto"><a href="/contact">联系我们</a></div>
-        </div>
-
+            <ul class="u1">
+                <li>
+                    园区运营：运营自有和受托园区，为入驻企业提供一揽子孵化服务，各项服务形成合力，促进企业发展。
+                </li>
+                <li>线上服务：自主开发科技创新服务线上平台，通过“科技服务+ 互联网”，打造智慧园区。</li>
+            </ul>
+            <a href="#" class="more">了解详情</a>
+        </section>
+        <section class="s3" id="s3">
+            <div class="title title-section">
+                <h2>科技金融</h2>
+            </div>
+            <p class="p2">
+                成立科技担保、科技小贷和科技租赁公司，依靠专业的金融管理团队和科技专家团队，用投贷结合、投保结合等创新方式，为科技
+                企业提供多层次、多元化、全方位的科技金融综合服务。
+            </p>
+            <a href="#" class="more">了解详情</a>
+        </section>
+        <section class="s4" id="s4">
+            <div class="title title-section">
+                <h2>人才培训</h2>
+            </div>
+            <p class="p2">
+                力合科创集团控股子公司力合教育主要培训高素质经营管理人才和技术人才，同时建立科技经营管理与技术人才库，为企业提供人力资源支撑，致力于打造国际化、专业化、体系化的“产学研资”一体化高端教育平台，累计培训学员4万多人。
+            </p>
+            <a href="#" class="more">了解详情</a>
+        </section>
+        
     </div>
 </div>
 

@@ -26,6 +26,8 @@ namespace TZGCMS.Model
     }
 
 
+
+
     public class ArticleListVM
     {
         public int PageIndex { get; set; }
@@ -37,9 +39,31 @@ namespace TZGCMS.Model
 
     }
 
+    public class ArticleCategoryFVM
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Alias { get; set; }
+    }
+    public class FrontArticlePageVM
+    {
+     
+        public IEnumerable<ArticleVM> NewsList { get; set; }
+        public IEnumerable<ArticleVM> MediaList { get; set; }
+        public IEnumerable<ArticleVM> NoticeList { get; set; }
+        //public string Keyword { get; set; }
+        //public int PageIndex { get; set; }
+        //public int PageSize { get; set; }
+        //public int TotalCount { get; set; }
+        //public StaticPagedList<ArticleVM> Articles { get; set; }
+
+    }
     public class FrontArticleListVM
     {
-        public string Keyword { get; set; }
+        public IEnumerable<int> Years { get; set; }
+        public string CategoryTitle { get; set; }
+        public string Alias { get; set; }
+        public int? Year { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
         public int TotalCount { get; set; }

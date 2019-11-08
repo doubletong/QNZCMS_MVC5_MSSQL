@@ -1,58 +1,113 @@
 
 
 .page-news {
-    background-color: #f6f6f6;
+    .slider {
+        margin-bottom: 6rem;
 
-    .item {
-        padding: 1rem;
-        border-bottom: 1px #e6e6e6 solid;
-        margin-bottom: 2rem;
+        .txt {
+            height: 100%;
+            background: url(../img/logo_bg.png) no-repeat right -200px center;
+            background-size: auto 90%;
+            padding-top: 3rem;
 
-        .thumbnail {
-
-            img {
-                width: 425px;
-                height: 240px;
-                object-fit: cover;
-                border-radius: 4px;
-                display: block;
-            }
-        }
-
-        &:hover {
-            background-color: #fff;
-            box-shadow: 0 0 20px rgba(0,0,0,.1);
-            border-bottom-color: transparent;
-        }
-
-        .des {
             h3 {
-                margin: 0 0 .5rem;
+                margin: 0;
+                font-size: rem(38);
+            }
+
+            p {
                 font-size: rem(24);
             }
+        }
 
-            .note {
-                font-size: rem(14);
+        .more {
+            display: block;
+            height: 120px;
+            background-color: #f7f7f7;
+            text-align: center;
+            line-height: 120px;
+        }
+    }
 
-                ul {
-                    @include reset-list;
+    .gallery-top {
+        .item {
+            display: block;
+        }
+
+        .thumb {
+            width: 780px;
+        }
+    }
+
+    .gallery-thumbs {
+        .swiper-slide {
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 120px;
+        }
+    }
+
+    .newslist {
+        margin-bottom: 3rem;
+
+        .item {
+            display: block;
+            padding: 2rem 0;
+            border-bottom: 1px #666 solid;
+
+
+            &:hover {
+                color: $color-primary;
+                border-bottom: 1px $color-primary solid;
+                text-decoration: none;
+                background-color: #f7f7f7;
+            }
+
+
+            h3 {
+                margin: 0;
+                font-size: rem(20);
+
+                @include respond-above(sm) {
+                    font-size: rem(24);
                 }
 
-                li {
-                    display: inline-block;
-                    padding-right: 1rem;
-                    color: #999;
-
-                    &:first-child {
-                        border-right: 1px #ddd solid;
-                    }
-
-                    &.category {
-                        padding-left: 1rem;
-                        color: #ff9926;
-                    }
+                @include respond-above(md) {
+                    font-size: rem(28);
                 }
             }
+
+            .pubdate {
+                text-align: right;
+                color: #999;
+            }
+        }
+
+        .more {
+            text-align: right;
+            padding: 2rem 0;
+
+            a {
+                display: inline-block;
+                font-size: 22px;
+            }
+        }
+    }
+
+    .years {
+        padding: 2rem 0;
+
+        a {
+            display:inline-block;
+                background: #F7F8F8;   
+                width: 143px;
+                height: 57px;
+                margin-right:1rem;
+                margin-bottom:1rem;
+                text-align:center;
+                line-height:57px;
+                font-size:rem(20);            
         }
     }
 }
@@ -60,7 +115,19 @@
 
     .article {
         text-align: justify;
-        margin-bottom:5rem;
+        margin-bottom: 2rem;
+
+        @include respond-above(sm) {
+            margin-bottom: 3rem;
+        }
+
+        @include respond-above(md) {
+            margin-bottom:4rem;
+        }
+
+        @include respond-above(lg) {
+            margin-bottom: 5rem;
+        }
 
         .title-article {
             margin-bottom: 1rem;

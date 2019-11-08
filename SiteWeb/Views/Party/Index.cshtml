@@ -1,0 +1,86 @@
+﻿@model FrontArticlePageVM
+@{
+    ViewData["Title"] = "党建工作";
+}
+
+@Html.Partial("_Party_Header")
+
+    <div class="page page-party">
+
+
+        @Html.Action("RecommendArticle", new { count = 3 })
+
+        <section class="s1 container">
+            <ul class="newslist">
+                @foreach (var post in Model.NewsList)
+                {
+                    <li><a href="@Url.Action("Detail",new { id = post.Id})">@post.Title</a><time>@string.Format("{0:yyyy.MM.dd}", post.Pubdate)</time></li>
+                }
+
+            </ul>
+            <div class="more">
+                <a href="@Url.Action("List",new { alias = "zznews"})">更多报道</a>
+            </div>
+        </section>
+        <section class="s2 container">
+            <div class="title title-section">
+                <h2>中央精神</h2>
+            </div>
+            <ul class="newslist">
+                @foreach (var post in Model.MediaList)
+                {
+                    <li><a href="@Url.Action("Detail",new { id = post.Id})">@post.Title</a><time>@string.Format("{0:yyyy.MM.dd}", post.Pubdate)</time></li>
+                }
+            </ul>
+            <div class="more">
+                <a href="@Url.Action("List",new { alias = "central_spirit"})">更多报道</a>
+            </div>
+        </section>
+
+        <section class="s3 container">
+            <div class="title title-section">
+                <h2>理论学习</h2>
+            </div>
+            <ul class="newslist">
+                @foreach (var post in Model.NoticeList)
+                {
+                    <li><a href="@Url.Action("Detail",new { id = post.Id})">@post.Title</a><time>@string.Format("{0:yyyy.MM.dd}", post.Pubdate)</time></li>
+                }
+            </ul>
+            <div class="more">
+                <a href="@Url.Action("List",new { alias = "theoretical"})">更多报道</a>
+            </div>
+        </section>
+    </div>
+
+@section header{
+
+    <style>
+        
+    </style>
+
+}
+@section footer{
+    @*<script src="~/Plugins/Accordion/jquery.waitforimages.min.js"></script>*@
+    <script>
+ //       (function(){
+	//	$('.flex-container').waitForImages(function() {
+	//		$('.spinner').fadeOut();
+	//}, $.noop, true);
+	
+	$(".flex-slide").each(function(){
+        $(this).hover(function () {
+            $(this).siblings().removeClass("active")
+            $(this).addClass("active");
+		
+		}, function(){
+			$(this).find('.flex-title').css({		
+				bottom: '0'
+			});
+		
+		})
+	});
+})();
+    </script>
+
+}

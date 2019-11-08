@@ -1,12 +1,92 @@
 ﻿@model  IEnumerable<Carousel>
-<!-- slider start -->
-@if (Model != null)
-{
-    <div class="bxslider">
-        @foreach (var ad in Model)
-        {  
-        <div style="background-image:url(@ad.ImageUrl)"><a href="@ad.WebLink"><img src="@ad.ImageUrl" title="@ad.Title" class="hidden" ></a></div>
-        }    
+
+<section class="s3">
+    <div class="container">
+        <h2 class="title title-section">始终坚持优质产品</h2>
+        <p>
+            生产系统采用国际主流的人机交互界面，以人为本。机器的控制界面以操作者为对象设计，简洁形象，所见即所得，易于生产管理。依托丰富的冷弯设备精工制造经验与成熟的软件开发能力，孚瑞美愿和各界朋友广泛合作，携手相助，开拓轻钢结构房屋市场的广阔空间，共同发展。
+        </p>
     </div>
-}
-<!-- slider end -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            @if (Model != null)
+            {
+          
+                foreach (var ad in Model)
+                {                
+                    <div class="swiper-slide" style="background-image:url('@ad.ImageUrl')">
+                        <a href="@ad.WebLink" class="item">
+                            <h3 class="des">
+                                @ad.Title
+                            </h3>
+                            <div class="go"><span>了解更多</span> <i class="iconfont icon-arrow-right"></i></div>
+                        </a>
+                    </div>
+                }
+            
+            }
+
+           
+            @*<div class="swiper-slide" style="background-image:url('/Content/img/temp/hp01.jpg')">
+                <a href="#" class="item">
+                    <h3 class="des">
+                        FrameMac C型龙骨设备
+                    </h3>
+                    <div class="go"><span>了解更多</span> <i class="iconfont icon-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="swiper-slide" style="background-image:url('/Content/img/temp/hp01.jpg')">
+                <a href="#" class="item">
+                    <h3 class="des">
+                        FrameMac C型龙骨设备
+                    </h3>
+                    <div class="go"><span>了解更多</span> <i class="iconfont icon-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="swiper-slide" style="background-image:url('/Content/img/temp/hp01.jpg')">
+                <a href="#" class="item">
+                    <h3 class="des">
+                        FrameMac C型龙骨设备
+                    </h3>
+                    <div class="go"><span>了解更多</span> <i class="iconfont icon-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="swiper-slide" style="background-image:url('/Content/img/temp/hp01.jpg')">
+                <a href="#" class="item">
+                    <h3 class="des">
+                        FrameMac C型龙骨设备
+                    </h3>
+                    <div class="go"><span>了解更多</span> <i class="iconfont icon-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="swiper-slide" style="background-image:url('/Content/img/temp/hp01.jpg')">
+                <a href="#" class="item">
+                    <h3 class="des">
+                        FrameMac C型龙骨设备
+                    </h3>
+                    <div class="go"><span>了解更多</span> <i class="iconfont icon-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="swiper-slide" style="background-image:url('/Content/img/temp/hp01.jpg')">
+                <a href="#" class="item">
+                    <h3 class="des">
+                        FrameMac C型龙骨设备
+                    </h3>
+                    <div class="go"><span>了解更多</span> <i class="iconfont icon-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="swiper-slide" style="background-image:url('/Content/img/temp/hp01.jpg')">
+                <a href="#" class="item">
+                    <h3 class="des">
+                        FrameMac C型龙骨设备
+                    </h3>
+                    <div class="go"><span>了解更多</span> <i class="iconfont icon-arrow-right"></i></div>
+                </a>
+            </div>*@
+        </div>
+    </div>
+
+    <div class="btn-nav swiper-prev"><i class="iconfont icon-back"></i></div>
+    <div class="btn-nav swiper-next"><i class="iconfont icon-next"></i></div>
+    <a class="btn-nav" href="/products">查看更多</a>
+</section>

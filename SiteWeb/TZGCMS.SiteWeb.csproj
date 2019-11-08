@@ -257,6 +257,7 @@
     <Compile Include="Areas\Tools\ToolsAreaRegistration.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AchievementsController.cs" />
     <Compile Include="Controllers\ADController.cs" />
     <Compile Include="Controllers\api\ArticlesController.cs" />
     <Compile Include="Controllers\api\CarouselsController.cs" />
@@ -271,9 +272,13 @@
     <Compile Include="Controllers\CasesController.cs" />
     <Compile Include="Controllers\ChronicleController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\CooperationController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JoinController.cs" />
+    <Compile Include="Controllers\PartyController.cs" />
+    <Compile Include="Controllers\InstituteController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
@@ -527,6 +532,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\common\bootstrap-grid.css" />
+    <Content Include="Content\css\common\bootstrap-reboot.css" />
     <Content Include="Content\css\styles.css">
       <DependentUpon>styles.scss</DependentUpon>
     </Content>
@@ -536,8 +543,6 @@
     <Content Include="Content\fonts\iconfont.css" />
     <Content Include="Content\fonts\iconfont.js" />
     <Content Include="Content\fonts\iconfont.svg" />
-    <Content Include="Content\img\arrow.png" />
-    <Content Include="Content\img\arrow1.png" />
     <Content Include="Content\img\banners\about.jpg" />
     <Content Include="Content\img\banners\career.jpg" />
     <Content Include="Content\img\banners\contact.jpg" />
@@ -547,17 +552,6 @@
     <Content Include="Content\img\banners\products.jpg" />
     <Content Include="Content\img\banners\products.png" />
     <Content Include="Content\img\banners\services.jpg" />
-    <Content Include="Content\img\bot_logo.png" />
-    <Content Include="Content\img\lang_cn.png" />
-    <Content Include="Content\img\lang_en.png" />
-    <Content Include="Content\img\lang_es.png" />
-    <Content Include="Content\img\logo.png" />
-    <Content Include="Content\img\logo_bot.png" />
-    <Content Include="Content\img\logo_v1.png" />
-    <Content Include="Content\img\play.png" />
-    <Content Include="Content\img\qrcode.png" />
-    <Content Include="Content\img\qrcode1.png" />
-    <Content Include="Content\img\temp\01.png" />
     <Content Include="Content\js\app.js" />
     <Content Include="Content\js\app.min.js">
       <DependentUpon>app.js</DependentUpon>
@@ -566,6 +560,9 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Plugins\Accordion\accordion.css" />
+    <Content Include="Plugins\Accordion\index.html" />
+    <Content Include="Plugins\Accordion\pana-accordion.js" />
     <Content Include="Plugins\ace\ChangeLog.txt" />
     <Content Include="Plugins\ace\editor.html" />
     <Content Include="Plugins\ace\kitchen-sink.html" />
@@ -3752,7 +3749,7 @@
     <Content Include="Content\css\pages\_cases.scss" />
     <Content Include="Content\css\pages\_common.scss" />
     <Content Include="Content\css\pages\_contact.scss" />
-    <Content Include="Content\css\pages\_cooperate.scss" />
+    <Content Include="Content\css\pages\_institute.scss" />
     <Content Include="Content\css\pages\_creative.scss" />
     <Content Include="Content\css\pages\_document.scss" />
     <Content Include="Content\css\pages\_events.scss" />
@@ -3760,7 +3757,7 @@
     <Content Include="Content\css\pages\_header.scss" />
     <Content Include="Content\css\pages\_home.scss" />
     <Content Include="Content\css\pages\_index.scss" />
-    <Content Include="Content\css\pages\_jion.scss" />
+    <Content Include="Content\css\pages\_join.scss" />
     <Content Include="Content\css\pages\_news.scss" />
     <Content Include="Content\css\pages\_nuclear.scss" />
     <Content Include="Content\css\pages\_operation.scss" />
@@ -3854,6 +3851,16 @@
     <Content Include="Plugins\tinymce5\plugins\codemirror\codemirror-4.8\LICENSE" />
     <Content Include="Plugins\tinymce5\plugins\codemirror\codemirror-4.8\package.json" />
     <Content Include="Plugins\tinymce5\plugins\codemirror\codemirror-4.8\README.md" />
+    <Content Include="Areas\Admin\Views\Info\Company.cshtml" />
+    <Content Include="Content\css\common\_grid.scss" />
+    <Content Include="Content\css\common\_reboot.scss" />
+    <Content Include="Content\css\pages\_achievements.scss" />
+    <Content Include="Content\css\pages\_party.scss" />
+    <Content Include="Content\css\pages\_cooperation.scss" />
+    <Content Include="Plugins\Accordion\.DS_Store" />
+    <Content Include="Plugins\Accordion\accordion.scss" />
+    <Content Include="Plugins\Accordion\README.md" />
+    <Content Include="Plugins\Accordion\_css3-mixins.scss" />
     <None Include="Scripts\lib\jquery\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\lib\jquery\jquery-3.3.1.js" />
     <Content Include="Scripts\lib\jquery\jquery-3.3.1.min.js" />
@@ -3869,7 +3876,7 @@
     <Content Include="Config\CategorySettings.config" />
     <Content Include="Config\ChronicleSettings.config" />
     <Content Include="Config\ClientSettings.config" />
-    <Content Include="Config\ContactSettings.config" />
+    <Content Include="Config\CompanySettings.config" />
     <Content Include="Config\EmailAccountSettings.config" />
     <Content Include="Config\EmailSettings.config" />
     <Content Include="Config\EmailTemplateSettings.config" />
@@ -3889,7 +3896,6 @@
     <Content Include="Config\QuestionSettings.config" />
     <Content Include="Config\RoleSettings.config" />
     <Content Include="Config\SMTPSettings.config" />
-    <Content Include="Config\SocialSettings.config" />
     <Content Include="Config\StoreSettings.config" />
     <Content Include="Config\TeamSettings.config" />
     <Content Include="Config\UserSettings.config" />
@@ -4322,7 +4328,11 @@
     <Content Include="Themes\XiPin\Content\js\app.js" />
     <Content Include="tile-wide.png" />
     <Content Include="tile.png" />
+    <Content Include="Views\About\_bak.html" />
+    <Content Include="Views\Cases\_bak.html" />
+    <Content Include="Views\Contact\_bak.html" />
     <Content Include="Views\Products\_bak.html" />
+    <Content Include="Views\Services\_bak.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -4543,9 +4553,7 @@
     <Content Include="Themes\Saches\Views\Home\CloseSite.cshtml" />
     <Content Include="Views\AD\Carousels.cshtml" />
     <Content Include="Views\AD\SingleAd.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
-    <Content Include="Views\Menu\_SiteNav.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Menu\_SiteFooterNav.cshtml" />
     <Content Include="Views\Home\CloseSite.cshtml" />
@@ -4555,11 +4563,9 @@
     <Content Include="Views\Services\Index.cshtml" />
     <Content Include="Views\Article\Detail.cshtml" />
     <Content Include="Views\Article\Index.cshtml" />
-    <Content Include="Views\Article\Partials\HomeNews.cshtml" />
-    <Content Include="Views\Article\Partials\HotNews.cshtml" />
     <Content Include="Views\Article\Search.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\Contact\__Index.cshtml" />
     <Content Include="Views\Cases\Index.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Cases\Detail.cshtml" />
@@ -4572,6 +4578,25 @@
     <Content Include="Views\Download\_NewDocument.cshtml" />
     <Content Include="Views\Download\_BotDocument.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Article\____RecentNews.mobile.cshtml" />
+    <Content Include="Views\Pages\Index.cshtml" />
+    <Content Include="Views\Pages\_Paragraph.cshtml" />
+    <Content Include="Views\Menu\_SiteNav.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\Join\Index.cshtml" />
+    <Content Include="Views\Party\Index.cshtml" />
+    <Content Include="Views\Cooperation\Index.cshtml" />
+    <Content Include="Views\Achievements\Index.cshtml" />
+    <Content Include="Views\Article\List.cshtml" />
+    <Content Include="Views\Article\_ArtHeader.cshtml" />
+    <Content Include="Views\Institute\Index.cshtml" />
+    <Content Include="Views\Cooperation\_RecentNews.cshtml" />
+    <Content Include="Views\Party\List.cshtml" />
+    <Content Include="Views\Party\_Party_Header.cshtml" />
+    <Content Include="Views\Party\Detail.cshtml" />
+    <Content Include="Views\Cooperation\Detail.cshtml" />
+    <Content Include="Views\Cooperation\_CooperationHeader.cshtml" />
+    <Content Include="Views\Party\_RecommendArticle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Thumbnails\" />
@@ -4591,6 +4616,7 @@
     <Folder Include="Areas\Admin\Views\Page\Partials\" />
     <Folder Include="Areas\Tools\Models\" />
     <Folder Include="Areas\Tools\Views\TingMCE\" />
+    <Folder Include="Content\img\temp\" />
     <Folder Include="Plugins\tinymce5\plugins\codemirror\codemirror\" />
     <Folder Include="Themes\Default\Views\Article\" />
     <Folder Include="Uploads\Files\" />

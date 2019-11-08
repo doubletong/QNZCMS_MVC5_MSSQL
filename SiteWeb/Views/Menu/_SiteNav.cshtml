@@ -1,19 +1,42 @@
 ﻿@model IEnumerable<Menu>
-    @{ 
-        var url = Request.RawUrl.ToLower();
-    }
-<ul class="mainav list-unstyled">
-    @foreach (var item in Model.Where(d=>d.ParentId==null))
-    {
-        <li class="@(url.StartsWith(item.Url.ToLower()) ?"active":"")">
+    <ul class="mainav">
+        @foreach (var item in Model.Where(d => d.ParentId == null))
+        {
+            <li class="@(item.ChildMenus.Any() ? "downav" : "") @(item.Url.Equals(Request.RawUrl) || (item.ChildMenus.Any() && item.ChildMenus.Select(m=>m.Url).Contains(Request.RawUrl)) ?"active":"")">
 
-            <a href="@item.Url" class="">
-                @item.Title              
-            </a>            
-        </li>
-        
-    }
-      
-</ul>
+                <a href="@item.Url" class="">
+                    @item.Title
+                    @if (item.ChildMenus.Any())
+                    {
+                        <i class="iconfont icon-down"></i>
+                    }
+                </a>
+
+                @if (item.ChildMenus.Any())
+                {
+
+                    <div class="subnav">
+                        <dl>
+                            @foreach (var subItem in item.ChildMenus)
+                            {
+
+                              
+                        <dd class="@(subItem.Url.Equals(Request.RawUrl)?"current":"")">
+                            <a href="@subItem.Url">
+                                @subItem.Title
+                            </a>
+                        </dd>
+
+                 
+
+                }
+                            </dl>
+                            </div>
+                        }
+                </li>
+
+            }
+
+    </ul>
 
 

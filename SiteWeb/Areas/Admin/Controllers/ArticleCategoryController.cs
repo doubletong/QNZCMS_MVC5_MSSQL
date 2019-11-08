@@ -16,40 +16,34 @@ using TZGCMS.Model.Admin.ViewModel.Articles;
 using TZGCMS.Resources.Admin;
 using TZGCMS.Service.Articles;
 using TZGCMS.Service.PageMetas;
+using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class ArticleCategoryController : BaseController
     {
-        private readonly IArticleCategoryServices _categoryServices;
-        private readonly IPageMetaServices _pageMetaServices;
+      
         private readonly IMapper _mapper;
-
-        public ArticleCategoryController(
-            IArticleCategoryServices categoryServices,         
-            IPageMetaServices pageMetaServices,
-            IMapper mapper)
-        {
-            _categoryServices = categoryServices;         
-            _pageMetaServices = pageMetaServices;
+        public ArticleCategoryController(IMapper mapper)
+        {        
             _mapper = mapper;
-
         }
         // GET: Admin/ArticleCategory
 
         #region 新闻分类
 
-        public ActionResult Index(int? page, string keyword)
+        public async Task<ActionResult> Index(int? page, string keyword)
         {
-            ArticleCategoryListVM categoryListVM = GetElements(page, keyword);
+            ArticleCategoryListVM categoryListVM = await GetElementsAsync(page, keyword);
 
             ViewBag.PageSizes = new SelectList(Site.PageSizes());
             return View(categoryListVM);
 
         }
 
-        private ArticleCategoryListVM GetElements(int? page, string keyword)
+        private async System.Threading.Tasks.Task<ArticleCategoryListVM> GetElementsAsync(int? page, string keyword)
         {
             var vm = new ArticleCategoryListVM()
             {
@@ -57,10 +51,17 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 PageIndex = page ?? 1,
                 PageSize = SettingsManager.Article.PageSize
             };
-            int totalCount;
-            var list = _categoryServices.GetPagedElements(vm.PageIndex-1, vm.PageSize, vm.Keyword, out totalCount);
-           
-            vm.TotalCount = totalCount;
+            var query = _db.ArticleCategory.AsQueryable();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                query = query.Where(d => d.Title.Contains(keyword));
+            }
+        
+            var list = await query.OrderByDescending(d => d.Importance)
+                .Skip((vm.PageIndex - 1) * vm.PageSize).Take(vm.PageSize).ToListAsync();
+                //_categoryServices.GetPagedElements(vm.PageIndex-1, vm.PageSize, vm.Keyword, out totalCount);
+
+            vm.TotalCount = await query.CountAsync();
             vm.Categories = new StaticPagedList<ArticleCategory>(list, vm.PageIndex, vm.PageSize, vm.TotalCount); ;
             return vm;
         }
@@ -113,7 +114,9 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             //newCategory.CreatedBy = Site.CurrentUserName;
             //newCategory.CreatedDate = DateTime.Now;
 
-            var result =  _categoryServices.Create(newCategory);
+            var result = _db.ArticleCategory.Add(newCategory);
+            _db.SaveChanges();
+                //_categoryServices.Create(newCategory);
 
             if (result!=null)
             {
@@ -125,13 +128,14 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                     Description = vm.SEODescription,
                     ModelType = ModelType.ARTICLECATEGORY
                 };
-                _pageMetaServices.Create(pageMeta);
+                _db.PageMetas.Add(pageMeta);
+                _db.SaveChanges();
+                //_pageMetaServices.Create(pageMeta);
             }
                
-
-            int count;
             var pageSize = SettingsManager.Article.PageSize;
-            var list = _categoryServices.GetPagedElements(0, pageSize, string.Empty, out count);            
+            var list = _db.ArticleCategory.OrderByDescending(d=>d.Importance).Skip(0).Take(pageSize).ToList();
+             //   _categoryServices.GetPagedElements(0, pageSize, string.Empty, out count);            
             AR.Data = RenderPartialViewToString("_CategoryList", list);
             AR.SetSuccess(String.Format(Messages.AlertCreateSuccess, EntityNames.ArticleCategory));
             return Json(AR, JsonRequestBehavior.DenyGet);
@@ -143,7 +147,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
 
-            ArticleCategory category = _categoryServices.GetById(id);
+            ArticleCategory category = _db.ArticleCategory.Find(id);
+                //_categoryServices.GetById(id);
             if (category == null)
             {
                 AR.Setfailure(Messages.HttpNotFound);
@@ -152,7 +157,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
             var vm = _mapper.Map<ArticleCategoryIM>(category);
 
-            var pageMeta = _pageMetaServices.GetPageMeta(ModelType.ARTICLECATEGORY, category.Id.ToString());
+            var pageMeta = _db.PageMetas.FirstOrDefault(d => d.ModelType == ModelType.ARTICLECATEGORY && d.ObjectId == category.Id.ToString());
+                //_pageMetaServices.GetPageMeta(ModelType.ARTICLECATEGORY, category.Id.ToString());
             if (pageMeta != null)
             {
                 vm.SEOTitle = pageMeta.Title;
@@ -181,11 +187,15 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             //newCategory.Active = vm.Active;
             //newCategory.UpdatedBy = Site.CurrentUserName;
             //newCategory.UpdatedDate = DateTime.Now;
-            var newCategory = _mapper.Map<ArticleCategoryIM, ArticleCategory>(vm);
+            var model = _db.ArticleCategory.Find(vm.Id);
 
-            _categoryServices.Update(newCategory);
+            model = _mapper.Map(vm, model);
+            _db.Entry(model).State = EntityState.Modified;
+          //  _db.SaveChanges();
+          // _categoryServices.Update(newCategory);
 
-            var pageMeta = _pageMetaServices.GetPageMeta(ModelType.ARTICLECATEGORY, vm.Id.ToString());
+            var pageMeta = _db.PageMetas.FirstOrDefault(d => d.ModelType == ModelType.ARTICLECATEGORY && d.ObjectId == vm.Id.ToString());
+            //_pageMetaServices.GetPageMeta(ModelType.ARTICLECATEGORY, vm.Id.ToString());
             pageMeta = pageMeta ?? new PageMeta();
           
             pageMeta.ObjectId = vm.Id.ToString();
@@ -196,17 +206,19 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
             if (pageMeta.Id > 0)
             {
-                _pageMetaServices.Update(pageMeta);
+                _db.Entry(pageMeta).State = EntityState.Modified;
+                //_pageMetaServices.Update(pageMeta);
             }
             else
             {
-                _pageMetaServices.Create(pageMeta);
+                _db.PageMetas.Add(pageMeta);
+                //_pageMetaServices.Create(pageMeta);
             }
-         
+            _db.SaveChanges();
 
          //   var category = _mapper.Map<ArticleCategoryVM>(newCategory);
-            AR.Id = newCategory.Id;
-            AR.Data = RenderPartialViewToString("_CategoryItem", newCategory);
+            AR.Id = model.Id;
+            AR.Data = RenderPartialViewToString("_CategoryItem", model);
 
             AR.SetSuccess(String.Format(Messages.AlertUpdateSuccess, EntityNames.ArticleCategory));
             return Json(AR, JsonRequestBehavior.DenyGet);
@@ -218,7 +230,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult Delete(int id)
         {
-            var category = _categoryServices.GetByIdWithArticles(id);
+            var category = _db.ArticleCategory.Include(d=>d.Articles).FirstOrDefault(d=>d.Id == id);
+                //_categoryServices.GetByIdWithArticles(id);
          
             if (category.Articles.Any())
             {
@@ -226,7 +239,10 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 return Json(AR, JsonRequestBehavior.DenyGet);
             }
 
-            _categoryServices.Delete(category);
+            _db.ArticleCategory.Remove(category);
+            _db.SaveChanges();
+
+            //_categoryServices.Delete(category);
             AR.SetSuccess(String.Format(Messages.AlertDeleteSuccess, EntityNames.ArticleCategory));
             return Json(AR, JsonRequestBehavior.DenyGet);
 
@@ -238,7 +254,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         public JsonResult IsActive(int id)
         {
 
-            var vCategory = _categoryServices.GetById(id);
+            var vCategory = _db.ArticleCategory.Find(id);
+                //_categoryServices.GetById(id);
             if (vCategory == null)
             {
                 AR.Setfailure(Messages.HttpNotFound);
@@ -248,7 +265,9 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             try
             {
                 vCategory.Active = !vCategory.Active;
-                _categoryServices.Update(vCategory);
+                _db.Entry(vCategory).State = EntityState.Modified;
+                _db.SaveChanges();
+               // _categoryServices.Update(vCategory);
 
                // var vm = _mapper.Map<ArticleCategoryVM>(vCategory);
 
@@ -264,15 +283,26 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         }
 
 
+        
+
         [AllowAnonymous]
-        public JsonResult IsSeoNameUnique(string seoName, int? id)
+        public async Task<JsonResult> IsSeoNameUnique(string seoName, int? id)
         {
-            return !_categoryServices.IsExistSeoName(seoName, id)
+            var result = await IsExistSeoName(seoName, id);
+            return !result
                 ? Json(true, JsonRequestBehavior.AllowGet)
                 : Json(false, JsonRequestBehavior.AllowGet);
         }
-      
 
+        public async Task<bool> IsExistSeoName(string seoName, int? id)
+        {
+            if (id != null)
+            {
+                return await _db.ArticleCategory.CountAsync(d => d.SeoName == seoName && d.Id != id.Value) > 0;
+            }
+
+            return await _db.ArticleCategory.CountAsync(d => d.SeoName == seoName) > 0;
+        }
         #endregion
     }
 }

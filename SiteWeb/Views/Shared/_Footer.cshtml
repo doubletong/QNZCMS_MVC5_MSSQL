@@ -1,67 +1,13 @@
-﻿<!-- footer start ================================================== -->
+﻿<div class="footer-bar">
+    <img src="/content/img/1x/logo-m.png" alt="logo" />
+</div>
 <footer class="site-footer">
     <div class="container">
-        <div class="logo_name">
-            <div class="row no-gutters">
-                <div class="col-md-auto">
-                    <img src="/Content/img/logo.png" alt="logo" class="logo" />
-                </div>
-                <div class="col-md">
-                    <h3 class="company_name">中国专业轻钢龙骨设备提供者</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                @Html.Action("SiteFooterNav", "Menu", new { cid = 3 })
-            </div>
-            <div class="col-lg-6">
-                <div class="contact_qrcode">                  
-                   
-                    <div class="row">
-                        <div class="col">
-                            <figure>
-                                <img src="~/Content/img/qrcode.png" alt="" />
-                                <figcaption>孚瑞美微信公众号</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col">
-                            <figure>
-                                <img src="~/Content/img/qrcode1.png" alt="" />
-                                <figcaption>孚瑞美微信公众号</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-auto">
-                            @Html.Action("BotDocument", "Download")
-                        </div>
-                    </div>
-                    
-             
-                </div>
-            </div>
-        </div>
-        <div class="row align-items-end mb-2">
-            <div class="col">
-                <nav class="sejiao">
-                    <a href="#" class="linkedin"><i class="iconfont icon-linkedin"></i></a>
-                    <a href="#" class="play"><i class="iconfont icon-play"></i></a>
-                    <a href="#" class="facebook"><i class="iconfont icon-facebook"></i></a>
-                    <a href="#" class="sina"><i class="iconfont icon-sina"></i></a>
-                </nav>
-                <ul class="contact">
-                    <li>地址：佛山市南海区狮山镇桃园西路狮山罗洞邹边工业区4号</li>
-                    <li>E-mail：Sales@Framemac.com</li>
-                    <li>公司总机：0757—81230272  <span>服务热线：0757—81230272</span></li>
-                </ul>
-            </div>
-            <div class="col-auto">
-                <a href="javascript:void(0);" id="toTop" class="totop"><i class="iconfont icon-up"></i></a>
-            </div>
-        </div>
-   
-        <div class="copyright">
-            &copy; Copyright 2016-2021 版权所有  佛山市孚瑞美科技有限公司 @*<br /> 粤公网安备：<a href="http://www.miitbeian.gov.cn">@SettingsManager.Site.WebNumber</a>*@
-        </div>
+        <nav><a href="#">Cosite共享</a><a href="#">网站导航</a><a href="#">相关链接</a></nav>
+        <p>
+            地址：@SettingsManager.Company.Address <span>邮编：@SettingsManager.Company.ZipCode</span><br />
+            copyright &copy; 2019 @SettingsManager.Company.CompanyName all rights reserved <span><a href="http://www.beian.miit.gov.cn/">@SettingsManager.Site.WebNumber</a></span><br />
+            Design by: <a href="//inholy.com">Holy荷勒</a>
+        </p>
     </div>
 </footer>
-<!-- /footer section end-->

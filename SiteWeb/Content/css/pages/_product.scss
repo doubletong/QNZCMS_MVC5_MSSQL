@@ -2,11 +2,27 @@
     background-color: #f7f7f7;
 
     .s1 {
-        padding-bottom: 3rem;
+        padding-bottom: 1rem;
+
+        @include respond-above (sm) {
+            padding-bottom: 2rem;
+        }
+
+        @include respond-above (md) {
+            padding-bottom: 3rem;
+        }
 
         .title-section {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
+
+            @include respond-above (sm) {
+                margin-bottom: 2rem;
+            }
+
+            @include respond-above (md) {
+                margin-bottom: 3rem;
+            }
         }
 
         .productlist {
@@ -59,30 +75,52 @@
     }
 
     .s2 {
-        padding-top:5rem;
+        padding-top: 5rem;
+
         .title-section {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
+
+            @include respond-above (sm) {
+                margin-bottom: 2rem;
+            }
+
+            @include respond-above (md) {
+                margin-bottom: 3rem;
+            }
         }
 
         .pxlist {
             .item {
                 border: #bfbfbf 1px solid;
-                padding: 4rem 2rem;
-                text-align:center;
-                h3{
-                    color:#333;
-                    font-size:rem(24);
+                padding: 3rem 2rem;
+                text-align: center;
+                margin-bottom: 1rem;
+
+                @include respond-above (sm) {
+                    padding: 3rem 1rem;
                 }
-                .more{
-                    display:inline-block;border:1px $color-primary solid;
-                    padding:.4rem 2rem;
-                    color:$color-primary;
-                    font-size:rem(20);
-                    margin:2rem auto;
+
+                @include respond-above (md) {
+                    padding: 4rem 2rem;
                 }
-                p{
-                    font-size:rem(18);
+
+                h3 {
+                    color: #333;
+                    font-size: rem(24);
+                }
+
+                .more {
+                    display: inline-block;
+                    border: 1px $color-primary solid;
+                    padding: .4rem 2rem;
+                    color: $color-primary;
+                    font-size: rem(20);
+                    margin: 2rem auto;
+                }
+
+                p {
+                    font-size: rem(18);
                 }
             }
         }
@@ -102,63 +140,113 @@
         margin: 3rem auto;
 
         h3 {
-            font-size: 3rem;
-            font-weight: lighter;
+            font-size: 1.5rem;
+
+
+            @include respond-above (sm) {
+                font-size: 3rem;
+                font-weight: lighter;
+            }
         }
     }
 
     .s3 {
-        padding-top: 5rem;
+        padding-top: 2rem;
+
+        @include respond-above (sm) {
+            padding-top: 3rem;
+        }
+
+        @include respond-above (md) {
+            padding-top: 4rem;
+        }
+
+        @include respond-above (lg) {
+            padding-top: 5rem;
+        }
     }
 
     .tab-header {
         background-color: rgb(255, 255, 255);
         box-shadow: 0px 4px 9.6px 0.4px rgba(255, 136, 60, 0.1);
-        height: 60px;
+        padding: 15px;
+        text-align: center;
+
+        @include respond-above (sm) {
+            height: 60px;
+            padding: 0 15px;
+        }
 
         nav {
             a {
                 display: inline-block;
-                height: 60px;
-                line-height: 60px;
-                padding: 0 1rem;
+                padding: .3rem 1rem;
+
+                @include respond-above (sm) {
+                    height: 60px;
+                    line-height: 60px;
+                    padding: 0 1rem;
+                }
 
                 &.active {
-                    border-bottom: 1px $color-primary solid;
-                    color: $color-primary;
+                    background-color: $color-primary;
+                    color: #fff;
+
+                    @include respond-above (sm) {
+                        background-color: transparent;
+                        border-bottom: 1px $color-primary solid;
+                        color: $color-primary;
+                    }
                 }
             }
         }
     }
 
-    .content{
-        padding:2rem 0;
-        display:none;
-        &.active{
-            display:block;
+    .content {
+        padding: 1rem 0;
+        display: none;
+
+        @include respond-above (sm) {
+            padding: 2rem 0;
+        }
+
+        &.active {
+            display: block;
         }
     }
 }
 .page-tran {
     .title-section {
         text-align: center;
-        margin-bottom: 3rem;
+        margin-bottom: 1.5rem;
+
+        @include respond-above (sm) {
+            margin-bottom: 3rem;
+        }
     }
 
     .top {
         text-align: center;
         color: #fff;
         background: #552c16 url('../img/train_bg.jpg') no-repeat center center;
-        padding: 3rem 5rem 4rem;
+        padding: 1rem 2rem 2rem;
         background-size: cover;
+
+        @include respond-above (sm) {
+            padding: 3rem 5rem 4rem;
+        }
 
         h4 {
             font-size: rem(24);
         }
 
         p {
-            font-size: rem(20);
+            font-size: rem(18);
             text-align: justify;
+
+            @include respond-above (sm) {
+                font-size: rem(20);
+            }
         }
     }
 
@@ -188,15 +276,23 @@
         }
 
         .note {
-            font-size: rem(24);
+            font-size: rem(20);
+
+            @include respond-above (sm) {
+                font-size: rem(24);
+            }
         }
     }
 
     .main-v1 {
 
         h4 {
-            font-size: rem(24);
+            font-size: rem(20);
             color: #333;
+
+            @include respond-above (sm) {
+                font-size: rem(24);
+            }
         }
 
         .tlist {

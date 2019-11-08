@@ -1,171 +1,86 @@
 
-.site-footer {
-    background: $color-secondary;
-    padding-top: 2rem;
-    overflow: hidden;
-    color: #fff;
+.footer-bar {
+    text-align: center;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
 
     @include respond-above(sm) {
+        padding-bottom: 2rem;
         padding-top: 2rem;
     }
 
     @include respond-above(md) {
-        padding-top: 2.5rem;
-    }
-
-    @include respond-above(lg) {
+        padding-bottom: 3rem;
         padding-top: 3rem;
     }
 
-    .logo_name {
-        margin-bottom: 1rem;
-
-        @include respond-above(sm) {
-            margin-bottom: 2rem;
-        }
-
-        @include respond-above(md) {
-            margin-bottom: 3rem;
-        }
-
-        @include respond-above(lg) {
-            margin-bottom: rem(54);
-        }
-
-        .logo {
-            width: rem(210);
-            margin-right: rem(200);
-            display: block;
-        }
-
-        .company_name {
-            font-size: rem(28);
-            margin: 0;
-        }
+    @include respond-above(lg) {
+        padding-bottom: 4rem;
+        padding-top: 4rem;
     }
 
-    .botnav {
-        margin-bottom: 2rem;
+    @include respond-above(xlg) {
+        padding-bottom: 5rem;
+        padding-top: 5rem;
+    }
+}
 
-        .node {
-            font-size: rem(18);
-            text-decoration: none;
-            margin-bottom: .8rem;
-            display: block;
-        }
+.site-footer {
+    background: $color-primary;
+    overflow: hidden;
+    text-align: center;
+    color: #fff;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    font-size: 1rem;
 
-        .bot_subnav {
-            @include reset-list;
+    @include respond-above(sm) {
+        padding-bottom: 2rem;
+        padding-top: 2rem;
+    }
 
-            li {
-                margin-bottom: .6rem;
-                font-size: rem(14);
-            }
-        }
+    @include respond-above(md) {
+        padding-bottom: 3rem;
+        padding-top: 3rem;
+    }
+
+    @include respond-above(lg) {
+        padding-bottom: 4rem;
+        padding-top: 4rem;
+    }
+
+    @include respond-above(xlg) {
+        padding-bottom: 5rem;
+        padding-top: 5rem;
     }
 
     a {
         color: #fff;
+        display: inline-block;
+        position: relative;
+
+        &::after {
+            content: " ";
+            display: block;
+            border-top: transparent 1px dotted;
+        }
 
         &:hover {
-            text-decoration: underline;
+            &::after {
+                border-top: #fff 1px dotted;
+            }
         }
     }
 
-    .pic {
-        width: 210px;
-    }
-
-    .sejiao {
-        margin-bottom: 2rem;
-
+    nav {
         a {
-            display: inline-block;
-            color: #fff;
-            border-radius: 6px;
-            background-color: rgb(0, 120, 183);
-            width: 52px;
-            height: 52px;
-            text-align: center;
-            line-height: 52px;
-
-            .iconfont {
-                font-size: rem(22);
-            }
-
-            &.play {
-                background-color: #cd2d25;
-            }
-
-            &.facebook {
-                background-color: #3c5a99;
-            }
-
-            &.sina {
-                background-color: #f2993d;
-            }
+            margin: 0 .8rem;
         }
     }
 
-    .contact {
-        @include reset-list;
-
-        li {
-            font-size: 1rem;
-            margin-bottom: .35rem;
-
-            span {
-                margin-left: 1rem;
-            }
-        }
-    }
-
-    .contact_qrcode {
-        margin-bottom: 1.5rem;
-    }
-
-    figure {
-        text-align: center;
-        padding: 0;
-        margin: 0;
-    }
-
-    .copyright {
-        color: #fff;
-        padding: 1rem 0;
-        text-align: center;
-        font-size: rem(14);
-        border-top: #959595 1px solid;
-    }
-
-    .totop {
-        display: block;
-        width: 45px;
-        height: 45px;
-        line-height: 43px;
-        text-align: center;
-        transition: all .2s;
-        background-color: $color-primary;
-        color: #fff;
-
-        @include respond-above(md) {
-            width: 60px;
-            height: 60px;
-            line-height: 56px;
-        }
-
-        .iconfont {
-            font-size: 22px;
-
-            @include respond-above(md) {
-                font-size: 28px;
-            }
-        }
-
-
-        @include hover {
-            transform: scale(1.1);
-            text-decoration: none;
+    p {
+        span {
+            margin-left: .5rem
         }
     }
 }
@@ -174,6 +89,43 @@
     position: fixed;
     bottom: 1rem;
     right: 1rem;
-    z-index: 2000;    
+    z-index: 2000;
 }
 
+.totop {
+    display: block;
+    width: 45px;
+    height: 45px;
+    line-height: 43px;
+    border: 1px solid #000;
+    text-align: center;
+    transition: all .2s;
+    background-color: #fff;
+    color: #000;
+
+    @include respond-above(md) {
+        width: 60px;
+        height: 60px;
+        line-height: 56px;
+        border: 2px solid #000;
+    }
+
+    .iconfont {
+        font-size: 22px;
+
+        @include respond-above(md) {
+            font-size: 28px;
+        }
+    }
+
+
+    @include hover {
+        border-color: $color-primary;
+        color: $color-primary;
+    }
+
+    @include respond-above(sm) {
+        bottom: 2rem;
+        right: 2rem;
+    }
+}

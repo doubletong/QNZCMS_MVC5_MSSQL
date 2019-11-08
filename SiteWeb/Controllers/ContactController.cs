@@ -80,7 +80,7 @@ namespace TZGCMS.SiteWeb.Controllers
 
             try
             {
-                _emailService.SendMail(vm.Name, SettingsManager.Site.MailTo, SettingsManager.Site.MailTo, string.Empty,
+                _emailService.SendMail(vm.Name, vm.Email, SettingsManager.Site.MailTo, string.Empty,
                  vm.Subject, emailBody, emailAccount.Smtpserver, emailAccount.Email, SettingsManager.Site.SiteName,
                  emailAccount.UserName, EncryptionHelper.Decrypt(emailAccount.Password), (int)emailAccount.Port, emailAccount.EnableSsl);
 

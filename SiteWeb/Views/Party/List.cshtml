@@ -1,0 +1,70 @@
+﻿@model FrontArticleListVM
+@{
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : Model.CategoryTitle;
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+}
+
+@Html.Partial("_Party_Header")
+
+
+<!-- BLOG ================================================== -->
+<section class="page page-news">
+    <div class="container newslist">
+        <div class="title title-section">
+            <h2>@Model.CategoryTitle</h2>
+        </div>
+
+        @foreach (var post in Model.Articles)
+        {
+            <a class="item" href="@Url.Action("Detail",new { id = post.Id})">
+                <div class="row align-items-center">
+
+                    <div class="col-md-auto">
+                        <h3>@post.Title</h3>
+                    </div>
+                    @if (post.Pubdate.AddDays(1) > DateTime.Now)
+                    {
+                        <div class="col-md-auto">
+                            <time>NEW</time>
+                        </div>
+                    }
+
+                    <div class="col-md">
+                        <div class="pubdate">
+                            @string.Format("{0:yyyy.MM.dd}", post.Pubdate)
+                        </div>
+                    </div>
+                </div>
+
+            </a>
+
+        }
+        <div class="years">
+            @foreach (var item in Model.Years)
+            {
+                <a href="@Url.Action("List",new { year = item, alias=Model.Alias})">@item</a>
+            }
+
+        </div>
+        @if (Model.TotalCount > Model.PageSize)
+        {
+            <div>
+                @Html.PagedListPager((IPagedList)Model.Articles, page => Url.Action("Index", new { page, year = Model.Year, alias = Model.Alias }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+            </div>
+        }
+
+
+    </div>
+
+</section>
+
+

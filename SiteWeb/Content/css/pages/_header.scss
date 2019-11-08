@@ -1,195 +1,319 @@
 .site-header {
-    transition: all .2s;
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
-    z-index: 3000;
+    z-index: 8000;
     width: 100%;
-    background-color: transparent;
+    font-weight: bold;
+    background-color: #fff;
 
-    @include respond-above(md) {
-        position: absolute;
+    @include respond-above (sm) {
+        padding: .5rem 2rem 1rem;
+    }
+
+    @include respond-above (md) {
+        padding: 1rem 3rem 1rem;
+    }
+
+    @include respond-above (lg) {
+        padding: 1.5rem 4rem 1rem;
+    }
+
+    @include respond-above (xlg) {
+        padding: 2rem 5rem 1rem;
     }
 
     .topcol {
-        height: 60px;
-        color: #fff;
+        text-align: right;
+        margin-bottom: .6rem;
 
-        .row {
-            height: 100%;
+        a {
+            margin-left: 1rem;
+            color: #666;
 
-            .icon {
-                width: 27px;
-                height: 27px;
-                border-radius: 50%;
-                background-color: #fff;
-                color: #666;
-                margin: 0 .5rem 0 1.2rem;
-                line-height: 27px;
-                text-align: center;
+            @include respond-above (lg) {
+                font-size: rem(20);
             }
 
-
-
-            img {
-                margin: 0 .5rem 0 1.2rem;
-                display: block;
+            @include respond-above (xlg) {
+                font-size: rem(22);
             }
         }
-    }
-
-    .logo_nav {
-        height: 88px;
-    }
-
-    .logo {
-        background: url(../img/logo.png) no-repeat center center;
-        width: 290px;
-        height: 55px;
-        display: block;
-        /*img {
-            max-width: 100%;
-            transition: all .2s;
-            display: block;
-        }*/
-    }
-
-    .navbar {
-        text-align: right;
     }
 
     .mainav {
-        @include reset-list;
-        display: none;
+        @include reset-list();
 
-        @include respond-above(md) {
-            display: block;
-        }
-
-        & > li {
+        li {
             display: inline-block;
-            position: relative;
-            margin-left: 2rem;
 
-            & > a {
-                display: block;
-                color: #fff;
-                position: relative;
-                padding: .3rem 0;
+
+            @include respond-above (xlg) {
+                margin-left: 1rem;
             }
 
-            &.active {
-                a {
+            a {
+                color: #666;
+                font-size: rem(28);
+                display: block;
+                padding: .3rem 1rem;
+
+                &:hover {
                     color: $color-primary;
                 }
             }
-        }
-    }
 
-
-    &.fixheader {
-        background-color: rgba(232, 56, 13,.9);
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        z-index: 8000;
-
-        .langs {
-
-            a {
-                color: $color-primary;
-                background: #fff;
-                transition: all .2s;
-
-                @include hover {
-                    border-radius: 50%;
-                }
+            .subnav {
+                display: none;
             }
         }
     }
 
-    .searchbox {
-        display: block;
-        border-width: 1px;
-        border-color: rgb(255, 255, 255);
-        border-style: solid;
-        border-radius: 15px;
-        width: 118px;
-        height: 30px;
+    &.home_header {
+        background-color: transparent;
 
-
-        input {
-            width: 100%;
-            padding: 0 1rem;
-            background-color: transparent;
-            border: none;
-            outline: none;
-            color: #fff;
-        }
-
-        button {
-            background-color: transparent;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            outline: none;
-
-            .iconfont {
-                font-size: 1rem;
-            }
-        }
-    }
-
-   
-}
-.header-white {
-    .site-header {
         .topcol {
-            color: #333;
-
-            .row {
-                height: 100%;
-
-                .icon {
-                    background-image: -moz-linear-gradient( 180deg, rgb(255,186,44) 0%, rgb(255,79,79) 100%);
-                    background-image: -webkit-linear-gradient( 180deg, rgb(255,186,44) 0%, rgb(255,79,79) 100%);
-                    background-image: -ms-linear-gradient( 180deg, rgb(255,186,44) 0%, rgb(255,79,79) 100%);
-                    color: #fff;
-                }
+            a {
+                color: #fff;
             }
-        }
-
-        .logo {
-            background: url(../img/logo_color.png) no-repeat center center;
         }
 
         .mainav {
-            & > li {
+            li {
+                a {
+                    color: #fff;
 
-                & > a {
-                    color: #333;
-                }
-
-                &.active {
-                    a {
+                    &:hover {
+                        background-color: #fff;
                         color: $color-primary;
                     }
                 }
             }
         }
+    }
+}
 
-        .searchbox {
-            border-color: #333;
 
 
-            input {
-                color: #333;
-            }
 
-            button {
-                color: #333;
+
+
+.menu-icon {
+    box-sizing: border-box;
+    padding: 1.0625rem 0 0;
+    height: 2rem;
+    width: 1.89rem;
+    position: fixed;
+    z-index: 9000;
+    top: 2rem;
+    cursor: pointer;
+    right: rem(30);
+
+    @include respond-above (md) {
+        right: rem(120);
+    }
+
+    @include respond-above (lg) {
+        right: rem(200);
+    }
+
+    @include respond-above (xlg) {
+        right: rem(310);
+    }
+}
+
+.menu-icon__line {
+    height: 2px;
+    width: 30px;
+    display: block;
+    background-color: $color-secondary;
+    margin-bottom: 4px;
+    transition: transform .2s ease, background-color .5s ease;
+}
+
+.menu-icon__line-left {
+    width: 30px;
+}
+
+.menu-icon__line-right {
+    width: 30px;
+    float: right;
+}
+
+.nav {
+    visibility: hidden;
+    position: fixed;
+    z-index: 7001;
+}
+
+.nav:before,
+.nav:after {
+    content: "";
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+    transition: transform cubic-bezier(0.77, 0, 0.175, 1) 0.8s;
+    transform: translateX(100%) translateY(0);
+    right: 0;
+}
+
+.nav:after {
+    transition-delay: 0s;
+}
+
+.nav:before {
+    transition-delay: .1s;
+}
+
+.nav__content {
+    position: fixed;
+    top: 50%;
+    transform: translate(0%, -50%);
+    width: 0;
+    cursor: pointer;
+    background: $color-primary;
+    height: 100%;
+    background-image: -moz-linear-gradient( 90deg, rgb(37,21,66) 0%, rgb(70,33,115) 100%);
+    background-image: -webkit-linear-gradient( 90deg, rgb(37,21,66) 0%, rgb(70,33,115) 100%);
+    background-image: -ms-linear-gradient( 90deg, rgb(37,21,66) 0%, rgb(70,33,115) 100%);
+    box-shadow: 0px 4px 50px 0px rgba(53, 24, 91, 0.4);
+    right: 0;
+    z-index: 56;
+    padding: 7rem 3rem;
+    transition: width .25s;
+
+
+
+    @include respond-above (lg) {
+        padding: 8rem 5rem 0;
+        font-size: rem(18);
+    }
+}
+
+
+.nav__list {
+    @include reset-list;
+}
+
+.nav__list-item {
+    position: relative;
+    transition-delay: 0.8s;
+    opacity: 0;
+    transform: translate(0%, 100%);
+    transition: opacity .2s ease, transform .3s ease;
+    border-bottom: 1px #624a81 solid;
+    padding: 2rem 0;
+
+    &:first-child {
+        border-top: 1px #624a81 solid;
+    }
+
+    .langs {
+        display: none;
+    }
+}
+
+
+
+.nav__list-item a {
+    color: $color-secondary;
+    letter-spacing: .3rem;
+}
+
+.nav__list-item a:hover {
+    color: #FFF;
+}
+
+@media screen and (orientation: landscape) {
+    .nav__list-item {
+        &.active {
+            a {
+                color: #fff;
             }
         }
     }
+}
+
+@media screen and (orientation: landscape) {
+    .nav__list-item:hover:before {
+        height: 6.2rem;
+    }
+}
+
+body.nav-active .menu-icon__line {
+    background-color: $color-secondary;
+    transform: translateX(0px) rotate(-45deg);
+}
+
+body.nav-active .menu-icon__line-mid {
+    opacity: 0;
+}
+
+body.nav-active .menu-icon__line-left {
+    transform: translateY(6px) rotate(45deg);
+}
+
+body.nav-active .menu-icon__line-right {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+body.nav-active .nav {
+    visibility: visible;
+
+    .nav__content {
+        width: 280px;
+
+        @include respond-above (lg) {
+            width: 450px;
+        }
+
+        @include respond-above (xlg) {
+            width: 670px;
+        }
+    }
+}
+
+body.nav-active .nav:before,
+body.nav-active .nav:after {
+    transform: translateX(0%) translateY(0%);
+}
+
+body.nav-active .nav:after {
+    transition-delay: .1s;
+}
+
+body.nav-active .nav:before {
+    transition-delay: 0s;
+}
+
+body.nav-active .nav__list-item {
+    opacity: 1;
+    transform: translateX(0%);
+    transition: opacity .3s ease, transform .3s ease, color .3s ease;
+}
+
+body.nav-active .nav__list-item:nth-child(0) {
+    transition-delay: 0.5s;
+}
+
+body.nav-active .nav__list-item:nth-child(1) {
+    transition-delay: 0.6s;
+}
+
+body.nav-active .nav__list-item:nth-child(2) {
+    transition-delay: 0.7s;
+}
+
+body.nav-active .nav__list-item:nth-child(3) {
+    transition-delay: 0.8s;
+}
+
+body.nav-active .nav__list-item:nth-child(4) {
+    transition-delay: 0.9s;
+}
+
+body.nav-active .nav__list-item:nth-child(5) {
+    transition-delay: 1s;
 }

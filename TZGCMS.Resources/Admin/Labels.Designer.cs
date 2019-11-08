@@ -1078,7 +1078,7 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
-        ///   查找类似 SEO网址 的本地化字符串。
+        ///   查找类似 别名 的本地化字符串。
         /// </summary>
         public static string SeoName {
             get {

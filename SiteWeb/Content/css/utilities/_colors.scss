@@ -2,8 +2,8 @@
 // examples based on the official Sass styleguide
 // descriptive colors
 // =============
-$hopbush: #ff7c2c;
-$bouquet: #00132e;
+$hopbush: #642f83;
+$bouquet: #eaceb0;
 $venus: #998099;
 $patina: #00041d;
 $nebula: #d2e1dd;
@@ -15,10 +15,10 @@ $pale-sky: #6b717f;
 $midnight-blue: #036;
 
 $white: #fff;
-$lighter-gray:#f7f7f7;
-$light-gray:#999;
-$gray:#666;
-$dark-grey:#444;
+$lighter-gray: #f7f7f7;
+$light-gray: #999;
+$gray: #666;
+$dark-grey: #444;
 $regent-grey: #808c99;
 $black: #000;
 // main color palette
@@ -27,7 +27,7 @@ $color-primary: $hopbush;
 $color-secondary: $bouquet;
 $color-accent: $patina;
 $color-shadow: rgba($black, .125);
-$color-note:$gray;
+$color-note: $gray;
 
 // Common colors
 $color-background: $white;

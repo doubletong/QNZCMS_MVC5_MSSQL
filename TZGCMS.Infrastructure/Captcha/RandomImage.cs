@@ -81,7 +81,7 @@ namespace TZGCMS.Infrastructure.Captcha
             do
             {
                 fontSize--;
-                font = new Font(FontFamily.GenericSansSerif, fontSize, FontStyle.Bold);
+                font = new Font(FontFamily.GenericMonospace, fontSize, FontStyle.Bold);
                 size = g.MeasureString(this.text, font);
             } while (size.Width > rect.Width);
             StringFormat format = new StringFormat();
