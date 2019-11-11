@@ -14,7 +14,7 @@ namespace TZGCMS.Data.Mapping
                 .HasColumnName("Id")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            this.ToTable("ArticleSet");
+            this.ToTable("Articles");
 
             this.Property(p => p.Title).HasMaxLength(100).IsRequired();
             this.Property(p => p.CategoryId).IsRequired();

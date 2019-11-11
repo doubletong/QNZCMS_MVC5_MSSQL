@@ -1,5 +1,5 @@
 ﻿using PagedList;
-using TZGCMS.Data.Entity.Articles;
+using QNZ.Data;
 
 namespace TZGCMS.Model.Admin.ViewModel.Articles
 {

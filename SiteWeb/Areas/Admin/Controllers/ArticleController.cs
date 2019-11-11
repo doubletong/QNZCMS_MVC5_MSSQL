@@ -9,7 +9,6 @@ using System.Text;
 using TZGCMS.Service.Articles;
 using TZGCMS.Service.PageMetas;
 using TZGCMS.Infrastructure.Configs;
-using TZGCMS.Data.Entity.Articles;
 using TZGCMS.Infrastructure.Helper;
 using TZGCMS.Model.Admin.ViewModel;
 using TZGCMS.Model.Admin.InputModel.Articles;
@@ -19,65 +18,74 @@ using TZGCMS.Resources.Admin;
 using TZGCMS.SiteWeb.Filters;
 using TZGCMS.Model;
 using TZGCMS.Model.Search;
+using QNZ.Data;
+using System.Data.Entity;
+using AutoMapper.QueryableExtensions;
+using System.Threading.Tasks;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
-    public class ArticleController : BaseController
+    public class ArticleController : QNZBaseController
     {
-        private readonly IArticleCategoryServices _categoryServices;
-        private readonly IArticleServices _articleServices;
-        private readonly IPageMetaServices _pageMetaServices;       
-        private readonly IFilterTemplateServices _templateServices;
+        private IQNZDbContext _db;
+        //private readonly IArticleCategoryServices _categoryServices;
+        //private readonly IArticleServices _articleServices;
+        //private readonly IPageMetaServices _pageMetaServices;       
+        //private readonly IFilterTemplateServices _templateServices;
         private readonly IMapper _mapper;
 
-        public ArticleController(IArticleCategoryServices categoryServices,
-            IArticleServices articleServices,
-            IPageMetaServices pageMetaServices,
-            IFilterTemplateServices templateServices,
-            IMapper mapper)
+        public ArticleController(         IQNZDbContext db,        IMapper mapper)
         {
-            _categoryServices = categoryServices;
-            _articleServices = articleServices;
-            _pageMetaServices = pageMetaServices;
-            _templateServices = templateServices;
+            //_categoryServices = categoryServices;
+            //_articleServices = articleServices;
+            //_pageMetaServices = pageMetaServices;
+            //_templateServices = templateServices;
             _mapper = mapper;
-
+            _db = db;
 
         }
         #region 新闻
 
 
         [HttpGet]
-        public ActionResult Index(int? page, int? categoryId, string Keyword)
+        public async System.Threading.Tasks.Task<ActionResult> Index(int? page, int? categoryId, string Keyword)
         {
 
-            var articleListVM = new ArticleListVM();
+            var vm = new ArticleListVM
+            {
+                CategoryId = categoryId ?? 0,
+                PageIndex = (page ?? 1),
+                PageSize = SettingsManager.Article.PageSize,
+                Keyword = Keyword
+            };
 
-            articleListVM.CategoryId = categoryId ?? 0;
-            articleListVM.PageIndex = (page ?? 1);
-            articleListVM.PageSize = SettingsManager.Article.PageSize;
-            articleListVM.Keyword = Keyword;
+            var query = _db.Articles.AsQueryable();
+            if (!string.IsNullOrEmpty(Keyword))
+            {
+                query = query.Where(d => d.Title.Contains(Keyword) || d.Body.Contains(Keyword));
+            }
+            if (categoryId > 0)
+            {
+                query = query.Where(d => d.CategoryId == categoryId);
+            }
 
-            int count;
-            var articles = _articleServices.GetPagedElements(articleListVM.PageIndex-1, articleListVM.PageSize,  articleListVM.Keyword, (int)articleListVM.CategoryId, out count);
-
+            var articles = await query.OrderByDescending(d => d.Pubdate)
+                .Skip((vm.PageIndex - 1) * vm.PageSize)
+                .Take(vm.PageSize).ProjectTo<ArticleVM>().ToListAsync();               
           
 
             //   articleListVM.Articles = articleDtos;
-            articleListVM.TotalCount = count;
-
-            var categoryList = _categoryServices.GetAll().OrderByDescending(c => c.Importance).ToList();
-            var categories = new SelectList(categoryList, "Id", "Title");
-            ViewBag.Categories = categories;
-
-           
-
-            articleListVM.Articles = new StaticPagedList<Article>(articles, articleListVM.PageIndex, articleListVM.PageSize, articleListVM.TotalCount);
+            vm.TotalCount = await query.CountAsync();            
+            vm.Articles = new StaticPagedList<ArticleVM>(articles, vm.PageIndex, vm.PageSize, vm.TotalCount);
          
             ViewBag.PageSizes = new SelectList(Site.PageSizes());
 
-            return View(articleListVM);
+            var categoryList = await _db.ArticleCategories.OrderByDescending(c => c.Importance).ToListAsync();
+            ViewBag.Categories = new SelectList(categoryList, "Id", "Title");
+        
+
+            return View(vm);
 
         }
 
@@ -102,222 +110,222 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 return Json(AR, JsonRequestBehavior.DenyGet);
             }
         }
-        public ActionResult Acquisition()
-        {
-            var categorys = _categoryServices.GetAll().OrderByDescending(m => m.Importance).ToList();
-            var lCategorys = new SelectList(categorys, "Id", "Title");
-            ViewBag.Categories = lCategorys;
+        //public ActionResult Acquisition()
+        //{
+        //    var categorys = _categoryServices.GetAll().OrderByDescending(m => m.Importance).ToList();
+        //    var lCategorys = new SelectList(categorys, "Id", "Title");
+        //    ViewBag.Categories = lCategorys;
 
-            var temps = _templateServices.GetActiveElements().OrderByDescending(m => m.Importance).ToList();
-            var templates = new SelectList(temps, "Id", "Name");
-            ViewBag.Templates = templates;
+        //    var temps = _templateServices.GetActiveElements().OrderByDescending(m => m.Importance).ToList();
+        //    var templates = new SelectList(temps, "Id", "Name");
+        //    ViewBag.Templates = templates;
 
-            AcquisitionIM im = new AcquisitionIM
-            {
-                Count = 5
-            };
-            return View(im);
-        }
+        //    AcquisitionIM im = new AcquisitionIM
+        //    {
+        //        Count = 5
+        //    };
+        //    return View(im);
+        //}
 
-        public ActionResult Test()
-        {
-            var template = _templateServices.GetById(7);
-            var htmlEncode = string.IsNullOrEmpty(template.Encode) ? Encoding.Default : Encoding.GetEncoding(template.Encode);
-            var htmlSource = DataAcquisition.GetRemoteHtmlCode(template.Source, htmlEncode);
-            var htmlLinks = DataAcquisition.GetContentByTag(htmlSource, template.LinksContainer);
-            var links = DataAcquisition.GetLinkFindBy(htmlLinks, template.Links).Distinct().Take(5);
-         //   return Content(string.Join("|", links.ToArray()));
-            foreach (var link in links)
-            {
-               var  onlink = link.StartsWith("//") ? "http:" + link : link;
+        //public ActionResult Test()
+        //{
+        //    var template = _templateServices.GetById(7);
+        //    var htmlEncode = string.IsNullOrEmpty(template.Encode) ? Encoding.Default : Encoding.GetEncoding(template.Encode);
+        //    var htmlSource = DataAcquisition.GetRemoteHtmlCode(template.Source, htmlEncode);
+        //    var htmlLinks = DataAcquisition.GetContentByTag(htmlSource, template.LinksContainer);
+        //    var links = DataAcquisition.GetLinkFindBy(htmlLinks, template.Links).Distinct().Take(5);
+        // //   return Content(string.Join("|", links.ToArray()));
+        //    foreach (var link in links)
+        //    {
+        //       var  onlink = link.StartsWith("//") ? "http:" + link : link;
 
-                Article article = new Article();
-                var itemHtml = DataAcquisition.GetRemoteHtmlCode(onlink, htmlEncode);
-            //    return Content(itemHtml);
-                article.CategoryId = 6;
-                article.Title = DataAcquisition.GetContentByTag(itemHtml, template.Title);
-               return Content(article.Title);
+        //        Article article = new Article();
+        //        var itemHtml = DataAcquisition.GetRemoteHtmlCode(onlink, htmlEncode);
+        //    //    return Content(itemHtml);
+        //        article.CategoryId = 6;
+        //        article.Title = DataAcquisition.GetContentByTag(itemHtml, template.Title);
+        //       return Content(article.Title);
 
-                article.Body = DataAcquisition.GetContentByTag(itemHtml, template.Body);
-                article.Summary = DataAcquisition.GetMetaContent(itemHtml, template.Description);
-              //  return Content(article.Body);
-                article.Active = true;
-                if (!string.IsNullOrWhiteSpace(article.Title.Trim()))
-                {
-                    _articleServices.Create(article);
+        //        article.Body = DataAcquisition.GetContentByTag(itemHtml, template.Body);
+        //        article.Summary = DataAcquisition.GetMetaContent(itemHtml, template.Description);
+        //      //  return Content(article.Body);
+        //        article.Active = true;
+        //        if (!string.IsNullOrWhiteSpace(article.Title.Trim()))
+        //        {
+        //            _articleServices.Create(article);
 
-                    // DataAcquisition.GetMetaContent(itemHtml, template.Keyword);
-                    var pageMeta = new PageMeta()
-                    {
-                        ObjectId = article.Id.ToString(),
-                        Title = article.Title,
-                        Keyword = DataAcquisition.GetMetaContent(itemHtml, template.Keyword),
-                        Description = article.Summary,
-                        ModelType = ModelType.ARTICLE
-                    };
+        //            // DataAcquisition.GetMetaContent(itemHtml, template.Keyword);
+        //            var pageMeta = new PageMeta()
+        //            {
+        //                ObjectId = article.Id.ToString(),
+        //                Title = article.Title,
+        //                Keyword = DataAcquisition.GetMetaContent(itemHtml, template.Keyword),
+        //                Description = article.Summary,
+        //                ModelType = ModelType.ARTICLE
+        //            };
 
-                    _pageMetaServices.Create(pageMeta);
-                }
-
-
-            }
-
-            return Content(string.Join("|", links.ToArray()));
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public JsonResult Acquisition(AcquisitionIM im)
-        {
-            if (!ModelState.IsValid)
-            {
-                AR.Setfailure(GetModelErrorMessage());
-                return Json(AR, JsonRequestBehavior.DenyGet);
-            }
-            if(im.Count == 0)
-            {
-                AR.Setfailure("添加条数必须在于0！");
-                return Json(AR, JsonRequestBehavior.DenyGet);
-            }
-
-            var template = _templateServices.GetById(im.TemplateId);
-            if (template == null)
-            {
-                AR.Setfailure("此采集模板不存在！");
-                return Json(AR, JsonRequestBehavior.DenyGet);
-            }
-
-            try
-            {
-
-                var encode = string.IsNullOrEmpty(template.Encode) ? Encoding.Default : Encoding.GetEncoding(template.Encode);
-                var htmlSource = DataAcquisition.GetRemoteHtmlCode(template.Source, encode);
-                var htmlLinks = DataAcquisition.GetContentByTag(htmlSource, template.LinksContainer);
-                var links = DataAcquisition.GetLinkFindBy(htmlLinks, template.Links).Distinct().Take(im.Count);
-
-                foreach (var link in links)
-                {
-                    Article article = new Article();
-                var onlink = link.StartsWith("//") ? "http:" + link : link;
-                var itemHtml = DataAcquisition.GetRemoteHtmlCode(onlink, encode);
-
-                    article.CategoryId = im.CategoryId;
-                    article.Title = DataAcquisition.GetContentByTag(itemHtml, template.Title);
-                    article.Title = article.Title.Length > 100 ? article.Title.Substring(0, 100): article.Title;
-
-                    var contentHtml = DataAcquisition.GetContentByTag(itemHtml, template.Body);
-                    article.Body = ResetContent(contentHtml, template.KeywordSet);
-                    article.Summary = DataAcquisition.GetMetaContent(itemHtml, template.Description);
-
-                    article.Active = true;
-                    if (!string.IsNullOrWhiteSpace(article.Title))
-                    {
-                        _articleServices.Create(article);
-                
-                        var pageMeta = new PageMeta()
-                        {
-                            ObjectId = article.Id.ToString(),
-                            Title = article.Title,
-                            Keyword = DataAcquisition.GetMetaContent(itemHtml, template.Keyword),
-                            Description = article.Summary,
-                            ModelType = ModelType.ARTICLE
-                        };
-
-                        _pageMetaServices.Create(pageMeta);
-                    }
-                }
-
-                
-                AR.SetSuccess(String.Format(Messages.AlertCreateSuccess, EntityNames.Article));
-                return Json(AR, JsonRequestBehavior.DenyGet);
-
-        }
-            catch (Exception er)
-            {
-                AR.Setfailure(er.Message);
-                return Json(AR, JsonRequestBehavior.DenyGet);
-    }
-
-}
+        //            _pageMetaServices.Create(pageMeta);
+        //        }
 
 
-        private string ResetContent(string htmlCode,string keywords)
-        {
+        //    }
 
-            var plist = DataAcquisition.GetListByTag(htmlCode, "//p");
-            if (plist == null)
-                return "";
+        //    return Content(string.Join("|", links.ToArray()));
+        //}
 
-            var listPtag = Site.RandomSortList<string>(plist);
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public JsonResult Acquisition(AcquisitionIM im)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        AR.Setfailure(GetModelErrorMessage());
+        //        return Json(AR, JsonRequestBehavior.DenyGet);
+        //    }
+        //    if (im.Count == 0)
+        //    {
+        //        AR.Setfailure("添加条数必须在于0！");
+        //        return Json(AR, JsonRequestBehavior.DenyGet);
+        //    }
 
-            StringBuilder sb = new StringBuilder();
-            if (!string.IsNullOrEmpty(keywords))
-            {
-                var arKeywords = keywords.Split(','); 
-                foreach (var item in plist)
-                {
-                    var itemLength = item.Length;
-                   // var itemLength = Encoding.UTF8.GetByteCount(item);
+        //    var template = _templateServices.GetById(im.TemplateId);
+        //    if (template == null)
+        //    {
+        //        AR.Setfailure("此采集模板不存在！");
+        //        return Json(AR, JsonRequestBehavior.DenyGet);
+        //    }
 
-                    int times = (int)Math.Floor((decimal)itemLength / 60);
+        //    try
+        //    {
+
+        //        var encode = string.IsNullOrEmpty(template.Encode) ? Encoding.Default : Encoding.GetEncoding(template.Encode);
+        //        var htmlSource = DataAcquisition.GetRemoteHtmlCode(template.Source, encode);
+        //        var htmlLinks = DataAcquisition.GetContentByTag(htmlSource, template.LinksContainer);
+        //        var links = DataAcquisition.GetLinkFindBy(htmlLinks, template.Links).Distinct().Take(im.Count);
+
+        //        foreach (var link in links)
+        //        {
+        //            Article article = new Article();
+        //            var onlink = link.StartsWith("//") ? "http:" + link : link;
+        //            var itemHtml = DataAcquisition.GetRemoteHtmlCode(onlink, encode);
+
+        //            article.CategoryId = im.CategoryId;
+        //            article.Title = DataAcquisition.GetContentByTag(itemHtml, template.Title);
+        //            article.Title = article.Title.Length > 100 ? article.Title.Substring(0, 100) : article.Title;
+
+        //            var contentHtml = DataAcquisition.GetContentByTag(itemHtml, template.Body);
+        //            article.Body = ResetContent(contentHtml, template.KeywordSet);
+        //            article.Summary = DataAcquisition.GetMetaContent(itemHtml, template.Description);
+
+        //            article.Active = true;
+        //            if (!string.IsNullOrWhiteSpace(article.Title))
+        //            {
+        //                _articleServices.Create(article);
+
+        //                var pageMeta = new PageMeta()
+        //                {
+        //                    ObjectId = article.Id.ToString(),
+        //                    Title = article.Title,
+        //                    Keyword = DataAcquisition.GetMetaContent(itemHtml, template.Keyword),
+        //                    Description = article.Summary,
+        //                    ModelType = ModelType.ARTICLE
+        //                };
+
+        //                _pageMetaServices.Create(pageMeta);
+        //            }
+        //        }
+
+
+        //        AR.SetSuccess(String.Format(Messages.AlertCreateSuccess, EntityNames.Article));
+        //        return Json(AR, JsonRequestBehavior.DenyGet);
+
+        //    }
+        //    catch (Exception er)
+        //    {
+        //        AR.Setfailure(er.Message);
+        //        return Json(AR, JsonRequestBehavior.DenyGet);
+        //    }
+
+        //}
+
+
+        //private string ResetContent(string htmlCode,string keywords)
+        //{
+
+        //    var plist = DataAcquisition.GetListByTag(htmlCode, "//p");
+        //    if (plist == null)
+        //        return "";
+
+        //    var listPtag = Site.RandomSortList<string>(plist);
+
+        //    StringBuilder sb = new StringBuilder();
+        //    if (!string.IsNullOrEmpty(keywords))
+        //    {
+        //        var arKeywords = keywords.Split(','); 
+        //        foreach (var item in plist)
+        //        {
+        //            var itemLength = item.Length;
+        //           // var itemLength = Encoding.UTF8.GetByteCount(item);
+
+        //            int times = (int)Math.Floor((decimal)itemLength / 60);
                     
-                    string insertItem = item;
-                    Random rnd = new Random();
+        //            string insertItem = item;
+        //            Random rnd = new Random();
 
-                    for (int i = times-1; i >= 0; i--)
-                    {
+        //            for (int i = times-1; i >= 0; i--)
+        //            {
                         
-                        var keyword = arKeywords[rnd.Next(0, arKeywords.Length)];
+        //                var keyword = arKeywords[rnd.Next(0, arKeywords.Length)];
                        
-                        if (i > 0)
-                        {
-                            var index = i * 60 - 1;
-                            insertItem = insertItem.Substring(0, (index + 1)/2) + keyword + insertItem.Substring(index/2);
-                        }
-                        else
-                        {
-                            insertItem =  keyword + insertItem.Substring(0);
-                        }
+        //                if (i > 0)
+        //                {
+        //                    var index = i * 60 - 1;
+        //                    insertItem = insertItem.Substring(0, (index + 1)/2) + keyword + insertItem.Substring(index/2);
+        //                }
+        //                else
+        //                {
+        //                    insertItem =  keyword + insertItem.Substring(0);
+        //                }
 
-                    }
+        //            }
 
-                    sb.Append("<p>" + insertItem + "</p>");
+        //            sb.Append("<p>" + insertItem + "</p>");
                                    
-                }              
+        //        }              
                 
-            }
-            else
-            {              
+        //    }
+        //    else
+        //    {              
             
-                foreach (var item in plist)
-                {
-                    sb.Append("<p>" + item + "</p>");
-                }
+        //        foreach (var item in plist)
+        //        {
+        //            sb.Append("<p>" + item + "</p>");
+        //        }
                
-            }
-            return sb.ToString();
-        }
+        //    }
+        //    return sb.ToString();
+        //}
 
        
 
-        public ActionResult Add()
+        public async System.Threading.Tasks.Task<ActionResult> Add()
         {
             var article = new ArticleIM {
                 Active = true,
                 Source = SettingsManager.Site.SiteName,
                 Pubdate = DateTime.Now };
 
-            var categorys = _categoryServices.GetAll().OrderByDescending(m => m.Importance).ToList();
-            var lCategorys = new SelectList(categorys, "Id", "Title");
+            var categoryList = await _db.ArticleCategories.OrderByDescending(c => c.Importance).ToListAsync();
+            ViewBag.Categories = new SelectList(categoryList, "Id", "Title");
 
-            ViewBag.Categories = lCategorys;
+
             return View(article);
         }
         
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult Add(ArticleIM vm)
+        public async Task<JsonResult> AddA(ArticleIM vm)
         {
             if (!ModelState.IsValid)
             {
@@ -329,43 +337,16 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             {
 
                 var newArticle = _mapper.Map<ArticleIM, Article>(vm);
-      
+                _db.Articles.Add(newArticle);
+                var result = await _db.SaveChangesAsync();
 
-                var result = _articleServices.Create(newArticle);
+              
 
-                if (result != null)
+                if (result > 0)
                 {
-                    _pageMetaServices.SetPageMeta(ModelType.ARTICLE, result.Id.ToString(),result.Title, vm.SEOTitle,vm.Keywords,vm.SEODescription);
-
+                    // _pageMetaServices.SetPageMeta(ModelType.ARTICLE, result.Id.ToString(),result.Title, vm.SEOTitle,vm.Keywords,vm.SEODescription);
+                    await SetPageMetaAsync(_db, (short)ModelType.ARTICLE, newArticle.Id.ToString(), newArticle.Title, vm.SEOTitle, vm.Keywords, vm.SEODescription);
                 }
-
-                //if (!string.IsNullOrEmpty(vm.Thumbnail))
-                //{
-                //    if (ImageHandler.CheckImageSize(Server.MapPath(vm.Thumbnail), SettingsManager.Article.ThumbWidth, SettingsManager.Article.ThumbHeight))
-                //    {
-                //        AR.SetWarning(Messages.ThumbnailSizeNotOK);
-                //        return Json(AR, JsonRequestBehavior.DenyGet);
-                //    }
-                //    if (ImageHandler.CheckImageType(Server.MapPath(vm.Thumbnail)))
-                //    {
-                //        AR.SetWarning(Messages.ThumbnailExtensionNotOK);
-                //        return Json(AR, JsonRequestBehavior.DenyGet);
-                //    }
-                //}
-                //if (!string.IsNullOrEmpty(vm.FullImage))
-                //{
-                //    if (ImageHandler.CheckImageSize(Server.MapPath(vm.FullImage), SettingsManager.Article.ImageWidth, SettingsManager.Article.ImageHeight))
-                //    {
-                //        AR.SetWarning(Messages.FullImageSizeNotOK);
-                //        return Json(AR, JsonRequestBehavior.DenyGet);
-                //    }
-                //    if (ImageHandler.CheckImageType(Server.MapPath(vm.FullImage)))
-                //    {
-                //        AR.SetWarning(Messages.FullImageExtensionNotOK);
-                //        return Json(AR, JsonRequestBehavior.DenyGet);
-                //    }
-                //}
-                   
 
                 AR.SetSuccess(String.Format(Messages.AlertCreateSuccess, EntityNames.Article));
                 return Json(AR, JsonRequestBehavior.DenyGet);
@@ -381,19 +362,18 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int Id)
+        public async Task<ActionResult> Edit(int Id)
         {
-            var vArticle = _articleServices.GetById(Id);
+            var vArticle = await _db.Articles.FindAsync(Id);
             if (vArticle == null)
             {
                 AR.Setfailure(Messages.HttpNotFound);
                 return Json(AR, JsonRequestBehavior.AllowGet);
             }
-
-
+            
             var editArticle = _mapper.Map<Article, ArticleIM>(vArticle);
 
-            var pageMeta = _pageMetaServices.GetPageMeta(ModelType.ARTICLE, editArticle.Id.ToString());
+            var pageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d=>d.ModelType == (short)ModelType.ARTICLE && d.ObjectId == editArticle.Id.ToString());
             if (pageMeta != null)
             {
                 editArticle.SEOTitle = pageMeta.Title;
@@ -401,10 +381,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 editArticle.SEODescription = pageMeta.Description;
             }
 
-            var categorys = _categoryServices.GetAll().OrderByDescending(m => m.Importance).ToList();
-            var lCategorys = new SelectList(categorys, "Id", "Title");
-
-            ViewBag.Categories = lCategorys;
+            var categoryList = await _db.ArticleCategories.OrderByDescending(c => c.Importance).ToListAsync();
+            ViewBag.Categories = new SelectList(categoryList, "Id", "Title");
 
             return View(editArticle);
 
@@ -414,7 +392,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public JsonResult Edit(ArticleIM vm)
+        public async Task<JsonResult> Edit(ArticleIM vm)
         {
             if (!ModelState.IsValid)
             {
@@ -424,39 +402,16 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
             try
             {
-               
-                var editArticle = _mapper.Map<ArticleIM, Article>(vm);
+                var article = await _db.Articles.FindAsync(vm.Id);
 
-                _articleServices.Update(editArticle);
-                _pageMetaServices.SetPageMeta(ModelType.ARTICLE, vm.Id.ToString(), vm.Title, vm.SEOTitle, vm.Keywords, vm.SEODescription);
+                var editArticle = _mapper.Map(vm, article);
 
-                //图片检测
-                //if (!string.IsNullOrEmpty(vm.Thumbnail))
-                //{
-                //    if (!ImageHandler.CheckImageSize(Server.MapPath(vm.Thumbnail), SettingsManager.Article.ThumbWidth, SettingsManager.Article.ThumbHeight))
-                //    {
-                //        AR.SetWarning(Messages.ThumbnailSizeNotOK);
-                //        return Json(AR, JsonRequestBehavior.DenyGet);
-                //    }
-                //    if (!ImageHandler.CheckImageType(Server.MapPath(vm.Thumbnail)))
-                //    {
-                //        AR.SetWarning(Messages.ThumbnailExtensionNotOK);
-                //        return Json(AR, JsonRequestBehavior.DenyGet);
-                //    }
-                //}
-                //if (!string.IsNullOrEmpty(vm.FullImage))
-                //{
-                //    if (!ImageHandler.CheckImageSize(Server.MapPath(vm.FullImage), SettingsManager.Article.ImageWidth, SettingsManager.Article.ImageHeight))
-                //    {
-                //        AR.SetWarning(Messages.FullImageSizeNotOK);
-                //        return Json(AR, JsonRequestBehavior.DenyGet);
-                //    }
-                //    if (!ImageHandler.CheckImageType(Server.MapPath(vm.FullImage)))
-                //    {
-                //        AR.SetWarning(Messages.FullImageExtensionNotOK);
-                //        return Json(AR, JsonRequestBehavior.DenyGet);
-                //    }
-                //}
+            //    _articleServices.Update(editArticle);
+                _db.Entry(editArticle).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
+
+                //  _pageMetaServices.SetPageMeta(ModelType.ARTICLE, vm.Id.ToString(), vm.Title, vm.SEOTitle, vm.Keywords, vm.SEODescription);
+                await SetPageMetaAsync(_db, (short)ModelType.ARTICLE, editArticle.Id.ToString(), editArticle.Title, vm.SEOTitle, vm.Keywords, vm.SEODescription);
 
                 AR.SetSuccess(String.Format(Messages.AlertUpdateSuccess, EntityNames.Article));
                 return Json(AR, JsonRequestBehavior.DenyGet);
@@ -474,17 +429,18 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult Active(int id)
+        public async Task<JsonResult> Active(int id)
         {
 
-            Article vArticle = _articleServices.GetById(id);
+            Article vArticle = await _db.Articles.Include(d=>d.ArticleCategory).FirstOrDefaultAsync(d=>d.Id == id);
 
             try
             {
                 vArticle.Active = !vArticle.Active;
-                _articleServices.Update(vArticle);
-
-                vArticle.ArticleCategory = _categoryServices.GetById(vArticle.CategoryId);
+                // _articleServices.Update(vArticle);
+                _db.Entry(vArticle).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
+             
                 
                 AR.Data = RenderPartialViewToString("_ArticleItem", vArticle);
                 AR.SetSuccess(String.Format(Messages.AlertUpdateSuccess, EntityNames.Article));
@@ -501,17 +457,17 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult Recommend(int id)
+        public async Task<JsonResult> Recommend(int id)
         {
 
-            Article vArticle = _articleServices.GetById(id);
+            Article vArticle = await _db.Articles.Include(d => d.ArticleCategory).FirstOrDefaultAsync(d => d.Id == id);
 
             try
             {
                 vArticle.Recommend = !vArticle.Recommend;
-                _articleServices.Update(vArticle);
 
-                vArticle.ArticleCategory = _categoryServices.GetById(vArticle.CategoryId);
+                _db.Entry(vArticle).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
 
                 AR.Data = RenderPartialViewToString("_ArticleItem", vArticle);
                 AR.SetSuccess(String.Format(Messages.AlertUpdateSuccess, EntityNames.Article));
@@ -529,10 +485,10 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult Delete(int id)
+        public async Task<JsonResult> Delete(int id)
         {
 
-            Article vArticle = _articleServices.GetById(id);
+            Article vArticle = await _db.Articles.FindAsync(id);
 
             if (vArticle == null)
             {
@@ -540,7 +496,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 return Json(AR, JsonRequestBehavior.DenyGet);
             }
 
-            _articleServices.Delete(vArticle);
+            _db.Articles.Remove(vArticle);
+            await _db.SaveChangesAsync();
 
             AR.SetSuccess(String.Format(Messages.AlertDeleteSuccess, EntityNames.Article));
             return Json(AR, JsonRequestBehavior.DenyGet);
@@ -555,7 +512,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         {
             try
             {
-                var list = _articleServices.GetActiveElements().Select(m => new SearchData
+                var list = _db.Articles.Where(d=>d.Active).Select(m => new SearchData
                 {
                     Id = $"ARTICLE{m.Id}",
                     Name = m.Title,

@@ -118,6 +118,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AchievementVM.cs" />
     <Compile Include="Admin\InputModel\Ads\CarouselIM.cs" />
     <Compile Include="Admin\InputModel\Ads\PositionIM.cs" />
     <Compile Include="Admin\InputModel\Articles\AcquisitionIM.cs" />
@@ -135,7 +136,6 @@
     <Compile Include="Admin\InputModel\Identity\RegisterIM.cs" />
     <Compile Include="Admin\InputModel\Identity\SetPasswordIM.cs" />
     <Compile Include="Admin\InputModel\Identity\UserIM.cs" />
-    <Compile Include="Admin\InputModel\Jobs\JobIM.cs" />
     <Compile Include="Admin\InputModel\Links\LinkIM.cs" />
     <Compile Include="Admin\InputModel\Links\LinkCategoryIM.cs" />
     <Compile Include="Admin\InputModel\LuceneSearch\SearchDataIM.cs" />
@@ -174,7 +174,6 @@
     <Compile Include="Admin\ViewModel\Identity\SetRoleMenusVM.cs" />
     <Compile Include="Admin\ViewModel\Identity\SetUserRolesVM.cs" />
     <Compile Include="Admin\ViewModel\Identity\UserListVM.cs" />
-    <Compile Include="Admin\ViewModel\Jobs\JobListVM.cs" />
     <Compile Include="Admin\ViewModel\Links\LinkListVM.cs" />
     <Compile Include="Admin\ViewModel\Links\LinkCategoryListVM.cs" />
     <Compile Include="Admin\ViewModel\Menus\MoveMenuVM.cs" />
@@ -206,7 +205,6 @@
     <Compile Include="Front\ViewModel\Articles\ArticleListVM.cs" />
     <Compile Include="Front\ViewModel\Articles\CommentFVM.cs" />
     <Compile Include="Front\ViewModel\Doc\DocumentListFVM.cs" />
-    <Compile Include="Front\ViewModel\Jobs\PageJobVM.cs" />
     <Compile Include="Front\ViewModel\Outlets\OutletFVM.cs" />
     <Compile Include="Front\ViewModel\Pages\PageFVM.cs" />
     <Compile Include="Front\ViewModel\Products\ProductCategoryVM.cs" />
@@ -216,6 +214,8 @@
     <Compile Include="Front\ViewModel\Videos\VideoFVM.cs" />
     <Compile Include="InfoVM.cs" />
     <Compile Include="Inputs\Articles\ArticleIM.cs" />
+    <Compile Include="InstituteVM.cs" />
+    <Compile Include="JobVM.cs" />
     <Compile Include="Search\LuceneHelper.cs" />
     <Compile Include="Search\LuceneVM.cs" />
     <Compile Include="Pages\PagesProductVM.cs" />
@@ -233,6 +233,10 @@
     <Compile Include="Views\Articles\ArticleVM.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\QNZ.Data\QNZ.Data.csproj">
+      <Project>{209CF6D1-B6D2-4C2B-B388-FCF9AA186143}</Project>
+      <Name>QNZ.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TZGCMS.Data\TZGCMS.Data.csproj">
       <Project>{f6de0fc8-17c2-4c73-8161-ec1ae4cf13da}</Project>
       <Name>TZGCMS.Data</Name>

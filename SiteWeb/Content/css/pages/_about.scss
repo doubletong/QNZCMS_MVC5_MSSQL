@@ -1,29 +1,54 @@
 
 .page-about {
-    font-size: rem(24);
+
+
+    @include respond-above (md) {
+        font-size: rem(24);
+    }
 
     .s1 {
-        margin-bottom: 2rem;
-        padding-bottom: 2rem;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+
+        @include respond-above (md) {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+        }
 
         figure {
+            display: block;
             padding: 0;
-            margin: 2rem 0 0;
+            margin: 1rem auto 0;
             max-width: 627px;
+            text-align: center;
+
+            @include respond-above (md) {
+                margin: 2rem auto 0;
+            }
 
             figcaption {
-                font-size: rem(34);
+                text-align: center;
+
+                @include respond-above (md) {
+                    font-size: rem(22);
+                    text-align: center;
+                }
+
+                @include respond-above (lg) {
+                    font-size: rem(34);
+                    text-align: left;
+                }
             }
         }
 
         .txt {
-            @include respond-above (md) {
+            @include respond-above (lg) {
                 padding-right: 3rem;
             }
         }
 
         .txt1 {
-            @include respond-above (md) {
+            @include respond-above (lg) {
                 padding-left: 3rem;
             }
         }
@@ -35,8 +60,13 @@
 
     .s2 {
         background: #f7f8f8 url('../img/logo_bg.png') no-repeat left center;
-        padding: 2rem 1rem;
-        margin-bottom: 2rem;
+        padding: 1rem 1rem;
+        margin-bottom: 1rem;
+
+        @include respond-above (md) {
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+        }
 
         .txt {
             max-width: 960px;
@@ -49,18 +79,31 @@
             }
 
             .num {
-                font-size: 56px;
+                font-size: 32px;
                 font-weight: bold;
+
+                @include respond-above (md) {
+                    font-size: 56px;
+                }
             }
 
             p {
                 margin: 0;
+                font-size: 14px;
+
+                @include respond-above (md) {
+                    font-size: 16px;
+                }
             }
         }
     }
 
     .s3 {
-        padding: 4rem 15px 5rem;
+        padding: 1rem 15px 1rem;
+
+        @include respond-above (md) {
+            padding: 4rem 15px 5rem;
+        }
 
         .txt {
             text-align: justify;
@@ -71,17 +114,30 @@
         }
 
         .pic {
-            margin-top: 2rem;
+            margin-top: 1rem;
+            text-align: center;
+
+            @include respond-above (md) {
+                margin-top: 2rem;
+            }
         }
     }
 
     .s4 {
-        padding: 3rem 0;
+        padding: 2rem 0;
         background-color: #f7f8f8;
+
+        @include respond-above (md) {
+            padding: 3rem 0;
+        }
     }
 
     .s5 {
-        padding: 5rem 0;
+        padding: 2rem 0;
+
+        @include respond-above (md) {
+            padding: 5rem 0;
+        }
 
         .box {
             margin-bottom: 3rem;
@@ -89,10 +145,26 @@
 
         .item {
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
+
+            @include respond-above (md) {
+                margin-bottom: 1rem;
+            }
 
             .icon {
-                margin-bottom: 2rem;
+                margin-bottom: .6rem;
+
+                @include respond-above (md) {
+                    margin-bottom: 2rem;
+                }
+
+                img {
+                    width: 50%;
+
+                    @include respond-above (md) {
+                        width: auto;
+                    }
+                }
             }
 
             h4 {
@@ -136,9 +208,18 @@
             border: 1px #eee solid;
             margin-bottom: rem(60);
 
+
+
             .pic {
-                height: 246px;
                 overflow: hidden;
+
+                img {
+                    display: block;
+                }
+
+                @include respond-above (lg) {
+                    height: 246px;
+                }
             }
 
             .title {
@@ -148,7 +229,11 @@
             }
 
             .des {
-                min-height: 250px;
+
+
+                @include respond-above (md) {
+                    min-height: 250px;
+                }
             }
         }
     }

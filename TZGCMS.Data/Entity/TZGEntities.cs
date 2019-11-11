@@ -23,7 +23,7 @@ namespace TZGCMS.Data.Entity
     public partial class TZGEntities : DbContext
     {
         public TZGEntities()
-            : base("name=TZGEntities")
+            : base("name=QNZDbContext")
         {
         }
 

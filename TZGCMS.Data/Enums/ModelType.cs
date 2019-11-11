@@ -48,8 +48,11 @@ namespace TZGCMS.Data.Enums
         [Display(Name = "案例")]
         CASE = 20,
         [Display(Name = "产品")]
-        SIMPLEPRODUCT = 21
-
+        SIMPLEPRODUCT = 21,
+        [Display(Name = "科研成果分类")]
+        ACHIEVEMENTCATEGORY = 22,
+        [Display(Name = "研究所")]
+        INSTITUTE = 23
 
 
     }

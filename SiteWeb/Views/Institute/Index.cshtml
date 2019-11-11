@@ -1,7 +1,7 @@
-﻿
+﻿@model IEnumerable<QNZ.Data.Institute>
 @{
 
-    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    QNZ.Data.PageMetaSet pm = (QNZ.Data.PageMetaSet)ViewBag.PageMeta;
     ViewBag.Title = pm != null ? pm.Title : "科研平台";
 }
 
@@ -14,67 +14,37 @@
 }
 
 
-<div class="banner banner-institute">
-    <h3>研发平台</h3>
-    <h4>Institute</h4>
-    <hr />
-    <nav>
-        <a href="/about#s1">自有研究所</a>
-        <a href="/about#s4">大企业合作</a>     
-    </nav>
-</div>
+@Html.Action("InstituteHeader")
 
 
 <div class="page page-institute">
     <div class="container">
         <div class="row no-gutters">
-            <div class="col-md-3">
-                <a class="item" href="#">
-                    <div class="pic"><img src="~/Content/img/temp/iu01.jpg" alt="新材料与生物医药研究所" /></div>
-                    <div class="title">
-                        <h3>新材料与生物医药研究所</h3>
+            @foreach (var item in Model)
+            {
+            <div class="col-6 col-md-4 col-lg-3">
+                @if (item.DictionaryId == 3)
+                {
+                    <a class="item" href="@Url.Action("Detail",new { id = item.Id})">
+                        <div class="pic"><img src="@item.Thumbnail" alt="@item.Title" /></div>
+                        <div class="title">
+                            <h3>@item.Title</h3>
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    <a class="item" href="@Url.Action("Labs",new { id = item.Id})">
+                        <div class="pic"><img src="@item.Thumbnail" alt="@item.Title" /></div>
+                        <div class="title">
+                            <h3>@item.Title</h3>
+                        </div>
+                    </a>
+                }
 
-                    </div>
-                </a>
             </div>
-            <div class="col-md-3">
-                <a class="item" href="#">
-                    <div class="pic"><img src="~/Content/img/temp/iu02.jpg" alt="宽带无限通信研究所" /></div>
-                    <div class="title">
-                        <h3>
-                            宽带无限通信研究所
-                        </h3>
+            }
 
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3">
-                <a class="item" href="#">
-                    <div class="pic"><img src="~/Content/img/temp/iu01.jpg" alt="Alternate Text" /></div>
-                    <div class="title">
-                        <h3>新材料与生物医药研究所</h3>
-
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3">
-                <a class="item" href="#">
-                    <div class="pic"><img src="~/Content/img/temp/iu01.jpg" alt="Alternate Text" /></div>
-                    <div class="title">
-                        <h3>新材料与生物医药研究所</h3>
-
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3">
-                <a class="item" href="#">
-                    <div class="pic"><img src="~/Content/img/temp/iu01.jpg" alt="Alternate Text" /></div>
-                    <div class="title">
-                        <h3>新材料与生物医药研究所</h3>
-
-                    </div>
-                </a>
-            </div>
         </div>
     </div>
 

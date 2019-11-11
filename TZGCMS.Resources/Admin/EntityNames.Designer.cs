@@ -61,6 +61,15 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 科研成果 的本地化字符串。
+        /// </summary>
+        public static string Achievement {
+            get {
+                return ResourceManager.GetString("Achievement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 相册 的本地化字符串。
         /// </summary>
         public static string Album {
@@ -259,11 +268,29 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 研究所 的本地化字符串。
+        /// </summary>
+        public static string Institute {
+            get {
+                return ResourceManager.GetString("Institute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 人才招聘 的本地化字符串。
         /// </summary>
         public static string Job {
             get {
                 return ResourceManager.GetString("Job", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 实验室 的本地化字符串。
+        /// </summary>
+        public static string Laboratory {
+            get {
+                return ResourceManager.GetString("Laboratory", resourceCulture);
             }
         }
         
@@ -543,15 +570,6 @@ namespace TZGCMS.Resources.Admin {
         public static string Work {
             get {
                 return ResourceManager.GetString("Work", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 作品分类 的本地化字符串。
-        /// </summary>
-        public static string WorkCategory {
-            get {
-                return ResourceManager.GetString("WorkCategory", resourceCulture);
             }
         }
     }

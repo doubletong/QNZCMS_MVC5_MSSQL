@@ -1,5 +1,4 @@
-﻿@model ArticleCategory
-
+﻿@model QNZ.Data.ArticleCategory
 <tr class="item-container" id="@string.Format("container{0}",Model.Id)">
 
     <td>
@@ -14,7 +13,7 @@
 
     <td>
         @if (Model.Active)
-            {
+        {
             <a href="#" data-url="@Url.Action("IsActive", new {id = Model.Id})" class="active-item" title="激活" data-action="锁定">
                 <i class="fa fa-check text-success"></i>
             </a>
@@ -29,14 +28,9 @@
     </td>
 
     <td>
-        @Ajax.RawActionLink("<i class='fa fa-edit'></i>",
-                        "Edit", "ArticleCategory",
-                        new { id = Model.Id },
-                        new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
-                        new { @class = "btn btn-primary btn-sm", title = Buttons.Edit })
-
+        <a href="@Url.Action("Edit",new {id = Model.Id})" class="btn btn-primary btn-sm" title="@Buttons.Edit"><i class='fa fa-edit fa-fw'></i></a>
         <a href="#" data-url="@Url.Action("Delete", new {id = Model.Id})" class="btn btn-danger btn-sm delete-item" title="@Buttons.Delete">
-            <i class="fa fa-trash-o"></i>
+            <i class="fa fa-trash-o fa-fw"></i>
         </a>
     </td>
 </tr>

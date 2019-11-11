@@ -2,6 +2,7 @@
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using AutoMapper;
+using QNZ.Data;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -53,6 +54,7 @@ namespace TZGCMS.SiteWeb
             builder.RegisterFilterProvider();
 
             //installation localization service            
+            builder.RegisterType<QNZDbContext>().As<IQNZDbContext>().InstancePerLifetimeScope();
             builder.RegisterType<LoggingService>().As<ILoggingService>().InstancePerLifetimeScope();
             builder.RegisterType<CacheService>().As<ICacheService>();
             //builder.RegisterType<TZGCMS.Infrastructure.Email.SMTPService>().As<TZGCMS.Infrastructure.Email.IEmailService>();

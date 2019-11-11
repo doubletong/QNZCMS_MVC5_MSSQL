@@ -2,10 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TZGCMS.Data.Entity.Articles;
+
 
 namespace TZGCMS.Model
 {
@@ -33,7 +30,7 @@ namespace TZGCMS.Model
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
-        public StaticPagedList<Article> Articles { get; set; }
+        public StaticPagedList<ArticleVM> Articles { get; set; }
         public int? CategoryId { get; set; }
         public string Keyword { get; set; }
 

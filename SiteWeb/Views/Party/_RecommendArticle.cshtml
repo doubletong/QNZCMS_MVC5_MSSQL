@@ -2,46 +2,24 @@
 @{ 
     int i = 0;
 }
-    <div class="container slider-container">
-
-        <div class="flex-container">
-            @*<div class="spinner">
-                <p>
-
-                    <div class="cube1"></div>
-                    <div class="cube2"></div>
-                    Loading...
-                </p>
-            </div>*@
-            @foreach (var item in Model)
-            {
-                <div class="flex-slide @(i==0?"active":"")" style="background-image:url('@item.Thumbnail')">
-                    <div class="flex-title">@item.Title</div>
-                  
-                </div>
-                i++;
-            }
-
-        
-        </div>
-
-
-
-        @*<div class="pana-accordion" id="accordion">
-            <div class="pana-accordion-wrap">
+    <div class="container ">
+        <div class="slider-container">
+            <div class="flex-container">
+         
                 @foreach (var item in Model)
                 {
-                    <div class="pana-accordion-item" style="background-color: #F44336">
-                        <a class="slide" href="@Url.Action("Detail",new { id = item.Id})">
-                            <img src="@item.Thumbnail" />
-                            <h3 class="title">@item.Title</h3>
-                        </a>
-                    </div>
+                    <a href="@Url.Action("Detail",new { id = item.Id})" class="flex-slide @(i==0?"active":"")" style="background-image:url('@item.Thumbnail')">
+                        <div class="flex-title">@item.Title</div>
 
+                    </a>
+                    i++;
                 }
 
+
             </div>
-        </div>*@
+
+        </div>
+
 
 
     </div>

@@ -21,7 +21,7 @@
                 }
             </div>
             <div class="col-sm-4 text-right">
-                @Ajax.RawActionLink("<i class='fa fa-plus fa-fw'></i>新增页面",
+                @Ajax.RawActionLink("<i class='fa fa-plus fa-fw'></i>新增",
                          "Create", "Page",
                          new { },
                          new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
@@ -54,7 +54,7 @@
         <tbody id="tbList">
             @foreach (var item in Model.Pages)
             {
-                Html.RenderPartial("_PageItem", item);
+                Html.RenderPartial("_AchievementItem", item);
             }
         </tbody>
 

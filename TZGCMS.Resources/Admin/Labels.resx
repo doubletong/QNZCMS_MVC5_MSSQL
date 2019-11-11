@@ -570,4 +570,7 @@
   <data name="Video" xml:space="preserve">
     <value>视频</value>
   </data>
+  <data name="Institute" xml:space="preserve">
+    <value>研究所</value>
+  </data>
 </root>

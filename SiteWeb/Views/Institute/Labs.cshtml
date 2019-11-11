@@ -1,0 +1,31 @@
+﻿@model LaboratoryPagedVM
+@{
+    QNZ.Data.PageMetaSet pm = (QNZ.Data.PageMetaSet)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : Model.Institute.Title;
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+}
+
+@Html.Action("InstituteHeader")
+
+<div class="page page-labs">
+    <div class="container">
+        <h2  class="institute-header" style="background-image:url('@Model.Institute.Thumbnail')">@Model.Institute.Title</h2>
+
+        <div class="labs-list">
+            @foreach (var item in Model.Laboratories)
+            {
+                <div class="item">
+                    <h3 class="title">@item.Title</h3>
+
+                </div>
+            }
+        </div>
+    </div>
+</div>

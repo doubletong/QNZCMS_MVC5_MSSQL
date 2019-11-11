@@ -1,0 +1,76 @@
+﻿@model AchievementPagedVM
+@{   
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : Model.CategoryTitle;
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+}
+
+<div class="banner banner-achievements">
+    <h3>科技成果</h3>
+    <h4>Scientific Achievement</h4>
+    <hr />
+</div>
+
+<!-- BLOG ================================================== -->
+<section class="page page-achievements-list">
+    <div class="container ">
+        <div class="title title-section">
+            <h2>@Model.CategoryTitle</h2>
+        </div>
+
+        <ul class="newslist">
+            @foreach (var post in Model.Achievements)
+            {
+            <li>
+                <a class="item" href="@Url.Action("Detail",new { id = post.Id})">
+                    <div class="row align-items-center">
+                        <div class="col col-md-10">
+                            <h3>@post.Title</h3>
+                        </div>
+
+                        <div class="col-auto col-md-2">
+                            <div class="pubdate">
+                                @string.Format("{0:yyyy.MM.dd}", post.Pubdate)
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <div class="achibody">
+                    @Html.Raw(post.Body)
+                </div>
+            </li>
+            }
+        </ul>
+        @if (Model.TotalCount > Model.PageSize)
+        {
+            <div>
+                @Html.PagedListPager((IPagedList)Model.Achievements, page => Url.Action("Index", new { page, cid = Model.CategoryId }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+            </div>
+        }
+
+
+    </div>
+
+</section>
+
+
+@section footer{
+    
+    <script>
+        $(function (e) {
+            $(".newslist a").click(function (e) {
+                e.preventDefault();
+                $(this).next().slideToggle();
+            })
+        })
+    </script>
+    
+    
+    }

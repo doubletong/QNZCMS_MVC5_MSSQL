@@ -23,6 +23,14 @@
         padding-bottom: 5rem;
         padding-top: 5rem;
     }
+
+    img {
+        width: 70%;
+
+        @include respond-above(sm) {
+            width: auto;
+        }
+    }
 }
 
 .site-footer {
@@ -32,11 +40,12 @@
     color: #fff;
     padding-bottom: 1rem;
     padding-top: 1rem;
-    font-size: 1rem;
+    font-size: 14px;
 
     @include respond-above(sm) {
         padding-bottom: 2rem;
         padding-top: 2rem;
+        font-size: 1rem;
     }
 
     @include respond-above(md) {

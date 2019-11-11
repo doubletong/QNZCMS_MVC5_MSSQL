@@ -1,0 +1,220 @@
+﻿@model InstituteIM
+@{
+
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/_Layout2019.cshtml";
+    ViewBag.Title = "编辑" + EntityNames.Achievement;
+    ViewBag.PageTitle = ViewBag.Title + "_内容";
+}
+
+
+@section Header{
+
+    <link href="~/Plugins/datetimepicker/jquery.datetimepicker.css" rel="stylesheet" />
+}
+
+
+@using (Ajax.BeginForm("Edit", null, new AjaxOptions
+{
+
+    HttpMethod = "POST",
+    OnBegin = "onBeginSave",
+    OnComplete = "onCompleteSave",
+    OnSuccess = "updateSuccess"
+
+}, new { @class = "form-horizontal", role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+
+
+    <div class="card">
+        <header class="card-header">
+            <span class="glyphicon glyphicon-edit"></span> @ViewBag.Title
+        </header>
+
+        <section class="card-body">
+            <div class="row">
+                <div class="col-md">
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Title)
+
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = Labels.Title })
+                        @Html.ValidationMessageFor(model => model.Title)
+
+                    </div>
+
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.DictionaryId)
+
+                        @Html.DropDownListFor(model => model.DictionaryId, (SelectList)ViewBag.Dictionaries, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DictionaryId)
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Importance)
+
+                        @Html.TextBoxFor(model => model.Importance, new { @class = "form-control", placeholder = Labels.Importance })
+                        @Html.ValidationMessageFor(model => model.Importance)
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Introduction)
+
+                        @Html.TextAreaFor(model => model.Introduction, new { @class = "form-control", placeholder = Labels.Content })
+                        @Html.ValidationMessageFor(model => model.Introduction)
+
+                    </div>
+
+                    <div class="form-group form-check">
+                        @Html.CheckBoxFor(model => model.Active, new { @class = "form-check-input" })
+                        <label class="form-check-label" for="Active">激活</label>
+                    </div>
+                  
+
+                </div>
+                <div class="col-md-auto">
+                    <div style="width:300px; text-align:center;" class="mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <img ID="iLogo" src="@(string.IsNullOrEmpty(Model.Thumbnail) ? "holder.js/240x240?text=350X350像素" : Model.Thumbnail )" class="img-fluid" />
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" id="btnThumbnail" class="btn btn-info btn-block"><i class="iconfont icon-image"></i> 缩略图...</button>                        
+                                @Html.HiddenFor(model => model.Thumbnail)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            SEO
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SEOTitle)
+
+                                @Html.TextBoxFor(model => model.SEOTitle, new { @class = "form-control", placeholder = "标题(SEO)" })
+                                @Html.ValidationMessageFor(model => model.SEOTitle)
+
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Keywords)
+
+                                @Html.TextBoxFor(model => model.Keywords, new { @class = "form-control", placeholder = "关键字(SEO)" })
+                                @Html.ValidationMessageFor(model => model.Keywords)
+
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SEODescription)
+
+                                @Html.TextAreaFor(model => model.SEODescription, new { @class = "form-control", placeholder = "描述(SEO)" })
+                                @Html.ValidationMessageFor(model => model.SEODescription)
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+  
+
+        </section>
+        <footer class="card-footer text-center">
+            <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save fa-fw"></i>  @Buttons.Update </button>
+            <a href="@Url.Action("Index")" class="btn btn-secondary"><span class="fa fa-chevron-left fa-fw"></span> @Buttons.Back</a>
+        </footer>
+
+    </div>
+}
+
+
+
+
+@section Footer {
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+    <script src="~/Plugins/tinymce5/tinymce.min.js"></script>
+    <script src="~/scripts/lib/moment/moment-with-locales.min.js"></script>
+    <script src="~/Plugins/datetimepicker/jquery.datetimepicker.full.min.js"></script>
+    <script src="~/Plugins/holderjs/holder.min.js"></script>
+    <script>
+
+
+        function SetThumbnail(fileUrl) {
+            $("#iLogo").attr("src", fileUrl);
+            $('#Thumbnail').val(fileUrl);
+        }
+
+
+        function onBeginSave() {
+            $("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin");
+        }
+        function onCompleteSave() {
+            $("#btnSave i").removeClass("fa-spinner fa-spin").addClass("fa-save");
+        }
+
+        function updateSuccess(data) {
+            var title = '@ViewBag.Title';
+            Common.ShowBox(data.Status, data.Message, title);
+        }
+        
+        tinymce.init({
+            selector: '#Introduction',  // change this value according to your HTML
+            height: 500,
+            language: 'zh_CN',
+
+            convert_urls: false,
+            extended_valid_elements: 'span',
+            image_advtab: true,
+
+            //picture manager
+            file_picker_callback: singleEelFinder.elFinderBrowser,
+            images_upload_handler: singleEelFinder.ImagesUploadHandler,
+            plugins: 'print preview code importcss  searchreplace autolink autosave save directionality  visualblocks visualchars fullscreen image link media  template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists  wordcount   imagetools textpattern noneditable help    charmap   quickbars  emoticons',
+
+              toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
+              autosave_ask_before_unload: true,
+              autosave_interval: "30s",
+              autosave_prefix: "{path}{query}-{id}-",
+              autosave_restore_when_empty: false,
+            autosave_retention: "2m",
+
+          image_advtab: true,
+                    importcss_append: true,
+             image_caption: true,
+          templates: [
+                { title: '新表格', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+            { title: '文章样式', description: 'A cure for writers block', content: 'Once upon a time...' },
+            { title: '列表样式', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+          ]
+
+
+        });
+
+
+
+
+        $(function () {
+
+            $("#btnThumbnail").on("click", function() {
+                singleEelFinder.selectActionFunction = SetThumbnail;
+                singleEelFinder.open();
+            });
+
+
+
+
+            $.datetimepicker.setLocale('ch');
+            $('#Pubdate').datetimepicker();
+        })
+
+    </script>
+}
+
+
+
+

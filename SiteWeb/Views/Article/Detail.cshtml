@@ -1,11 +1,11 @@
-﻿@model TZGCMS.Data.Entity.Articles.Article
+﻿@model QNZ.Data.Article
 @{
 
     PageMeta pm = (PageMeta)ViewBag.PageMeta;
     ViewBag.Title = pm != null ? pm.Title : Model.Title;
 
-    var prevArt = (Article)ViewBag.Prev;
-    var nextArt = (Article)ViewBag.Next;
+    var prevArt = (QNZ.Data.Article)ViewBag.Prev;
+    var nextArt = (QNZ.Data.Article)ViewBag.Next;
 }
 
 @section header{
@@ -35,7 +35,7 @@
                         发布日期：  @string.Format("{0:D}", Model.Pubdate)
                     </li>
                     <li>
-                        分类： @Model.CategoryTitle
+                        分类： @Model.ArticleCategory.Title
                     </li>
                 </ul>
             </div>
@@ -71,7 +71,7 @@
 @section footer{
     <script>
         $(function () {
-            $("#mainav li").eq(1).addClass("active");
+          
         })
     </script>
 

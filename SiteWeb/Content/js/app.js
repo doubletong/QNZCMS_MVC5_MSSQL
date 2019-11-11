@@ -4,16 +4,17 @@ $(document).ready(function() {
     //e(), $(window).on("scroll", function() { e() }), $("#toTop").click(function(e) { return e.preventDefault(), jQuery("html, body").animate({ scrollTop: 0 }, 600), !1 }), $(".weixincode").click(function(e) { e.preventDefault(), jQuery(".over").fadeIn() }), $(".over").click(function(e) { e.preventDefault(), jQuery(this).fadeOut() })
 
 
+    $(".menu-toggle").on('click', function () {
+        $(this).toggleClass("on");
+        $("#mainav").slideToggle();
+    });
 
-    //$(".menu-toggle").on('click', function () {
-    //    $(this).toggleClass("on");
-    //    $("#overmenu").slideToggle();
-    //});
-    //$(".subnav a").on("touchstart", function(e) {
+    //$(".subnav a").on("touchstart", function (e) {
     //    "use strict";
     //    var link = $(this).attr("href");
     //    location.href = link;
     //});
+
 
     $("#btnsetemail").on("click", function(e) {
         e.preventDefault();

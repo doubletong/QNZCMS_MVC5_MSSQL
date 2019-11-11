@@ -1,0 +1,48 @@
+﻿@model QNZ.Data.Institute
+@{
+
+    PageMeta pm = (PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : Model.Title;
+
+
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+}
+
+@Html.Action("InstituteHeader")
+
+<!-- BLOG   ================================================== -->
+<section class="page page-news-detail">
+    <div class="container">
+        <div class=" article">
+            <div class="title title-section">
+                <h2>@Model.Title</h2>
+            </div>
+
+
+
+            <div class="content">
+                @Html.Raw(Model.Introduction)
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+@section footer{
+    <script>
+        $(function () {
+
+        })
+    </script>
+
+}

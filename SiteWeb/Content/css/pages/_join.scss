@@ -14,10 +14,21 @@
         cursor: pointer;
         padding: 1.5rem 0;
         color: #999;
-
+        a{
+            text-decoration:none;
+            &:hover{
+                background-color:#eee;
+                text-decoration:none;
+            }
+        }
         h3 {
             margin: 0;
             color: #666;
         }
+    }
+
+    .jobbody{
+        display:none;
+        color:#666;
     }
 }

@@ -18,7 +18,6 @@ using TZGCMS.Model.Admin.InputModel.Chronicles;
 using TZGCMS.Model.Admin.InputModel.Doc;
 using TZGCMS.Model.Admin.InputModel.Emails;
 using TZGCMS.Model.Admin.InputModel.Identity;
-using TZGCMS.Model.Admin.InputModel.Jobs;
 using TZGCMS.Model.Admin.InputModel.Links;
 using TZGCMS.Model.Admin.InputModel.Menus;
 using TZGCMS.Model.Admin.InputModel.Outlets;
@@ -78,6 +77,23 @@ namespace TZGCMS.SiteWeb.Mappings
             //   .ForMember(d => d.InTypeTitle, opt => opt.MapFrom(source => source.InType.Title))
             //   .ForMember(d => d.CustomerName, opt => opt.MapFrom(source => source.Customer.CustomerName));
 
+            CreateMap<QNZ.Data.Laboratory, LaboratoryVM>();
+            CreateMap<LaboratoryIM, QNZ.Data.Laboratory>();
+            CreateMap<QNZ.Data.Laboratory, LaboratoryIM>();
+
+            CreateMap<QNZ.Data.Institute, InstituteVM>();
+            CreateMap<InstituteIM, QNZ.Data.Institute>();
+            CreateMap<QNZ.Data.Institute, InstituteIM>();
+
+            CreateMap<QNZ.Data.AchievementCategory, AchievementCategoryVM>();
+            CreateMap<AchievementCategoryIM, QNZ.Data.AchievementCategory>();
+            CreateMap<QNZ.Data.AchievementCategory, AchievementCategoryIM>();
+
+            CreateMap<QNZ.Data.Achievement,AchievementVM> ();
+            CreateMap<AchievementIM, QNZ.Data.Achievement>();
+            CreateMap<QNZ.Data.Achievement, AchievementIM>();
+            
+
             CreateMap<ProductCategoryIM, ProductCategory>();
             CreateMap<ProductCategory, ProductCategoryIM>();
 
@@ -92,13 +108,13 @@ namespace TZGCMS.SiteWeb.Mappings
             //CreateMap<Product, SearchData>().ForMember(d => d.Name, opt => opt.MapFrom(source => source.ProductName));
 
 
-            CreateMap<Article, ArticleVM>().ForMember(d => d.CategoryTitle, opt => opt.MapFrom(source => source.ArticleCategory.Title));
-            CreateMap<Article, ArticleIM>();
-            CreateMap<ArticleIM, Article>();
-            CreateMap<ArticleCategoryVM, ArticleCategory>();
-            CreateMap<ArticleCategory, ArticleCategoryVM>();
-            CreateMap<ArticleCategoryIM, ArticleCategory>();
-            CreateMap<ArticleCategory, ArticleCategoryIM>();
+            CreateMap<QNZ.Data.Article, ArticleVM>().ForMember(d => d.CategoryTitle, opt => opt.MapFrom(source => source.ArticleCategory.Title));
+            CreateMap<QNZ.Data.Article, ArticleIM>();
+            CreateMap<ArticleIM, QNZ.Data.Article>();
+            CreateMap<ArticleCategoryVM, QNZ.Data.ArticleCategory >();
+            CreateMap<QNZ.Data.ArticleCategory, ArticleCategoryVM>();
+            CreateMap<ArticleCategoryIM, QNZ.Data.ArticleCategory>();
+            CreateMap<QNZ.Data.ArticleCategory, ArticleCategoryIM>();
 
             CreateMap<VideoCategoryIM, VideoCategory>();
             CreateMap<VideoCategory, VideoCategoryIM>();
@@ -195,10 +211,10 @@ namespace TZGCMS.SiteWeb.Mappings
             //CreateMap<PageIM, SIG.DAL.Dapper.Model.Page>();
             //CreateMap<SIG.DAL.Dapper.Model.Page, PageIM>();
 
-            //CreateMap<JobVM, Job>();
+            CreateMap<JobVM, QNZ.Data.Job>();
             //CreateMap<Job, JobVM>();
-            CreateMap<JobIM, Job>();
-            CreateMap<Job, JobIM>();
+            CreateMap<JobIM, QNZ.Data.Job>();
+            CreateMap<QNZ.Data.Job, JobIM>();
 
             //CreateMap<TeamVM, Team>();
             //CreateMap<Team, TeamVM>();

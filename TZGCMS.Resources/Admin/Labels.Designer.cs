@@ -628,6 +628,15 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 研究所 的本地化字符串。
+        /// </summary>
+        public static string Institute {
+            get {
+                return ResourceManager.GetString("Institute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 是否关闭 的本地化字符串。
         /// </summary>
         public static string IsClose {

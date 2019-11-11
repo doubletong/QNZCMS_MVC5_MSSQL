@@ -8,7 +8,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TZGCMS.Data.Entity;
-using TZGCMS.Model.Front.ViewModel.Jobs;
 using TZGCMS.Data.Enums;
 using TZGCMS.SiteWeb.Filters;
 

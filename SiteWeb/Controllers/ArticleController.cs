@@ -1,31 +1,25 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using PagedList;
-using System;
-using System.Collections.Generic;
+using QNZ.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using TZGCMS.Data.Entity.Articles;
 using TZGCMS.Data.Enums;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Model;
-using TZGCMS.Model.Admin.ViewModel.Articles;
-using TZGCMS.Model.Front.ViewModel.Articles;
-using TZGCMS.Service.Articles;
-using TZGCMS.Service.PageMetas;
 using TZGCMS.SiteWeb.Filters;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
-    public class ArticleController : BaseController
+    public class ArticleController : Controller
     {
-        private readonly IMapper _mapper;
-
-        public ArticleController(IMapper mapper)
+        private IQNZDbContext _db;
+        private IMapper _mapper;
+        public ArticleController(IMapper mapper, IQNZDbContext db)
         {
+            _db = db;
             _mapper = mapper;
         }
         [SIGActionFilter]
@@ -35,7 +29,7 @@ namespace TZGCMS.SiteWeb.Controllers
             var vm = new FrontArticlePageVM
             {
               
-                NewsList = await _db.Article.Where(d=>d.ArticleCategory.SeoName == "news").Take(5)
+                NewsList = await _db.Articles.Where(d=>d.ArticleCategory.SeoName == "news").Take(5)
                 .OrderByDescending(d=>d.Pubdate).Select(d=> new ArticleVM
                 {
                     Id = d.Id,
@@ -44,7 +38,7 @@ namespace TZGCMS.SiteWeb.Controllers
                     Summary = d.Summary,
                     Pubdate = d.Pubdate
                 }).ToListAsync(),
-                MediaList = await _db.Article.Where(d => d.ArticleCategory.SeoName == "media").Take(5)
+                MediaList = await _db.Articles.Where(d => d.ArticleCategory.SeoName == "media").Take(5)
                 .OrderByDescending(d => d.Pubdate).Select(d => new ArticleVM
                 {
                     Id = d.Id,
@@ -53,7 +47,7 @@ namespace TZGCMS.SiteWeb.Controllers
                     Summary = d.Summary,
                     Pubdate = d.Pubdate
                 }).ToListAsync(),
-                NoticeList = await _db.Article.Where(d => d.ArticleCategory.SeoName == "notice").Take(5)
+                NoticeList = await _db.Articles.Where(d => d.ArticleCategory.SeoName == "notice").Take(5)
                 .OrderByDescending(d => d.Pubdate).Select(d => new ArticleVM
                 {
                     Id = d.Id,
@@ -65,14 +59,14 @@ namespace TZGCMS.SiteWeb.Controllers
             };
 
             var url = Request.RawUrl;
-            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == ModelType.MENU && d.ObjectId == url);
+            ViewBag.PageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == url);
 
             return View(vm);
         }
         public async Task<ActionResult> List(string alias, int? page,int? year)
         {
-            var category = await _db.ArticleCategory.FirstOrDefaultAsync(d => d.SeoName == alias);
-            var query = _db.Article.Where(d => d.Active && d.ArticleCategory.SeoName == alias).AsQueryable();
+            var category = await _db.ArticleCategories.FirstOrDefaultAsync(d => d.SeoName == alias);
+            var query = _db.Articles.Where(d => d.Active==true && d.ArticleCategory.SeoName == alias).AsQueryable();
 
             var vm = new FrontArticleListVM
             {
@@ -98,7 +92,7 @@ namespace TZGCMS.SiteWeb.Controllers
 
 
             var url = Request.RawUrl;
-            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == ModelType.MENU && d.ObjectId == url);
+            ViewBag.PageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == url);
 
             return View(vm);
         }
@@ -146,7 +140,7 @@ namespace TZGCMS.SiteWeb.Controllers
         [HttpGet]
         public PartialViewResult RecentNews(int count)
         {
-            var articleList = _db.Article.Where(d=>d.Active)
+            var articleList = _db.Articles.Where(d=>d.Active==true && (d.ArticleCategory.SeoName == "news" || d.ArticleCategory.SeoName == "media" || d.ArticleCategory.SeoName == "notice"))
                 .OrderByDescending(d=>d.Pubdate).Take(count).ProjectTo<ArticleVM>().ToList();
             return PartialView("_RecentNews", articleList);
         }
@@ -168,22 +162,22 @@ namespace TZGCMS.SiteWeb.Controllers
         public async Task<ActionResult> Detail(int id)
         {
 
-            var model = await _db.Article.Include(d=>d.ArticleCategory).FirstOrDefaultAsync(d=>d.Id == id);
+            var model = await _db.Articles.Include(d=>d.ArticleCategory).FirstOrDefaultAsync(d=>d.Id == id);
             if (model == null) return HttpNotFound();
 
             model.ViewCount++;
             _db.Entry(model).State = EntityState.Modified;
             await _db.SaveChangesAsync();
 
-            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == ModelType.ARTICLE && d.ObjectId == id.ToString());
+            ViewBag.PageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.ARTICLE && d.ObjectId == id.ToString());
 
-            var prev = _db.Article.Where(s => s.Active && s.Id < id).OrderByDescending(s => s.Id).FirstOrDefault();
+            var prev = _db.Articles.Where(s => s.Active==true && s.Id < id).OrderByDescending(s => s.Id).FirstOrDefault();
             if (prev != null)
             {
                 ViewBag.Prev = prev;
             }
 
-            var next = _db.Article.Where(s => s.Active && s.Id > id).OrderBy(s => s.Id).FirstOrDefault();
+            var next = _db.Articles.Where(s => s.Active==true && s.Id > id).OrderBy(s => s.Id).FirstOrDefault();
             if (next != null)
             {
                 ViewBag.Next = next;

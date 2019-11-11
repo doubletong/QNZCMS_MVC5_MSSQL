@@ -1,115 +1,79 @@
-﻿
+﻿@model JobPagedVM
 @{
-    ViewData["Title"] = "加入我们";
+
+    QNZ.Data.PageMetaSet pm = (QNZ.Data.PageMetaSet)ViewBag.PageMeta;
+    ViewData["Title"] = pm != null ? pm.Title : "加入我们";
+
+    var Categories = Model.Jobs.Select(d => d.GroupName).Distinct();
 }
 
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+}
 
 <div class="banner banner-join">
     <h3>加入我们</h3>
     <h4>Join us</h4>
     <hr />
     <nav>
-        <a href="/about#s1">科研</a>
-        <a href="/about#s4">博士后</a>
-        <a href="/about#s5">职能</a>
+        @foreach (var item in Model.Dictionaries)
+        {
+            <a href="@Url.Action("Index",new { category = item.Title})">@item.Title</a>
+        }
     </nav>
 </div>
 <div class="page page-join">
     <div class="container">
-        <h2 class="title-v2">
-            科研招聘·光机电与先进制造研究所
-        </h2>
-        <div class="item">
-            <div class="row align-items-end">
-                <div class="col">
-                    <h3>LED照明、仪器仪表技术</h3>
-                    光机电一体化重点实验室
-                </div>
-                <div class="col-auto">
-                    <time>2010.11.9</time>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="row align-items-end">
-                <div class="col">
-                    <h3>LED照明、仪器仪表技术</h3>
-                    光机电一体化重点实验室
-                </div>
-                <div class="col-auto">
-                    <time>2010.11.9</time>
-                </div>
-            </div>
-        </div>
 
-        <h2 class="title-v2">
-            科研招聘·光机电与先进制造研究所
-        </h2>
-        <div class="item">
-            <div class="row align-items-end">
-                <div class="col">
-                    <h3>LED照明、仪器仪表技术</h3>
-                    光机电一体化重点实验室
+        @foreach (var name in Categories)
+        {
+            <h2 class="title-v2">
+                @name
+            </h2>
+            foreach (var item in Model.Jobs.Where(d => d.GroupName == name))
+            {
+                <div class="item">
+                    <a href="javascript:void(0);" class="row align-items-end jobtitle">
+                        <div class="col">
+                            <h3>@item.Post</h3>
+                            @item.Address
+                        </div>
+                        <div class="col-auto">
+                            <time>@string.Format("{0:d}",item.CreatedDate)</time>
+                        </div>
+                    </a>
+                    <div class="jobbody">
+                        @Html.Raw(item.Description)
+                    </div>
                 </div>
-                <div class="col-auto">
-                    <time>2010.11.9</time>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="row align-items-end">
-                <div class="col">
-                    <h3>LED照明、仪器仪表技术</h3>
-                    光机电一体化重点实验室
-                </div>
-                <div class="col-auto">
-                    <time>2010.11.9</time>
-                </div>
-            </div>
-        </div>
+            }
 
-        <h2 class="title-v2">
-            科研招聘·光机电与先进制造研究所
-        </h2>
-        <div class="item">
-            <div class="row align-items-end">
-                <div class="col">
-                    <h3>LED照明、仪器仪表技术</h3>
-                    光机电一体化重点实验室
-                </div>
-                <div class="col-auto">
-                    <time>2010.11.9</time>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="row align-items-end">
-                <div class="col">
-                    <h3>LED照明、仪器仪表技术</h3>
-                    光机电一体化重点实验室
-                </div>
-                <div class="col-auto">
-                    <time>2010.11.9</time>
-                </div>
-            </div>
-        </div>
+        }
 
-        <nav aria-label="...">
-            <ul class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
+
+        @if (Model.TotalCount > Model.PageSize)
+        {
+            <div>
+                @Html.PagedListPager((IPagedList)Model.Jobs, page => Url.Action("Index", new { page, category = Model.Category}), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+            </div>
+        }
+
     </div>
 
 </div>
 
+@section footer{
+    
+    <script>
+        $(function (e) {
+            $(".jobtitle").click(function (e) {
+                $(this).next().slideToggle();
+            })
+        })
+    </script>
+    
+    }

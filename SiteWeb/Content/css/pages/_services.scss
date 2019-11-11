@@ -1,16 +1,39 @@
 .page-services {
-    font-size: rem(24);
+
+    @include respond-above(md) {
+        font-size: rem(20);
+    }
+
+    @include respond-above(lg) {
+        font-size: rem(24);
+    }
 
     .p1 {
-        margin-bottom: 5rem;
+        margin-bottom: 2rem;
+
+        @include respond-above(md) {
+            margin-bottom: 5rem;
+        }
     }
 
     .s1 {
-        margin-bottom: 7rem;
+        margin-bottom: 3rem;
+
+        @include respond-above(md) {
+            margin-bottom: 7rem;
+        }
     }
 
     .p2 {
-        margin-bottom: 3rem;
+        margin-bottom: 1.5rem;
+
+        @include respond-above(md) {
+            margin-bottom: 2rem;
+        }
+
+        @include respond-above(lg) {
+            margin-bottom: 3rem;
+        }
     }
 
     .more {
@@ -25,7 +48,11 @@
     }
 
     .s2 {
-        margin-bottom: 7rem;
+        margin-bottom: 3rem;
+
+        @include respond-above(md) {
+            margin-bottom: 7rem;
+        }
 
         .list {
             max-width: 1200px;
@@ -33,7 +60,12 @@
 
             .item {
                 width: 303px;
-                margin: 0 auto 3rem;
+                margin: 0 auto 1.5rem;
+
+
+                @include respond-above(md) {
+                    margin-bottom: 3rem;
+                }
 
                 h3 {
                     border-bottom: 5px $color-primary solid;
@@ -41,6 +73,11 @@
                     font-weight: bold;
                     margin-bottom: 0;
                     margin-top: 1rem;
+                    font-size: 24px;
+
+                    @include respond-above(lg) {
+                        font-size: 32px;
+                    }
                 }
 
                 p {
@@ -52,13 +89,19 @@
 
         ul.u1 {
             @include reset-list();
-            margin-bottom: 3rem;
+            margin-bottom: 1.5rem;
+
+            @include respond-above(md) {
+                margin-bottom: 3rem;
+            }
         }
     }
 
     .s3 {
-        margin-bottom: 7rem;
+        margin-bottom: 3rem;
 
-        
+        @include respond-above(md) {
+            margin-bottom: 7rem;
+        }
     }
 }

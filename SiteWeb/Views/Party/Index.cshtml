@@ -70,17 +70,18 @@
 	
 	$(".flex-slide").each(function(){
         $(this).hover(function () {
+       
             $(this).siblings().removeClass("active")
             $(this).addClass("active");
 		
 		}, function(){
-			$(this).find('.flex-title').css({		
-				bottom: '0'
-			});
-		
+			//$(this).find('.flex-title').css({		
+			//	bottom: '0'
+			//});
+		   $(this).siblings().removeClass("active")
 		})
 	});
-})();
+
     </script>
 
 }

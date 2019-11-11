@@ -1,0 +1,14 @@
+﻿@model IEnumerable<QNZ.Data.Dictionary>
+    
+<div class="banner banner-institute">
+        <h3>研发平台</h3>
+        <h4>Institute</h4>
+        <hr />
+        <nav>
+            @foreach (var item in Model)
+            {
+                <a href="@Url.Action("Index",new { did = item.Id})">@item.Title</a>
+            }
+
+        </nav>
+    </div>

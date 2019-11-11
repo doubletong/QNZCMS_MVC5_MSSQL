@@ -38,6 +38,7 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -51,83 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entity\AlbumSet.cs" />
-    <Compile Include="Entity\AnnouncementSet.cs" />
-    <Compile Include="Entity\ArticleCategorySet.cs" />
-    <Compile Include="Entity\ArticleSet.cs" />
-    <Compile Include="Entity\CarouselSet.cs" />
-    <Compile Include="Entity\CartSet.cs" />
-    <Compile Include="Entity\ChronicleSet.cs" />
-    <Compile Include="Entity\ClientSet.cs" />
-    <Compile Include="Entity\CommentSet.cs" />
-    <Compile Include="Entity\DocumentCategorySet.cs" />
-    <Compile Include="Entity\DocumentSet.cs" />
-    <Compile Include="Entity\EmailAccountSet.cs" />
-    <Compile Include="Entity\EmailSet.cs" />
-    <Compile Include="Entity\EmailTemplateSet.cs" />
-    <Compile Include="Entity\FilterTemplateSet.cs" />
-    <Compile Include="Entity\GoodsCategorySet.cs" />
-    <Compile Include="Entity\GoodsPhotoSet.cs" />
-    <Compile Include="Entity\GoodsSet.cs" />
-    <Compile Include="Entity\JobSet.cs" />
-    <Compile Include="Entity\LinkCategorySet.cs" />
-    <Compile Include="Entity\LinkSet.cs" />
-    <Compile Include="Entity\Log.cs" />
-    <Compile Include="Entity\MenuCategorySet.cs" />
-    <Compile Include="Entity\MenuSet.cs" />
-    <Compile Include="Entity\Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\OrderDetailSet.cs" />
-    <Compile Include="Entity\OrderSet.cs" />
-    <Compile Include="Entity\OutletSet.cs" />
-    <Compile Include="Entity\PageMetaSet.cs" />
-    <Compile Include="Entity\PageSet.cs" />
-    <Compile Include="Entity\PhotoSet.cs" />
-    <Compile Include="Entity\PositionSet.cs" />
-    <Compile Include="Entity\PostCategorySet.cs" />
-    <Compile Include="Entity\PostSet.cs" />
-    <Compile Include="Entity\ProductCategory.cs" />
-    <Compile Include="Entity\ProductCategorySet.cs" />
-    <Compile Include="Entity\ProductPhotoSet.cs" />
-    <Compile Include="Entity\ProductSet.cs" />
-    <Compile Include="Entity\QuestionCategorySet.cs" />
-    <Compile Include="Entity\QuestionSet.cs" />
-    <Compile Include="Entity\RecipientInfoSet.cs" />
-    <Compile Include="Entity\ReservationSet.cs" />
-    <Compile Include="Entity\Role.cs" />
-    <Compile Include="Entity\SIDContext.cs" />
-    <Compile Include="Entity\SolutionSet.cs" />
-    <Compile Include="Entity\TeamSet.cs" />
-    <Compile Include="Entity\TechnologySet.cs" />
-    <Compile Include="Entity\T_City.cs" />
-    <Compile Include="Entity\T_District.cs" />
-    <Compile Include="Entity\T_Province.cs" />
-    <Compile Include="Entity\User.cs" />
-    <Compile Include="Entity\UserSafetySet.cs" />
-    <Compile Include="Entity\VideoCategorySet.cs" />
-    <Compile Include="Entity\VideoSet.cs" />
-    <Compile Include="Entity\WorkCategorySet.cs" />
-    <Compile Include="Entity\WorkSet.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Entity\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entity\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -6,30 +6,71 @@
     width: 100%;
     font-weight: bold;
     background-color: #fff;
+    height: 45px;
+    box-shadow: 0 0 8px rgba(0,0,0,.15);
+    padding: 0 15px;
 
     @include respond-above (sm) {
-        padding: .5rem 2rem 1rem;
+        height: 60px;
     }
 
     @include respond-above (md) {
         padding: 1rem 3rem 1rem;
+        height: auto;
+        box-shadow: none;
     }
 
     @include respond-above (lg) {
-        padding: 1.5rem 4rem 1rem;
+        padding: 1rem 4rem 1rem;
     }
 
     @include respond-above (xlg) {
-        padding: 2rem 5rem 1rem;
+        padding: 1rem 5rem 1rem;
+    }
+
+    .wrap {
+        height: 100%;
+
+        .row {
+            height: 100%;
+        }
+    }
+
+    .logo {
+        @include respond-above (xlg) {
+            position: absolute;
+            left: 0;
+            top: -1rem;
+            z-index: 300;
+        }
+
+
+        img {
+            display: block;
+            height: 30px;
+
+            @include respond-above (md) {
+                height: 50px;
+            }
+
+            @include respond-above (xlg) {
+                height: auto;
+            }
+        }
     }
 
     .topcol {
         text-align: right;
-        margin-bottom: .6rem;
+
+
+        @include respond-above (md) {
+            padding-right: 0;
+        }
 
         a {
             margin-left: 1rem;
             color: #666;
+
 
             @include respond-above (lg) {
                 font-size: rem(20);
@@ -38,28 +79,148 @@
             @include respond-above (xlg) {
                 font-size: rem(22);
             }
+
+            &.nav-item {
+                display: none;
+
+                @include respond-above (md) {
+                    display: inline;
+                }
+            }
         }
     }
 
+    .mobile-col {
+        @include respond-above (md) {
+            display: none;
+        }
+    }
+
+
+    .menu-toggle {
+        width: 28px;
+        cursor: pointer;
+
+        .one,
+        .two,
+        .three {
+            width: 100%;
+            height: 2px;
+            background-color: #666;
+            margin: 6px auto;
+            backface-visibility: hidden;
+            -moz-transition-duration: 0.3s;
+            -o-transition-duration: 0.3s;
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+        }
+
+        &.on {
+
+            .one {
+                transform: rotate(45deg) translate(3px, 5px);
+            }
+
+            .two {
+                opacity: 0;
+            }
+
+            .three {
+                transform: rotate(-45deg) translate(6px, -8px);
+            }
+        }
+    }
+
+
+
+
     .mainav {
         @include reset-list();
+        text-align: right;
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 45px;
+        width: 100%;
+        background-color: #fff;
+        padding-top: 1rem;
+
+        @include respond-above (md) {
+            display: block;
+            position: relative;
+            width: auto;
+            left: auto;
+            top: auto;
+            background-color: transparent;
+            padding-top: 0;
+            text-align: center;
+        }
+
+        @include respond-above (xlg) {
+            text-align: right;
+        }
 
         li {
-            display: inline-block;
+            text-align: center;
 
+            @include respond-above (md) {
+                display: inline-block;
+                margin: 0 1rem;
+            }
 
-            @include respond-above (xlg) {
-                margin-left: 1rem;
+            @include respond-above (lg) {
+                margin: 0;
+                margin-left: 2rem;
             }
 
             a {
                 color: #666;
-                font-size: rem(28);
                 display: block;
-                padding: .3rem 1rem;
+                padding: .8rem 0;
+                border-bottom: 1px #eee solid;
+
+                @include respond-above (md) {
+                    font-size: rem(24);
+                    padding: 1.2rem 0 .3rem;
+                    border-bottom: none;
+                }
+
+                @include respond-above (lg) {
+                    font-size: rem(28);
+                    padding: .3rem 0;
+                }
 
                 &:hover {
                     color: $color-primary;
+                    border-bottom-color: $color-primary;
+                    text-decoration: none;
+
+                    @include respond-above (lg) {
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            &.active {
+                a {
+                    color: $color-primary;
+                    position: relative;
+
+                    &::after {
+                        content: " ";
+                        display: block;
+                        width: 0;
+                        height: 0;
+                        border: 10px solid $color-primary;
+                        border-left-color: transparent;
+                        border-right-color: transparent;
+                        border-top-color: transparent;
+                        position: absolute;
+                        left: 50%;
+                        margin-left: -10px;
+                        bottom: 0;
+                        z-index: 100;
+                    }
                 }
             }
 

@@ -1,39 +1,96 @@
 .banner-home {
     background-color: $color-primary;
     background-position: center center;
-    background-size: cover;
+    background-size: cover;  
+  
     height: 100vh;
+
 }
 
 .page-home {
     .s1 {
-        margin-top: -52px;
-        padding-top: 458px;
-        background-position: left 15px top;
+        background-position: center top;
         background-repeat: no-repeat;
-        margin-bottom: 250px;
+        background-size: auto 300px;
+        padding-top: 300px;
+        margin-bottom: 1rem;
+
+        @include respond-above(sm) {
+            background-size: auto 400px;
+            padding-top: 400px;
+            background-position: left 15px top;
+            margin-top: -52px;
+            margin-bottom: 3rem;
+        }
+
+        @include respond-above(md) {
+            margin-top: -52px;
+            background-position: left 15px top;
+            background-size: auto 500px;
+            padding-top: 458px;
+            margin-bottom: 150px;
+        }
+
+        @include respond-above(lg) {
+            margin-bottom: 200px;
+            padding-top: 430px;
+            background-size: auto 600px;
+        }
+
+        @include respond-above(xlg) {
+            margin-bottom: 250px;
+            padding-top: 560px;
+            background-size: auto auto;
+        }
 
         .intro {
             margin: 0 0 0 auto;
-            width: 750px;
-            height: 510px;
             background: $color-primary url('../img/1x/logo-c.png') no-repeat -220px -60px;
             color: #fff;
             text-align: right;
-            padding: 2rem 3rem;
+            padding: 1rem 1rem 2rem;
+            margin: 0 -15px;
+
+            @include respond-above(sm) {
+                width: 500px;
+                padding: 1rem 2rem 2rem;
+                margin: -100px 0 0 auto;
+            }
+
+            @include respond-above(md) {
+                width: 750px;
+                height: 510px;
+                padding: 2rem 3rem;
+            }
 
             .title {
-                font-size: rem(56);
+                font-size: rem(32);
                 font-weight: bolder;
                 color: #fff;
                 margin: 0;
+
+                @include respond-above(sm) {
+                    font-size: rem(36);
+                }
+
+                @include respond-above(md) {
+                    font-size: rem(56);
+                }
             }
 
             p {
-                font-size: rem(24);
                 margin: 0 0 1.5rem;
                 font-weight: bold;
                 line-height: 1.7;
+                text-align: justify;
+
+                @include respond-above(sm) {
+                    font-size: rem(18);
+                }
+
+                @include respond-above(md) {
+                    font-size: rem(24);
+                }
             }
 
             .more {
@@ -48,19 +105,47 @@
     }
 
     .s2 {
-        margin-bottom: 120px;
+
+
+        @include respond-above(sm) {
+            margin-bottom: 120px;
+        }
 
         .item {
             display: block;
             position: relative;
+            margin-bottom: 15px;
+
+            @include respond-above(md) {
+                margin-bottom: 0;
+            }
 
             img {
                 width: 100%;
                 display: block;
                 max-width: none;
                 filter: grayscale(100%);
-                opacity: .4;
+                opacity: .1;
                 transition: all .2s;
+                height: 120px;
+                object-fit: cover;
+                object-position: center center;
+
+                @include respond-above(sm) {
+                    height: 180px;
+                }
+
+                @include respond-above(md) {
+                    height: 190px;
+                }
+
+                @include respond-above(lg) {
+                    height: 220px;
+                }
+
+                @include respond-above(xlg) {
+                    height: 300px;
+                }
             }
 
             .txt {
@@ -70,11 +155,31 @@
                 z-index: 100;
                 width: 100%;
                 height: 100%;
-                padding: 3rem;
+                padding: 1rem;
                 color: #666;
-                font-size: rem(28);
+                font-size: rem(18);
                 font-weight: bold;
                 transition: all .2s;
+             
+
+                @include respond-above(sm) {
+                    padding: 2rem;
+                    font-size: rem(24);
+                }
+
+                @include respond-above(md) {
+                    padding: 2rem;
+                    font-size: rem(20);
+                }
+
+                @include respond-above(lg) {
+                    padding: 1.5rem;
+                    font-size: rem(28);
+                }
+
+                @include respond-above(xlg) {
+                    padding: 2rem;
+                }
             }
 
             &:hover {
@@ -88,16 +193,37 @@
                     color: #fff;
                 }
             }
+        }
 
-            &.item1 {
+        .item1 {
+            display: none;
+
+            @include respond-above(md) {
+                display: block;
+            }
+
+            .item {
                 height: 100%;
                 background: #eee url('../img/1x/logo-c-black.png') no-repeat -180px -40px;
+
 
                 .txt1 {
                     margin: 0 0 0 auto;
                     width: 200px;
                     padding-top: 4rem;
                     background-color: transparent !important;
+
+                    @include respond-above(md) {
+                        width: 190px;
+                    }
+
+                    @include respond-above(lg) {
+                        width: 220px;
+                    }
+
+                    @include respond-above(xlg) {
+                        width: 300px;
+                    }
                 }
 
                 h2 {
@@ -113,6 +239,36 @@
                     color: #333;
                     font-size: 1rem;
                     font-weight: bold;
+                }
+            }
+        }
+
+        .item2 {
+            display: block;
+
+            @include respond-above(md) {
+                display: none;
+            }
+
+            .item {
+                @include respond-above(sm) {
+                    height: 180px;
+                }
+
+                .txt1 {
+                    margin: 0 0 0 auto;
+                    width: 100%;
+                    text-align: center;
+                    padding-top: 2rem;
+                    background-color: transparent !important;
+                }
+
+                h2 {
+                    font-size: 2.6rem;
+                }
+
+                .more {
+                    font-size: rem(12);
                 }
             }
         }

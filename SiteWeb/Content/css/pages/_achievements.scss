@@ -26,17 +26,74 @@
             position: absolute;
             left: 0;
             bottom: 0;
-            padding: .5rem 1.5rem 1rem;
+            padding: .5rem 1rem 1rem;
             z-index: 100;
             color: #fff;
             margin: 0;
-            font-size: rem(28);
+
+            @include respond-above(sm) {
+                font-size: rem(20);
+                padding: .5rem 1.5rem 1rem;
+            }
+
+            @include respond-above(md) {
+                font-size: rem(24);
+             
+            }
+
+            @include respond-above(lg) {
+                font-size: rem(28);
+               
+            }
         }
 
         &:hover {
 
             img {
                 transform: scale(1.1);
+            }
+        }
+    }
+}
+.page-achievements-list {
+    .newslist {
+        @include reset-list();
+
+        li {
+            border-bottom: 1px #999 solid;
+
+            a {
+                display: block;
+                padding: 1rem 0;
+
+                @include respond-above(sm) {
+                    padding: 2rem 0;
+                }
+
+                h3 {
+                    margin: 0;
+                    font-size: 16px;
+
+                    @include respond-above(sm) {
+                        font-size: 1.17rem;
+                    }
+                }
+
+                .pubdate {
+                    text-align: right;
+                    color: #999;
+                    font-size: rem(14);
+
+                    @include respond-above(sm) {
+                        font-size: 1rem;
+                    }
+                }
+            }
+
+            .achibody {
+                display: none;
+                max-height: 1200px;
+                overflow-y: auto;
             }
         }
     }

@@ -12,7 +12,6 @@ using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.Helper;
 using TZGCMS.Model.Admin.InputModel.Pages;
 using TZGCMS.Model.Admin.ViewModel;
-
 using TZGCMS.Model.Admin.ViewModel.Pages;
 using TZGCMS.Resources.Admin;
 using TZGCMS.Model;
@@ -32,7 +31,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         }
        
         // GET: Admin/Pages
-        public async System.Threading.Tasks.Task<ActionResult> IndexAsync(int? page, string keyword)
+        public async System.Threading.Tasks.Task<ActionResult> Index(int? page, string keyword)
         {
             PageListVM pageListVM = await GetElementsAsync(page, keyword);
             ViewBag.PageSizes = new SelectList(Site.PageSizes());

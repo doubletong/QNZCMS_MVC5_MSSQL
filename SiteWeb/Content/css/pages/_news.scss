@@ -2,30 +2,105 @@
 
 .page-news {
     .slider {
-        margin-bottom: 6rem;
+        margin-bottom: 2rem;
+
+        @include respond-above(sm) {
+            margin-bottom: 3rem;
+        }
+
+        @include respond-above(md) {
+            margin-bottom: 4rem;
+        }
+
+        @include respond-above(lg) {
+            margin-bottom: 5rem;
+        }
+
+        @include respond-above(xlg) {
+            margin-bottom: 6rem;
+        }
 
         .txt {
             height: 100%;
             background: url(../img/logo_bg.png) no-repeat right -200px center;
             background-size: auto 90%;
-            padding-top: 3rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+
+            @include respond-above(sm) {
+                padding-top: 1.5rem;
+            }
+
+            @include respond-above(md) {
+                padding-top: 2rem;
+            }
+
+            @include respond-above(lg) {
+                padding-top: 2.5rem;
+            }
+
+            @include respond-above(xlg) {
+                padding-top: 3rem;
+            }
 
             h3 {
                 margin: 0;
-                font-size: rem(38);
+                font-size: rem(22);
+
+                @include respond-above(sm) {
+                    font-size: rem(26);
+                }
+
+                @include respond-above(md) {
+                    font-size: rem(30);
+                }
+
+                @include respond-above(lg) {
+                    font-size: rem(34);
+                }
+
+                @include respond-above(xlg) {
+                    font-size: rem(38);
+                }
             }
 
             p {
-                font-size: rem(24);
+                font-size: 1rem;
+
+                @include respond-above(sm) {
+                    font-size: rem(18);
+                }
+
+                @include respond-above(md) {
+                    font-size: rem(20);
+                }
+
+                @include respond-above(lg) {
+                    font-size: rem(22);
+                }
+
+                @include respond-above(xlg) {
+                    font-size: rem(24);
+                }
             }
         }
 
         .more {
             display: block;
-            height: 120px;
             background-color: #f7f7f7;
             text-align: center;
-            line-height: 120px;
+            line-height: 50px;
+            height: 50px;
+
+            @include respond-above(sm) {
+                line-height: 80px;
+                height: 80px;
+            }
+
+            @include respond-above(md) {
+                line-height: 120px;
+                height: 120px;
+            }
         }
     }
 
@@ -40,11 +115,21 @@
     }
 
     .gallery-thumbs {
+        margin-bottom: 10px;
+
         .swiper-slide {
             background-position: center center;
             background-size: cover;
             background-repeat: no-repeat;
-            height: 120px;
+            height: 50px;
+
+            @include respond-above(sm) {
+                height: 80px;
+            }
+
+            @include respond-above(md) {
+                height: 120px;
+            }
         }
     }
 
@@ -53,9 +138,12 @@
 
         .item {
             display: block;
-            padding: 2rem 0;
+            padding: 1rem 0;
             border-bottom: 1px #666 solid;
 
+            @include respond-above(sm) {
+                padding: 2rem 0;
+            }
 
             &:hover {
                 color: $color-primary;
@@ -99,15 +187,15 @@
         padding: 2rem 0;
 
         a {
-            display:inline-block;
-                background: #F7F8F8;   
-                width: 143px;
-                height: 57px;
-                margin-right:1rem;
-                margin-bottom:1rem;
-                text-align:center;
-                line-height:57px;
-                font-size:rem(20);            
+            display: inline-block;
+            background: #F7F8F8;
+            width: 143px;
+            height: 57px;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            line-height: 57px;
+            font-size: rem(20);
         }
     }
 }

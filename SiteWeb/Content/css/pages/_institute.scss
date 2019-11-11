@@ -2,7 +2,8 @@
     .item {
         display: block;
         position: relative;
-        padding:3px;
+        padding: 3px;
+
         .pic {
             img {
                 display: block;
@@ -10,17 +11,85 @@
         }
 
         .title {
-            position:absolute;
-            left:0;top:0;height:100%;
-            width:100%;
-            z-index:100;
-            padding:2rem;
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 100;
+            padding: 0 1rem;
+
+            @include respond-above (lg) {
+                padding: 2rem;
+            }
+
             h3 {
                 @include vertical-align();
-                margin:0;
-                text-align:center;
-                color:#fff;
-                font-size:rem(28);
+                margin: 0;
+                text-align: center;
+                color: #fff;
+
+                @include respond-above (sm) {
+                    font-size: rem(20);
+                }
+
+                @include respond-above (md) {
+                    font-size: rem(24);
+                }
+
+                @include respond-above (lg) {
+                    font-size: rem(28);
+                }
+            }
+        }
+    }
+}
+.page-labs {
+    .institute-header {
+        background-size: cover;
+        padding: .8rem 1rem;
+        color: #fff;
+        font-size: rem(24);
+        margin: 0 0 1rem;
+
+        @include respond-above (sm) {
+            font-size: rem(32);
+            margin: 0 0 2rem;
+        }
+
+        @include respond-above (md) {
+            font-size: rem(40);
+            padding: 1rem 2rem;
+        }
+
+        @include respond-above (lg) {
+            font-size: rem(48);
+        }
+
+        @include respond-above (xlg) {
+            font-size: rem(56);
+        }
+    }
+
+    .labs-list {
+        .item {
+            border-bottom: 1px #999 solid;
+            padding: 1.5rem 0;
+
+            @include respond-above (sm) {
+                padding: 2rem 0;
+            }
+
+            @include respond-above (md) {
+                padding: 3rem 0;
+            }
+
+            .title {
+                margin: 0;
+                border-left: 5px solid $color-primary;
+                padding-left: .5rem;
+                font-weight: bold;
+                line-height: 1;
             }
         }
     }

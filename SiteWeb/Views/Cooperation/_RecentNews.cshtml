@@ -11,7 +11,7 @@
             <div class="row">
                 @foreach (var item in Model)
                 {
-                    <div class="col-md">
+                    <div class="col-md-6 col-lg">
                         <a href="@Url.Action("detail",new { id = item.Id})" class="item">
                             <div class="pic">
                                 <img src="@item.Thumbnail" alt="@item.Title" />
