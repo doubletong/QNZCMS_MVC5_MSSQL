@@ -54,7 +54,7 @@
         <tbody id="tbList">
             @foreach (var item in Model.Pages)
             {
-                Html.RenderPartial("_AchievementItem", item);
+                Html.RenderPartial("_PageItem", item);
             }
         </tbody>
 
@@ -98,9 +98,7 @@
         }
 
         function onAjaxComplete() {
-            $('#ModalEdit').modal();
-
-          
+            $('#ModalEdit').modal();          
 
             tinymce.init({
                 selector: '#Body',  // change this value according to your HTML

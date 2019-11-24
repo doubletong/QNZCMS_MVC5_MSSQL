@@ -1,7 +1,7 @@
-﻿@model LaboratoryListVM
+﻿@model AchievementListVM
 @{
     Layout = "~/Areas/Admin/Views/Shared/Layouts/_Layout2019.cshtml";
-    ViewBag.Title = EntityNames.Laboratory;
+    ViewBag.Title = EntityNames.Achievement;
 }
 @section Header{
 
@@ -10,11 +10,15 @@
 
 <div class="row mb-3">
     <div class="col-sm">
-        @using (Html.BeginForm("Index", "Cases", FormMethod.Get, new { @class = "form-inline" }))
+        @using (Html.BeginForm("Index", null, FormMethod.Get, new { @class = "form-inline" }))
         {
             <div class="form-group">
                 <label class="sr-only" for="Keyword">关键字</label>
                 @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control mr-sm-2", placeholder = "关键字" })
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="Keyword">研究所</label>
+                @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Categories, Labels.Category + "过滤", new { @class = "form-control" })
             </div>
             <button type="submit" class="btn btn-primary"><i class="iconfont icon-search"></i> 查找</button>
         }
@@ -37,7 +41,9 @@
                 <th>
                     主题
                 </th>
-
+                <th>
+                    分类
+                </th>
                 <th>
                     查看
                 </th>
@@ -53,9 +59,9 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Laboratories)
+            @foreach (var item in Model.Achievements)
             {
-                Html.RenderPartial("_LaboratoryItem", item);
+                Html.RenderPartial("_AchievementItem", item);
             }
 
         </tbody>
@@ -67,7 +73,7 @@
 <div class="container-fluid pt-3" style="background-color: #fff;">
     <div class="row">
         <div class="col">
-            @Html.PagedListPager(Model.Laboratories, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }), new PagedListRenderOptions()
+            @Html.PagedListPager(Model.Achievements, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }), new PagedListRenderOptions()
             {
                 LiElementClasses = new List<string> { "page-item" }
 

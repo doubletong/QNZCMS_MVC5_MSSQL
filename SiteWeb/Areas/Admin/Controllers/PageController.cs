@@ -48,7 +48,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 PageSize = SettingsManager.Page.PageSize
             };
             var query = _db.Pages.AsQueryable();
-            if (string.IsNullOrEmpty(keyword))
+            if (!string.IsNullOrEmpty(keyword))
             {
                 query = query.Where(d => d.Title.Contains(keyword));
             }

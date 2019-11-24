@@ -1,13 +1,17 @@
-﻿<div class="footer-bar">
-    <img src="/content/img/1x/logo-m.png" alt="logo" />
-</div>
+﻿
 <footer class="site-footer">
     <div class="container">
-        <nav><a href="#">Cosite共享</a><a href="#">网站导航</a><a href="#">相关链接</a></nav>
-        <p>
-            地址：@SettingsManager.Company.Address <span>邮编：@SettingsManager.Company.ZipCode</span><br />
-            copyright &copy; 2019 @SettingsManager.Company.CompanyName all rights reserved <span><a href="http://www.beian.miit.gov.cn/">@SettingsManager.Site.WebNumber</a></span><br />
-            Design by: <a href="//inholy.com">Holy荷勒</a>
-        </p>
+        <div class="row">
+            <div class="col-md">
+                <p>
+                    Copyright &copy; 2019 @SettingsManager.Company.CompanyName all rights reserved <br /><a href="http://www.beian.miit.gov.cn/">@SettingsManager.Site.WebNumber</a>
+                </p>
+            </div>
+            <div class="col-md-auto">
+                @Html.Action("SiteFooterNav", "Menu", new { cid = 3 })
+            </div>
+        </div>
+     
+  
     </div>
 </footer>

@@ -13,19 +13,20 @@ using TZGCMS.Model.Admin.ViewModel;
 using TZGCMS.Model.Admin.ViewModel.System;
 using TZGCMS.Resources.Admin;
 using TZGCMS.Service.Systems;
+using log4net;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class BackupController : BaseController
     {
-
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(BackupController));
         IBackupServices _backupServices;
-        ILoggingService _logger;
+     
         public BackupController(IBackupServices backupServices,ILoggingService logger)
         {
             _backupServices = backupServices;
-            _logger = logger;
+           
         }
         // GET: Admin/Backup
         public ActionResult Index()
@@ -67,7 +68,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             try
             {
 
-                string connectString = ConfigurationManager.ConnectionStrings["TZGEntities"].ToString();
+                string connectString = ConfigurationManager.ConnectionStrings["QNZDbContext"].ToString();
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(connectString);
                 // Retrieve the DataSource property.    
                 // string IPAddress = builder.DataSource;

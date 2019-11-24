@@ -1,17 +1,18 @@
-﻿@*@model IEnumerable<ArticleCategoryFVM>*@
+﻿@model IEnumerable<ArticleCategoryFVM>
     <div class="banner banner-news">
-        <h3>新闻</h3>
-        <h4>News</h4>
-        <hr />
+        <div class="header-news">
+            <h3>云门资讯</h3>
+            <p>
+                居山林，润玉泉，<br/>
+                深耕百载，青叶密林，<br />
+                云门匠制，手造天成。
+            </p>
+         
+        </div>
         <nav>
-            <a href="/Article/List?alias=news">我院要闻</a>
-            <a href="/Article/List?alias=media">媒体报道</a>
-            <a href="/Article/List?alias=notice">通知公告</a>        
-        </nav>
-        @*<nav>
             @foreach (var item in Model)
             {
                 <a href="@Url.Action("List","Article",new { alias = item.Alias  })">@item.Title</a>
             }
-        </nav>*@
+        </nav>
     </div>

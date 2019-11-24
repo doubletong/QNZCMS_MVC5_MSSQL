@@ -1,12 +1,15 @@
 ﻿@model TZGCMS.Model.AchievementVM
     <tr class="item-container" id="@string.Format("container{0}",Model.Id)">
         <td>
-            <img src="@Model.Thumbnail" alt="" style="height:50px;"/>
+            <img src="@Model.Thumbnail" alt="" style="height:50px;" />
         </td>
         <td>
             @Model.Title
         </td>
 
+        <td>
+            @Model.CategoryTitle
+        </td>
 
 
         <td>
@@ -14,7 +17,7 @@
         </td>
 
         <td>
-            @string.Format("{0:d}",Model.Pubdate)
+            @string.Format("{0:d}", Model.Pubdate)
         </td>
         <td>
             @if (Model.Active)
@@ -32,7 +35,7 @@
             }
         </td>
         <td>
-            <a href="@Url.Action("Edit",new {id = Model.Id})" class="btn btn-primary btn-sm" title="@Buttons.Edit"><i class='fa fa-edit fa-fw'></i></a>
+            <a href="@Url.Action("Edit",new {id = Model.Id})" class="btn btn-primary btn-sm" title="@Buttons.Edit"><i class='iconfont icon-edit'></i></a>
             <a href="#" data-url="@Url.Action("Delete", new {id = Model.Id})" class="btn btn-danger btn-sm delete-item" title="@Buttons.Delete">
                 <i class="fa fa-trash-o fa-fw"></i>
             </a>

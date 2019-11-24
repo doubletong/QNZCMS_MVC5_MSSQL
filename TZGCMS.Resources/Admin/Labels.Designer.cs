@@ -637,6 +637,15 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 简介 的本地化字符串。
+        /// </summary>
+        public static string Introduction {
+            get {
+                return ResourceManager.GetString("Introduction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 是否关闭 的本地化字符串。
         /// </summary>
         public static string IsClose {

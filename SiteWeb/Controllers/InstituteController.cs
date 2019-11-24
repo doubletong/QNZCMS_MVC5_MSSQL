@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.UI;
 using TZGCMS.Data.Enums;
 using TZGCMS.Model;
 
@@ -20,6 +21,7 @@ namespace TZGCMS.SiteWeb.Controllers
         }
 
         // GET: Platform
+        [OutputCache(Duration = 600, VaryByParam = "none", Location = OutputCacheLocation.Server)]
         public async Task<ActionResult> Index(int? did)
         {
             var query = _db.Institutes.Where(d => d.Active).AsQueryable();
@@ -30,7 +32,7 @@ namespace TZGCMS.SiteWeb.Controllers
             var vm = await query.OrderByDescending(d => d.Importance).ToListAsync();
 
             var url = Request.RawUrl;
-            ViewBag.PageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == url);
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == url);
 
             return View(vm);
         }
@@ -45,7 +47,7 @@ namespace TZGCMS.SiteWeb.Controllers
             };
 
                     
-            ViewBag.PageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.INSTITUTE && d.ObjectId == id.ToString());
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.INSTITUTE && d.ObjectId == id.ToString());
 
             return View(vm);
         }
@@ -56,7 +58,7 @@ namespace TZGCMS.SiteWeb.Controllers
             if (model == null)
                 return HttpNotFound();
 
-            ViewBag.PageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.INSTITUTE && d.ObjectId == id.ToString());
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.INSTITUTE && d.ObjectId == id.ToString());
 
             return View(model);
         }

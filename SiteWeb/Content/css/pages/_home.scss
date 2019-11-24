@@ -1,10 +1,21 @@
 .banner-home {
     background-color: $color-primary;
     background-position: center center;
-    background-size: cover;  
-  
+    background-size: cover;
     height: 100vh;
-
+    overflow:hidden;
+    z-index:-1;
+    position:absolute;
+    width:100%;
+    left:0;
+    top:0;
+    img {
+        max-width:none;
+        width:100vw;
+        height: 100vh;
+        object-fit:cover;
+        object-position:center center;
+    }
 }
 
 .page-home {

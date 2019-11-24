@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using TZGCMS.Data.Entity;
-using TZGCMS.Model.Front.ViewModel.Products;
+using TZGCMS.Model;
 
 namespace TZGCMS.SiteWeb.Controllers.api
 {

@@ -39,7 +39,7 @@ namespace QNZ.Data
     {
         System.Data.Entity.DbSet<Achievement> Achievements { get; set; } // Achievements
         System.Data.Entity.DbSet<AchievementCategory> AchievementCategories { get; set; } // AchievementCategories
-        System.Data.Entity.DbSet<AlbumSet> AlbumSets { get; set; } // AlbumSet
+        System.Data.Entity.DbSet<Album> Albums { get; set; } // Albums
         System.Data.Entity.DbSet<AnnouncementSet> AnnouncementSets { get; set; } // AnnouncementSet
         System.Data.Entity.DbSet<Article> Articles { get; set; } // Articles
         System.Data.Entity.DbSet<ArticleCategory> ArticleCategories { get; set; } // ArticleCategories
@@ -70,17 +70,16 @@ namespace QNZ.Data
         System.Data.Entity.DbSet<MenuSet> MenuSets { get; set; } // MenuSet
         System.Data.Entity.DbSet<OrderDetailSet> OrderDetailSets { get; set; } // OrderDetailSet
         System.Data.Entity.DbSet<OrderSet> OrderSets { get; set; } // OrderSet
-        System.Data.Entity.DbSet<OutletSet> OutletSets { get; set; } // OutletSet
-        System.Data.Entity.DbSet<PageMetaSet> PageMetaSets { get; set; } // PageMetaSet
+        System.Data.Entity.DbSet<Outlet> Outlets { get; set; } // Outlets
+        System.Data.Entity.DbSet<PageMeta> PageMetas { get; set; } // PageMetas
         System.Data.Entity.DbSet<PageSet> PageSets { get; set; } // PageSet
-        System.Data.Entity.DbSet<PhotoSet> PhotoSets { get; set; } // PhotoSet
+        System.Data.Entity.DbSet<Photo> Photos { get; set; } // Photos
         System.Data.Entity.DbSet<PositionSet> PositionSets { get; set; } // PositionSet
         System.Data.Entity.DbSet<PostCategorySet> PostCategorySets { get; set; } // PostCategorySet
         System.Data.Entity.DbSet<PostSet> PostSets { get; set; } // PostSet
-        System.Data.Entity.DbSet<ProductCategory> ProductCategories { get; set; } // ProductCategory
-        System.Data.Entity.DbSet<ProductCategorySet> ProductCategorySets { get; set; } // ProductCategorySet
+        System.Data.Entity.DbSet<Product> Products { get; set; } // Products
+        System.Data.Entity.DbSet<ProductCategory> ProductCategories { get; set; } // ProductCategories
         System.Data.Entity.DbSet<ProductPhotoSet> ProductPhotoSets { get; set; } // ProductPhotoSet
-        System.Data.Entity.DbSet<ProductSet> ProductSets { get; set; } // ProductSet
         System.Data.Entity.DbSet<QuestionCategorySet> QuestionCategorySets { get; set; } // QuestionCategorySet
         System.Data.Entity.DbSet<QuestionSet> QuestionSets { get; set; } // QuestionSet
         System.Data.Entity.DbSet<RecipientInfoSet> RecipientInfoSets { get; set; } // RecipientInfoSet
@@ -123,7 +122,7 @@ namespace QNZ.Data
     {
         public System.Data.Entity.DbSet<Achievement> Achievements { get; set; } // Achievements
         public System.Data.Entity.DbSet<AchievementCategory> AchievementCategories { get; set; } // AchievementCategories
-        public System.Data.Entity.DbSet<AlbumSet> AlbumSets { get; set; } // AlbumSet
+        public System.Data.Entity.DbSet<Album> Albums { get; set; } // Albums
         public System.Data.Entity.DbSet<AnnouncementSet> AnnouncementSets { get; set; } // AnnouncementSet
         public System.Data.Entity.DbSet<Article> Articles { get; set; } // Articles
         public System.Data.Entity.DbSet<ArticleCategory> ArticleCategories { get; set; } // ArticleCategories
@@ -154,17 +153,16 @@ namespace QNZ.Data
         public System.Data.Entity.DbSet<MenuSet> MenuSets { get; set; } // MenuSet
         public System.Data.Entity.DbSet<OrderDetailSet> OrderDetailSets { get; set; } // OrderDetailSet
         public System.Data.Entity.DbSet<OrderSet> OrderSets { get; set; } // OrderSet
-        public System.Data.Entity.DbSet<OutletSet> OutletSets { get; set; } // OutletSet
-        public System.Data.Entity.DbSet<PageMetaSet> PageMetaSets { get; set; } // PageMetaSet
+        public System.Data.Entity.DbSet<Outlet> Outlets { get; set; } // Outlets
+        public System.Data.Entity.DbSet<PageMeta> PageMetas { get; set; } // PageMetas
         public System.Data.Entity.DbSet<PageSet> PageSets { get; set; } // PageSet
-        public System.Data.Entity.DbSet<PhotoSet> PhotoSets { get; set; } // PhotoSet
+        public System.Data.Entity.DbSet<Photo> Photos { get; set; } // Photos
         public System.Data.Entity.DbSet<PositionSet> PositionSets { get; set; } // PositionSet
         public System.Data.Entity.DbSet<PostCategorySet> PostCategorySets { get; set; } // PostCategorySet
         public System.Data.Entity.DbSet<PostSet> PostSets { get; set; } // PostSet
-        public System.Data.Entity.DbSet<ProductCategory> ProductCategories { get; set; } // ProductCategory
-        public System.Data.Entity.DbSet<ProductCategorySet> ProductCategorySets { get; set; } // ProductCategorySet
+        public System.Data.Entity.DbSet<Product> Products { get; set; } // Products
+        public System.Data.Entity.DbSet<ProductCategory> ProductCategories { get; set; } // ProductCategories
         public System.Data.Entity.DbSet<ProductPhotoSet> ProductPhotoSets { get; set; } // ProductPhotoSet
-        public System.Data.Entity.DbSet<ProductSet> ProductSets { get; set; } // ProductSet
         public System.Data.Entity.DbSet<QuestionCategorySet> QuestionCategorySets { get; set; } // QuestionCategorySet
         public System.Data.Entity.DbSet<QuestionSet> QuestionSets { get; set; } // QuestionSet
         public System.Data.Entity.DbSet<RecipientInfoSet> RecipientInfoSets { get; set; } // RecipientInfoSet
@@ -239,7 +237,7 @@ namespace QNZ.Data
 
             modelBuilder.Configurations.Add(new AchievementConfiguration());
             modelBuilder.Configurations.Add(new AchievementCategoryConfiguration());
-            modelBuilder.Configurations.Add(new AlbumSetConfiguration());
+            modelBuilder.Configurations.Add(new AlbumConfiguration());
             modelBuilder.Configurations.Add(new AnnouncementSetConfiguration());
             modelBuilder.Configurations.Add(new ArticleConfiguration());
             modelBuilder.Configurations.Add(new ArticleCategoryConfiguration());
@@ -270,17 +268,16 @@ namespace QNZ.Data
             modelBuilder.Configurations.Add(new MenuSetConfiguration());
             modelBuilder.Configurations.Add(new OrderDetailSetConfiguration());
             modelBuilder.Configurations.Add(new OrderSetConfiguration());
-            modelBuilder.Configurations.Add(new OutletSetConfiguration());
-            modelBuilder.Configurations.Add(new PageMetaSetConfiguration());
+            modelBuilder.Configurations.Add(new OutletConfiguration());
+            modelBuilder.Configurations.Add(new PageMetaConfiguration());
             modelBuilder.Configurations.Add(new PageSetConfiguration());
-            modelBuilder.Configurations.Add(new PhotoSetConfiguration());
+            modelBuilder.Configurations.Add(new PhotoConfiguration());
             modelBuilder.Configurations.Add(new PositionSetConfiguration());
             modelBuilder.Configurations.Add(new PostCategorySetConfiguration());
             modelBuilder.Configurations.Add(new PostSetConfiguration());
+            modelBuilder.Configurations.Add(new ProductConfiguration());
             modelBuilder.Configurations.Add(new ProductCategoryConfiguration());
-            modelBuilder.Configurations.Add(new ProductCategorySetConfiguration());
             modelBuilder.Configurations.Add(new ProductPhotoSetConfiguration());
-            modelBuilder.Configurations.Add(new ProductSetConfiguration());
             modelBuilder.Configurations.Add(new QuestionCategorySetConfiguration());
             modelBuilder.Configurations.Add(new QuestionSetConfiguration());
             modelBuilder.Configurations.Add(new RecipientInfoSetConfiguration());
@@ -305,7 +302,7 @@ namespace QNZ.Data
         {
             modelBuilder.Configurations.Add(new AchievementConfiguration(schema));
             modelBuilder.Configurations.Add(new AchievementCategoryConfiguration(schema));
-            modelBuilder.Configurations.Add(new AlbumSetConfiguration(schema));
+            modelBuilder.Configurations.Add(new AlbumConfiguration(schema));
             modelBuilder.Configurations.Add(new AnnouncementSetConfiguration(schema));
             modelBuilder.Configurations.Add(new ArticleConfiguration(schema));
             modelBuilder.Configurations.Add(new ArticleCategoryConfiguration(schema));
@@ -336,17 +333,16 @@ namespace QNZ.Data
             modelBuilder.Configurations.Add(new MenuSetConfiguration(schema));
             modelBuilder.Configurations.Add(new OrderDetailSetConfiguration(schema));
             modelBuilder.Configurations.Add(new OrderSetConfiguration(schema));
-            modelBuilder.Configurations.Add(new OutletSetConfiguration(schema));
-            modelBuilder.Configurations.Add(new PageMetaSetConfiguration(schema));
+            modelBuilder.Configurations.Add(new OutletConfiguration(schema));
+            modelBuilder.Configurations.Add(new PageMetaConfiguration(schema));
             modelBuilder.Configurations.Add(new PageSetConfiguration(schema));
-            modelBuilder.Configurations.Add(new PhotoSetConfiguration(schema));
+            modelBuilder.Configurations.Add(new PhotoConfiguration(schema));
             modelBuilder.Configurations.Add(new PositionSetConfiguration(schema));
             modelBuilder.Configurations.Add(new PostCategorySetConfiguration(schema));
             modelBuilder.Configurations.Add(new PostSetConfiguration(schema));
+            modelBuilder.Configurations.Add(new ProductConfiguration(schema));
             modelBuilder.Configurations.Add(new ProductCategoryConfiguration(schema));
-            modelBuilder.Configurations.Add(new ProductCategorySetConfiguration(schema));
             modelBuilder.Configurations.Add(new ProductPhotoSetConfiguration(schema));
-            modelBuilder.Configurations.Add(new ProductSetConfiguration(schema));
             modelBuilder.Configurations.Add(new QuestionCategorySetConfiguration(schema));
             modelBuilder.Configurations.Add(new QuestionSetConfiguration(schema));
             modelBuilder.Configurations.Add(new RecipientInfoSetConfiguration(schema));
@@ -389,7 +385,7 @@ namespace QNZ.Data
     {
         public System.Data.Entity.DbSet<Achievement> Achievements { get; set; }
         public System.Data.Entity.DbSet<AchievementCategory> AchievementCategories { get; set; }
-        public System.Data.Entity.DbSet<AlbumSet> AlbumSets { get; set; }
+        public System.Data.Entity.DbSet<Album> Albums { get; set; }
         public System.Data.Entity.DbSet<AnnouncementSet> AnnouncementSets { get; set; }
         public System.Data.Entity.DbSet<Article> Articles { get; set; }
         public System.Data.Entity.DbSet<ArticleCategory> ArticleCategories { get; set; }
@@ -420,17 +416,16 @@ namespace QNZ.Data
         public System.Data.Entity.DbSet<MenuSet> MenuSets { get; set; }
         public System.Data.Entity.DbSet<OrderDetailSet> OrderDetailSets { get; set; }
         public System.Data.Entity.DbSet<OrderSet> OrderSets { get; set; }
-        public System.Data.Entity.DbSet<OutletSet> OutletSets { get; set; }
-        public System.Data.Entity.DbSet<PageMetaSet> PageMetaSets { get; set; }
+        public System.Data.Entity.DbSet<Outlet> Outlets { get; set; }
+        public System.Data.Entity.DbSet<PageMeta> PageMetas { get; set; }
         public System.Data.Entity.DbSet<PageSet> PageSets { get; set; }
-        public System.Data.Entity.DbSet<PhotoSet> PhotoSets { get; set; }
+        public System.Data.Entity.DbSet<Photo> Photos { get; set; }
         public System.Data.Entity.DbSet<PositionSet> PositionSets { get; set; }
         public System.Data.Entity.DbSet<PostCategorySet> PostCategorySets { get; set; }
         public System.Data.Entity.DbSet<PostSet> PostSets { get; set; }
+        public System.Data.Entity.DbSet<Product> Products { get; set; }
         public System.Data.Entity.DbSet<ProductCategory> ProductCategories { get; set; }
-        public System.Data.Entity.DbSet<ProductCategorySet> ProductCategorySets { get; set; }
         public System.Data.Entity.DbSet<ProductPhotoSet> ProductPhotoSets { get; set; }
-        public System.Data.Entity.DbSet<ProductSet> ProductSets { get; set; }
         public System.Data.Entity.DbSet<QuestionCategorySet> QuestionCategorySets { get; set; }
         public System.Data.Entity.DbSet<QuestionSet> QuestionSets { get; set; }
         public System.Data.Entity.DbSet<RecipientInfoSet> RecipientInfoSets { get; set; }
@@ -458,7 +453,7 @@ namespace QNZ.Data
 
             Achievements = new FakeDbSet<Achievement>("Id");
             AchievementCategories = new FakeDbSet<AchievementCategory>("Id");
-            AlbumSets = new FakeDbSet<AlbumSet>("Id");
+            Albums = new FakeDbSet<Album>("Id");
             AnnouncementSets = new FakeDbSet<AnnouncementSet>("Id");
             Articles = new FakeDbSet<Article>("Id");
             ArticleCategories = new FakeDbSet<ArticleCategory>("Id");
@@ -489,17 +484,16 @@ namespace QNZ.Data
             MenuSets = new FakeDbSet<MenuSet>("Id");
             OrderDetailSets = new FakeDbSet<OrderDetailSet>("Id");
             OrderSets = new FakeDbSet<OrderSet>("Id");
-            OutletSets = new FakeDbSet<OutletSet>("Id");
-            PageMetaSets = new FakeDbSet<PageMetaSet>("Id");
+            Outlets = new FakeDbSet<Outlet>("Id");
+            PageMetas = new FakeDbSet<PageMeta>("Id");
             PageSets = new FakeDbSet<PageSet>("Id");
-            PhotoSets = new FakeDbSet<PhotoSet>("Id");
+            Photos = new FakeDbSet<Photo>("Id");
             PositionSets = new FakeDbSet<PositionSet>("Id");
             PostCategorySets = new FakeDbSet<PostCategorySet>("Id");
             PostSets = new FakeDbSet<PostSet>("Id");
-            ProductCategories = new FakeDbSet<ProductCategory>("CategoryId", "ProductId");
-            ProductCategorySets = new FakeDbSet<ProductCategorySet>("Id");
+            Products = new FakeDbSet<Product>("Id");
+            ProductCategories = new FakeDbSet<ProductCategory>("Id");
             ProductPhotoSets = new FakeDbSet<ProductPhotoSet>("Id");
-            ProductSets = new FakeDbSet<ProductSet>("Id");
             QuestionCategorySets = new FakeDbSet<QuestionCategorySet>("Id");
             QuestionSets = new FakeDbSet<QuestionSet>("Id");
             RecipientInfoSets = new FakeDbSet<RecipientInfoSet>("Id");
@@ -910,29 +904,32 @@ namespace QNZ.Data
         }
     }
 
-    // AlbumSet
+    // Albums
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class AlbumSet
+    public class Album
     {
         public int Id { get; set; } // Id (Primary key)
         public string Title { get; set; } // Title (length: 100)
         public string Cover { get; set; } // Cover (length: 150)
+        public string Banner { get; set; } // Banner (length: 150)
         public bool Active { get; set; } // Active
+        public int Importance { get; set; } // Importance
         public System.DateTime CreatedDate { get; set; } // CreatedDate
         public string CreatedBy { get; set; } // CreatedBy (length: 50)
-        public System.DateTime UpdatedDate { get; set; } // UpdatedDate
+        public System.DateTime? UpdatedDate { get; set; } // UpdatedDate
         public string UpdatedBy { get; set; } // UpdatedBy (length: 50)
 
         // Reverse navigation
 
         /// <summary>
-        /// Child PhotoSets where [PhotoSet].[AlbumId] point to this entity (FK_AlbumPhoto)
+        /// Child Photos where [Photos].[AlbumId] point to this entity (FK_AlbumPhoto)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<PhotoSet> PhotoSets { get; set; } // PhotoSet.FK_AlbumPhoto
+        public virtual System.Collections.Generic.ICollection<Photo> Photos { get; set; } // Photos.FK_AlbumPhoto
 
-        public AlbumSet()
+        public Album()
         {
-            PhotoSets = new System.Collections.Generic.List<PhotoSet>();
+            Importance = 0;
+            Photos = new System.Collections.Generic.List<Photo>();
         }
     }
 
@@ -1466,6 +1463,7 @@ namespace QNZ.Data
         public string Title { get; set; } // Title (length: 50)
         public int Importance { get; set; } // Importance
         public int InstituteId { get; set; } // InstituteId
+        public string Body { get; set; } // Body
         public bool Active { get; set; } // Active
         public System.DateTime CreatedDate { get; set; } // CreatedDate
         public string CreatedBy { get; set; } // CreatedBy (length: 50)
@@ -1659,9 +1657,9 @@ namespace QNZ.Data
         }
     }
 
-    // OutletSet
+    // Outlets
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class OutletSet
+    public class Outlet
     {
         public int Id { get; set; } // Id (Primary key)
         public string Name { get; set; } // Name (length: 50)
@@ -1669,6 +1667,7 @@ namespace QNZ.Data
         public string Coordinate { get; set; } // Coordinate (length: 50)
         public string ContactMan { get; set; } // ContactMan (length: 50)
         public string Phone { get; set; } // Phone (length: 50)
+        public string Thumbnail { get; set; } // Thumbnail (length: 150)
         public int Importance { get; set; } // Importance
         public bool Active { get; set; } // Active
         public System.DateTime CreatedDate { get; set; } // CreatedDate
@@ -1677,9 +1676,9 @@ namespace QNZ.Data
         public string UpdatedBy { get; set; } // UpdatedBy (length: 50)
     }
 
-    // PageMetaSet
+    // PageMetas
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class PageMetaSet
+    public class PageMeta
     {
         public int Id { get; set; } // Id (Primary key)
         public short ModelType { get; set; } // ModelType
@@ -1708,11 +1707,12 @@ namespace QNZ.Data
         public string FooterCode { get; set; } // FooterCode
     }
 
-    // PhotoSet
+    // Photos
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class PhotoSet
+    public class Photo
     {
         public int Id { get; set; } // Id (Primary key)
+        public string Title { get; set; } // Title (length: 100)
         public int AlbumId { get; set; } // AlbumId
         public string FullImageUrl { get; set; } // FullImageURL (length: 150)
         public string Thumbnail { get; set; } // Thumbnail (length: 150)
@@ -1720,18 +1720,17 @@ namespace QNZ.Data
         public bool Active { get; set; } // Active
         public System.DateTime CreatedDate { get; set; } // CreatedDate
         public string CreatedBy { get; set; } // CreatedBy (length: 50)
-        public System.DateTime UpdatedDate { get; set; } // UpdatedDate
+        public System.DateTime? UpdatedDate { get; set; } // UpdatedDate
         public string UpdatedBy { get; set; } // UpdatedBy (length: 50)
-        public string Title { get; set; } // Title (length: 100)
 
         // Foreign keys
 
         /// <summary>
-        /// Parent AlbumSet pointed by [PhotoSet].([AlbumId]) (FK_AlbumPhoto)
+        /// Parent Album pointed by [Photos].([AlbumId]) (FK_AlbumPhoto)
         /// </summary>
-        public virtual AlbumSet AlbumSet { get; set; } // FK_AlbumPhoto
+        public virtual Album Album { get; set; } // FK_AlbumPhoto
 
-        public PhotoSet()
+        public Photo()
         {
             Importance = 0;
         }
@@ -1816,60 +1815,97 @@ namespace QNZ.Data
         }
     }
 
-    // ProductCategory
+    // Products
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class ProductCategory
+    public class Product
     {
-        public int CategoryId { get; set; } // CategoryId (Primary key)
-        public int ProductId { get; set; } // ProductId (Primary key)
+        public int Id { get; set; } // Id (Primary key)
+        public string ProductNo { get; set; } // ProductNo (length: 50)
+        public string ProductName { get; set; } // ProductName (length: 100)
+        public string Summary { get; set; } // Summary (length: 500)
+        public string Body { get; set; } // Body
+        public string Introduction { get; set; } // Introduction (length: 500)
+        public string Thumbnail { get; set; } // Thumbnail (length: 150)
+        public string ImageUrl { get; set; } // ImageUrl
+        public string Cover { get; set; } // Cover (length: 150)
+        public string ViewImage { get; set; } // ViewImage (length: 150)
+        public int Importance { get; set; } // Importance
+        public bool Recommend { get; set; } // Recommend
+        public bool Active { get; set; } // Active
+        public string CreatedBy { get; set; } // CreatedBy (length: 50)
+        public System.DateTime CreatedDate { get; set; } // CreatedDate
+        public string UpdatedBy { get; set; } // UpdatedBy (length: 50)
+        public System.DateTime? UpdatedDate { get; set; } // UpdatedDate
+        public int ViewCount { get; set; } // ViewCount
+        public string Keywords { get; set; } // Keywords (length: 50)
 
-        // Foreign keys
+        // Reverse navigation
 
         /// <summary>
-        /// Parent ProductCategorySet pointed by [ProductCategory].([CategoryId]) (FK_dbo.ProductCategory_dbo.Categories_CategoryId)
+        /// Child ProductCategories (Many-to-Many) mapped by table [ProductWithCategory]
         /// </summary>
-        public virtual ProductCategorySet ProductCategorySet { get; set; } // FK_dbo.ProductCategory_dbo.Categories_CategoryId
+        public virtual System.Collections.Generic.ICollection<ProductCategory> ProductCategories { get; set; } // Many to many mapping
+        /// <summary>
+        /// Child ProductPhotoSets where [ProductPhotoSet].[ProductId] point to this entity (FK_ProductPhotos_Products)
+        /// </summary>
+        public virtual System.Collections.Generic.ICollection<ProductPhotoSet> ProductPhotoSets { get; set; } // ProductPhotoSet.FK_ProductPhotos_Products
+        /// <summary>
+        /// Child TechnologySets where [TechnologySet].[ProductId] point to this entity (FK_Technologys_Products)
+        /// </summary>
+        public virtual System.Collections.Generic.ICollection<TechnologySet> TechnologySets { get; set; } // TechnologySet.FK_Technologys_Products
+
+        public Product()
+        {
+            Importance = 0;
+            Recommend = false;
+            Active = true;
+            ViewCount = 0;
+            ProductPhotoSets = new System.Collections.Generic.List<ProductPhotoSet>();
+            TechnologySets = new System.Collections.Generic.List<TechnologySet>();
+            ProductCategories = new System.Collections.Generic.List<ProductCategory>();
+        }
     }
 
-    // ProductCategorySet
+    // ProductCategories
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class ProductCategorySet
+    public class ProductCategory
     {
         public int Id { get; set; } // Id (Primary key)
         public string Title { get; set; } // Title (length: 50)
         public int Importance { get; set; } // Importance
         public bool Active { get; set; } // Active
         public int? ParentId { get; set; } // ParentId
+        public string IconName { get; set; } // IconName (length: 150)
+        public string SeoName { get; set; } // SeoName (length: 50)
+        public string ImageUrl { get; set; } // ImageUrl (length: 150)
+        public string Description { get; set; } // Description (length: 500)
         public System.DateTime CreatedDate { get; set; } // CreatedDate
         public string CreatedBy { get; set; } // CreatedBy (length: 50)
         public System.DateTime? UpdatedDate { get; set; } // UpdatedDate
         public string UpdatedBy { get; set; } // UpdatedBy (length: 50)
-        public string IconName { get; set; } // IconName (length: 50)
-        public string SeoName { get; set; } // SeoName (length: 50)
-        public string ImageUrl { get; set; } // ImageUrl (length: 150)
 
         // Reverse navigation
 
         /// <summary>
-        /// Child ProductCategories where [ProductCategory].[CategoryId] point to this entity (FK_dbo.ProductCategory_dbo.Categories_CategoryId)
+        /// Child Products (Many-to-Many) mapped by table [ProductWithCategory]
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<ProductCategory> ProductCategories { get; set; } // ProductCategory.FK_dbo.ProductCategory_dbo.Categories_CategoryId
+        public virtual System.Collections.Generic.ICollection<Product> Products { get; set; } // Many to many mapping
         /// <summary>
-        /// Child ProductCategorySets where [ProductCategorySet].[ParentId] point to this entity (FK_dbo.Categories_dbo.Categories_ParentId)
+        /// Child ProductCategories where [ProductCategories].[ParentId] point to this entity (FK_dbo.Categories_dbo.Categories_ParentId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<ProductCategorySet> ProductCategorySets { get; set; } // ProductCategorySet.FK_dbo.Categories_dbo.Categories_ParentId
+        public virtual System.Collections.Generic.ICollection<ProductCategory> ProductCategories { get; set; } // ProductCategories.FK_dbo.Categories_dbo.Categories_ParentId
 
         // Foreign keys
 
         /// <summary>
-        /// Parent ProductCategorySet pointed by [ProductCategorySet].([ParentId]) (FK_dbo.Categories_dbo.Categories_ParentId)
+        /// Parent ProductCategory pointed by [ProductCategories].([ParentId]) (FK_dbo.Categories_dbo.Categories_ParentId)
         /// </summary>
-        public virtual ProductCategorySet Parent { get; set; } // FK_dbo.Categories_dbo.Categories_ParentId
+        public virtual ProductCategory Parent { get; set; } // FK_dbo.Categories_dbo.Categories_ParentId
 
-        public ProductCategorySet()
+        public ProductCategory()
         {
             ProductCategories = new System.Collections.Generic.List<ProductCategory>();
-            ProductCategorySets = new System.Collections.Generic.List<ProductCategorySet>();
+            Products = new System.Collections.Generic.List<Product>();
         }
     }
 
@@ -1886,58 +1922,13 @@ namespace QNZ.Data
         // Foreign keys
 
         /// <summary>
-        /// Parent ProductSet pointed by [ProductPhotoSet].([ProductId]) (FK_ProductPhotos_Products)
+        /// Parent Product pointed by [ProductPhotoSet].([ProductId]) (FK_ProductPhotos_Products)
         /// </summary>
-        public virtual ProductSet ProductSet { get; set; } // FK_ProductPhotos_Products
+        public virtual Product Product { get; set; } // FK_ProductPhotos_Products
 
         public ProductPhotoSet()
         {
             Importance = 0;
-        }
-    }
-
-    // ProductSet
-    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class ProductSet
-    {
-        public int Id { get; set; } // Id (Primary key)
-        public string ProductNo { get; set; } // ProductNo (length: 50)
-        public string ProductName { get; set; } // ProductName (length: 100)
-        public string Description { get; set; } // Description
-        public string Body { get; set; } // Body
-        public string Parameters { get; set; } // Parameters
-        public string Thumbnail { get; set; } // Thumbnail (length: 150)
-        public string ImageUrl { get; set; } // ImageUrl
-        public string CreatedBy { get; set; } // CreatedBy (length: 50)
-        public System.DateTime CreatedDate { get; set; } // CreatedDate
-        public string UpdatedBy { get; set; } // UpdatedBy (length: 50)
-        public System.DateTime? UpdatedDate { get; set; } // UpdatedDate
-        public int ViewCount { get; set; } // ViewCount
-        public string Keywords { get; set; } // Keywords (length: 50)
-        public string ViewImage { get; set; } // ViewImage (length: 150)
-        public bool? Active { get; set; } // Active
-        public bool? Recommend { get; set; } // Recommend
-        public int Importance { get; set; } // Importance
-        public string Cover { get; set; } // Cover (length: 150)
-
-        // Reverse navigation
-
-        /// <summary>
-        /// Child ProductPhotoSets where [ProductPhotoSet].[ProductId] point to this entity (FK_ProductPhotos_Products)
-        /// </summary>
-        public virtual System.Collections.Generic.ICollection<ProductPhotoSet> ProductPhotoSets { get; set; } // ProductPhotoSet.FK_ProductPhotos_Products
-        /// <summary>
-        /// Child TechnologySets where [TechnologySet].[ProductId] point to this entity (FK_Technologys_Products)
-        /// </summary>
-        public virtual System.Collections.Generic.ICollection<TechnologySet> TechnologySets { get; set; } // TechnologySet.FK_Technologys_Products
-
-        public ProductSet()
-        {
-            ViewCount = 0;
-            Active = true;
-            Importance = 0;
-            ProductPhotoSets = new System.Collections.Generic.List<ProductPhotoSet>();
-            TechnologySets = new System.Collections.Generic.List<TechnologySet>();
         }
     }
 
@@ -2226,9 +2217,9 @@ namespace QNZ.Data
         // Foreign keys
 
         /// <summary>
-        /// Parent ProductSet pointed by [TechnologySet].([ProductId]) (FK_Technologys_Products)
+        /// Parent Product pointed by [TechnologySet].([ProductId]) (FK_Technologys_Products)
         /// </summary>
-        public virtual ProductSet ProductSet { get; set; } // FK_Technologys_Products
+        public virtual Product Product { get; set; } // FK_Technologys_Products
 
         public TechnologySet()
         {
@@ -2473,27 +2464,29 @@ namespace QNZ.Data
         }
     }
 
-    // AlbumSet
+    // Albums
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class AlbumSetConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<AlbumSet>
+    public class AlbumConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<Album>
     {
-        public AlbumSetConfiguration()
+        public AlbumConfiguration()
             : this("dbo")
         {
         }
 
-        public AlbumSetConfiguration(string schema)
+        public AlbumConfiguration(string schema)
         {
-            ToTable("AlbumSet", schema);
+            ToTable("Albums", schema);
             HasKey(x => x.Id);
 
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.Title).HasColumnName(@"Title").HasColumnType("nvarchar").IsRequired().HasMaxLength(100);
             Property(x => x.Cover).HasColumnName(@"Cover").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
+            Property(x => x.Banner).HasColumnName(@"Banner").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
             Property(x => x.Active).HasColumnName(@"Active").HasColumnType("bit").IsRequired();
+            Property(x => x.Importance).HasColumnName(@"Importance").HasColumnType("int").IsRequired();
             Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired();
-            Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
-            Property(x => x.UpdatedDate).HasColumnName(@"UpdatedDate").HasColumnType("datetime").IsRequired();
+            Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("nvarchar").IsRequired().HasMaxLength(50);
+            Property(x => x.UpdatedDate).HasColumnName(@"UpdatedDate").HasColumnType("datetime").IsOptional();
             Property(x => x.UpdatedBy).HasColumnName(@"UpdatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
         }
     }
@@ -3142,6 +3135,7 @@ namespace QNZ.Data
             Property(x => x.Title).HasColumnName(@"Title").HasColumnType("nvarchar").IsRequired().HasMaxLength(50);
             Property(x => x.Importance).HasColumnName(@"Importance").HasColumnType("int").IsRequired();
             Property(x => x.InstituteId).HasColumnName(@"InstituteId").HasColumnType("int").IsRequired();
+            Property(x => x.Body).HasColumnName(@"Body").HasColumnType("nvarchar(max)").IsOptional();
             Property(x => x.Active).HasColumnName(@"Active").HasColumnType("bit").IsRequired();
             Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired();
             Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
@@ -3359,18 +3353,18 @@ namespace QNZ.Data
         }
     }
 
-    // OutletSet
+    // Outlets
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class OutletSetConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<OutletSet>
+    public class OutletConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<Outlet>
     {
-        public OutletSetConfiguration()
+        public OutletConfiguration()
             : this("dbo")
         {
         }
 
-        public OutletSetConfiguration(string schema)
+        public OutletConfiguration(string schema)
         {
-            ToTable("OutletSet", schema);
+            ToTable("Outlets", schema);
             HasKey(x => x.Id);
 
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
@@ -3379,6 +3373,7 @@ namespace QNZ.Data
             Property(x => x.Coordinate).HasColumnName(@"Coordinate").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
             Property(x => x.ContactMan).HasColumnName(@"ContactMan").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
             Property(x => x.Phone).HasColumnName(@"Phone").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
+            Property(x => x.Thumbnail).HasColumnName(@"Thumbnail").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
             Property(x => x.Importance).HasColumnName(@"Importance").HasColumnType("int").IsRequired();
             Property(x => x.Active).HasColumnName(@"Active").HasColumnType("bit").IsRequired();
             Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired();
@@ -3388,18 +3383,18 @@ namespace QNZ.Data
         }
     }
 
-    // PageMetaSet
+    // PageMetas
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class PageMetaSetConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<PageMetaSet>
+    public class PageMetaConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<PageMeta>
     {
-        public PageMetaSetConfiguration()
+        public PageMetaConfiguration()
             : this("dbo")
         {
         }
 
-        public PageMetaSetConfiguration(string schema)
+        public PageMetaConfiguration(string schema)
         {
-            ToTable("PageMetaSet", schema);
+            ToTable("PageMetas", schema);
             HasKey(x => x.Id);
 
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
@@ -3441,34 +3436,34 @@ namespace QNZ.Data
         }
     }
 
-    // PhotoSet
+    // Photos
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class PhotoSetConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<PhotoSet>
+    public class PhotoConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<Photo>
     {
-        public PhotoSetConfiguration()
+        public PhotoConfiguration()
             : this("dbo")
         {
         }
 
-        public PhotoSetConfiguration(string schema)
+        public PhotoConfiguration(string schema)
         {
-            ToTable("PhotoSet", schema);
+            ToTable("Photos", schema);
             HasKey(x => x.Id);
 
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            Property(x => x.Title).HasColumnName(@"Title").HasColumnType("nvarchar").IsOptional().HasMaxLength(100);
             Property(x => x.AlbumId).HasColumnName(@"AlbumId").HasColumnType("int").IsRequired();
             Property(x => x.FullImageUrl).HasColumnName(@"FullImageURL").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
             Property(x => x.Thumbnail).HasColumnName(@"Thumbnail").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
             Property(x => x.Importance).HasColumnName(@"Importance").HasColumnType("int").IsRequired();
             Property(x => x.Active).HasColumnName(@"Active").HasColumnType("bit").IsRequired();
             Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired();
-            Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
-            Property(x => x.UpdatedDate).HasColumnName(@"UpdatedDate").HasColumnType("datetime").IsRequired();
+            Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("nvarchar").IsRequired().HasMaxLength(50);
+            Property(x => x.UpdatedDate).HasColumnName(@"UpdatedDate").HasColumnType("datetime").IsOptional();
             Property(x => x.UpdatedBy).HasColumnName(@"UpdatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
-            Property(x => x.Title).HasColumnName(@"Title").HasColumnType("nvarchar").IsOptional().HasMaxLength(100);
 
             // Foreign keys
-            HasRequired(a => a.AlbumSet).WithMany(b => b.PhotoSets).HasForeignKey(c => c.AlbumId).WillCascadeOnDelete(false); // FK_AlbumPhoto
+            HasRequired(a => a.Album).WithMany(b => b.Photos).HasForeignKey(c => c.AlbumId).WillCascadeOnDelete(false); // FK_AlbumPhoto
         }
     }
 
@@ -3559,7 +3554,43 @@ namespace QNZ.Data
         }
     }
 
-    // ProductCategory
+    // Products
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
+    public class ProductConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<Product>
+    {
+        public ProductConfiguration()
+            : this("dbo")
+        {
+        }
+
+        public ProductConfiguration(string schema)
+        {
+            ToTable("Products", schema);
+            HasKey(x => x.Id);
+
+            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            Property(x => x.ProductNo).HasColumnName(@"ProductNo").HasColumnType("nvarchar").IsRequired().HasMaxLength(50);
+            Property(x => x.ProductName).HasColumnName(@"ProductName").HasColumnType("nvarchar").IsRequired().HasMaxLength(100);
+            Property(x => x.Summary).HasColumnName(@"Summary").HasColumnType("nvarchar").IsOptional().HasMaxLength(500);
+            Property(x => x.Body).HasColumnName(@"Body").HasColumnType("nvarchar(max)").IsOptional();
+            Property(x => x.Introduction).HasColumnName(@"Introduction").HasColumnType("nvarchar").IsOptional().HasMaxLength(500);
+            Property(x => x.Thumbnail).HasColumnName(@"Thumbnail").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
+            Property(x => x.ImageUrl).HasColumnName(@"ImageUrl").HasColumnType("nvarchar(max)").IsOptional();
+            Property(x => x.Cover).HasColumnName(@"Cover").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
+            Property(x => x.ViewImage).HasColumnName(@"ViewImage").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
+            Property(x => x.Importance).HasColumnName(@"Importance").HasColumnType("int").IsRequired();
+            Property(x => x.Recommend).HasColumnName(@"Recommend").HasColumnType("bit").IsRequired();
+            Property(x => x.Active).HasColumnName(@"Active").HasColumnType("bit").IsRequired();
+            Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
+            Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired();
+            Property(x => x.UpdatedBy).HasColumnName(@"UpdatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
+            Property(x => x.UpdatedDate).HasColumnName(@"UpdatedDate").HasColumnType("datetime").IsOptional();
+            Property(x => x.ViewCount).HasColumnName(@"ViewCount").HasColumnType("int").IsRequired();
+            Property(x => x.Keywords).HasColumnName(@"Keywords").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
+        }
+    }
+
+    // ProductCategories
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
     public class ProductCategoryConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<ProductCategory>
     {
@@ -3570,29 +3601,7 @@ namespace QNZ.Data
 
         public ProductCategoryConfiguration(string schema)
         {
-            ToTable("ProductCategory", schema);
-            HasKey(x => new { x.CategoryId, x.ProductId });
-
-            Property(x => x.CategoryId).HasColumnName(@"CategoryId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-            Property(x => x.ProductId).HasColumnName(@"ProductId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-
-            // Foreign keys
-            HasRequired(a => a.ProductCategorySet).WithMany(b => b.ProductCategories).HasForeignKey(c => c.CategoryId); // FK_dbo.ProductCategory_dbo.Categories_CategoryId
-        }
-    }
-
-    // ProductCategorySet
-    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class ProductCategorySetConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<ProductCategorySet>
-    {
-        public ProductCategorySetConfiguration()
-            : this("dbo")
-        {
-        }
-
-        public ProductCategorySetConfiguration(string schema)
-        {
-            ToTable("ProductCategorySet", schema);
+            ToTable("ProductCategories", schema);
             HasKey(x => x.Id);
 
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
@@ -3600,16 +3609,23 @@ namespace QNZ.Data
             Property(x => x.Importance).HasColumnName(@"Importance").HasColumnType("int").IsRequired();
             Property(x => x.Active).HasColumnName(@"Active").HasColumnType("bit").IsRequired();
             Property(x => x.ParentId).HasColumnName(@"ParentId").HasColumnType("int").IsOptional();
+            Property(x => x.IconName).HasColumnName(@"IconName").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
+            Property(x => x.SeoName).HasColumnName(@"SeoName").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
+            Property(x => x.ImageUrl).HasColumnName(@"ImageUrl").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
+            Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar").IsOptional().HasMaxLength(500);
             Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired();
             Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
             Property(x => x.UpdatedDate).HasColumnName(@"UpdatedDate").HasColumnType("datetime").IsOptional();
             Property(x => x.UpdatedBy).HasColumnName(@"UpdatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
-            Property(x => x.IconName).HasColumnName(@"IconName").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
-            Property(x => x.SeoName).HasColumnName(@"SeoName").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
-            Property(x => x.ImageUrl).HasColumnName(@"ImageUrl").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
 
             // Foreign keys
-            HasOptional(a => a.Parent).WithMany(b => b.ProductCategorySets).HasForeignKey(c => c.ParentId).WillCascadeOnDelete(false); // FK_dbo.Categories_dbo.Categories_ParentId
+            HasOptional(a => a.Parent).WithMany(b => b.ProductCategories).HasForeignKey(c => c.ParentId).WillCascadeOnDelete(false); // FK_dbo.Categories_dbo.Categories_ParentId
+            HasMany(t => t.Products).WithMany(t => t.ProductCategories).Map(m =>
+            {
+                m.ToTable("ProductWithCategory", "dbo");
+                m.MapLeftKey("CategoryId");
+                m.MapRightKey("ProductId");
+            });
         }
     }
 
@@ -3634,43 +3650,7 @@ namespace QNZ.Data
             Property(x => x.ProductId).HasColumnName(@"ProductId").HasColumnType("int").IsRequired();
 
             // Foreign keys
-            HasRequired(a => a.ProductSet).WithMany(b => b.ProductPhotoSets).HasForeignKey(c => c.ProductId); // FK_ProductPhotos_Products
-        }
-    }
-
-    // ProductSet
-    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class ProductSetConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<ProductSet>
-    {
-        public ProductSetConfiguration()
-            : this("dbo")
-        {
-        }
-
-        public ProductSetConfiguration(string schema)
-        {
-            ToTable("ProductSet", schema);
-            HasKey(x => x.Id);
-
-            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
-            Property(x => x.ProductNo).HasColumnName(@"ProductNo").HasColumnType("nvarchar").IsRequired().HasMaxLength(50);
-            Property(x => x.ProductName).HasColumnName(@"ProductName").HasColumnType("nvarchar").IsRequired().HasMaxLength(100);
-            Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar(max)").IsOptional();
-            Property(x => x.Body).HasColumnName(@"Body").HasColumnType("nvarchar(max)").IsOptional();
-            Property(x => x.Parameters).HasColumnName(@"Parameters").HasColumnType("nvarchar(max)").IsOptional();
-            Property(x => x.Thumbnail).HasColumnName(@"Thumbnail").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
-            Property(x => x.ImageUrl).HasColumnName(@"ImageUrl").HasColumnType("nvarchar(max)").IsOptional();
-            Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
-            Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired();
-            Property(x => x.UpdatedBy).HasColumnName(@"UpdatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
-            Property(x => x.UpdatedDate).HasColumnName(@"UpdatedDate").HasColumnType("datetime").IsOptional();
-            Property(x => x.ViewCount).HasColumnName(@"ViewCount").HasColumnType("int").IsRequired();
-            Property(x => x.Keywords).HasColumnName(@"Keywords").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
-            Property(x => x.ViewImage).HasColumnName(@"ViewImage").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
-            Property(x => x.Active).HasColumnName(@"Active").HasColumnType("bit").IsOptional();
-            Property(x => x.Recommend).HasColumnName(@"Recommend").HasColumnType("bit").IsOptional();
-            Property(x => x.Importance).HasColumnName(@"Importance").HasColumnType("int").IsRequired();
-            Property(x => x.Cover).HasColumnName(@"Cover").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
+            HasRequired(a => a.Product).WithMany(b => b.ProductPhotoSets).HasForeignKey(c => c.ProductId); // FK_ProductPhotos_Products
         }
     }
 
@@ -3981,7 +3961,7 @@ namespace QNZ.Data
             Property(x => x.UpdatedBy).HasColumnName(@"UpdatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
 
             // Foreign keys
-            HasRequired(a => a.ProductSet).WithMany(b => b.TechnologySets).HasForeignKey(c => c.ProductId); // FK_Technologys_Products
+            HasRequired(a => a.Product).WithMany(b => b.TechnologySets).HasForeignKey(c => c.ProductId); // FK_Technologys_Products
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿@model ModuleSetIM
 @{
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/_Layout2019.cshtml";
     ViewBag.Title = "全局设置";
     ViewBag.PageTitle = ViewBag.Title + "_常规设置";
 
@@ -7,12 +8,9 @@
 
 
 
-    <div class="panel panel-default">
-        <div class="panel-body">
 
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">全局</a></li>
+
+        
                 @*<li role="presentation"><a href="#productSet" aria-controls="blog" role="tab" data-toggle="tab">产品</a></li>
                 <li role="presentation"><a href="#videoSet" aria-controls="videoSet" role="tab" data-toggle="tab">视频直播</a></li>
                 <li role="presentation"><a href="#newsSet" aria-controls="profile" role="tab" data-toggle="tab">新闻</a></li>*@
@@ -20,17 +18,16 @@
                 <li role="presentation"><a href="#caseSet" aria-controls="blog" role="tab" data-toggle="tab">案例</a></li>
                 <li role="presentation"><a href="#photoSet" aria-controls="blog" role="tab" data-toggle="tab">相册</a></li>*@
                 @*<li role="presentation"><a href="#weixinSet" aria-controls="weixin" role="tab" data-toggle="tab">微信公众号</a></li>*@
-            </ul>
+   
 
-
-            <!-- Tab panes -->
-            <div class="tab-content">
-               
-                <div role="tabpanel" class="tab-pane active" id="home">
-                    <br />
+           
+             
                     @Html.Partial("_Site", Model.SiteInfo)
-                </div>
-                <div role="tabpanel" class="tab-pane" id="productSet">
+                  
+                 
+                
+             
+                @*<div role="tabpanel" class="tab-pane" id="productSet">
                     <br />
                     @Html.Partial("_Product", Model.ProductSet)
                 </div>
@@ -41,7 +38,7 @@
                 <div role="tabpanel" class="tab-pane" id="newsSet">
                     <br />
                     @Html.Partial("_Article", Model.ArticleSet)
-                </div>
+                </div>*@
                 @*<div role="tabpanel" class="tab-pane" id="blog">
                     <br />
                     @Html.Partial("_Post", Model.PostSet)
@@ -54,50 +51,54 @@
                     <br />
                     @Html.Partial("_Photo", Model.PhotoSet)
                 </div>*@
-                <div role="tabpanel" class="tab-pane" id="weixinSet">
+                @*<div role="tabpanel" class="tab-pane" id="weixinSet">
                     <br />
                     @Html.Partial("_WeiXin", Model.WeiXinSet)
-                </div>
-            </div>
-           
-        </div>
-    </div>
+                </div>*@
 
-@Html.Action("PopuFinder", "File")
+
+
+            @Html.Partial("_SiteClose", Model.SiteCloseSet)
+
+
+
+
 
 @section Header{
-    <link href="~/plugins/SigFinder/SigFinder.min.css" rel="stylesheet" />
-    <link href="~/plugins/webuploader/webuploader.css" rel="stylesheet" />
+
 }
 
 @section footer {
     @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
-<script src="/Plugins/webuploader/webuploader.min.js"></script>
-<script src="/Plugins/SigFinder/FileManager.js"></script>
     <script>
         function onBegin() {
-            $("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin")
+            var btn = $(this).find('button[type="submit"]');
+            btn.attr("data-text", btn.html());
+            $(this).find('button[type="submit"]').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  Loading...');
         }
         function onComplete() {
-            $("#btnSave i").removeClass("fa-spinner fa-spin").addClass("fa-save")
+            var btn = $(this).find('button[type="submit"]');
+            
+            var html = btn.attr("data-text");
+           $(this).find('button[type="submit"]').html(html);
         }
         function onSuccess(data) {
-        Common.ShowBox(data.Status, data.Message, "@ViewBag.Title");
+            Common.ShowBox(data.Status, data.Message, "@ViewBag.Title");
         //  debugger;
         }
 
-        function SetThumbnail() {
-            var fileUrl = $("#fileList .item.active").attr("data-file");
+        function SetThumbnail(fileUrl) {       
             $('#DashboardLogo').val(fileUrl);
-            $("#imgDashboardLogo").attr("src", fileUrl);
-            $('#fileManagerModal').modal('hide');
+            $("#imgDashboardLogo").attr("src", fileUrl);      
         }
-        function SetLoginLogo() {
-            var fileUrl = $("#fileList .item.active").attr("data-file");
+     
+        function SetLoginLogo(fileUrl) {        
             $('#LoginLogo').val(fileUrl);
-            $("#imgLoginLogo").attr("src", fileUrl);
-            $('#fileManagerModal').modal('hide');
+            $("#imgLoginLogo").attr("src", fileUrl);         
         }
+
+        
+
 
         $(function () {
             //tab 支持路径化
@@ -113,20 +114,16 @@
        
 
             $("#btnDashboardLogo").on("click", function () {
-                $('#fileManagerModal').modal();
-                $("#selectImage").unbind('click');
-                $("#selectImage").bind("click", function () {
-                    SetThumbnail();
-                });
+                singleEelFinder.selectActionFunction = SetThumbnail;
+                singleEelFinder.open();           
             });
 
-            $("#btnLoginLogo").on("click", function () {
-                $('#fileManagerModal').modal();
-                $("#selectImage").unbind('click');
-                $("#selectImage").bind("click", function () {
-                    SetLoginLogo();
-                });
-            });
+             $("#btnLoginLogo").on("click", function() {
+                singleEelFinder.selectActionFunction = SetLoginLogo;
+                singleEelFinder.open();
+             });
+
+         
             
         })
     </script>

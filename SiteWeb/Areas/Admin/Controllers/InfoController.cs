@@ -8,6 +8,8 @@ using TZGCMS.Infrastructure.Logging;
 using TZGCMS.Model.Admin.InputModel;
 using TZGCMS.Model.Admin.ViewModel;
 using TZGCMS.Model;
+using System.Collections;
+using TZGCMS.Infrastructure.Cache;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
@@ -15,51 +17,49 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
     [SIGAuth]
     public class InfoController : BaseController
     {
-        ILoggingService _logger;
-        public InfoController(ILoggingService logger)
-        {           
-            _logger = logger;
+        private readonly ICacheService _cacheService;
+        public InfoController(ICacheService cacheService)
+        {
+            _cacheService = cacheService;
         }
+        [HttpGet]
         public ViewResult Company()
         {
             var cfe = SettingsManager.Company;
 
+            var vm = new CompanyIM
+            {
+                CompanyName = cfe.CompanyName,
+                CompanyShortName = cfe.CompanyShortName,
+                Address = cfe.Address,
+                Coordinate = cfe.Coordinate,
+                ContactMan = cfe.ContactMan,
+                Fax = cfe.Fax,
+                Phone = cfe.Phone,
+                ZipCode = cfe.ZipCode,
+                Mobile = cfe.Mobile,
+                Email = cfe.Email,
+                Email2 = cfe.Email2,
 
-         
-          var      vm = new CompanyIM
-          {
-              CompanyName = cfe.CompanyName,
-              CompanyShortName = cfe.CompanyShortName,
-              Address = cfe.Address,
-              Coordinate = cfe.Coordinate,
-              ContactMan = cfe.ContactMan,
-              Fax = cfe.Fax,
-              Phone = cfe.Phone,
-              ZipCode = cfe.ZipCode,
-              Mobile = cfe.Mobile,
-              Email = cfe.Email,
-              Email2 = cfe.Email2,
+                Facebook = cfe.Facebook,
+                LinkedIn = cfe.LinkedIn,
+                Youtube = cfe.Youtube,
+                Oicq = cfe.Oicq,
+                OicqTwo = cfe.OicqTwo,
+                SinaWeibo = cfe.SinaWeibo,
+                WeiXing = cfe.WeiXing,
+                WeiXingCode = cfe.WeiXingCode,
+                WeiXing2 = cfe.WeiXing2,
+                WeiXingCode2 = cfe.WeiXingCode2
 
-              Facebook = cfe.Facebook,
-              LinkedIn = cfe.LinkedIn,
-              Youtube = cfe.Youtube,
-              Oicq = cfe.Oicq,
-              OicqTwo = cfe.OicqTwo,
-              SinaWeibo = cfe.SinaWeibo,
-              WeiXing = cfe.WeiXing,
-              WeiXingCode = cfe.WeiXingCode,
-              WeiXing2 = cfe.WeiXing2,
-              WeiXingCode2 = cfe.WeiXingCode2
-
-          };
-
-
+            };
 
             return View(vm);
         }
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Company(CompanyIM vm)
         {
             if (!ModelState.IsValid)
@@ -113,7 +113,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
 
 
-
+        [HttpGet]
         public ViewResult Site()
         {
 
@@ -134,8 +134,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                     SiteDomainName = info.SiteDomainName,
                     WebNumber = info.WebNumber,
                     BaiduSiteID = info.BaiduSiteID,
-                    IsClose = info.IsClose,
-                    CloseInfo = info.CloseInfo,
+                  
                     GoogleAnalyticsID = info.GoogleAnalyticsID,
                     LoginLogo = info.LoginLogo,
                     DashboardLogo = info.DashboardLogo,
@@ -200,6 +199,11 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                     ThumbHeight = videoSet.ThumbHeight,
                     ThumbWidth = videoSet.ThumbWidth,
                     Timer = videoSet.Timer
+                },
+                SiteCloseSet = new SiteCloseIM
+                {
+                    IsClose = info.IsClose,
+                    CloseInfo = info.CloseInfo,
                 }
             };
 
@@ -475,9 +479,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 item.Element("SiteDomainName").SetValue(vm.SiteDomainName ?? "");
                 item.Element("WebNumber").SetValue(vm.WebNumber ?? "");
                 item.Element("BaiduSiteID").SetValue(vm.BaiduSiteID ?? "");
-                item.Element("GoogleAnalyticsID").SetValue(vm.GoogleAnalyticsID ?? "");
-                item.Element("IsClose").SetValue(vm.IsClose);
-                item.Element("CloseInfo").SetValue(vm.CloseInfo ?? "");
+                item.Element("GoogleAnalyticsID").SetValue(vm.GoogleAnalyticsID ?? "");           
                 item.Element("DashboardLogo").SetValue(vm.DashboardLogo ?? "");
                 item.Element("LoginLogo").SetValue(vm.LoginLogo ?? "");
                 item.Element("MailTo").SetValue(vm.MailTo ?? "");
@@ -495,7 +497,110 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         }
 
 
-        
+        [HttpPost]
+        public JsonResult CloseSite(SiteCloseIM vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errorMessage = GetModelErrorMessage();
+                AR.Setfailure(errorMessage);
+                return Json(AR, JsonRequestBehavior.DenyGet);
+            }
 
+            try
+            {
+                var xmlFile = Server.MapPath("~/Config/GlobalSettings.config");
+                XDocument doc = XDocument.Load(xmlFile);
+
+                var item = doc.Descendants("Settings").FirstOrDefault();
+             
+                item.Element("IsClose").SetValue(vm.IsClose);
+                item.Element("CloseInfo").SetValue(vm.CloseInfo ?? "");
+            
+                doc.Save(xmlFile);
+
+                return Json(AR, JsonRequestBehavior.DenyGet);
+            }
+            catch (Exception ex)
+            {
+
+                AR.Setfailure(ex.Message);
+                return Json(AR, JsonRequestBehavior.DenyGet);
+            }
+
+        }
+        [HttpGet]
+        public ActionResult CacheSet()
+        {
+            var cfe = SettingsManager.Site;
+
+            var vm = new SiteCacheIM
+            {
+                CacheDuration = cfe.CacheDuration,
+                EnableCaching = cfe.EnableCaching               
+            };
+
+            return View(vm);
+          
+        }
+
+        [HttpPost]
+        public JsonResult CacheSet(SiteCacheIM vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errorMessage = GetModelErrorMessage();
+                AR.Setfailure(errorMessage);
+                return Json(AR, JsonRequestBehavior.DenyGet);
+            }
+
+            try
+            {
+                var xmlFile = Server.MapPath("~/Config/GlobalSettings.config");
+                XDocument doc = XDocument.Load(xmlFile);
+
+                var item = doc.Descendants("Settings").FirstOrDefault();
+
+                item.Element("EnableCaching").SetValue(vm.EnableCaching);
+                item.Element("CacheDuration").SetValue(vm.CacheDuration);
+
+                doc.Save(xmlFile);
+
+                return Json(AR, JsonRequestBehavior.DenyGet);
+            }
+            catch (Exception ex)
+            {
+
+                AR.Setfailure(ex.Message);
+                return Json(AR, JsonRequestBehavior.DenyGet);
+            }
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult ClearCaches()
+        {
+            if (!ModelState.IsValid)
+            {
+                var errorMessage = GetModelErrorMessage();
+                AR.Setfailure(errorMessage);
+                return Json(AR, JsonRequestBehavior.DenyGet);
+            }
+
+            try
+            {
+                _cacheService.Invalidate("Menu");
+
+                return Json(AR, JsonRequestBehavior.DenyGet);
+            }
+            catch (Exception ex)
+            {
+
+                AR.Setfailure(ex.Message);
+                return Json(AR, JsonRequestBehavior.DenyGet);
+            }
+
+        }
     }
 }

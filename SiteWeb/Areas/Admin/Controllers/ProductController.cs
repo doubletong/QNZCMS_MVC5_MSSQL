@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using PagedList;
+using QNZ.Data;
 using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,47 +11,38 @@ using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Xml.Linq;
-using TZGCMS.Data.Entity.PageMetas;
-using TZGCMS.Data.Entity.Products;
+
 using TZGCMS.Data.Enums;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.Helper;
 using TZGCMS.Model;
-using TZGCMS.Model.Admin.InputModel.Products;
 using TZGCMS.Model.Admin.ViewModel;
 
-using TZGCMS.Model.Admin.ViewModel.Products;
+
 using TZGCMS.Model.Search;
 using TZGCMS.Resources.Admin;
-using TZGCMS.Service.PageMetas;
-using TZGCMS.Service.Products;
 using TZGCMS.SiteWeb.Filters;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
-    public class ProductController : BaseController
+    public class ProductController : QNZBaseController
     {
 
-        private readonly IProductCategoryServices _categoryServices;
-        private readonly IProductServices _productServices;
-        private readonly IPageMetaServices _pageMetaServices;
-        private readonly IMapper _mapper;
 
-        public ProductController(IProductCategoryServices categoryServices, IProductServices productServices, IPageMetaServices pageMetaServices, IMapper mapper)
+        private IQNZDbContext _db;
+        private IMapper _mapper;
+        public ProductController(IMapper mapper, IQNZDbContext db)
         {
-            _categoryServices = categoryServices;
-            _productServices = productServices;
-            _pageMetaServices = pageMetaServices;
+            _db = db;
             _mapper = mapper;
-
         }
 
 
         #region  产品
 
         [HttpGet]
-        public ActionResult Index(int? page, int? categoryId, string keyword)
+        public async System.Threading.Tasks.Task<ActionResult> Index(int? page, int? categoryId, string keyword)
         {
             var vm = new ProductListVM()
             {
@@ -58,21 +51,30 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 PageSize = SettingsManager.Product.PageSize,
                 Keyword = keyword
             };
-            int totalCount = 0;
-            var list = _productServices.GetPagedElements(vm.PageIndex-1, vm.PageSize, vm.Keyword, (int)vm.CategoryId, out totalCount);
 
-            vm.TotalCount = totalCount;
+            var query = _db.Products.Include(d=>d.ProductCategories).AsQueryable();
+            if (categoryId > 0)
+            {
+                query = query.Where(d => d.ProductCategories.Any(c => c.Id == categoryId));
+            }
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                query = query.Where(d => d.ProductName.Contains(keyword));
+            }
 
-            var categoryList = _categoryServices.GetAll().OrderByDescending(c => c.Importance).ToList();
+            var list = await query.OrderByDescending(d => d.Importance)
+                .ThenByDescending(d => d.Id).Skip((vm.PageIndex - 1) * vm.PageSize).Take(vm.PageSize)
+                .ProjectTo<ProductVM>().ToListAsync();
+                //_productServices.GetPagedElements(vm.PageIndex-1, vm.PageSize, vm.Keyword, (int)vm.CategoryId, out totalCount);
+
+            vm.TotalCount = await query.CountAsync();
+
+            var categoryList = _db.ProductCategories.OrderByDescending(c => c.Importance).ToList();
             var categories = new SelectList(categoryList, "Id", "Title");
             ViewBag.Categories = categories;
 
-            //foreach (var item in list)
-            //{
-            //    item.Categories = _categoryServices.GetItemsByProductId(item.Id);
-            //}
 
-            vm.Products = new StaticPagedList<Product>(list, vm.PageIndex, vm.PageSize, vm.TotalCount);
+            vm.Products = new StaticPagedList<ProductVM>(list, vm.PageIndex, vm.PageSize, vm.TotalCount);
             ViewBag.PageSizes = new SelectList(Site.PageSizes());
 
             return View(vm);
@@ -101,119 +103,125 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult AddProduct()
-        {
-            ProductIM product = new ProductIM
-            {
-                Active = true
-            };
+        //public ActionResult AddProduct()
+        //{
+        //    ProductIM product = new ProductIM
+        //    {
+        //        Active = true
+        //    };
 
-            var allCategory = _categoryServices.GetActiveItems().OrderByDescending(c => c.Importance);
-            //var categoryList = allCategory.Where(d => d.ParentId > 0);
-            //foreach (var item in categoryList)
-            //{
-            //    item.ParentCategory = allCategory.FirstOrDefault(d => d.Id == item.ParentId);
-            //}
-            //   var catselectList = categoryList.Select(d => new CategorySelectList { Id = d.Id, Title = d.Title, ParentTitle = d.ParentCategory.Title }).ToList();
-            // var categories = new SelectList(categoryList, "Id", "Title", "ParentCategory.Title", 0);
+        //    var allCategory = _categoryServices.GetActiveItems().OrderByDescending(c => c.Importance);
+        //    //var categoryList = allCategory.Where(d => d.ParentId > 0);
+        //    //foreach (var item in categoryList)
+        //    //{
+        //    //    item.ParentCategory = allCategory.FirstOrDefault(d => d.Id == item.ParentId);
+        //    //}
+        //    //   var catselectList = categoryList.Select(d => new CategorySelectList { Id = d.Id, Title = d.Title, ParentTitle = d.ParentCategory.Title }).ToList();
+        //    // var categories = new SelectList(categoryList, "Id", "Title", "ParentCategory.Title", 0);
 
-            ViewBag.Categories = new SelectList(allCategory, "Id", "Title", 0);
-            
-
-            return View(product);
-        }
+        //    ViewBag.Categories = new SelectList(allCategory, "Id", "Title", 0);
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public JsonResult AddProduct(ProductIM vm)
-        {
-
-            if (!ModelState.IsValid)
-            {
-                AR.Setfailure(GetModelErrorMessage());
-                return Json(AR, JsonRequestBehavior.DenyGet);
-
-            }
-
-            try
-            {
-                //var newProduct = _mapper.Map<ProductIM, Product>(vm);
-                //newProduct.ViewCount = 0;
-                //newProduct.CreatedDate = DateTime.Now;
-                //newProduct.CreatedBy = Site.CurrentUserName;
-
-                //var lCategories = (from c in _categoryServices.GetAll()
-                //                   where vm.PostCategoryIds.Contains(c.Id.ToString())
-                //                   select c).ToList();
-                //foreach(var d in lCategories)
-                //{
-                //    newProduct.Categories.Add(d);
-                //}
+        //    return View(product);
+        //}
 
 
-                var product =  _productServices.Create(vm);
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public JsonResult AddProduct(ProductIM vm)
+        //{
 
-                var pageMeta = new PageMeta()
-                {
-                    ObjectId = vm.Id.ToString(),
-                    Title = string.IsNullOrEmpty(vm.Title) ? $"{vm.ProductName}_{vm.ProductNo}" : vm.Title,
-                    Keyword = string.IsNullOrEmpty(vm.Keywords) ? vm.Title : vm.Keywords.Replace('，', ','),
-                    Description = vm.SEODescription,
-                    ModelType = ModelType.PRODUCT
-                };
-                _pageMetaServices.Create(pageMeta);
+        //    if (!ModelState.IsValid)
+        //    {
+        //        AR.Setfailure(GetModelErrorMessage());
+        //        return Json(AR, JsonRequestBehavior.DenyGet);
+
+        //    }
+
+        //    try
+        //    {
+        //        //var newProduct = _mapper.Map<ProductIM, Product>(vm);
+        //        //newProduct.ViewCount = 0;
+        //        //newProduct.CreatedDate = DateTime.Now;
+        //        //newProduct.CreatedBy = Site.CurrentUserName;
+
+        //        //var lCategories = (from c in _categoryServices.GetAll()
+        //        //                   where vm.PostCategoryIds.Contains(c.Id.ToString())
+        //        //                   select c).ToList();
+        //        //foreach(var d in lCategories)
+        //        //{
+        //        //    newProduct.Categories.Add(d);
+        //        //}
 
 
-                AR.SetSuccess(String.Format(Messages.AlertCreateSuccess, EntityNames.Product));
-                return Json(AR, JsonRequestBehavior.DenyGet);
+        //        var product =  _productServices.Create(vm);
 
-            }
-            catch (Exception er)
-            {
-                AR.Setfailure(er.Message);
-                return Json(AR, JsonRequestBehavior.DenyGet);
-            }
+        //        var pageMeta = new PageMeta()
+        //        {
+        //            ObjectId = vm.Id.ToString(),
+        //            Title = string.IsNullOrEmpty(vm.Title) ? $"{vm.ProductName}_{vm.ProductNo}" : vm.Title,
+        //            Keyword = string.IsNullOrEmpty(vm.Keywords) ? vm.Title : vm.Keywords.Replace('，', ','),
+        //            Description = vm.SEODescription,
+        //            ModelType = ModelType.PRODUCT
+        //        };
+        //        _pageMetaServices.Create(pageMeta);
+
+
+        //        AR.SetSuccess(String.Format(Messages.AlertCreateSuccess, EntityNames.Product));
+        //        return Json(AR, JsonRequestBehavior.DenyGet);
+
+        //    }
+        //    catch (Exception er)
+        //    {
+        //        AR.Setfailure(er.Message);
+        //        return Json(AR, JsonRequestBehavior.DenyGet);
+        //    }
 
 
 
-        }
+        //}
 
         [HttpGet]
-        public ActionResult EditProduct(int id)
+     
+        public async Task<ActionResult> Edit(int? id)
         {
-
-            var vProduct = _productServices.GetById(id);
-            //var categories = _categoryServices.GetItemsByProductId(id);
-
-            if (vProduct == null)
+            var im = new ProductIM() { Importance = 0, Active = true };
+            if (id != null)            
             {
-                AR.Setfailure(Messages.HttpNotFound);
-                return Json(AR, JsonRequestBehavior.AllowGet);
+                var vProduct = await _db.Products.Include(d=>d.ProductCategories).FirstOrDefaultAsync(d=>d.Id == id);           
+
+                if (vProduct == null)
+                {                
+                    return HttpNotFound();
+                }
+
+
+                im = _mapper.Map<ProductIM>(vProduct);
+        
+
+                if (vProduct.ProductCategories.Any())
+                    im.PostCategoryIds = vProduct.ProductCategories.Select(c => c.Id.ToString()).ToArray();
+
+                var pageMeta = await _db.PageMetas.FirstOrDefaultAsync(d=>d.ModelType == (short)ModelType.PRODUCT && d.ObjectId == im.Id.ToString());
+                if (pageMeta != null)
+                {
+                    im.Title = pageMeta.Title;
+                    im.Keywords = pageMeta.Keyword;
+                    im.SEODescription = pageMeta.Description;
+                }
             }
 
-            var editProduct = _mapper.Map<Product, ProductIM>(vProduct);
-
-            if (vProduct.Categories.Any())
-                editProduct.PostCategoryIds = vProduct.Categories.Select(c => c.Id.ToString()).ToArray();
-
-            var pageMeta = _pageMetaServices.GetPageMeta(ModelType.PRODUCT, editProduct.Id.ToString());
-            if (pageMeta != null)
-            {
-                editProduct.Title = pageMeta.Title;
-                editProduct.Keywords = pageMeta.Keyword;
-                editProduct.SEODescription = pageMeta.Description;
-            }
+           
 
             //var categoryList = _categoryRepository.GetActiveItems().OrderByDescending(c => c.Importance).ToList();
             //var lCategories = new SelectList(categoryList, "Id", "Title");
             //ViewBag.Categories = lCategories;
 
-            var allCategory = _categoryServices.GetActiveItems().OrderByDescending(c => c.Importance);
+            var allCategory = _db.ProductCategories.OrderByDescending(c => c.Importance);
             var lCategories = allCategory.Where(d => d.ParentId > 0);
             foreach (var item in lCategories)
             {
-                item.ParentCategory = allCategory.FirstOrDefault(d => d.Id == item.ParentId);
+                item.Parent = allCategory.FirstOrDefault(d => d.Id == item.ParentId);
             }
             //   var catselectList = categoryList.Select(d => new CategorySelectList { Id = d.Id, Title = d.Title, ParentTitle = d.ParentCategory.Title }).ToList();
 
@@ -221,8 +229,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             ViewBag.Categories = new SelectList(allCategory, "Id", "Title", 0);
             // 二级分类
             //ViewBag.Categories = new SelectList(lCategories, "Id", "Title", "ParentCategory.Title", 0);
-        
-            return View(editProduct);
+
+            return View(im);
 
 
         }
@@ -230,9 +238,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
 
         [HttpPost]
-
         [ValidateAntiForgeryToken]
-        public JsonResult EditProduct(ProductIM vm)
+        public async Task<JsonResult> Edit(ProductIM vm)
         {
 
             if (!ModelState.IsValid)
@@ -244,51 +251,63 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
             try
             {
-              
-
-                var result =  _productServices.Update(vm);
-                if (result)
+                if (vm.Id > 0)
                 {
-                    var pageMeta = _pageMetaServices.GetPageMeta(ModelType.PRODUCT, vm.Id.ToString());
-                    pageMeta = pageMeta ?? new PageMeta();
+                    var product = await _db.Products.Include(d=>d.ProductCategories).FirstOrDefaultAsync(d=>d.Id == vm.Id);
+                    product = _mapper.Map(vm, product);
 
-
-                    pageMeta.ObjectId = vm.Id.ToString();
-                    pageMeta.Title = string.IsNullOrEmpty(vm.Title) ? vm.Title : vm.Title;
-                    pageMeta.Keyword = string.IsNullOrEmpty(vm.Keywords) ? vm.Title : vm.Keywords.Replace('，', ',');
-                    pageMeta.Description = vm.SEODescription;
-                    pageMeta.ModelType = ModelType.PRODUCT;
-
-                    if (pageMeta.Id > 0)
+                    product.ProductCategories.Clear();
+                    if (vm.PostCategoryIds != null)
                     {
-                        _pageMetaServices.Update(pageMeta);
+                        var lCategories = (from c in _db.ProductCategories
+                                           where vm.PostCategoryIds.Contains(c.Id.ToString())
+                                           select c).ToList();
+
+                        product.ProductCategories = lCategories;
                     }
-                    else
-                    {
-                        _pageMetaServices.Create(pageMeta);
-                    }
+
+                    _db.Entry(product).State = EntityState.Modified;
+                    await _db.SaveChangesAsync();
+
+                    await SetPageMetaAsync(_db, (short)ModelType.PRODUCT, vm.Id.ToString(), vm.ProductName, vm.Title, vm.Keywords, vm.SEODescription);                   
                     AR.SetSuccess(String.Format(Messages.AlertUpdateSuccess, EntityNames.Product));
 
                 }
                 else
                 {
-                    AR.Setfailure(String.Format(Messages.AlertUpdateFailure, EntityNames.Product));
-                }           
+                   
+                    var product = _mapper.Map<Product>(vm);
+               
+                    if (vm.PostCategoryIds != null)
+                    {
+                        var lCategories = (from c in _db.ProductCategories
+                                           where vm.PostCategoryIds.Contains(c.Id.ToString())
+                                           select c).ToList();
+
+                        product.ProductCategories = lCategories;
+                    }
+
+                    _db.Products.Add(product);
+                    await _db.SaveChangesAsync();
+
+                    await SetPageMetaAsync(_db, (short)ModelType.PRODUCT, product.Id.ToString(), vm.ProductName, vm.Title, vm.Keywords, vm.SEODescription);
+                    AR.SetSuccess(String.Format(Messages.AlertUpdateSuccess, EntityNames.Product));
+                }
             }
             catch (Exception er)
             {
                 AR.Setfailure(er.Message);
-              
+
             }
             return Json(AR, JsonRequestBehavior.DenyGet);
 
         }
 
         [HttpPost]
-        public JsonResult Recommend(int id)
+        public async Task<JsonResult> Recommend(int id)
         {
 
-            Product vProduct = _productServices.GetById(id);
+            Product vProduct = await _db.Products.FindAsync(id);
 
             if (vProduct == null)
             {
@@ -300,10 +319,12 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             {
 
                 vProduct.Recommend = !vProduct.Recommend;
-                _productServices.Update(vProduct);
+                _db.Entry(vProduct).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
 
-                //   var vm = _mapper.Map<ProductVM>(vProduct);
-                AR.Data = RenderPartialViewToString("_ProductItem", vProduct);
+                var vm = _mapper.Map<ProductVM>(vProduct);
+                AR.Data = RenderPartialViewToString("_ProductItem", vm);
+
                 AR.SetSuccess(String.Format(Messages.AlertUpdateSuccess, EntityNames.Product));
                 return Json(AR, JsonRequestBehavior.DenyGet);
             }
@@ -318,18 +339,20 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult Active(int id)
+        public async Task<JsonResult> Active(int id)
         {
 
-            Product vProduct = _productServices.GetById(id);
+            Product vProduct = await _db.Products.FindAsync(id);
 
             try
             {
                 vProduct.Active = !vProduct.Active;
-                _productServices.Update(vProduct);
+                _db.Entry(vProduct).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
 
-                //   var vm = _mapper.Map<ProductVM>(vProduct);
-                AR.Data = RenderPartialViewToString("_ProductItem", vProduct);
+               var vm = _mapper.Map<ProductVM>(vProduct);
+
+                AR.Data = RenderPartialViewToString("_ProductItem", vm);
 
                 AR.SetSuccess(String.Format(Messages.AlertUpdateSuccess, EntityNames.Product));
                 return Json(AR, JsonRequestBehavior.DenyGet);
@@ -346,18 +369,20 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult Delete(int id)
+        public async Task<JsonResult> Delete(int id)
         {
 
-            // Product vProduct = _productRepository.GetById(id);
+            Product vProduct = await _db.Products.FindAsync(id);
 
-            //if (vProduct == null)
-            //{
-            //    AR.Setfailure(Messages.HttpNotFound);
-            //    return Json(AR, JsonRequestBehavior.DenyGet);
-            //}
+            if (vProduct == null)
+            {
+                AR.Setfailure(Messages.HttpNotFound);
+                return Json(AR, JsonRequestBehavior.DenyGet);
+            }
 
-            _productServices.Delete(id);
+            _db.Products.Remove(vProduct);
+            await _db.SaveChangesAsync();
+          
 
             AR.SetSuccess(String.Format(Messages.AlertDeleteSuccess, EntityNames.Product));
             return Json(AR, JsonRequestBehavior.DenyGet);
@@ -365,36 +390,36 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
         }
 
-        /// <summary>
-        /// 创建索引目录
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public JsonResult CreateIndex()
-        {
-            try
-            {
-                var list = _productServices.GetActiveElements().Select(m => new SearchData
-                {
-                    Id = $"PRODUCT{m.Id}",
-                    Name = m.ProductName,
-                    Description = m.Description,
-                    ImageUrl = m.Thumbnail,
-                    Url = $"{SettingsManager.Site.SiteDomainName}/product/detail/{m.Id}"
-                }).ToList();
+        ///// <summary>
+        ///// 创建索引目录
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpPost]
+        //public JsonResult CreateIndex()
+        //{
+        //    try
+        //    {
+        //        var list = _productServices.GetActiveElements().Select(m => new SearchData
+        //        {
+        //            Id = $"PRODUCT{m.Id}",
+        //            Name = m.ProductName,
+        //            Description = m.Description,
+        //            ImageUrl = m.Thumbnail,
+        //            Url = $"{SettingsManager.Site.SiteDomainName}/product/detail/{m.Id}"
+        //        }).ToList();
 
-                LuceneHelper.AddUpdateLuceneIndex(list);
+        //        LuceneHelper.AddUpdateLuceneIndex(list);
 
-                AR.SetSuccess(String.Format(Messages.AlertActionSuccess, EntityNames.Product));
-                return Json(AR, JsonRequestBehavior.DenyGet);
-            }
-            catch (Exception er)
-            {
-                AR.Setfailure(er.Message);
-                return Json(AR, JsonRequestBehavior.DenyGet);
-            }
+        //        AR.SetSuccess(String.Format(Messages.AlertActionSuccess, EntityNames.Product));
+        //        return Json(AR, JsonRequestBehavior.DenyGet);
+        //    }
+        //    catch (Exception er)
+        //    {
+        //        AR.Setfailure(er.Message);
+        //        return Json(AR, JsonRequestBehavior.DenyGet);
+        //    }
 
-        }
+        //}
 
 
 

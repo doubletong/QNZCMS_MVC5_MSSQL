@@ -373,7 +373,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             
             var editArticle = _mapper.Map<Article, ArticleIM>(vArticle);
 
-            var pageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d=>d.ModelType == (short)ModelType.ARTICLE && d.ObjectId == editArticle.Id.ToString());
+            var pageMeta = await _db.PageMetas.FirstOrDefaultAsync(d=>d.ModelType == (short)ModelType.ARTICLE && d.ObjectId == editArticle.Id.ToString());
             if (pageMeta != null)
             {
                 editArticle.SEOTitle = pageMeta.Title;

@@ -122,7 +122,6 @@
     <Compile Include="Admin\InputModel\Ads\CarouselIM.cs" />
     <Compile Include="Admin\InputModel\Ads\PositionIM.cs" />
     <Compile Include="Admin\InputModel\Articles\AcquisitionIM.cs" />
-    <Compile Include="Admin\InputModel\Articles\ArticleCategoryIM.cs" />
     <Compile Include="Admin\InputModel\Articles\ArticleIM.cs" />
     <Compile Include="Admin\InputModel\Articles\FilterTemplateIM.cs" />
     <Compile Include="Admin\InputModel\Chronicles\ChronicleIM.cs" />
@@ -143,10 +142,7 @@
     <Compile Include="Admin\InputModel\Menus\MenuCategoryIM.cs" />
     <Compile Include="Admin\InputModel\Menus\MenuIM.cs" />
     <Compile Include="Admin\InputModel\ModuleSet.cs" />
-    <Compile Include="Admin\InputModel\Outlets\OutletIM.cs" />
     <Compile Include="Admin\InputModel\Pages\PageIM.cs" />
-    <Compile Include="Admin\InputModel\Products\ProductCategoryIM.cs" />
-    <Compile Include="Admin\InputModel\Products\ProductIM.cs" />
     <Compile Include="Admin\InputModel\Teams\TeamIM.cs" />
     <Compile Include="Admin\InputModel\Videos\VideoCategoryIM.cs" />
     <Compile Include="Admin\InputModel\Videos\VideoIM.cs" />
@@ -155,8 +151,6 @@
     <Compile Include="Admin\ViewModel\Ads\PageCarouselListVM.cs" />
     <Compile Include="Admin\ViewModel\Ads\PositionListVM.cs" />
     <Compile Include="Admin\ViewModel\Ads\PositionVM.cs" />
-    <Compile Include="Admin\ViewModel\Articles\ArticleCategoryListVM.cs" />
-    <Compile Include="Admin\ViewModel\Articles\ArticleCategoryVM.cs" />
     <Compile Include="Admin\ViewModel\Articles\CommentListVM.cs" />
     <Compile Include="Admin\ViewModel\Articles\FilterTemplateListVM.cs" />
     <Compile Include="Admin\ViewModel\Articles\FilterTemplateVM.cs" />
@@ -177,11 +171,8 @@
     <Compile Include="Admin\ViewModel\Links\LinkListVM.cs" />
     <Compile Include="Admin\ViewModel\Links\LinkCategoryListVM.cs" />
     <Compile Include="Admin\ViewModel\Menus\MoveMenuVM.cs" />
-    <Compile Include="Admin\ViewModel\Outlets\OutletListVM.cs" />
     <Compile Include="Admin\ViewModel\Pages\PageListVM.cs" />
     <Compile Include="Admin\ViewModel\Pages\PageVM.cs" />
-    <Compile Include="Admin\ViewModel\Products\CategoryListVM.cs" />
-    <Compile Include="Admin\ViewModel\Products\ProductListVM.cs" />
     <Compile Include="Admin\ViewModel\System\BakFileVM.cs" />
     <Compile Include="Admin\ViewModel\System\LogSearchVM.cs" />
     <Compile Include="Admin\ViewModel\System\LogVM.cs" />
@@ -192,6 +183,7 @@
     <Compile Include="Admin\ViewModel\Videos\VideoCategoryVM.cs" />
     <Compile Include="Admin\ViewModel\Videos\VideoListVM.cs" />
     <Compile Include="Admin\ViewModel\Videos\VideoVM.cs" />
+    <Compile Include="AlbumVM.cs" />
     <Compile Include="ArticleVM.cs" />
     <Compile Include="CaseVM.cs" />
     <Compile Include="Front\HomeVM.cs" />
@@ -208,14 +200,14 @@
     <Compile Include="Front\ViewModel\Outlets\OutletFVM.cs" />
     <Compile Include="Front\ViewModel\Pages\PageFVM.cs" />
     <Compile Include="Front\ViewModel\Products\ProductCategoryVM.cs" />
-    <Compile Include="Front\ViewModel\Products\ProductListFVM.cs" />
-    <Compile Include="Front\ViewModel\Products\ProductVM.cs" />
     <Compile Include="Front\ViewModel\Videos\VideoCategoryFVM.cs" />
     <Compile Include="Front\ViewModel\Videos\VideoFVM.cs" />
     <Compile Include="InfoVM.cs" />
     <Compile Include="Inputs\Articles\ArticleIM.cs" />
     <Compile Include="InstituteVM.cs" />
     <Compile Include="JobVM.cs" />
+    <Compile Include="OutletVM.cs" />
+    <Compile Include="ProductVM.cs" />
     <Compile Include="Search\LuceneHelper.cs" />
     <Compile Include="Search\LuceneVM.cs" />
     <Compile Include="Pages\PagesProductVM.cs" />

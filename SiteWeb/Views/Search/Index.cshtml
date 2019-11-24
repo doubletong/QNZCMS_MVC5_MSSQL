@@ -1,75 +1,52 @@
-﻿@model SearchListVM
+﻿@model IEnumerable<ArticleVM>
 @{
     ViewBag.Title = "搜索";
-    ViewBag.Search = Model.SearchTerm;
+
 }
 
-    <div class="banner-search">
-        <div class="container ">
-            <div class="searchform">
-                @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { @class = "form-inline" }))
-                {
+<div class="banner banner-search">
+    <div class="container ">
+        <div class="searchform">
+            @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { @class = "form-inline" }))
+            {
 
-                    <div class="row no-gutters">
-                        <div class="col">
-                            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", autocomplete = "off", placeholder = "关键字" })
-                        </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary"><i class="iconfont icon-search"></i> 搜索</button>
-                        </div>
+                <div class="row no-gutters">
+                    <div class="col">
+                        @Html.TextBox("keyword",ViewData["Keyword"], new { @class = "form-control", autocomplete = "off", placeholder = "关键字" })
                     </div>
-                }
-            </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary"><i class="iconfont icon-search"></i></button>
+                    </div>
+                </div>
+            }
         </div>
     </div>
+</div>
 
-<div class="container page page-search">
-    <div class="results">      
-             <p>总计找到<strong>@Model.TotalCount</strong>条记录</p>
-            @if (Model.SearchIndexData != null ||  Model.SearchIndexData.Any())
+<div class=" page page-search">
+    <div class="results container">
+        @if (Model!=null)
+        {
+            foreach (var item in Model)
             {
-                foreach (var item in Model.SearchIndexData)
-                {
-        <div class="item">
-            <a href="@item.Url" class="row ">
-                <div class="col-auto">
-                    @if (!string.IsNullOrEmpty(item.ImageUrl))
-                    {
-                        <div class="thumb">
-                            <img src="@item.ImageUrl" alt="@item.Name" />
+                <div class="item">
+                    <a href="@Url.Action("Detail","Article",new { id = item.Id})" class="row no-gutters">
+                        <div class="col">
+                            <div class="title">
+                                @Html.Raw(item.Title.Replace(ViewData["Keyword"].ToString(), "<strong>" + ViewData["Keyword"].ToString() + "</strong>"))
+                            </div>
                         </div>
-                    }
-                </div>
-                <div class="col">
-                    <div class="des">
-                        <h3>
-                                @Html.Raw(System.Text.RegularExpressions.Regex.Replace(item.Name, Model.SearchTerm, "<strong>" + Model.SearchTerm + "</strong>", System.Text.RegularExpressions.RegexOptions.IgnoreCase))
-
-                        </h3>
-
-                        <p>
-                       
-
-                                @Html.Raw(System.Text.RegularExpressions.Regex.Replace(item.Description, Model.SearchTerm, "<strong>" + Model.SearchTerm + "</strong>", System.Text.RegularExpressions.RegexOptions.IgnoreCase))
-                     
-                        </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-                }
-            }
-            else
-            {
-                <div class="alert alert-info">
-                    <i class="iconfont icon-info"></i> 没有找到任何记录！
+                        <div class="col-auto">
+                            <div class="pubdate">
+                                @string.Format("{0:d}", item.Pubdate)
+                            </div>
+                        </div>
+                    </a>
                 </div>
             }
-  
-        <footer class="list-footer">    
-              
-                    @Html.PagedListPager(Model.SearchIndexData, page => Url.Action("Index", new { page = page }))
-            
-        </footer>
+        }
+
+
+
     </div>
 </div>

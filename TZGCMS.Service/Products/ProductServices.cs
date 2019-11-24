@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using TZGCMS.Data.Entity.Products;
 using TZGCMS.Infrastructure.Extensions;
-using TZGCMS.Model.Admin.InputModel.Products;
+using TZGCMS.Model;
 
 namespace TZGCMS.Service.Products
 {

@@ -63,6 +63,7 @@ namespace TZGCMS.Model
 
     public class LaboratoryListVM
     {
+        public int? InstituteId { get; set; }
         public string Keyword { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
@@ -74,6 +75,7 @@ namespace TZGCMS.Model
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string InstituteTitle { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int Importance { get; set; }
         public bool Active { get; set; }
@@ -86,7 +88,9 @@ namespace TZGCMS.Model
         [Display(ResourceType = typeof(Labels), Name = "Title")]
         [Required(ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "Required")]
         public string Title { get; set; }
-
+        [Display(ResourceType = typeof(Labels), Name = "Content")]
+        [AllowHtml]
+        public string Body { get; set; }
 
         [Display(ResourceType = typeof(Labels), Name = "Importance")]
         public int Importance { get; set; }

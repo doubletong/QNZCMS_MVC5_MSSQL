@@ -1,17 +1,11 @@
-﻿@model  Product
+﻿@model  ProductVM
 <tr class="item-container">
    
     <td>
         @if (!string.IsNullOrEmpty(Model.Thumbnail))
-    {
-        <a href="@Model.Thumbnail" data-toggle="lightbox" title="@Model.ProductName">
+        {
+        <a href="@Model.ViewImage" data-toggle="lightbox" title="@Model.ProductName">
             <img class="img-thumbnail" src="@string.Format("{0}?height=40", Model.Thumbnail)" alt="@Model.ProductName" />
-        </a>
-}
-        @if (!string.IsNullOrEmpty(Model.Cover))
-    {
-        <a href="@Model.Cover" data-toggle="lightbox" title="@Model.ProductName">
-            <img class="img-thumbnail" src="@string.Format("{0}?height=40", Model.Cover)" alt="@Model.ProductName" />
         </a>
 }
 
@@ -36,7 +30,7 @@
         }
     </td>
     <td>
-        @Model.CategoryTitle
+        @string.Join("，",Model.ProductCategories.Select(d => d.Title).ToArray())
     </td>
     <td>
         @Model.Importance
@@ -45,7 +39,7 @@
         @Model.ViewCount
     </td>
     <td>
-        @if (Model.Active)
+        @if (Model.Active==true)
         {
             <a href="#" data-url="@Url.Action("Active", new {id = Model.Id})" class="active-item" title="激活" data-action="锁定">
                 <i class="fa fa-check text-success"></i>
@@ -59,7 +53,7 @@
         }
     </td>
     <td>
-        @if (Model.Recommend)
+        @if (Model.Recommend==true)
         {
             <a href="#" data-url="@Url.Action("Recommend", new {id = Model.Id})" class="active-item" title="首页推荐" data-action="撤消推荐">
                 <i class="fa fa-check text-success"></i>
@@ -78,7 +72,7 @@
     <td>@Model.CreatedDate.ToShortDateString()</td>
     <td>     
         @*<a href="@Url.Action("UploadPhotos",new {productId = Model.Id})" class="btn btn-primary btn-sm" title="@Buttons.Edit"><i class='fa fa-picture-o fa-fw'></i></a>*@
-        <a href="@Url.Action("EditProduct",new {id = Model.Id})" class="btn btn-primary btn-sm" title="@Buttons.Edit"><i class='fa fa-edit fa-fw'></i></a>
+        <a href="@Url.Action("Edit",new {id = Model.Id})" class="btn btn-primary btn-sm" title="@Buttons.Edit"><i class='fa fa-edit fa-fw'></i></a>
         <a href="#" data-url="@Url.Action("Delete", new {id = Model.Id})" class="btn btn-danger btn-sm delete-item" title="@Buttons.Delete">
             <i class="fa fa-trash-o fa-fw"></i>
         </a>

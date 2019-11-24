@@ -33,12 +33,12 @@ namespace SIG.Model.Mapping
             {
                 m.MapLeftKey("ProductId");
                 m.MapRightKey("CategoryId");
-                m.ToTable("ProductCategory");
+                m.ToTable("ProductWithCategory");
             });
 
 
 
-            this.ToTable("ProductSet");
+            this.ToTable("Products");
         }
     }
 }

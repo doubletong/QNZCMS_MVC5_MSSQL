@@ -29,7 +29,7 @@ namespace TZGCMS.Data.Mapping
             this.Property(e => e.Description).HasMaxLength(500).IsOptional();
 
             // Table & Column Mappings
-            this.ToTable("PageMetaSet");
+            this.ToTable("PageMetas");
 
        
         }

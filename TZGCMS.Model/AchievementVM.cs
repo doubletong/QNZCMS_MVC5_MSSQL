@@ -63,6 +63,7 @@ namespace TZGCMS.Model
 
     public class AchievementListVM
     {
+        public int? CategoryId { get; set; }
         public string Keyword { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
@@ -84,6 +85,7 @@ namespace TZGCMS.Model
         public int Id { get; set; }
       
         public string Title { get; set; }
+        public string CategoryTitle { get; set; }
         public string Thumbnail { get; set; } // Thumbnail (length: 150)
         public System.DateTime? Pubdate { get; set; } // Pubdate
         public int ViewCount { get; set; } // ViewCount

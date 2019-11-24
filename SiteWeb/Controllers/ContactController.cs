@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AutoMapper.QueryableExtensions;
+using QNZ.Data;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -9,6 +11,7 @@ using TZGCMS.Data.Entity.Emails;
 using TZGCMS.Data.Enums;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.Helper;
+using TZGCMS.Model;
 using TZGCMS.Model.Front.InputModel.Emails;
 using TZGCMS.Model.Front.ViewModel;
 using TZGCMS.Resources.Front;
@@ -19,31 +22,38 @@ namespace TZGCMS.SiteWeb.Controllers
 {
     public class ContactController : BaseController
     {
+
         TZGCMS.Infrastructure.Email.IEmailService _emailService;
         private readonly IEmailTemplateServices _templateService;
         private readonly IEmailServices _emailListService;
         private readonly IEmailAccountServices _accountService;
-    
+        private readonly IQNZDbContext _db;
+
         public ContactController(
             IEmailTemplateServices templateService,
             IEmailServices emailListService,
             IEmailAccountServices accountService,
-            TZGCMS.Infrastructure.Email.IEmailService emailService)
+            TZGCMS.Infrastructure.Email.IEmailService emailService, IQNZDbContext db)
         {
             _emailService = emailService;
             _templateService = templateService;
             _emailListService = emailListService;
             _accountService = accountService;
+            _db = db;
         }
         // GET: Contact
         public async Task<ActionResult> Index()
         {
+            var vm = await _db.Outlets.Where(d => d.Active).OrderByDescending(d => d.Importance).ProjectTo<OutletVM>().ToListAsync();
+
+
             var url = Request.RawUrl;
-            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == ModelType.MENU && d.ObjectId == url);
-            return View();
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == url);
+            return View(vm);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult SendEmail(EmailIM vm)
         {
 

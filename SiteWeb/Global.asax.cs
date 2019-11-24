@@ -35,10 +35,10 @@ namespace TZGCMS.SiteWeb
             //ViewEngines.Engines.Clear();
             ////Register Razor View Engine
             //ViewEngines.Engines.Add(new CSharpRazorViewEngine());
-            
+
 
             //log config
-            log4net.Config.XmlConfigurator.Configure();
+            log4net.Config.XmlConfigurator.Configure();        
             log4net.GlobalContext.Properties["user"] = new HttpContextUserNameProvider();
 
             DependencyRegistrar.Register();

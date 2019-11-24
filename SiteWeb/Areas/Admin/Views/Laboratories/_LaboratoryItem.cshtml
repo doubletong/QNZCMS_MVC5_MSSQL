@@ -1,18 +1,20 @@
 ﻿@model LaboratoryVM
     <tr class="item-container" id="@string.Format("container{0}",Model.Id)">
-  
+
         <td>
             @Model.Title
         </td>
 
-
+        <td>
+            @Model.InstituteTitle
+        </td>
 
         <td>
             @Model.Importance
         </td>
 
         <td>
-            @string.Format("{0:d}",Model.CreatedDate)
+            @string.Format("{0:d}", Model.CreatedDate)
         </td>
         <td>
             @if (Model.Active)

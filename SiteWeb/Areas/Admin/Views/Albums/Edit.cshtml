@@ -1,0 +1,156 @@
+﻿@model AlbumIM
+@{
+
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/_Layout2019.cshtml";
+    ViewBag.Title = (Model.Id >0 ? "编辑" : "新建") + EntityNames.Album;
+   
+}
+
+
+@section Header{
+
+    <link href="~/Plugins/datetimepicker/jquery.datetimepicker.css" rel="stylesheet" />
+}
+
+
+@using (Ajax.BeginForm("Edit", null, new AjaxOptions
+{
+
+    HttpMethod = "POST",
+    OnBegin = "onBeginSave",
+    OnComplete = "onCompleteSave",
+    OnSuccess = "updateSuccess"
+
+}, new { @class = "form-horizontal", role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+
+
+    <div class="card">
+        <header class="card-header">
+            <span class="glyphicon glyphicon-edit"></span> @ViewBag.Title
+        </header>
+
+        <section class="card-body">
+            <div class="row">
+                <div class="col-md">
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Title)
+
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = Labels.Title })
+                        @Html.ValidationMessageFor(model => model.Title)
+
+                    </div>
+
+
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Importance)
+
+                        @Html.TextBoxFor(model => model.Importance, new { @class = "form-control", placeholder = Labels.Importance })
+                        @Html.ValidationMessageFor(model => model.Importance)
+
+                    </div>
+
+
+                    <div class="form-group form-check">
+                        @Html.CheckBoxFor(model => model.Active, new { @class = "form-check-input" })
+                        <label class="form-check-label" for="Active">激活</label>
+                    </div>
+
+                </div>
+                <div class="col-md-auto">
+
+                    <div style="width:300px; text-align:center;" class="mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <img ID="iLogo" src="@(string.IsNullOrEmpty(Model.Cover) ? "holder.js/240x180?text=590X376像素" : Model.Cover )" class="img-fluid" />
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" id="btnThumbnail" class="btn btn-info btn-block"><i class="iconfont icon-image"></i> 封面...</button>
+                                @Html.HiddenFor(model => model.Cover)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="width:300px; text-align:center;" class="mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <img ID="iLogo2" src="@(string.IsNullOrEmpty(Model.Banner) ? "holder.js/240x100?text=1840X720像素" : Model.Banner )" class="img-fluid" />
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" id="btnBanner" class="btn btn-info btn-block"><i class="iconfont icon-image"></i> 横幅...</button>
+                                @Html.HiddenFor(model => model.Banner)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </section>
+        <footer class="card-footer text-center">
+            <button type="submit" class="btn btn-primary" id="btnSave"><i class="iconfont icon-save"></i>  @Buttons.Update </button>
+            <a href="@Url.Action("Index")" class="btn btn-secondary"><i class="iconfont icon-arrowleft"></i> @Buttons.Back</a>
+        </footer>
+
+    </div>
+}
+
+
+
+
+@section Footer {
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+    <script src="~/Plugins/holderjs/holder.min.js"></script>
+    <script>
+
+
+        function SetThumbnail(fileUrl) {
+            $("#iLogo").attr("src", fileUrl);
+            $('#Cover').val(fileUrl);
+        }
+        function SetBanner(fileUrl) {
+            $("#iLogo2").attr("src", fileUrl);
+            $('#Banner').val(fileUrl);
+        }
+
+         function onBeginSave() {
+            $("#btnSave").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  提交中...');
+
+        }
+        function onCompleteSave() {
+            $("#btnSave").html('<i class="iconfont icon-save"></i> 保存');
+        }
+
+        function updateSuccess(data) {
+            var title = '@ViewBag.Title';
+            Common.ShowBox(data.Status, data.Message, title);
+        }
+
+
+
+
+        $(function () {
+
+            $("#btnThumbnail").on("click", function() {
+                singleEelFinder.selectActionFunction = SetThumbnail;
+                singleEelFinder.open();
+            });
+            $("#btnBanner").on("click", function() {
+                singleEelFinder.selectActionFunction = SetBanner;
+                singleEelFinder.open();
+            });
+
+
+        })
+
+    </script>
+}
+
+
+
+

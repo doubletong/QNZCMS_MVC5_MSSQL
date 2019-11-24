@@ -5,8 +5,7 @@
 }
 
 @section Header{
-    <link href="~/plugins/SigFinder/SigFinder.min.css" rel="stylesheet" />
-    <link href="~/plugins/webuploader/webuploader.css" rel="stylesheet" />
+
 }
 
 
@@ -297,11 +296,10 @@
 </div>
 <!-- end main container -->
 
-@Html.Action("PopuFinder", "File")
+
 @section footer {
     @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
-    <script src="/Plugins/webuploader/webuploader.min.js"></script>
-    <script src="/Plugins/SigFinder/FileManager.js"></script>
+
 
     <script src="http://api.map.baidu.com/api?v=2.0&ak=G7h0sKsr60IFU3OrHRmKTRzD"></script>
 
@@ -365,16 +363,16 @@
     </script>
 
     <script>
-        function SetThumbnail() {
-            var fileUrl = $("#fileList .item.active").attr("data-file");
+        function SetThumbnail(fileUrl) {
+       //     var fileUrl = $("#fileList .item.active").attr("data-file");
             $('#WeiXingCode').val(fileUrl);
-            $('#fileManagerModal').modal('hide');
+       //     $('#fileManagerModal').modal('hide');
         }
 
-        function SetThumbnail2() {
-            var fileUrl = $("#fileList .item.active").attr("data-file");
+        function SetThumbnail2(fileUrl) {
+            //var fileUrl = $("#fileList .item.active").attr("data-file");
             $('#WeiXingCode2').val(fileUrl);
-            $('#fileManagerModal').modal('hide');
+            //$('#fileManagerModal').modal('hide');
         }
 
         function onBegin() {
@@ -425,19 +423,13 @@
         $(function () {
 
             $("#btnWeiXingCode").on("click", function () {
-                $('#fileManagerModal').modal();
-                $("#selectImage").unbind('click');
-                $("#selectImage").bind("click", function () {
-                    SetThumbnail();
-                });
+                singleEelFinder.selectActionFunction = SetThumbnail;
+                singleEelFinder.open();           
             });
 
             $("#btnWeiXingCode2").on("click", function () {
-                $('#fileManagerModal').modal();
-                $("#selectImage").unbind('click');
-                $("#selectImage").bind("click", function () {
-                    SetThumbnail2();
-                });
+                singleEelFinder.selectActionFunction = SetThumbnail2;
+                singleEelFinder.open();     
             });
 
             $('[data-toggle="popover"]').popover()

@@ -1,9 +1,9 @@
-﻿@model ProductCategory
+﻿@model QNZ.Data.ProductCategory
 
 <tr class="item-container" id="@string.Format("container{0}",Model.Id)">
 
     <td>
-        @if (Model.ChildCategories.Any())
+        @if (Model.ProductCategories.Any())
         {
         <a href="#" class="open" data-for="@Model.Id">
             <i class="fa fa-plus-circle"></i>
@@ -39,22 +39,17 @@
     </td>
 
     <td>
-        @Ajax.RawActionLink("<i class='fa fa-edit'></i>",
-                        "Edit", "ProductCategory",
-                        new { id = Model.Id },
-                        new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
-                        new { @class = "btn btn-primary btn-sm", title = Buttons.Edit })
-
+        <a href="@Url.Action("Edit",new {id = Model.Id})" class="btn btn-primary btn-sm" title="@Buttons.Edit"><i class='iconfont icon-edit'></i></a>
         <a href="#" data-url="@Url.Action("Delete", new {id = Model.Id})" class="btn btn-danger btn-sm delete-item" title="@Buttons.Delete">
-            <i class="fa fa-trash-o"></i>
+            <i class="iconfont icon-delete"></i>
         </a>
     </td>
 </tr>
 
-    @if (Model.ChildCategories.Any())
+    @if (Model.ProductCategories.Any())
     {
         
-            foreach (var item in Model.ChildCategories)
+            foreach (var item in Model.ProductCategories)
             {
                 <tr class="item-container subItem" style="background-color:#f1f1f1;" id="@string.Format("container{0}",item.Id)" data-parent="@item.ParentId">
                     <td>

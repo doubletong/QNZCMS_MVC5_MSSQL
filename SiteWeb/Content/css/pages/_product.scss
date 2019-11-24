@@ -1,5 +1,6 @@
-.page-products {
-    background-color: #f7f7f7;
+﻿.page-products {
+    padding-left: 130px;
+
 
     .s1 {
         padding-bottom: 1rem;
@@ -12,61 +13,55 @@
             padding-bottom: 3rem;
         }
 
-        .title-section {
-            text-align: center;
-            margin-bottom: 1rem;
 
-            @include respond-above (sm) {
-                margin-bottom: 2rem;
-            }
-
-            @include respond-above (md) {
-                margin-bottom: 3rem;
-            }
-        }
 
         .productlist {
             .item {
                 background-color: #fff;
                 display: block;
-                margin-bottom: 30px;
-                text-align: center;
+                margin-bottom: 30px;              
                 padding-bottom: 2rem;
-
+                color:#666;
                 .pic {
+                    border: 1px #fff solid;
+
                     img {
                         width: 100%;
                     }
                 }
 
                 .text {
-                    padding: 0 1rem;
+                    padding: 0;
 
                     h3 {
                         font-size: rem(24);
+                        font-weight: normal;
+                        font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
+                        text-align:left;
+                        display:inline-block;
+                        border-bottom:1px #eee solid;
+                        padding-bottom:6px;
+                        margin-bottom:10px;
                     }
 
                     p {
-                        font-size: rem(14);
-                        padding: 0 1rem;
-                        margin-bottom: 1rem;
+                     
+                        padding: 0;                      
+                        margin:0;
                     }
 
-                    .more {
-                        display: inline-block;
-                        padding: .1rem 1rem;
-                        background-color: #c9caca;
-                        color: #fff;
-                        font-size: rem(14);
-                    }
+                   
                 }
 
-                @include hover {
+                &:hover {
+                    color:$color-primary;
+                    .pic {
+                        border: #eee 1px solid;
+                    }
+
                     .text {
-                        .more {
-                            background-image: -moz-linear-gradient( 6deg, rgb(255,57,56) 0%, rgb(255,160,37) 100%);
-                            background-image: -webkit-linear-gradient( 6deg, rgb(255,57,56) 0%, rgb(255,160,37) 100%);
-                            background-image: -ms-linear-gradient( 6deg, rgb(255,57,56) 0%, rgb(255,160,37) 100%);
+                        h3{
+                            border-bottom-color:$color-primary;
                         }
                     }
                 }
@@ -74,57 +69,6 @@
         }
     }
 
-    .s2 {
-        padding-top: 5rem;
-
-        .title-section {
-            text-align: center;
-            margin-bottom: 1rem;
-
-            @include respond-above (sm) {
-                margin-bottom: 2rem;
-            }
-
-            @include respond-above (md) {
-                margin-bottom: 3rem;
-            }
-        }
-
-        .pxlist {
-            .item {
-                border: #bfbfbf 1px solid;
-                padding: 3rem 2rem;
-                text-align: center;
-                margin-bottom: 1rem;
-
-                @include respond-above (sm) {
-                    padding: 3rem 1rem;
-                }
-
-                @include respond-above (md) {
-                    padding: 4rem 2rem;
-                }
-
-                h3 {
-                    color: #333;
-                    font-size: rem(24);
-                }
-
-                .more {
-                    display: inline-block;
-                    border: 1px $color-primary solid;
-                    padding: .4rem 2rem;
-                    color: $color-primary;
-                    font-size: rem(20);
-                    margin: 2rem auto;
-                }
-
-                p {
-                    font-size: rem(18);
-                }
-            }
-        }
-    }
 }
 .page-product-detail {
     .title-section {

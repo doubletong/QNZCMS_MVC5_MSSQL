@@ -1,41 +1,46 @@
 ﻿@model OutletListVM
 
 @{
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/_Layout2019.cshtml";
     ViewBag.Title = EntityNames.Outlet;
-    ViewBag.PageTitle = ViewBag.Title + "_组件";
+    // ViewBag.PageTitle = ViewBag.Title + "_组件";
 }
 
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        @Ajax.RawActionLink("<i class='fa fa-plus fa-fw'></i>添加" + EntityNames.Outlet,
-                          "Create", "Outlet",
-                          new { },
-                          new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
-                          new { title = "创建" + EntityNames.Outlet, @class = "btn btn-primary pull-right" })
-
-        <form class="form-inline">
+<div class="row mb-3">
+    <div class="col-sm">
+        @using (Html.BeginForm("Index", "ArticleCategory", FormMethod.Get, new { @class = "form-inline" }))
+        {
             <div class="form-group">
-                <label for="Keyword">关键字</label>
-                @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
-
+                <label class="sr-only" for="Keyword">关键字</label>
+                @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control mr-sm-2", placeholder = "关键字" })
             </div>
-            <button type="submit" class="btn btn-primary"><i class="fa fa-search fa-fw"></i>查找</button>
-        </form>
+            <button type="submit" class="btn btn-primary"><i class="iconfont icon-search"></i> 查找</button>
+        }
     </div>
-     <table class="table table-hover table-vmiddle">
+    <div class="col-sm-auto">
+        <a class="btn btn-primary" href="@Url.Action("Edit")"><i class="iconfont icon-edit"></i> @string.Format("{0}{1}", Buttons.Add, EntityNames.Outlet)</a>
+        @*<a class="btn btn-outline-secondary createIndex" href="#" data-url="@Url.Action("CreateIndex")"><i class="iconfont icon-securityscan"></i> @Buttons.CreateIndex</a>*@
+    </div>
+
+</div>
+
+
+<div class="table-responsive">
+
+    <table class="table table-hover table-striped table-vmiddle">
         <thead>
             <tr>
-
+                <th>
+                    图片
+                </th>
                 <th>
                     名称
                 </th>
                 <th>
                     地址
                 </th>
-                <th>
-                    坐标
-                </th>
+           
                 <th>
                     联系人
                 </th>
@@ -52,26 +57,37 @@
             </tr>
         </thead>
         <tbody id="tbList">
-            @Html.Partial("_OutletList", Model.Outlets)
+            @foreach (var item in Model.Outlets)
+            {
+                Html.RenderPartial("_OutletItem", item);
+            }
+
+            @*@Html.Partial("_OutletList", Model.Outlets)*@
         </tbody>
     </table>
-    <div class="panel-footer">
-        <div class="row">
-            <div class="col-sm-7">
-                @Html.PagedListPager(Model.Outlets, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }))
-            </div>
-            <div class="col-sm-5">
-                <div class="form-inline text-right">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
-                        @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
-                    </div>
-                </div>
-            </div>
+
+</div>
+
+<div class="container-fluid pt-3" style="background-color: #fff;">
+    <div class="row">
+        <div class="col">
+            @Html.PagedListPager(Model.Outlets, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }), new PagedListRenderOptions()
+            {
+                LiElementClasses = new List<string> { "page-item" }
+
+            })
         </div>
+        <div class="col-md-auto">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">总记录<strong>@Model.TotalCount</strong>条，分页</span>
+                </div>
+                @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "custom-select" })
+            </div>
 
-
+        </div>
     </div>
+
 </div>
 
 <!-- end main container -->
@@ -171,7 +187,7 @@
                 })
             });
         }
-       
+
 
 
 
@@ -205,7 +221,7 @@
                 });
             });
 
-     
+
         }
         function onBegin() {
             $("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin")

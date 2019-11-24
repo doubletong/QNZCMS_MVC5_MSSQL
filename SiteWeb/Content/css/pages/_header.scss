@@ -1,112 +1,114 @@
-.site-header {
-    position: absolute;
+.progress {
+    position: fixed;
     left: 0;
     top: 0;
-    z-index: 8000;
-    width: 100%;
-    font-weight: bold;
-    background-color: #fff;
-    height: 45px;
-    box-shadow: 0 0 8px rgba(0,0,0,.15);
-    padding: 0 15px;
+    height:100vh;
+    width:65px;
+    background-color:$color-primary;
+    z-index:300;
+}
+.site-header {
+    position: fixed;
+    left: 0;
+    top: 4vh;
+    z-index: 1000;
+    width: 130px;
+    height: 92vh;
+    background: url(../img/nav_03.png) no-repeat bottom center;
+    padding-bottom: 40px;
+    padding-top: 40px;
+    background-size: 100% auto;
 
-    @include respond-above (sm) {
-        height: 60px;
-    }
-
-    @include respond-above (md) {
-        padding: 1rem 3rem 1rem;
-        height: auto;
-        box-shadow: none;
-    }
-
-    @include respond-above (lg) {
-        padding: 1rem 4rem 1rem;
-    }
-
-    @include respond-above (xlg) {
-        padding: 1rem 5rem 1rem;
-    }
-
-    .wrap {
-        height: 100%;
-
-        .row {
-            height: 100%;
-        }
-    }
-
-    .logo {
-        @include respond-above (xlg) {
-            position: absolute;
-            left: 0;
-            top: -1rem;
-            z-index: 300;
-        }
-
-
-        img {
-            display: block;
-            height: 30px;
-
-            @include respond-above (md) {
-                height: 50px;
-            }
-
-            @include respond-above (xlg) {
-                height: auto;
-            }
-        }
-    }
 
     .topcol {
-        text-align: right;
+        height: 50px;
+        background: url(../img/nav_02.png) no-repeat top center;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 100;
+        width: 100%;
+        background-size: 100% auto;
+    }
 
 
-        @include respond-above (md) {
-            padding-right: 0;
+
+    .wrap {
+        text-align: center;
+        height: 100%;
+        background: url(../img/nav_04.png) repeat-y top center;
+        background-size: 100% auto;
+        padding-top: 1.3rem;
+        position: relative;
+
+        .logo {
+            display: block;
+            margin-bottom: 12vh;
+
+            img {
+                width: 80px;
+            }
         }
 
-        a {
-            margin-left: 1rem;
-            color: #666;
+        .iconsocai {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            text-align: center;
+            width: 100%;
 
+            a {
+                color: #b3b3b3;
+                width: 26px;
+                display: inline-block;
 
-            @include respond-above (lg) {
-                font-size: rem(20);
-            }
+                .iconfont {
+                    font-size: rem(20);
+                }
 
-            @include respond-above (xlg) {
-                font-size: rem(22);
-            }
+                &.wechat {
+                    position: relative;
 
-            &.nav-item {
-                display: none;
+                    img {
+                        display: block;
+                        position: absolute;
+                        left: 50%;
+                        top: -120px;
+                        max-width: none;
+                        z-index: 100;
+                        margin-left: -53px;
+                        opacity: 0;
+                        transition: all .2s;
+                    }
 
-                @include respond-above (md) {
-                    display: inline;
+                    &:hover {
+                        img {
+                            opacity: 1;
+                            top: -110px;
+                        }
+                    }
                 }
             }
         }
     }
 
-    .mobile-col {
-        @include respond-above (md) {
-            display: none;
-        }
+
+
+    .menu-button {
     }
 
 
     .menu-toggle {
         width: 28px;
         cursor: pointer;
+        margin: 0 auto;
 
         .one,
         .two,
         .three {
             width: 100%;
             height: 2px;
-            background-color: #666;
+            background-color: #333;
             margin: 6px auto;
             backface-visibility: hidden;
             -moz-transition-duration: 0.3s;
@@ -145,20 +147,7 @@
         background-color: #fff;
         padding-top: 1rem;
 
-        @include respond-above (md) {
-            display: block;
-            position: relative;
-            width: auto;
-            left: auto;
-            top: auto;
-            background-color: transparent;
-            padding-top: 0;
-            text-align: center;
-        }
 
-        @include respond-above (xlg) {
-            text-align: right;
-        }
 
         li {
             text-align: center;
@@ -245,8 +234,6 @@
                     color: #fff;
 
                     &:hover {
-                        background-color: #fff;
-                        color: $color-primary;
                     }
                 }
             }

@@ -25,6 +25,7 @@ namespace TZGCMS.Data.Entity
         public TZGEntities()
             : base("name=QNZDbContext")
         {
+            Database.SetInitializer<TZGEntities>(null);
         }
 
         public virtual DbSet<SimpleProduct> SimpleProducts { get; set; }

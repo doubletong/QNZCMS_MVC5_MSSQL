@@ -1,28 +1,37 @@
-﻿.wrapper{
+﻿.wrapper {
     overflow: hidden;
-      width: 100%;
-}
+    width: 100%;
 
-.leftcol {
-    position: absolute;
-    width: 170px;
-    left: 0;
-    float: left;
-    margin: 0;
-    background-color: #333333;
-    min-height: 100%;
+    .leftcol {
+        position: absolute;
+        width: 170px;
+        left: 0;
+        float: left;
+        margin: 0;
+        background-color: #333333;
+        min-height: 100%;
+     
+        .logo {
+            text-align: center;
+            text-align: center;
+            padding: 15px;
+            border-bottom: 1px #222222 solid;
 
-    .logo {
-        text-align: center;
-        text-align: center;
-        padding: 15px;
-        border-bottom: 1px #222222 solid;
+            img {
+                max-width: 100%;
+            }
+        }
+    }
 
-        img {
-            max-width: 100%;
+
+   &.nonav {
+        .leftcol {
+            display: none;
         }
     }
 }
+
+
 .rightcol {
     margin: 0 0 0 170px;
     position: relative;

@@ -1,4 +1,4 @@
-﻿@model SimpleProduct
+﻿@model QNZ.Data.Product
 @{
     PageMeta pm = (PageMeta)ViewBag.PageMeta;
     ViewBag.Title = pm != null ? pm.Title : Model.ProductName;
@@ -14,7 +14,7 @@
 }
 
 
-@Html.Action("SingleAd", "AD", new { code = "A1007" })
+@*@Html.Action("SingleAd", "AD", new { code = "A1007" })*@
 
 <div class="page page-product-detail">
     <div class="container">
@@ -55,18 +55,8 @@
             <div id="content01" class="content active">
                 @Html.Raw(Model.Body)
             </div>
-            <div id="content02" class="content">
-                @Html.Raw(Model.Parameters)
-            </div>
-            <div id="content03" class="content">
-                @Html.Raw(Model.Specific)
-            </div>
-            <div id="content04" class="content">
-                @Html.Raw(Model.Controls)
-            </div>
-            <div id="content05" class="content">
-                @Html.Raw(Model.Videos)
-            </div>
+
+         
         </div>
     </section>
 </div>

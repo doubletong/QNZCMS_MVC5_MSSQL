@@ -8,14 +8,14 @@ using System.Xml.Linq;
 using TZGCMS.Data.Enums;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.Helper;
-using TZGCMS.Model.Admin.InputModel.Articles;
+
 using TZGCMS.Model.Admin.ViewModel;
-using TZGCMS.Model.Admin.ViewModel.Articles;
 using TZGCMS.Resources.Admin;
 
 using System.Data.Entity;
 using System.Threading.Tasks;
 using QNZ.Data;
+using TZGCMS.Model;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
@@ -44,7 +44,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
         }
 
-        private async System.Threading.Tasks.Task<ArticleCategoryListVM> GetElementsAsync(int? page, string keyword)
+        private async Task<ArticleCategoryListVM> GetElementsAsync(int? page, string keyword)
         {
             var vm = new ArticleCategoryListVM()
             {
@@ -88,60 +88,6 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             }
         }
 
-        //[HttpGet]
-        //public ActionResult Add()
-        //{
-        //    var vCategory = new ArticleCategoryIM()
-        //    {
-        //        Active = true,
-        //        Importance = 0
-        //    };
-        //    return PartialView("_Add", vCategory);
-        //}
-
-
-
-        //[HttpPost]
-        //public JsonResult Add(ArticleCategoryIM vm)
-        //{
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        AR.Setfailure(GetModelErrorMessage());
-        //        return Json(AR, JsonRequestBehavior.DenyGet);
-        //    }
-
-        //    var newCategory = _mapper.Map<ArticleCategoryIM, ArticleCategory>(vm);
-        //    //newCategory.CreatedBy = Site.CurrentUserName;
-        //    //newCategory.CreatedDate = DateTime.Now;
-
-        //    var result = _db.ArticleCategories.Add(newCategory);
-        //    _db.SaveChanges();
-        //        //_categoryServices.Create(newCategory);
-
-        //    if (result!=null)
-        //    {
-        //        var pageMeta = new PageMetaSet()
-        //        {
-        //            ObjectId = result.ToString(),
-        //            Title = string.IsNullOrEmpty(vm.SEOTitle) ? vm.Title : vm.SEOTitle,
-        //            Keyword = string.IsNullOrEmpty(vm.Keywords) ? vm.Title : vm.Keywords.Replace('，', ','),
-        //            Description = vm.SEODescription,
-        //            ModelType = (short)ModelType.ARTICLECATEGORY
-        //        };
-        //        _db.PageMetaSets.Add(pageMeta);
-        //        _db.SaveChanges();
-        //        //_pageMetaServices.Create(pageMeta);
-        //    }
-               
-        //    var pageSize = SettingsManager.Article.PageSize;
-        //    var list = _db.ArticleCategories.OrderByDescending(d=>d.Importance).Skip(0).Take(pageSize).ToList();
-        //     //   _categoryServices.GetPagedElements(0, pageSize, string.Empty, out count);            
-        //    AR.Data = RenderPartialViewToString("_CategoryList", list);
-        //    AR.SetSuccess(String.Format(Messages.AlertCreateSuccess, EntityNames.ArticleCategory));
-        //    return Json(AR, JsonRequestBehavior.DenyGet);
-
-        //}
 
 
         [HttpGet]
@@ -159,7 +105,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
                 var editCase = _mapper.Map<ArticleCategory, ArticleCategoryIM>(vCase);
 
-                var pageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.ARTICLECATEGORY && d.ObjectId == editCase.Id.ToString());
+                var pageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.ARTICLECATEGORY && d.ObjectId == editCase.Id.ToString());
                 if (pageMeta != null)
                 {
                     editCase.SEOTitle = pageMeta.Title;
@@ -211,7 +157,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                  
 
 
-                    AR.SetSuccess(String.Format(Messages.AlertUpdateSuccess, EntityNames.Case));
+                    AR.SetSuccess(String.Format(Messages.AlertUpdateSuccess, EntityNames.Category));
                     return Json(AR, JsonRequestBehavior.DenyGet);
                 }
                 else
@@ -228,7 +174,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                         await SetPageMetaAsync(_db, (short)ModelType.ARTICLECATEGORY, newCase.Id.ToString(), newCase.Title, vm.SEOTitle, vm.Keywords, vm.SEODescription);                     
                     }
 
-                    AR.SetSuccess(String.Format(Messages.AlertCreateSuccess, EntityNames.Case));
+                    AR.SetSuccess(String.Format(Messages.AlertCreateSuccess, EntityNames.Category));
                     return Json(AR, JsonRequestBehavior.DenyGet);
 
                 }
@@ -243,54 +189,6 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
 
 
-
-            //   if (!ModelState.IsValid)
-            //   {
-            //       AR.Setfailure(GetModelErrorMessage());
-            //       return Json(AR, JsonRequestBehavior.DenyGet);
-            //   }
-            //   //var newCategory = _categoryServices.GetById(vm.Id);
-            //   //newCategory.Title = vm.Title;
-            //   //newCategory.SeoName = vm.SeoName;
-            //   //newCategory.Importance = vm.Importance;
-            //   //newCategory.Active = vm.Active;
-            //   //newCategory.UpdatedBy = Site.CurrentUserName;
-            //   //newCategory.UpdatedDate = DateTime.Now;
-            //   var model = _db.ArticleCategories.Find(vm.Id);
-
-            //   model = _mapper.Map(vm, model);
-            //   _db.Entry(model).State = EntityState.Modified;
-            // //  _db.SaveChanges();
-            // // _categoryServices.Update(newCategory);
-
-            //   var pageMeta = _db.PageMetaSets.FirstOrDefault(d => d.ModelType == (short)ModelType.ARTICLECATEGORY && d.ObjectId == vm.Id.ToString());
-            //   //_pageMetaServices.GetPageMeta(ModelType.ARTICLECATEGORY, vm.Id.ToString());
-            //   pageMeta = pageMeta ?? new PageMetaSet();
-
-            //   pageMeta.ObjectId = vm.Id.ToString();
-            //   pageMeta.Title = string.IsNullOrEmpty(vm.SEOTitle) ? vm.Title : vm.SEOTitle;
-            //   pageMeta.Keyword = string.IsNullOrEmpty(vm.Keywords) ? vm.Title : vm.Keywords.Replace('，', ',');
-            //   pageMeta.Description = vm.SEODescription;
-            //   pageMeta.ModelType = (short)ModelType.ARTICLECATEGORY;
-
-            //   if (pageMeta.Id > 0)
-            //   {
-            //       _db.Entry(pageMeta).State = EntityState.Modified;
-            //       //_pageMetaServices.Update(pageMeta);
-            //   }
-            //   else
-            //   {
-            //       _db.PageMetaSets.Add(pageMeta);
-            //       //_pageMetaServices.Create(pageMeta);
-            //   }
-            //   _db.SaveChanges();
-
-            ////   var category = _mapper.Map<ArticleCategoryVM>(newCategory);
-            //   AR.Id = model.Id;
-            //   AR.Data = RenderPartialViewToString("_CategoryItem", model);
-
-            //   AR.SetSuccess(String.Format(Messages.AlertUpdateSuccess, EntityNames.ArticleCategory));
-            //   return Json(AR, JsonRequestBehavior.DenyGet);
 
         }
 
@@ -309,10 +207,10 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
             _db.ArticleCategories.Remove(category);
 
-            var pageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.ARTICLECATEGORY && d.ObjectId == category.Id.ToString());
+            var pageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.ARTICLECATEGORY && d.ObjectId == category.Id.ToString());
             if (pageMeta != null)
             {
-                _db.PageMetaSets.Remove(pageMeta);
+                _db.PageMetas.Remove(pageMeta);
             }          
 
             await  _db.SaveChangesAsync();

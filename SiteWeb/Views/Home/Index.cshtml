@@ -4,6 +4,7 @@
     PageMeta pm = (PageMeta)ViewBag.PageMeta;
     ViewBag.Title = pm != null ? pm.Title : SettingsManager.Site.SiteName;
       ViewBag.HeaderClassName = "home_header";
+      ViewBag.HeaderClass = "home_body";
 }
 
 @section header{
@@ -13,30 +14,29 @@
         <meta name="keywords" content="@pm.Keyword" />
     }
 
-
+   
 }
-
-@*@Html.Action("SingleAdForHome", "AD", new { code = "A1001" })*@
 
 
 @*@Html.Action("Carousels", "AD", new { code = "A1001" })*@
 
-<div class="banner-home" style="background-image:url('/content/img/banner/home-80.jpg')">
+<div class="banner-home">
+    @if (Model.Carousel != null)
+    {
+        <picture>
+            <source media="(orientation: landscape)" srcset="@Model.Carousel.ImageUrl">
+            <source media="(orientation: portrait)" srcset="@Model.Carousel.ImageUrlMobile">
+            <img src="@Model.Carousel.ImageUrl" alt="@Model.Carousel.Title">
+        </picture>
+    }
 
 </div>
 
 
 <div class="page-home">
-    <section class="s1 container" style="background-image:url('/content/img/1x/photo01-80.jpg')">
-        <div class="intro">
-            <h2 class="title">
-                关于研究院
-            </h2>
-            <p>
-                研究院是深圳市政府和清华大学于1996年12月共建的、以企业化方式运作的事业单位，双方各占50%股份，实行理事会领导下的院长负责制。研究院恪守着清华“自强不息，厚德载物”的校训，秉承了深圳“敢闯敢试，兼容并蓄”的精神，以体制机制创新为核心，在实践中形成了独具特色的发展理念，确立了行之有效的发展战略。
-            </p>
-            <a href="/about" class="more">了解更多</a>
-        </div>
+    <section class="s1 container" style="background-image:url('@(Model.Carousel2!=null ? Model.Carousel2.ImageUrl : "/content/img/1x/photo01-80.jpg")')">
+        @Html.Action("Paragraph", "Pages", new { seoName ="home_about" })
+
     </section>
 
     @Html.Action("RecentNews", "Article", new { count = 8 })

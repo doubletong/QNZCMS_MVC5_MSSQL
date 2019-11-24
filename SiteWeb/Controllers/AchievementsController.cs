@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using TZGCMS.Data.Enums;
 using TZGCMS.Model;
 
@@ -25,6 +26,7 @@ namespace TZGCMS.SiteWeb.Controllers
         }
 
         // GET: Achievements
+        [OutputCache(Duration = 600, VaryByParam = "none", Location = OutputCacheLocation.Server)]
         public async Task<ActionResult> Index()
         {
             var vm = await _db.AchievementCategories.Where(d => d.Active).OrderByDescending(d => d.Importance).ToListAsync();
@@ -52,7 +54,7 @@ namespace TZGCMS.SiteWeb.Controllers
 
 
             var url = Request.RawUrl;
-            ViewBag.PageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == url);
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == url);
 
             return View(vm);
         }

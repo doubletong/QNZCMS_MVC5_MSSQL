@@ -1,75 +1,85 @@
 ﻿@model CategoryListVM
 @{
-    ViewBag.PageTitle = EntityNames.Category;
-    ViewBag.Title = ViewBag.PageTitle + "_内容";   
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/_Layout2019.cshtml";
+    ViewBag.Title = EntityNames.Category;
 }
 
-
-    <div class="panel panel-default">
-        <header class="panel-heading">       
-            <div class="pull-right">
-                @Ajax.RawActionLink("<i class='fa fa-plus fa-fw'></i>添加分类",
-                        "Add", "ProductCategory",
-                        new { },
-                        new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
-                        new { @class = "btn btn-primary" })
-            </div>    
-
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="Keyword">关键字</label>
-                    @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
-                </div>
-                <button type="submit" class="btn btn-primary"><i class="fa fa-search fa-fw"></i>查找</button>
-            </form>
-         
-        </header>
-        <table class="table table-hover table-vmiddle">
-            <thead>
-                <tr>                   
-                    <th>
-                        主题
-                    </th>     
-                    <th>
-                        SEO网址
-                    </th>             
-                    <th>
-                        排序
-                    </th>    
-                                                
-               
-                    <th>
-                        激活？
-                    </th>     
-                    <th>
-                        操作
-                    </th>  
-                  </tr>
-            </thead>
-            <tbody id="tbList">
-                @Html.Partial("_CategoryList",Model.Categories)
-            </tbody>
-        </table>
-
-        <footer class="panel-footer">
-            <div class="row">
-                <div class="col-sm-7">
-                    @Html.PagedListPager(Model.Categories, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }))
-                </div>
-                <div class="col-sm-5">
-                    <div class="form-inline text-right">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
-                            @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
-                        </div>
-                    </div>
-                </div>
+<div class="row mb-3">
+    <div class="col-sm">
+        @using (Html.BeginForm("Index", "ArticleCategory", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <div class="form-group">
+                <label class="sr-only" for="Keyword">关键字</label>
+                @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control mr-sm-2", placeholder = "关键字" })
             </div>
-          
-        </footer>
-
-
+            <button type="submit" class="btn btn-primary"><i class="iconfont icon-search"></i> 查找</button>
+        }
     </div>
+    <div class="col-sm-auto">
+        <a class="btn btn-primary" href="@Url.Action("Edit")"><i class="iconfont icon-edit"></i> @string.Format("{0}{1}", Buttons.Add, EntityNames.Category)</a>
+        @*<a class="btn btn-outline-secondary createIndex" href="#" data-url="@Url.Action("CreateIndex")"><i class="iconfont icon-securityscan"></i> @Buttons.CreateIndex</a>*@
+    </div>
+
+</div>
+
+
+<div class="table-responsive">
+
+    <table class="table table-hover table-striped table-vmiddle">
+        <thead>
+            <tr>
+                <th>
+                    主题
+                </th>
+                <th>
+                    SEO网址
+                </th>
+                <th>
+                    排序
+                </th>
+
+
+                <th>
+                    激活？
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tbList">
+            @foreach (var item in Model.Categories)
+            {
+                Html.RenderPartial("_CategoryItem", item);
+            }
+        
+        </tbody>
+    </table>
+    
+</div>
+
+
+<div class="container-fluid pt-3" style="background-color: #fff;">
+    <div class="row">
+        <div class="col">
+            @Html.PagedListPager(Model.Categories, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }), new PagedListRenderOptions()
+            {
+                LiElementClasses = new List<string> { "page-item" }
+
+            })
+        </div>
+        <div class="col-md-auto">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">总记录<strong>@Model.TotalCount</strong>条，分页</span>
+                </div>
+                @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "custom-select" })
+            </div>
+
+        </div>
+    </div>
+
+</div>
 
 <!-- end main container -->
 
@@ -82,14 +92,15 @@
 
 @section header{
     <style>
-        .open:focus{
-            text-decoration:none;
+        .open:focus {
+            text-decoration: none;
         }
+
         .subItem td:first-child {
             padding-left: 20px;
         }
     </style>
-    }
+}
 @section footer {
     @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
 
@@ -118,20 +129,20 @@
         function submitSuccess(id,htmlData) {
             $('#ModalEdit').modal('hide');
             location.reload();
-            
+
             //if (id > 0) {
             //    var cid = "container" + id;
             //    $("#" + cid).replaceWith(htmlData);
             //} else {
             //    $("#tbList").html(htmlData);
             //}
-          
+
         }
 
 
         $(function () {
             $(".open").on("click", function (e) {
-                e.preventDefault();              
+                e.preventDefault();
                 var el = $(this).attr("data-for");
                 $(this).find("i").toggleClass("fa-minus-circle")
                 $("tr[data-parent=" + el + "]").slideToggle();
@@ -139,7 +150,7 @@
             //active
             $(document).on("click", '.active-item', function (e) {
                 e.preventDefault();
-            
+
                 var url = $(this).attr('data-url'), title = $(this).attr('title'), that = $(this);
                 Common.SingleActionWithFuncBack(url, title, that, submitFunc);
 
@@ -176,7 +187,7 @@
                         var title = "@ViewBag.Title";
                         Common.DeleteItem(url, title, that);
                     }
-                 
+
                 });
 
             });

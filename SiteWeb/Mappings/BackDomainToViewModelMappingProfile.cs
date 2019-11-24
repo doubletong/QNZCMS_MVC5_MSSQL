@@ -20,9 +20,7 @@ using TZGCMS.Model.Admin.InputModel.Emails;
 using TZGCMS.Model.Admin.InputModel.Identity;
 using TZGCMS.Model.Admin.InputModel.Links;
 using TZGCMS.Model.Admin.InputModel.Menus;
-using TZGCMS.Model.Admin.InputModel.Outlets;
 using TZGCMS.Model.Admin.InputModel.Pages;
-using TZGCMS.Model.Admin.InputModel.Products;
 using TZGCMS.Model.Admin.InputModel.Teams;
 using TZGCMS.Model.Admin.InputModel.Videos;
 using TZGCMS.Model.Admin.ViewModel.Ads;
@@ -73,11 +71,19 @@ namespace TZGCMS.SiteWeb.Mappings
             //Mapper.CreateMap<Diary, DiaryDTO>().ForMember(d=>d.ProjectTitle,opt=>opt.MapFrom(source=>source.Project.Title))
             //    .ForMember(d=>d.WorkTypeTitle, opt=>opt.MapFrom(source=>source.WorkType.Title));
 
-            //Mapper.CreateMap<InAccount, InAccountDTO>().ForMember(d => d.ProjectTitle, opt => opt.MapFrom(source => source.Project.Title))
-            //   .ForMember(d => d.InTypeTitle, opt => opt.MapFrom(source => source.InType.Title))
-            //   .ForMember(d => d.CustomerName, opt => opt.MapFrom(source => source.Customer.CustomerName));
+            CreateMap<QNZ.Data.Album, AlbumVM>();
+            CreateMap<AlbumIM, QNZ.Data.Album>();
+            CreateMap<QNZ.Data.Album, AlbumIM>();
 
-            CreateMap<QNZ.Data.Laboratory, LaboratoryVM>();
+            CreateMap<QNZ.Data.Photo, PhotoVM>().ForMember(d => d.AlbumName, opt => opt.MapFrom(source => source.Album.Title));
+            CreateMap<PhotoIM, QNZ.Data.Photo>();
+            CreateMap<QNZ.Data.Photo, PhotoIM>();
+
+            CreateMap<QNZ.Data.Outlet, OutletVM>();
+            CreateMap<OutletIM, QNZ.Data.Outlet>();
+            CreateMap<QNZ.Data.Outlet, OutletIM>();
+
+            CreateMap<QNZ.Data.Laboratory, LaboratoryVM>().ForMember(d => d.InstituteTitle, opt => opt.MapFrom(source => source.Institute.Title));
             CreateMap<LaboratoryIM, QNZ.Data.Laboratory>();
             CreateMap<QNZ.Data.Laboratory, LaboratoryIM>();
 
@@ -89,19 +95,19 @@ namespace TZGCMS.SiteWeb.Mappings
             CreateMap<AchievementCategoryIM, QNZ.Data.AchievementCategory>();
             CreateMap<QNZ.Data.AchievementCategory, AchievementCategoryIM>();
 
-            CreateMap<QNZ.Data.Achievement,AchievementVM> ();
+            CreateMap<QNZ.Data.Achievement,AchievementVM> ().ForMember(d => d.CategoryTitle, opt => opt.MapFrom(source => source.AchievementCategory.Title));
             CreateMap<AchievementIM, QNZ.Data.Achievement>();
             CreateMap<QNZ.Data.Achievement, AchievementIM>();
-            
 
-            CreateMap<ProductCategoryIM, ProductCategory>();
-            CreateMap<ProductCategory, ProductCategoryIM>();
+            CreateMap<QNZ.Data.ProductCategory, ProductCategoryVM>();
+            CreateMap<ProductCategoryIM, QNZ.Data.ProductCategory>();
+            CreateMap<QNZ.Data.ProductCategory, ProductCategoryIM>();
 
-            CreateMap<Product, ProductIM>();
-            CreateMap<ProductIM, Product>();
+            CreateMap<QNZ.Data.Product, ProductVM>();
+            CreateMap<QNZ.Data.Product, ProductIM>();
+            CreateMap<ProductIM, QNZ.Data.Product>();
 
-            CreateMap<Outlet, OutletIM>();
-            CreateMap<OutletIM, Outlet>();
+
             //CreateMap<TechnologyIM, SIG.DAL.Dapper.Model.Technology>();
             //CreateMap<SIG.DAL.Dapper.Model.Technology, TechnologyIM>();
 
@@ -196,15 +202,8 @@ namespace TZGCMS.SiteWeb.Mappings
             CreateMap<ChronicleIM, Chronicle>();
             CreateMap<Chronicle, ChronicleIM>();
 
-            //CreateMap<AlbumVM, Album>();
-            //CreateMap<Album, AlbumVM>();
-            //CreateMap<AlbumIM, SIG.DAL.Dapper.Model.Album>();
-            //CreateMap<SIG.DAL.Dapper.Model.Album, AlbumIM>();
 
-            //CreateMap<PhotoVM, Photo>();
-            //CreateMap<Photo, PhotoVM>();
-            //CreateMap<PhotoIM, SIG.DAL.Dapper.Model.Photo>();
-            //CreateMap<SIG.DAL.Dapper.Model.Photo, PhotoIM>();
+
 
             //CreateMap<PageVM, Page>();
             //CreateMap<Page, PageVM>();

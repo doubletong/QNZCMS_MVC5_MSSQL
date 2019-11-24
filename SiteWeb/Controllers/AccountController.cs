@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,7 @@ namespace TZGCMS.SiteWeb.Controllers
    
     public class AccountController : BaseController
     {
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(AccountController));
         private readonly IUserServices _userServices;
 
         public AccountController(IUserServices userServices)
@@ -46,7 +48,7 @@ namespace TZGCMS.SiteWeb.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginIM model, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
@@ -78,6 +80,9 @@ namespace TZGCMS.SiteWeb.Controllers
                     //设置cookies
                     _userServices.SetUserCookies(model.RememberMe, user, roles);
 
+                    GlobalContext.Properties["user"] = user.UserName;
+                    _logger.Info("登录");
+
                     if (roles.Contains("系统管理员") || roles.Contains("创始人"))
                     {
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
@@ -102,6 +107,7 @@ namespace TZGCMS.SiteWeb.Controllers
        [HttpPost]
         public ActionResult LogOff()
         {
+            _logger.Info("注销");
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home", new { area = "" });
         }

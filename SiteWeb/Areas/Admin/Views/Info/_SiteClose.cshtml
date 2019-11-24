@@ -1,0 +1,46 @@
+﻿@model SiteCloseIM
+
+@using (Ajax.BeginForm("CloseSite", null, new AjaxOptions()
+{
+    OnBegin = "onBegin",
+    OnComplete = "onComplete",
+    //   Confirm = "Are you sure you want to save this User?"
+    OnSuccess = "onSuccess"
+
+}, new { role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+
+    <div class="card">
+        <div class="card-header">
+            关闭网站
+        </div>
+        <div class="card-body">
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CloseInfo)
+
+                @Html.TextAreaFor(model => model.CloseInfo, new { @class = "form-control", placeholder = Labels.CloseInfo })
+                @Html.ValidationMessageFor(model => model.CloseInfo)
+
+            </div>
+
+            <div class="form-group form-check">
+                @Html.CheckBoxFor(model => model.IsClose, new { @class = "form-check-input" })
+                @Html.LabelFor(model => model.IsClose, new { @class = "form-check-label", @for = "IsClose" })
+                @Html.ValidationMessageFor(model => model.IsClose)
+            </div>
+        </div>
+
+
+        <div class="card-footer">
+       
+                <button type="submit" class="btn btn-primary">保存</button>
+         
+        </div>
+    </div>
+}

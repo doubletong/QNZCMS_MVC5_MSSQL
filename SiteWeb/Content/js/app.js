@@ -1,4 +1,4 @@
-
+new WOW().init();
 $(document).ready(function() {
     //var e = function() { 40 < $(window).scrollTop() ? $("#site-header").addClass("fixheader") : $("#site-header").removeClass("fixheader") };
     //e(), $(window).on("scroll", function() { e() }), $("#toTop").click(function(e) { return e.preventDefault(), jQuery("html, body").animate({ scrollTop: 0 }, 600), !1 }), $(".weixincode").click(function(e) { e.preventDefault(), jQuery(".over").fadeIn() }), $(".over").click(function(e) { e.preventDefault(), jQuery(this).fadeOut() })
@@ -51,37 +51,37 @@ $(document).ready(function() {
     //});
 });
 
-let openav = document.getElementById("openav");
-openav.addEventListener("click", function () {
+//let openav = document.getElementById("openav");
+//openav.addEventListener("click", function () {
 
-    this.classList.toggle("opened");
-    document.getElementById("sitenav").classList.toggle("opened");
-    document.getElementById("logo").classList.toggle("opened");
+//    this.classList.toggle("opened");
+//    document.getElementById("sitenav").classList.toggle("opened");
+//    document.getElementById("logo").classList.toggle("opened");
 
-});
+//});
 
-window.addEventListener('scroll', function (e) {
+//window.addEventListener('scroll', function (e) {
    
-    const pageHeader = document.getElementById("pageHeader");
-    const totop = window.scrollY;
-    if (totop > 0) {
-        pageHeader.classList.add("fixed-header");
-    } else {
-        pageHeader.classList.remove("fixed-header");
-    }
+//    const pageHeader = document.getElementById("pageHeader");
+//    const totop = window.scrollY;
+//    if (totop > 0) {
+//        pageHeader.classList.add("fixed-header");
+//    } else {
+//        pageHeader.classList.remove("fixed-header");
+//    }
 
-});
+//});
 
-const totop = document.getElementById("toTop");
-totop.addEventListener("click", function () {
-    scrollToTop();
-});
+//const totop = document.getElementById("toTop");
+//totop.addEventListener("click", function () {
+//    scrollToTop();
+//});
 
-function scrollToTop() {
-    var position = document.body.scrollTop || document.documentElement.scrollTop;
-    if (position) {
-        window.scrollBy(0, -Math.max(10, Math.floor(position / 10)));
-        scrollAnimation = setTimeout('scrollToTop()', 10);
-    }
-    else clearTimeout(scrollAnimation);
-}		
+//function scrollToTop() {
+//    var position = document.body.scrollTop || document.documentElement.scrollTop;
+//    if (position) {
+//        window.scrollBy(0, -Math.max(10, Math.floor(position / 10)));
+//        scrollAnimation = setTimeout('scrollToTop()', 10);
+//    }
+//    else clearTimeout(scrollAnimation);
+//}		

@@ -1,0 +1,180 @@
+﻿@model PhotoListVM
+@{
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/_Layout2019.cshtml";
+    ViewBag.Title = EntityNames.Photo;
+}
+@section Header{
+
+    <link href="~/Plugins/lightbox2/css/lightbox.min.css" rel="stylesheet" />
+}
+
+<div class="row mb-3">
+    <div class="col-sm">
+        @using (Html.BeginForm("Index", null, FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <div class="form-group">
+                <label class="sr-only" for="Keyword">关键字</label>
+                @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control mr-sm-2", placeholder = "关键字" })
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="Keyword">相册</label>
+                @Html.DropDownListFor(model => model.AlbumId, (SelectList)ViewBag.Categories, Labels.Album + "过滤", new { @class = "form-control" })
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="iconfont icon-search"></i> 查找</button>
+        }
+    </div>
+    <div class="col-sm-auto">
+        <a class="btn btn-primary" href="@Url.Action("Edit")"><i class="iconfont icon-edit"></i> @string.Format("{0}{1}", Buttons.Add, ViewBag.Title)</a>
+    </div>
+
+</div>
+
+
+<div class="table-responsive">
+
+
+    <table class="table table-hover table-striped table-vmiddle">
+        <thead>
+            <tr>
+
+                <th>缩略图</th>
+                <th>
+                    主题
+                </th>
+                <th>
+                    分类
+                </th>
+                <th>
+                    查看
+                </th>
+
+                <th>
+                    发布日期
+                </th>
+
+                <th>
+                    显示？
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Photos)
+            {
+                Html.RenderPartial("_PhotoItem", item);
+            }
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<div class="container-fluid pt-3" style="background-color: #fff;">
+    <div class="row">
+        <div class="col">
+            @Html.PagedListPager(Model.Photos, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }), new PagedListRenderOptions()
+            {
+                LiElementClasses = new List<string> { "page-item" }
+
+            })
+        </div>
+        <div class="col-md-auto">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">总记录<strong>@Model.TotalCount</strong>条，分页</span>
+                </div>
+                @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "custom-select", albumId = Model.AlbumId })
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+<form id="anti-form" method="post">
+    @Html.AntiForgeryToken()
+</form>
+
+
+@section footer {
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+    <script src="~/Plugins/lightbox2/js/lightbox.min.js"></script>
+    <script>
+
+
+        $(function () {
+
+            //lightbox events
+            $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+
+
+            $(document).on("change", '#PageSize', function (e) {
+                e.preventDefault();
+
+                var url = "@Url.Action("PageSizeSet")", title = "分页设置", pageSize = $(this).val();
+                Common.PageSizeSet(url, title, pageSize, setPageSizeFunc);
+
+            });
+
+            function setPageSizeFunc() {
+                location.reload();
+            }
+
+
+            $(document).on("click", '.active-item','.recommend-item', function (e) {
+            //$('.recommend-item,.active-item').click(function (e) {
+                e.preventDefault();
+                var url = $(this).attr('data-url'), title = $(this).attr('data-action'), that = $(this);
+                Common.SingleActionWithFuncBack(url, title, that, submitFunc);
+              //  Common.SingleAction(url, title, true);
+            });
+
+            function submitFunc(that, data) {
+                var tr = that.closest('.item-container').replaceWith(data);
+            }
+
+            //delete
+            $(document).on("click", '.delete-item', function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('data-url');
+                var that = $(this);
+                bootbox.setLocale("zh_CN");
+                bootbox.confirm("你确定要删除此项吗？", function (result) {
+                    /*DELETE*/
+                    if (result) {
+                        var title = "@ViewBag.Title";
+                        Common.DeleteItem(url, title, that);
+                    }
+
+                });
+
+            });
+
+                       // create index
+            //$(document).on("click", '.createIndex', function (e) {
+            //    e.preventDefault();
+            //    var url = $(this).attr('data-url');
+            //    var that = $(this);
+            //    bootbox.setLocale("zh_CN");
+            //    bootbox.confirm("你确定要创建索引目录吗？", function (result) {
+            //        if (result) {
+            //            var title = "创建索引目录";
+            //            $.post(url, function (data) {
+            //                Common.ShowBox(data.Status, data.Message, title);
+            //            })
+            //        }
+            //    });
+
+            //});
+
+        });
+    </script>
+
+}

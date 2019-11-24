@@ -68,7 +68,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
         public async Task SetPageMetaAsync(IQNZDbContext db, short modelType, string objectId, string objectTitle, string title, string keywords, string description)
         {
-            var pageMeta = await db.PageMetaSets.FirstOrDefaultAsync(d=>d.ModelType == modelType && d.ObjectId == objectId);
+            var pageMeta = await db.PageMetas.FirstOrDefaultAsync(d=>d.ModelType == modelType && d.ObjectId == objectId);
             if (pageMeta != null)
             {
 
@@ -84,7 +84,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 }
                 else
                 {
-                    db.PageMetaSets.Remove(pageMeta);
+                    db.PageMetas.Remove(pageMeta);
                     
                 }
 
@@ -93,7 +93,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             {
                 if (!string.IsNullOrEmpty(title) || !string.IsNullOrEmpty(keywords) || !string.IsNullOrEmpty(description))
                 {
-                    pageMeta = new PageMetaSet()
+                    pageMeta = new PageMeta()
                     {
                         ObjectId = objectId,
                         Title = string.IsNullOrEmpty(title) ? objectTitle : title,
@@ -101,7 +101,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                         Description = description,
                         ModelType = modelType
                     };
-                    db.PageMetaSets.Add(pageMeta);
+                    db.PageMetas.Add(pageMeta);
                 }
 
             }

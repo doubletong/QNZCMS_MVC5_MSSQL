@@ -108,7 +108,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
                 vm = _mapper.Map<Institute, InstituteIM>(vCase);
 
-                var pageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.INSTITUTE && d.ObjectId == vm.Id.ToString());
+                var pageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.INSTITUTE && d.ObjectId == vm.Id.ToString());
                 if (pageMeta != null)
                 {
                     vm.SEOTitle = pageMeta.Title;
@@ -153,9 +153,9 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                     _db.Entry(editCase).State = EntityState.Modified;
                     await _db.SaveChangesAsync();
 
-                    var pageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.INSTITUTE && d.ObjectId == editCase.Id.ToString());
+                    var pageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.INSTITUTE && d.ObjectId == editCase.Id.ToString());
 
-                    pageMeta = pageMeta ?? new PageMetaSet();
+                    pageMeta = pageMeta ?? new PageMeta();
                     pageMeta.ObjectId = vm.Id.ToString();
                     pageMeta.Title = string.IsNullOrEmpty(vm.Title) ? vm.Title : vm.Title;
                     pageMeta.Keyword = string.IsNullOrEmpty(vm.Keywords) ? vm.Title : vm.Keywords.Replace('，', ',');
@@ -168,7 +168,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                     }
                     else
                     {
-                        _db.PageMetaSets.Add(pageMeta);
+                        _db.PageMetas.Add(pageMeta);
                     }
                     await _db.SaveChangesAsync();
 
@@ -190,7 +190,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                     {
                         if (!string.IsNullOrEmpty(vm.Keywords) || !string.IsNullOrEmpty(vm.SEODescription))
                         {
-                            var pm = new PageMetaSet
+                            var pm = new PageMeta
                             {
                                 Title = vm.SEOTitle,
                                 Description = vm.SEODescription,
@@ -198,7 +198,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                                 ModelType = (short)ModelType.INSTITUTE,
                                 ObjectId = newCase.Id.ToString()
                             };
-                            _db.PageMetaSets.Add(pm);
+                            _db.PageMetas.Add(pm);
                             await _db.SaveChangesAsync();
                         }
                     }

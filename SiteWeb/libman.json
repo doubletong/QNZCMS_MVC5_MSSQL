@@ -26,6 +26,18 @@
     {
       "library": "jqueryui@1.12.1",
       "destination": "Plugins/jqueryui"
+    },
+    {
+      "library": "swipebox@1.4.4",
+      "destination": "Plugins/swipebox"
+    },
+    {
+      "library": "photoswipe@4.1.3",
+      "destination": "Plugins/photoswipe"
+    },
+    {
+      "library": "select2@4.0.10",
+      "destination": "Plugins/select2"
     }
   ]
 }

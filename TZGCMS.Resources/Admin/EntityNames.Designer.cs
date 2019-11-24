@@ -358,7 +358,7 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
-        ///   查找类似 销售中心 的本地化字符串。
+        ///   查找类似 门店 的本地化字符串。
         /// </summary>
         public static string Outlet {
             get {

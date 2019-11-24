@@ -123,7 +123,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         //                ModelType = (short)ModelType.JOB
         //            };
         //          //  _pageMetaServices.Create(pageMeta);
-        //            _db.PageMetaSets.Add(pageMeta);
+        //            _db.PageMetas.Add(pageMeta);
         //            _db.SaveChanges();
         //        }
 
@@ -165,7 +165,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
                 vm = _mapper.Map<Job, JobIM>(vAchi);
 
-                //var pageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.JOB && d.ObjectId == editJob.Id.ToString());
+                //var pageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.JOB && d.ObjectId == editJob.Id.ToString());
                 //    //_pageMetaServices.GetPageMeta(ModelType.JOB, editJob.Id.ToString());
                 //if (pageMeta != null)
                 //{
@@ -196,7 +196,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
             try
             {
-                //    var pageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.JOB && d.ObjectId == editJob.Id.ToString());
+                //    var pageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.JOB && d.ObjectId == editJob.Id.ToString());
                 //        //_pageMetaServices.GetPageMeta(ModelType.PAGE, editJob.Id.ToString());
                 //    pageMeta = pageMeta ?? new PageMetaSet();
 
@@ -231,7 +231,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                     _db.Jobs.Add(newJob);
                     await _db.SaveChangesAsync();
 
-                    //_db.PageMetaSets.Add(pageMeta);
+                    //_db.PageMetas.Add(pageMeta);
                     //await _db.SaveChangesAsync();
 
                     AR.SetSuccess(String.Format(Messages.AlertCreateSuccess, EntityNames.Job));
@@ -263,7 +263,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             //    await _db.SaveChangesAsync();
             //    //  _jobServices.Update(editJob);
 
-            //    var pageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.JOB && d.ObjectId == editJob.Id.ToString());
+            //    var pageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.JOB && d.ObjectId == editJob.Id.ToString());
             //        //_pageMetaServices.GetPageMeta(ModelType.PAGE, editJob.Id.ToString());
             //    pageMeta = pageMeta ?? new PageMetaSet();
 
@@ -280,7 +280,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             //    }
             //    else
             //    {
-            //        _db.PageMetaSets.Add(pageMeta);
+            //        _db.PageMetas.Add(pageMeta);
             //       // _pageMetaServices.Create(pageMeta);
             //    }
             //    await _db.SaveChangesAsync();

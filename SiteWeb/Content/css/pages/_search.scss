@@ -1,16 +1,38 @@
 .banner-search {
     background-color: #333;
-    padding-top: 16rem;
-    padding-bottom:3rem;
+    padding-top: 4rem;
+    padding-bottom: 3rem;
 
+    @include respond-above(sm) {
+        padding-top: 5rem;
+    }
 
     .searchform {
-        max-width: 500px;
+        max-width: 922px;
         margin: 0 auto;
-        .form-control{
-            width:100%;
-            padding:.7rem .8rem;
-            border:none;
+
+        .form-control {
+            width: 100%;
+            padding: .7rem .8rem;
+            border: none;
+            font-size: 1.2rem;
+
+            @include respond-above(sm) {
+                font-size: 1.5rem;
+            }
+        }
+
+        .btn-primary {
+            background-color: #fff;
+            color: #333;
+
+            .iconfont {
+                font-size: 1.55rem;
+
+                @include respond-above(sm) {
+                    font-size: 1.85rem;
+                }
+            }
         }
     }
 }
@@ -19,36 +41,44 @@
 
     .results {
         .item {
-            padding: 2rem 0;
             border-bottom: 1px #ddd solid;
 
-            .thumb {
-                width: 220px;
-            }
+            a {
+                text-decoration: none;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
 
-
-
-            .des {
-                padding-top: 2rem;
-                padding-bottom: 2.5rem;
-
-                time {
-                    color: $color-text-weak;
-                    font-size: rem(14);
+                @include respond-above(sm) {
+                    padding-top: 2rem;
+                    padding-bottom: 2rem;
                 }
 
-                h3 {
-                    margin: 0;
-                    font-size: rem(20);
+                .title {
+                    color: #999;
+
+                    strong {
+                        color: #333;
+                    }
                 }
 
-                strong{
-                    color:$color-primary;
-                }
-            }
+                .pubdate {
+                    color: #999;
+                    width: 90px;
+                    text-align: right;
 
-            @include hover {
-                background-color: #d7ddeb;
+                    @include respond-above(sm) {
+                        width: 120px;
+                    }
+                }
+
+
+
+
+
+                &:hover {
+                    background-color: #d7ddeb;
+                    text-decoration: none;
+                }
             }
         }
     }

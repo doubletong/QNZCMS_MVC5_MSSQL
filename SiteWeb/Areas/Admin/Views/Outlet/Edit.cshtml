@@ -1,0 +1,178 @@
+﻿@model OutletIM
+
+@{
+
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/_Layout2019.cshtml";
+    ViewBag.Title = "编辑" + EntityNames.Outlet;
+    ViewBag.PageTitle = ViewBag.Title + "_内容";
+}
+
+
+@section Header{
+
+    <link href="~/Plugins/datetimepicker/jquery.datetimepicker.css" rel="stylesheet" />
+}
+
+
+@using (Ajax.BeginForm("Edit", null, new AjaxOptions
+{
+
+    HttpMethod = "POST",
+    OnBegin = "onBeginSave",
+    OnComplete = "onCompleteSave",
+    OnSuccess = "updateSuccess"
+
+}, new { @class = "form-horizontal", role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+
+
+    <div class="card">
+        <header class="card-header">
+            <span class="glyphicon glyphicon-edit"></span> @ViewBag.Title
+        </header>
+
+        <section class="card-body">
+            <div class="row">
+                <div class="col-md">
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Name)
+
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = Labels.Name })
+                        @Html.ValidationMessageFor(model => model.Name)
+
+                    </div>
+
+
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Address)
+
+                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", placeholder = Labels.Address })
+                        @Html.ValidationMessageFor(model => model.Address)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Coordinate)
+
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.Coordinate, new { @class = "form-control", placeholder = Labels.Coordinate })
+
+                            <div class="input-group-append">
+                                <a href="http://lbs.qq.com/tool/getpoint/index.html" class="btn btn-outline-secondary" id="button-addon2">坐标拾取</a>
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Coordinate)
+                      
+
+                    </div>
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.ContactMan)
+
+                        @Html.TextBoxFor(model => model.ContactMan, new { @class = "form-control", placeholder = Labels.ContactMan })
+                        @Html.ValidationMessageFor(model => model.ContactMan)
+                    </div>
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Phone)
+                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = Labels.Phone })
+                        @Html.ValidationMessageFor(model => model.Phone)
+                    </div>
+                  
+
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Importance)
+                        @Html.TextBoxFor(model => model.Importance, new { @class = "form-control", placeholder = Labels.Importance })
+                        @Html.ValidationMessageFor(model => model.Importance)
+
+                    </div>
+
+
+                    <div class="form-group form-check">
+                        @Html.CheckBoxFor(model => model.Active, new { @class = "form-check-input" })
+                        <label class="form-check-label" for="Active">激活</label>
+                    </div>
+
+                </div>
+                <div class="col-md-auto">
+                  
+                    <div style="width:300px; text-align:center;" class="mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <img ID="iLogo" src="@(string.IsNullOrEmpty(Model.Thumbnail) ? "holder.js/240x240?text=320X320像素" : Model.Thumbnail )" class="img-fluid" />
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" id="btnThumbnail" class="btn btn-info btn-block"><i class="iconfont icon-image"></i> 缩略图...</button>
+                                    @Html.HiddenFor(model => model.Thumbnail)
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+
+
+        </section>
+        <footer class="card-footer text-center">
+            <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save fa-fw"></i>  @Buttons.Update </button>
+            <a href="@Url.Action("Index")" class="btn btn-secondary"><span class="fa fa-chevron-left fa-fw"></span> @Buttons.Back</a>
+        </footer>
+
+    </div>
+}
+
+
+
+
+@section Footer {
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+    <script src="~/Plugins/tinymce5/tinymce.min.js"></script>
+    <script src="~/scripts/lib/moment/moment-with-locales.min.js"></script>
+    <script src="~/Plugins/datetimepicker/jquery.datetimepicker.full.min.js"></script>
+    <script src="~/Plugins/holderjs/holder.min.js"></script>
+    <script>
+
+
+        function SetThumbnail(fileUrl) {
+            $("#iLogo").attr("src", fileUrl);
+            $('#Thumbnail').val(fileUrl);
+        }
+
+
+         function onBeginSave() {
+            $("#btnSave").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  提交中...');
+
+        }
+        function onCompleteSave() {
+            $("#btnSave").html('<i class="iconfont icon-save"></i> 保存');
+        }
+
+        function updateSuccess(data) {
+            var title = '@ViewBag.Title';
+            Common.ShowBox(data.Status, data.Message, title);
+        }
+
+
+
+
+        $(function () {
+
+            $("#btnThumbnail").on("click", function() {
+                singleEelFinder.selectActionFunction = SetThumbnail;
+                singleEelFinder.open();
+            });
+
+
+
+
+            $.datetimepicker.setLocale('ch');
+            $('#Pubdate').datetimepicker();
+        })
+
+    </script>
+}
+
+
+
+

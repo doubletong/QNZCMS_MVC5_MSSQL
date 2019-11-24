@@ -1,0 +1,473 @@
+﻿@model ProductIM
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/_Layout2019.cshtml";
+    ViewBag.Title = Model.Id > 0 ? "编辑产品" : "添加产品";
+
+}
+@section Header{
+    <link href="~/Plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/plugins/webuploader/webuploader.css" rel="stylesheet" />
+}
+
+
+
+@using (Ajax.BeginForm("Edit", null, new AjaxOptions()
+{
+
+    HttpMethod = "POST",
+    OnBegin = "onBeginSave",
+    OnComplete = "onCompleteSave",
+    OnSuccess = "updateSuccess"
+
+}, new { role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.Id)
+
+
+    <div class="card">
+        <header class="card-header">
+            <span class="glyphicon glyphicon-edit"></span> @ViewBag.Title
+        </header>
+
+        <section class="card-body">
+            <!-- Nav tabs -->
+            <div class="row">
+                <div class="col-md">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProductNo)
+
+                        @Html.TextBoxFor(model => model.ProductNo, new { @class = "form-control", placeholder = Labels.ProductNo })
+                        @Html.ValidationMessageFor(model => model.ProductNo)
+
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProductName)
+
+                        @Html.TextBoxFor(model => model.ProductName, new { @class = "form-control", placeholder = Labels.ProductName })
+                        @Html.ValidationMessageFor(model => model.ProductName)
+
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PostCategoryIds)
+                        <div>
+                            @Html.ListBoxFor(model => model.PostCategoryIds, (SelectList)ViewBag.Categories, new { @class = "form-control selectpicker" })
+                            @Html.ValidationMessageFor(model => model.PostCategoryIds)
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Importance)
+
+                        @Html.TextBoxFor(model => model.Importance, new { @class = "form-control", type = "number", placeholder = Labels.Importance })
+
+                        @Html.ValidationMessageFor(model => model.Importance)
+
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ImageUrl)
+
+                        <div id="imagePicker">选择图片</div>
+                        @Html.HiddenFor(m => m.ImageUrl)
+                        <span class="help-block">
+                            @string.Format("图像大小：{0}x{1} 像素", SettingsManager.Product.ImageWidth, SettingsManager.Product.ImageHeight)
+                        </span>
+                        @Html.ValidationMessageFor(model => model.ImageUrl)
+
+                    </div>
+
+                    <div class="form-group">
+                        <div id="uploader-demo" class="clearfix">
+                            <!--用来存放item-->
+                            <div id="imageList" class="uploader-list">
+                                @{
+                                    if (!string.IsNullOrEmpty(Model.ImageUrl))
+                                    {
+                                        var images = Model.ImageUrl.Split('|');
+                                        foreach (var item in images)
+                                        {
+                                            <div class="file-item thumbnail pull-left  m-r-10 m-b-10 upload-state-done">
+                                                <img src="@string.Format("{0}?width=120&height=90&mode=crop", item)">
+                                                <div class="info">
+                                                    <button type="button" data-img="@item" class="btn btn-danger btn-sm btnRemove">删除</button>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Body)
+
+                        @Html.TextAreaFor(model => model.Body, new { @class = "form-control", placeholder = Labels.Content })
+                        @Html.ValidationMessageFor(model => model.Body)
+
+
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Introduction)
+
+                        @Html.TextAreaFor(model => model.Introduction, new { @class = "form-control", placeholder = Labels.Introduction })
+                        @Html.ValidationMessageFor(model => model.Introduction)
+
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Summary)
+
+                        @Html.TextAreaFor(model => model.Summary, new { @class = "form-control", placeholder = Labels.Summary })
+                        @Html.ValidationMessageFor(model => model.Summary)
+
+                    </div>
+
+
+
+
+
+                    <div class="form-group form-check">
+                        @Html.CheckBoxFor(model => model.Recommend)
+
+                        <label class="form-check-label" for="Recommend"> @Html.DisplayNameFor(model => model.Recommend)  @Html.ValidationMessageFor(model => model.Recommend)</label>
+                    </div>
+
+
+                    <div class="form-group form-check">
+                        @Html.CheckBoxFor(model => model.Active)
+
+                        <label class="form-check-label" for="Active"> @Html.DisplayNameFor(model => model.Active)  @Html.ValidationMessageFor(model => model.Active)</label>
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="col-md-auto">
+                    <div style="width:300px; text-align:center;" class="mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <img ID="iLogo" src="@(string.IsNullOrEmpty(Model.Thumbnail) ? "holder.js/240x180?text=480x358像素" : Model.Thumbnail )" class="img-fluid" />
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" id="btnThumbnail" class="btn btn-info btn-block"><i class="iconfont icon-image"></i> 缩略图...</button>
+                                @Html.HiddenFor(model => model.Thumbnail)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="width:300px; text-align:center;" class="mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <img ID="iLogo2" src="@(string.IsNullOrEmpty(Model.Cover) ? "holder.js/240x180?text=照片" : Model.Cover )" class="img-fluid" />
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" id="btnCover" class="btn btn-info btn-block"><i class="iconfont icon-image"></i> 背景横幅...</button>
+                                @Html.HiddenFor(model => model.Cover)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" id="seo" style="max-width:300px">
+                        <h3 class="card-header">
+                            SEO
+                        </h3>
+                        <div class="card-body">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Title)
+
+                                @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = Labels.Title })
+
+                                @Html.ValidationMessageFor(model => model.Title)
+
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Keywords)
+
+                                @Html.TextBoxFor(model => model.Keywords, new { @class = "form-control", placeholder = Labels.KeyWords })
+
+                                @Html.ValidationMessageFor(model => model.Keywords)
+
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SEODescription)
+
+                                @Html.TextAreaFor(model => model.SEODescription, new { @class = "form-control", placeholder = Labels.Description })
+
+                                @Html.ValidationMessageFor(model => model.SEODescription)
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+        <footer class="card-footer text-center">
+            <button type="submit" class="btn btn-primary" id="btnSave"><i class="iconfont icon-save"></i>  @Buttons.Update </button>
+            <a href="@Url.Action("Index")" class="btn btn-secondary"><i class="iconfont icon-arrowleft"></i> @Buttons.Back</a>
+        </footer>
+
+
+    </div>
+
+}
+
+@Html.Action("PopuFinder", "File")
+
+@section Footer {
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+    <script src="/Plugins/webuploader/webuploader.min.js"></script>
+    <script src="~/Plugins/tinymce5/tinymce.min.js"></script>
+
+    <script src="~/Plugins/holderjs/holder.min.js"></script>
+
+    <script src="~/Plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/Plugins/select2/js/i18n/zh-CN.js"></script>
+
+    <script>
+
+
+         var $list = $("#imageList");
+        // 初始化Web Uploader
+        var uploader = WebUploader.create({
+            // 选完文件后，是否自动上传。
+            auto: true,
+            // swf文件路径
+            swf:  '/plugins/webuploader/js/Uploader.swf',
+            // 文件接收服务端。
+            server: "@Url.Action("UpLoadImages")",
+
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#imagePicker',
+
+            // 只允许选择图片文件。
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/*'
+            }
+        });
+
+
+        // 当有文件添加进来的时候
+        uploader.on('fileQueued', function (file,result) {
+            var $li = $(
+                    '<div id="' + file.id + '" class="file-item thumbnail pull-left  m-r-10 m-b-10">' +
+                        '<img>' +
+                        '<div class="info"><button type="button" data-img="" class="btn btn-danger btn-sm btnRemove">删除</button></div>' +
+                    '</div>'
+                    ),
+                $img = $li.find('img');
+
+
+            // $list为容器jQuery实例
+            $list.append($li);
+
+
+        });
+
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on('uploadProgress', function (file, percentage) {
+            var $li = $('#' + file.id),
+                $percent = $li.find('.progress span');
+
+            // 避免重复创建
+            if (!$percent.length) {
+                $percent = $('<p class="progress"><span></span></p>')
+                        .appendTo($li)
+                        .find('span');
+            }
+
+            $percent.css('width', percentage * 100 + '%');
+        });
+
+        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+        uploader.on('uploadSuccess', function (file,result) {
+            $('#' + file.id).addClass('upload-state-done');
+            $('#' + file.id + ' img').attr("src", result.fileName + "?width=120&height=90&mode=crop");
+            $('#' + file.id + ' button').attr("data-img", result.fileName);
+
+            var img = $("#ImageUrl").val();
+            if (img.length === 0) {
+                $("#ImageUrl").val(result.fileName);
+            } else {
+                img = img + "|" + result.fileName;
+                $("#ImageUrl").val(img);
+            }
+            //console.log(result);
+        });
+
+        // 文件上传失败，显示上传出错。
+        uploader.on('uploadError', function (file) {
+            var $li = $('#' + file.id),
+                $error = $li.find('div.error');
+
+            // 避免重复创建
+            if (!$error.length) {
+                $error = $('<div class="error"></div>').appendTo($li);
+            }
+
+            $error.text('上传失败');
+        });
+
+        // 完成上传完了，成功或者失败，先删除进度条。
+        uploader.on('uploadComplete', function (file) {
+            $('#' + file.id).find('.progress').remove();
+            uploader.reset();
+        });
+
+
+       function SetThumbnail(fileUrl) {
+         $("#iLogo").attr("src", fileUrl);
+            $('#Thumbnail').val(fileUrl);
+
+        }
+
+        function SetCover(fileUrl) {
+         $("#iLogo2").attr("src", fileUrl);
+            $('#Cover').val(fileUrl);
+
+        }
+
+        function onBeginSave() {
+            $("#btnSave").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  提交中...');
+
+        }
+        function onCompleteSave() {
+            $("#btnSave").html('<i class="iconfont icon-save"></i> 保存');
+        }
+
+        function updateSuccess(data) {
+            var title = '@ViewBag.Title';
+            Common.ShowBox(data.Status, data.Message, title);
+        }
+
+            tinymce.init({
+            selector: '#Body',  // change this value according to your HTML
+            height: 400,
+            language: 'zh_CN',
+
+            convert_urls: false,
+            extended_valid_elements: 'span',
+            image_advtab: true,
+
+            //picture manager
+            file_picker_callback: singleEelFinder.elFinderBrowser,
+            images_upload_handler: singleEelFinder.ImagesUploadHandler,
+            plugins: 'print preview code importcss  searchreplace autolink autosave save directionality  visualblocks visualchars fullscreen image link media  template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists  wordcount   imagetools textpattern noneditable help    charmap   quickbars  emoticons',
+
+              toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment code',
+              autosave_ask_before_unload: true,
+              autosave_interval: "30s",
+              autosave_prefix: "{path}{query}-{id}-",
+              autosave_restore_when_empty: false,
+                autosave_retention: "2m",
+
+            image_advtab: true,
+            importcss_append: true,
+            image_caption: true,
+            templates: [
+                { title: '新表格', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+            { title: '文章样式', description: 'A cure for writers block', content: 'Once upon a time...' },
+            { title: '列表样式', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+          ]
+
+
+        });
+
+
+    $(function () {
+
+           $("#btnThumbnail").on("click", function() {
+                singleEelFinder.selectActionFunction = SetThumbnail;
+                singleEelFinder.open();
+            });
+
+
+        $("#btnCover").on("click", function () {
+                singleEelFinder.selectActionFunction = SetCover;
+                singleEelFinder.open();
+        });
+
+
+             $(document).on("click", '.btnRemove', function (e) {
+                e.preventDefault();
+                var item = $(this).closest(".file-item");
+                var imgName = $(this).attr('data-img');
+                var url = "@Url.Action("RemoveImage")";
+
+                $.post(url, { img: imgName }, function (data) {
+
+                    if (data.Status === 1) {
+                        item.remove();
+
+
+                        var images = $("#ImageUrl").val();
+                        var ar = images.split("|");
+                        var i = ar.indexOf(imgName);
+                        if (i != -1) {
+                            ar.splice(i, 1);
+                        }
+                        $("#ImageUrl").val(ar.join("|"));
+
+                    }
+                    if (data.Status === 2) {
+                        toastr.error(data.Message)
+                    }
+                });
+
+            });
+
+
+        $('.selectpicker').select2();
+
+             //var $form = $('form');
+             //var $validate = $form.validate();
+             //var errorClass = "has-error";
+             ////var successClass = "has-success";
+             //$validate.settings.errorClass = errorClass;
+             //var previousEPMethod = $validate.settings.errorPlacement;
+             //$validate.settings.errorPlacement = $.proxy(function (error, inputElement) {
+             //        if (previousEPMethod) {
+             //                previousEPMethod(error, inputElement);
+             //            }
+             //        inputElement.parent().addClass(errorClass)
+             //    }, $form[0]);
+
+             //var previousSuccessMethod = $validate.settings.success;
+             //$validate.settings.success = $.proxy(function (error) {
+             //        //we first need to remove the class, cause the unobtrusive success method removes the node altogether
+             //    error.parent().parent().removeClass(errorClass)
+             //        if (previousSuccessMethod) {
+             //                previousSuccessMethod(error);
+             //            }
+             //    });
+
+
+        });
+    </script>
+}

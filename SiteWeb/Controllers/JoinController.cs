@@ -65,7 +65,7 @@ namespace TZGCMS.SiteWeb.Controllers
 
                        
             var url = Request.RawUrl;
-            ViewBag.PageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == url);
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == url);
 
             return View(vm);
         }

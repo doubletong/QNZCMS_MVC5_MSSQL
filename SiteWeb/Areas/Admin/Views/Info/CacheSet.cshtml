@@ -1,0 +1,80 @@
+﻿@model SiteCacheIM
+@{
+
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/_Layout2019.cshtml";
+    ViewBag.Title = "缓存设置";
+}
+ 
+            @Html.Partial("_Cache", Model)
+       
+
+            @using (Ajax.BeginForm("ClearCaches", null, new AjaxOptions()
+            {
+                OnBegin = "onBegin",
+                OnComplete = "onComplete",
+                //   Confirm = "Are you sure you want to save this User?"
+                OnSuccess = "onSuccess"
+
+            }, new { role = "form" }))
+            {
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()    
+
+               <div class="card">
+                   <div class="card-body">
+                       <button type="submit" class="btn btn-primary"><i class="iconfont icon-delete"></i> 清除站点缓存</button>
+                   </div>
+               </div>
+               
+                
+            }
+
+
+
+
+
+@section Header{
+
+}
+
+@section footer {
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+    <script>
+        function onBegin() {
+            var btn = $(this).find('button[type="submit"]');
+            btn.attr("data-text", btn.html());
+            $(this).find('button[type="submit"]').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  Loading...');
+        }
+        function onComplete() {
+            var btn = $(this).find('button[type="submit"]');
+            
+            var html = btn.attr("data-text");
+           $(this).find('button[type="submit"]').html(html);
+        }
+        function onSuccess(data) {
+            Common.ShowBox(data.Status, data.Message, "@ViewBag.Title");
+        }
+
+
+
+
+        $(function () {
+            //tab 支持路径化
+            //var hash = window.location.hash;
+            //hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+            //$('.nav-tabs a').click(function (e) {
+            //    $(this).tab('show');
+            //    var scrollmem = $('body').scrollTop() || $('html').scrollTop();
+            //    window.location.hash = this.hash;
+            //    $('html,body').scrollTop(scrollmem);
+            //});
+
+
+
+
+
+        })
+    </script>
+}

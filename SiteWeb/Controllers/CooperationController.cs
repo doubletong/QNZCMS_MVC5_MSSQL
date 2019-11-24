@@ -27,7 +27,7 @@ namespace TZGCMS.SiteWeb.Controllers
             return View();
         }
 
-   
+        
         public async Task<ActionResult> List(string alias, int? page, int? year)
         {
             var category = await _db.ArticleCategories.FirstOrDefaultAsync(d => d.SeoName == alias);
@@ -57,7 +57,7 @@ namespace TZGCMS.SiteWeb.Controllers
 
 
             var url = Request.RawUrl;
-            ViewBag.PageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == url);
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == url);
 
             return View(vm);
         }
@@ -83,7 +83,7 @@ namespace TZGCMS.SiteWeb.Controllers
             _db.Entry(model).State = EntityState.Modified;
             await _db.SaveChangesAsync();
 
-            ViewBag.PageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.ARTICLE && d.ObjectId == id.ToString());
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.ARTICLE && d.ObjectId == id.ToString());
 
             //var prev = _db.Article.Where(s => s.Active && s.Id < id).OrderByDescending(s => s.Id).FirstOrDefault();
             //if (prev != null)

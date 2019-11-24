@@ -12,7 +12,7 @@ namespace SIG.Model.Mapping
             this.Property(b => b.Id)
                 .HasColumnName("Id")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            this.ToTable("ProductCategorySet");
+            this.ToTable("ProductCategories");
             this.Property(p => p.Title).HasMaxLength(50).IsRequired();     
             this.Property(p => p.Importance).IsRequired();
             this.Property(p => p.Active).IsRequired();
@@ -24,7 +24,7 @@ namespace SIG.Model.Mapping
             {
                 m.MapLeftKey("CategoryId");
                 m.MapRightKey("ProductId");
-                m.ToTable("ProductCategory");
+                m.ToTable("ProductWithCategory");
             });
 
             this.HasOptional(c => c.ParentCategory)

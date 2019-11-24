@@ -1,0 +1,23 @@
+{
+  "id": "1522085",
+  "name": "云门天成",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "494475",
+      "name": "cart_2f",
+      "font_class": "cart2f",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "1049682",
+      "name": "wechat",
+      "font_class": "wechat",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    }
+  ]
+}

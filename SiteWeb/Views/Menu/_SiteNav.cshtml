@@ -1,23 +1,23 @@
-﻿@model IEnumerable<Menu>
+﻿@model IEnumerable<QNZ.Data.MenuSet>
 <ul class="mainav" id="mainav">
     @foreach (var item in Model.Where(d => d.ParentId == null))
     {
-        <li class="@(item.ChildMenus.Any() ? "downav" : "") @(item.Url.Equals(Request.RawUrl) || Request.RawUrl.Contains(item.Url) ?"active":"")">
+        <li class="@(item.MenuSets.Any() ? "downav" : "") @(item.Url.Equals(Request.RawUrl) || Request.RawUrl.Contains(item.Url) ?"active":"")">
 
             <a href="@item.Url" class="">
                 @item.Title
-                @if (item.ChildMenus.Any())
+                @if (item.MenuSets.Any())
                 {
                     <i class="iconfont icon-down"></i>
                 }
             </a>
 
-            @if (item.ChildMenus.Any())
+            @if (item.MenuSets.Any())
             {
 
                 <div class="subnav">
                     <dl>
-                        @foreach (var subItem in item.ChildMenus)
+                        @foreach (var subItem in item.MenuSets)
                         {
                             <dd class="@(subItem.Url.Equals(Request.RawUrl)?"current":"")">
                                 <a href="@subItem.Url">

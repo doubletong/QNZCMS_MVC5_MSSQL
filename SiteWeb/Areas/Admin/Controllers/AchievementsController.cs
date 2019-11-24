@@ -12,10 +12,12 @@ using QNZ.Data;
 using PagedList;
 using AutoMapper.QueryableExtensions;
 using System.Threading.Tasks;
+using System.Web.UI;
+using TZGCMS.SiteWeb.Filters;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
-    //[SIGAuth]
+    [SIGAuth]
     public class AchievementsController : QNZBaseController
     {
         private IQNZDbContext _db;
@@ -25,25 +27,35 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             _db = db;
             _mapper = mapper;
         }
-       
+
         // GET: Admin/Achievements
-        public async Task<ActionResult> Index(int? page, string keyword)
+   
+        public async Task<ActionResult> Index(int? page, int? categoryId, string keyword)
         {
-            AchievementListVM vm = await GetElementsAsync(page, keyword);
+            AchievementListVM vm = await GetElementsAsync(page, categoryId, keyword);
             ViewBag.PageSizes = new SelectList(Site.PageSizes());
+
+            var categoryList = await _db.AchievementCategories.OrderByDescending(c => c.Importance).ToListAsync();
+            ViewBag.Categories = new SelectList(categoryList, "Id", "Title");
+
             return View(vm);
 
         }
 
-        private async System.Threading.Tasks.Task<AchievementListVM> GetElementsAsync(int? page, string keyword)
+        private async Task<AchievementListVM> GetElementsAsync(int? page, int? categoryId, string keyword)
         {
             var vm = new AchievementListVM()
             {
+                CategoryId = categoryId,
                 Keyword = keyword,
                 PageIndex = page ?? 1,
                 PageSize = 10
             };
-            var query = _db.Achievements.AsQueryable();
+            var query = _db.Achievements.Include(d=>d.AchievementCategory).AsQueryable();
+            if (categoryId > 0)
+            {
+                query = query.Where(d => d.CategoryId == categoryId);
+            }
             if (!string.IsNullOrEmpty(keyword))
             {
                 query = query.Where(d => d.Title.Contains(keyword));
@@ -53,7 +65,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             
 
             vm.TotalCount = await query.CountAsync();
-            vm.Achievements = new StaticPagedList<AchievementVM>(pagelist, vm.PageIndex, vm.PageSize, vm.TotalCount); ;
+            vm.Achievements = new StaticPagedList<AchievementVM>(pagelist, vm.PageIndex, vm.PageSize, vm.TotalCount); 
             return vm;
         }
         [HttpPost]
@@ -77,54 +89,6 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             }
         }
 
-
-        // GET: Admin/Achievements/Create
-        //public ActionResult Create()
-        //{
-        //    AchievementIM page = new AchievementIM()
-        //    {
-        //        Active = true
-        //    };
-        //    return PartialView("_Create", page);
-        //}
-
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[ValidateInput(false)]
-        //public JsonResult Create(AchievementIM page)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        AR.Setfailure(GetModelErrorMessage());
-        //        return Json(AR, JsonRequestBehavior.DenyGet);
-        //    }
-
-        //    try
-        //    {
-        //        var newAchievement = _mapper.Map<AchievementIM, Achievement>(page);
-        //        newAchievement.ViewCount = 0;
- 
-        //        var result = _db.Achievements.Add(newAchievement);
-        //        _db.SaveChanges();
-
-               
-              
-        //        int pageSize = 10;
-        //        var list = _db.Achievements.OrderByDescending(d => d.Id).Take(pageSize).ToList();                   
-
-        //        AR.Data = RenderPartialViewToString("_AchievementList", list);
-
-        //        AR.SetSuccess(String.Format(Messages.AlertCreateSuccess, EntityNames.Achievement));
-        //        return Json(AR, JsonRequestBehavior.DenyGet);
-        //    }
-        //    catch (Exception er)
-        //    {
-        //        AR.Setfailure(er.Message);
-        //        return Json(AR, JsonRequestBehavior.DenyGet);
-        //    }
-
-        //}
 
         // GET: Admin/Achievements/Edit/5
         public async Task<ActionResult> Edit(int? id)
@@ -212,33 +176,6 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 AR.Setfailure(er.Message);
                 return Json(AR, JsonRequestBehavior.DenyGet);
             }
-
-
-            //try
-            //{
-            //    var editAchievement = _db.Achievements.Find(page.Id);
-            //    editAchievement = _mapper.Map(page, editAchievement);
-
-
-            //    _db.Entry(editAchievement).State = EntityState.Modified;
-            //    _db.SaveChanges();
-
-
-
-
-
-            //    AR.Id = page.Id;
-            //    AR.Data = RenderPartialViewToString("_AchievementItem", editAchievement);
-
-            //    AR.SetSuccess(String.Format(Messages.AlertUpdateSuccess, EntityNames.Achievement));
-            //    return Json(AR, JsonRequestBehavior.DenyGet);
-
-            //}
-            //catch (Exception er)
-            //{
-            //    AR.Setfailure(er.Message);
-            //    return Json(AR, JsonRequestBehavior.DenyGet);
-            //}
 
 
         }

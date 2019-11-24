@@ -573,4 +573,7 @@
   <data name="Institute" xml:space="preserve">
     <value>研究所</value>
   </data>
+  <data name="Introduction" xml:space="preserve">
+    <value>简介</value>
+  </data>
 </root>

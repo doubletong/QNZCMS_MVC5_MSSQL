@@ -29,7 +29,8 @@ namespace TZGCMS.SiteWeb.Areas.Tools.Controllers
                 IsShowOnly = false,
                 ThumbnailsStorage = thumbsStorage,
                 ThumbnailsUrl = "/Tools/ElFinder/Thumbs?tmb=",
-                ThumbnailsSize=100
+                ThumbnailsSize=100,
+              
             });
             InitDriver(driver);
         }

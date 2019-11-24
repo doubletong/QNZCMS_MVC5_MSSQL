@@ -1,15 +1,15 @@
 ﻿
-@model IEnumerable<Menu>
-<div class="row botnav">
+@model IEnumerable<QNZ.Data.MenuSet>
+<ul class="botnav">
     @foreach (var item in Model.Where(d => d.ParentId == null))
     {
-        <div class="col @(item.ChildMenus.Any() ? "downav" : "") @(item.Url.Equals(Request.RawUrl) || (item.ChildMenus.Any() && item.ChildMenus.Select(m=>m.Url).Contains(Request.RawUrl)) ?"active":"")">
+        <li class="col @(item.MenuSets.Any() ? "downav" : "") @(item.Url.Equals(Request.RawUrl) || (item.MenuSets.Any() && item.MenuSets.Select(m=>m.Url).Contains(Request.RawUrl)) ?"active":"")">
 
             <a href="@(item.Url=="#"?"javascript:void(0);":item.Url)" class="node">
                 @item.Title               
             </a>
 
-            @if (item.ChildMenus.Any())
+            @*@if (item.ChildMenus.Any())
             {
                 <ul class="bot_subnav">
 
@@ -36,10 +36,10 @@
                     }
 
                 </ul>
-            }
-        </div>
+            }*@
+        </li>
 
     }
 
-</div>
+</ul>
 

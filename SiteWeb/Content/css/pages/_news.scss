@@ -1,174 +1,109 @@
-
+﻿
 
 .page-news {
-    .slider {
-        margin-bottom: 2rem;
+    padding-left: 65px;
 
-        @include respond-above(sm) {
-            margin-bottom: 3rem;
-        }
+    .news-header {
+        margin-bottom: 3rem;
+        text-align: center;
 
-        @include respond-above(md) {
-            margin-bottom: 4rem;
-        }
+        a {
+            display: inline-block;
+            padding: 0 2rem;
+            position: relative;
+            font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
 
-        @include respond-above(lg) {
-            margin-bottom: 5rem;
-        }
-
-        @include respond-above(xlg) {
-            margin-bottom: 6rem;
-        }
-
-        .txt {
-            height: 100%;
-            background: url(../img/logo_bg.png) no-repeat right -200px center;
-            background-size: auto 90%;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-
-            @include respond-above(sm) {
-                padding-top: 1.5rem;
+            &::before {
+                content: " ";
+                display: block;
+                position: absolute;
+                left: 50%;
+                bottom: 0;
+                width: 0;
+                background-color: $color-primary;
+                height: 2px;
+                margin-left: 0;
+                transition: all .2s;
             }
 
-            @include respond-above(md) {
-                padding-top: 2rem;
+            &::after {
+                content: " ";
+                display: block;
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 1px;
+                background-color: #999;
+                height: 100%;
             }
 
-            @include respond-above(lg) {
-                padding-top: 2.5rem;
-            }
-
-            @include respond-above(xlg) {
-                padding-top: 3rem;
-            }
-
-            h3 {
-                margin: 0;
-                font-size: rem(22);
-
-                @include respond-above(sm) {
-                    font-size: rem(26);
-                }
-
-                @include respond-above(md) {
-                    font-size: rem(30);
-                }
-
-                @include respond-above(lg) {
-                    font-size: rem(34);
-                }
-
-                @include respond-above(xlg) {
-                    font-size: rem(38);
+            &:last-child {
+                &::after {
+                    display: none;
                 }
             }
 
-            p {
-                font-size: 1rem;
-
-                @include respond-above(sm) {
-                    font-size: rem(18);
+            &:hover {
+                &::before {
+                    content: " ";
+                    display: block;
+                    position: absolute;
+                    left: 50%;
+                    bottom: 0;
+                    width: 50px;
+                    background-color: $color-primary;
+                    height: 2px;
+                    margin-left: -25px;
                 }
-
-                @include respond-above(md) {
-                    font-size: rem(20);
-                }
-
-                @include respond-above(lg) {
-                    font-size: rem(22);
-                }
-
-                @include respond-above(xlg) {
-                    font-size: rem(24);
-                }
-            }
-        }
-
-        .more {
-            display: block;
-            background-color: #f7f7f7;
-            text-align: center;
-            line-height: 50px;
-            height: 50px;
-
-            @include respond-above(sm) {
-                line-height: 80px;
-                height: 80px;
-            }
-
-            @include respond-above(md) {
-                line-height: 120px;
-                height: 120px;
-            }
-        }
-    }
-
-    .gallery-top {
-        .item {
-            display: block;
-        }
-
-        .thumb {
-            width: 780px;
-        }
-    }
-
-    .gallery-thumbs {
-        margin-bottom: 10px;
-
-        .swiper-slide {
-            background-position: center center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            height: 50px;
-
-            @include respond-above(sm) {
-                height: 80px;
-            }
-
-            @include respond-above(md) {
-                height: 120px;
             }
         }
     }
 
     .newslist {
-        margin-bottom: 3rem;
+        padding-left: 65px;
 
         .item {
             display: block;
-            padding: 1rem 0;
-            border-bottom: 1px #666 solid;
+            margin-bottom: 2rem;
 
-            @include respond-above(sm) {
-                padding: 2rem 0;
+            .pic {
+                img {
+                    max-width: none;
+                    width: 100%;
+                }
             }
+
+            .txt {
+                padding: 1rem rem(25);
+
+                h3 {
+                    margin: 0;
+                    font-weight: normal;
+
+
+                    @include respond-above(sm) {
+                        font-size: rem(18);
+                    }
+                }
+
+                .pubdate {
+                    font-size: rem(14);
+                    color: #ccc;
+                    border-bottom: 1px #eee solid;
+                    padding-bottom: .6rem;
+                }
+
+                .summary {
+                    font-size: rem(14);
+                    color: #999;
+                    padding-top: .5rem;
+                }
+            }
+
 
             &:hover {
-                color: $color-primary;
-                border-bottom: 1px $color-primary solid;
                 text-decoration: none;
                 background-color: #f7f7f7;
-            }
-
-
-            h3 {
-                margin: 0;
-                font-size: rem(20);
-
-                @include respond-above(sm) {
-                    font-size: rem(24);
-                }
-
-                @include respond-above(md) {
-                    font-size: rem(28);
-                }
-            }
-
-            .pubdate {
-                text-align: right;
-                color: #999;
             }
         }
 

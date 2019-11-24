@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -28,7 +29,7 @@ namespace TZGCMS.SiteWeb.Controllers.api
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> GetCarousels(string code)
         {
-            var position = db.Positions.Include("Carousels").FirstOrDefault(d => d.Code == code);
+            var position = await db.Positions.Include("Carousels").FirstOrDefaultAsync(d => d.Code == code);
             if (position == null || !position.Carousels.Any())
             {
                 return NotFound();

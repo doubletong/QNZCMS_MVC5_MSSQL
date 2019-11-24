@@ -16,7 +16,7 @@ namespace TZGCMS.Data.Mapping
                 .HasColumnName("Id")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            this.ToTable("OutletSet");
+            this.ToTable("Outlets");
 
             this.Property(p => p.Address).HasMaxLength(200).IsRequired();
             this.Property(p => p.Coordinate).HasMaxLength(50);

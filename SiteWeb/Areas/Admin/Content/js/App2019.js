@@ -342,7 +342,7 @@ $(function () {
     var closenav = function () {
         $('#rightcol').animate({ 'marginLeft': '0' }, 'fast');
         $('#wrapper').addClass("nonav");
-    }
+    };
 
 
 

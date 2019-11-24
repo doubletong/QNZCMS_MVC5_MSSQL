@@ -1,20 +1,28 @@
-﻿using System;
+﻿using QNZ.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TZGCMS.Infrastructure.Cache;
 using TZGCMS.Service.Ads;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
-    public class ADController : BaseController
+    public class ADController :Controller
     {
-       
 
+        private readonly IQNZDbContext _db;
+        private readonly ICacheService _cacheService;
+        public ADController(ICacheService cacheService, IQNZDbContext db)
+        {
+            _cacheService = cacheService;
+            _db = db;
+        }
         // GET: Carousel
         public PartialViewResult Carousels(string code)
         {
-            var carousels = _db.Carousels.Where(d => d.Active && d.Position.Code == code).OrderByDescending(d => d.ImageUrl).ToList();
+            var carousels = _db.CarouselSets.Where(d => d.Active && d.PositionSet.Code == code).OrderByDescending(d => d.ImageUrl).ToList();
 
             if (!carousels.Any())
             {
@@ -31,7 +39,7 @@ namespace TZGCMS.SiteWeb.Controllers
 
         public PartialViewResult SingleAd(string code)
         {
-            var carousel = _db.Carousels.OrderByDescending(d => d.ImageUrl).FirstOrDefault(d => d.Active && d.Position.Code == code);
+            var carousel = _db.CarouselSets.OrderByDescending(d => d.ImageUrl).FirstOrDefault(d => d.Active && d.PositionSet.Code == code);
 
             if (carousel == null)
             {
@@ -45,7 +53,7 @@ namespace TZGCMS.SiteWeb.Controllers
         }
         public PartialViewResult SingleAdForHome(string code)
         {
-            var carousel = _db.Carousels.OrderByDescending(d => d.ImageUrl).FirstOrDefault(d => d.Active && d.Position.Code == code);
+            var carousel = _db.CarouselSets.OrderByDescending(d => d.ImageUrl).FirstOrDefault(d => d.Active && d.PositionSet.Code == code);
 
             if (carousel == null)
             {

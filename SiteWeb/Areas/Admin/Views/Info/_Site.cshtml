@@ -1,131 +1,111 @@
 ﻿@model SiteInfoIM
 
 @using (Ajax.BeginForm("EditSite", null, new AjaxOptions()
-    {
-        OnBegin = "onBegin",
-        OnComplete = "onComplete",
-        //   Confirm = "Are you sure you want to save this User?"
-        OnSuccess = "onSuccess"
+{
+    OnBegin = "onBegin",
+    OnComplete = "onComplete",
+    //   Confirm = "Are you sure you want to save this User?"
+    OnSuccess = "onSuccess"
 
-    }, new { @class = "form-horizontal", role = "form" }))
-    {
-
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
-    <h3>基本信息</h3>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.SiteName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-5">
-            @Html.TextBoxFor(model => model.SiteName, new { @class = "form-control", placeholder = "站点名称" })
-            @Html.ValidationMessageFor(model => model.SiteName)
+}, new {role = "form" }))
+{
+    <div class="card mb-3">
+        <div class="card-header">
+            基本信息
         </div>
-    </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SiteDomainName, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-5">
-                        @Html.TextBoxFor(model => model.SiteDomainName, new { @class = "form-control", placeholder = "http://" })
-                        @Html.ValidationMessageFor(model => model.SiteDomainName)
-                    </div>
-                </div>
-
-                  <div class="form-group">
-                    @Html.LabelFor(model => model.MailTo, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-5">
-                        @Html.TextBoxFor(model => model.MailTo, new { @class = "form-control", placeholder = "邮箱" })
-                        @Html.ValidationMessageFor(model => model.MailTo)
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.WebNumber, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-5">
-                        @Html.TextBoxFor(model => model.WebNumber, new { @class = "form-control", placeholder = "工信部备案号" })
-                        @Html.ValidationMessageFor(model => model.WebNumber)
-                    </div>
+        <div class="card-body">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            <div class="form-row">
+                <div class="col-md-6  mb-3">
+                    @Html.LabelFor(model => model.SiteName)
+                    @Html.TextBoxFor(model => model.SiteName, new { @class = "form-control", placeholder = "站点名称" })
+                    @Html.ValidationMessageFor(model => model.SiteName)
 
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.BaiduSiteID, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-5">
-                        @Html.TextBoxFor(model => model.BaiduSiteID, new { @class = "form-control", placeholder = "百度统计代码" })
-                        @Html.ValidationMessageFor(model => model.BaiduSiteID)
-                    </div>
+                <div class="col-md-6  mb-3">
+                    @Html.LabelFor(model => model.SiteDomainName)
+                    @Html.TextBoxFor(model => model.SiteDomainName, new { @class = "form-control", placeholder = "http://" })
+                    @Html.ValidationMessageFor(model => model.SiteDomainName)
 
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.GoogleAnalyticsID, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-5">
-                        @Html.TextBoxFor(model => model.GoogleAnalyticsID, new { @class = "form-control", placeholder = Labels.GoogleAnalyticsID })
-                        @Html.ValidationMessageFor(model => model.GoogleAnalyticsID)
-                    </div>
+
+                <div class="col-md-6  mb-3">
+                    @Html.LabelFor(model => model.MailTo)
+                    @Html.TextBoxFor(model => model.MailTo, new { @class = "form-control", placeholder = "邮箱" })
+                    @Html.ValidationMessageFor(model => model.MailTo)
+
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DashboardLogo, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-5">
-                        @if (!string.IsNullOrEmpty(Model.DashboardLogo))
-                        {
-                            <img src='@Model.DashboardLogo' id="imgDashboardLogo" class="img-thumbnail m-b-10" style="max-width:200px;background-color:#333;" />                               
-                        }
-                        <div class="input-group">
-                            @Html.TextBoxFor(model => model.DashboardLogo, new { @class = "form-control", placeholder = Labels.DashboardLogo })
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" id="btnDashboardLogo" type="button">浏览…</button>
-                            </div>
-                        </div>                        
-                        @Html.ValidationMessageFor(model => model.DashboardLogo)
-                    </div>
+
+                <div class="col-md-6  mb-3">
+                    @Html.LabelFor(model => model.WebNumber)
+                    @Html.TextBoxFor(model => model.WebNumber, new { @class = "form-control", placeholder = "工信部备案号" })
+                    @Html.ValidationMessageFor(model => model.WebNumber)
+
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.LoginLogo, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-5">
-                        @if (!string.IsNullOrEmpty(Model.LoginLogo))
-                        {
-                            <img src='@Model.LoginLogo' id="imgLoginLogo" class="img-thumbnail m-b-10" style="max-width:200px; " />
-                        }
-                        <div class="input-group">
-                            @Html.TextBoxFor(model => model.LoginLogo, new { @class = "form-control", placeholder = Labels.LoginLogo })
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" id="btnLoginLogo" type="button">浏览…</button>
-                            </div>
-                        </div>
-                        @Html.ValidationMessageFor(model => model.DashboardLogo)
-                   
-                    </div>
+                <div class="col-md-6  mb-3">
+                    @Html.LabelFor(model => model.BaiduSiteID)
+
+                    @Html.TextBoxFor(model => model.BaiduSiteID, new { @class = "form-control", placeholder = "百度统计代码" })
+                    @Html.ValidationMessageFor(model => model.BaiduSiteID)
+
+
                 </div>
-                <h3>网站状态</h3>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.IsClose, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-5">
-                        <div class="checkbox">
-                            <label>
-                                @Html.CheckBoxFor(model => model.IsClose)  @Html.DisplayNameFor(model => model.IsClose)
-                            </label>
+                <div class="col-md-6  mb-3">
+                    @Html.LabelFor(model => model.GoogleAnalyticsID)
+
+                    @Html.TextBoxFor(model => model.GoogleAnalyticsID, new { @class = "form-control", placeholder = Labels.GoogleAnalyticsID })
+                    @Html.ValidationMessageFor(model => model.GoogleAnalyticsID)
+
+                </div>
+                <div class="col-md-6  mb-3">
+                    @Html.LabelFor(model => model.DashboardLogo)
+
+                
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.DashboardLogo, new { @class = "form-control", placeholder = Labels.DashboardLogo })
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" id="btnDashboardLogo" type="button">浏览…</button>
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        @Html.ValidationMessageFor(model => model.IsClose)
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.CloseInfo, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-5">
-                        @Html.TextAreaFor(model => model.CloseInfo, new { @class = "form-control", placeholder = Labels.CloseInfo })
-                        @Html.ValidationMessageFor(model => model.CloseInfo)
-                    </div>
+                    @Html.ValidationMessageFor(model => model.DashboardLogo)
 
                 </div>
+                <div class="col-md-6 mb-3">
+                    @if (!string.IsNullOrEmpty(Model.DashboardLogo))
+                    {
+                        <img src='@Model.DashboardLogo' id="imgDashboardLogo" class="img-thumbnail m-b-10" style="max-width:300px;background-color:#333;" />
+                    }
+                </div>
+                <div class="col-md-6  mb-3">
+                    @Html.LabelFor(model => model.LoginLogo)
 
+                  
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.LoginLogo, new { @class = "form-control", placeholder = Labels.LoginLogo })
 
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-md-3">
-            <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save fa-fw"></i>保存</button>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="btnLoginLogo">浏览…</button>
+                        </div>
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.DashboardLogo)
+                </div>
+                <div class="col-md-6 mb-3">
+                    @if (!string.IsNullOrEmpty(Model.LoginLogo))
+                    {
+                        <img src='@Model.LoginLogo' id="imgLoginLogo" class="img-thumbnail m-b-10" style="max-width:300px; " />
+                    }
+                </div>
+
+            </div>
+
+            
         </div>
-        @*<div class="col-md-7">
-                @TempData["message"]
-            </div>*@
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">保存</button>             
+        </div>
+
     </div>
 }

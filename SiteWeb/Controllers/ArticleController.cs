@@ -22,80 +22,81 @@ namespace TZGCMS.SiteWeb.Controllers
             _db = db;
             _mapper = mapper;
         }
-        [SIGActionFilter]
-        public async Task<ActionResult> Index()
+
+
+        [SIGActionFilter,HttpGet]
+        [Route("Article")]
+        [Route("Article/{alias}")]
+        public async Task<ActionResult> Index(int? page,string alias)
         {
 
             var vm = new FrontArticlePageVM
             {
-              
-                NewsList = await _db.Articles.Where(d=>d.ArticleCategory.SeoName == "news").Take(5)
-                .OrderByDescending(d=>d.Pubdate).Select(d=> new ArticleVM
-                {
-                    Id = d.Id,
-                    Title = d.Title,
-                    Thumbnail = d.Thumbnail,
-                    Summary = d.Summary,
-                    Pubdate = d.Pubdate
-                }).ToListAsync(),
-                MediaList = await _db.Articles.Where(d => d.ArticleCategory.SeoName == "media").Take(5)
-                .OrderByDescending(d => d.Pubdate).Select(d => new ArticleVM
-                {
-                    Id = d.Id,
-                    Title = d.Title,
-                    Thumbnail = d.Thumbnail,
-                    Summary = d.Summary,
-                    Pubdate = d.Pubdate
-                }).ToListAsync(),
-                NoticeList = await _db.Articles.Where(d => d.ArticleCategory.SeoName == "notice").Take(5)
-                .OrderByDescending(d => d.Pubdate).Select(d => new ArticleVM
-                {
-                    Id = d.Id,
-                    Title = d.Title,
-                    Thumbnail = d.Thumbnail,
-                    Summary = d.Summary,
-                    Pubdate = d.Pubdate
-                }).ToListAsync()
-            };
-
-            var url = Request.RawUrl;
-            ViewBag.PageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == url);
-
-            return View(vm);
-        }
-        public async Task<ActionResult> List(string alias, int? page,int? year)
-        {
-            var category = await _db.ArticleCategories.FirstOrDefaultAsync(d => d.SeoName == alias);
-            var query = _db.Articles.Where(d => d.Active==true && d.ArticleCategory.SeoName == alias).AsQueryable();
-
-            var vm = new FrontArticleListVM
-            {
-                Alias = alias,
-                Years = await query.Select(d => d.Pubdate.Year).OrderByDescending(d=>d).Distinct().ToListAsync(),
-                Year = year,
-                CategoryTitle = category?.Title,
                 PageIndex = page ?? 1,
-                PageSize = SettingsManager.Article.FrontPageSize
-            };
+                PageSize = SettingsManager.Article.FrontPageSize,
+          
+                Categories = await _db.ArticleCategories.AsNoTracking().Where(d => d.Active)
+                .OrderByDescending(d => d.Importance)
+                .Select(d => new ArticleCategoryFVM
+                {
+                    Id = d.Id,
+                    Title = d.Title,
+                    Alias = d.SeoName
+                }).ToListAsync()
 
-            if (year != null)
+        };
+
+            var query = _db.Articles.Where(d=>d.Active).AsNoTracking().AsQueryable();
+            if (!string.IsNullOrEmpty(alias))
             {
-                query = query.Where(d => d.Pubdate.Year == year);
-            }           
-
-            var list = await query.OrderByDescending(d => d.Pubdate)
-                .ThenByDescending(d => d.Id).Skip((vm.PageIndex - 1) * vm.PageSize)
-                .Take(vm.PageSize).ProjectTo<ArticleVM>(_mapper.ConfigurationProvider).ToListAsync();
-
+                query = query.Where(d => d.ArticleCategory.SeoName == alias);
+            }
             vm.TotalCount = await query.CountAsync();
+            var list = await query.OrderByDescending(d=>d.Pubdate).Skip((vm.PageIndex - 1) * vm.PageSize).Take(vm.PageSize).ProjectTo<ArticleVM>().ToListAsync();
             vm.Articles = new StaticPagedList<ArticleVM>(list, vm.PageIndex, vm.PageSize, vm.TotalCount);
 
-
             var url = Request.RawUrl;
-            ViewBag.PageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == url);
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == url);
 
             return View(vm);
         }
+
+
+        //public async Task<ActionResult> List(string alias, int? page,int? year)
+        //{
+        //    var category = await _db.ArticleCategories.FirstOrDefaultAsync(d => d.SeoName == alias);
+        //    var query = _db.Articles.Where(d => d.Active==true && d.ArticleCategory.SeoName == alias).AsQueryable();
+
+        //    var vm = new FrontArticleListVM
+        //    {
+        //        Alias = alias,
+        //        Years = await query.Select(d => d.Pubdate.Year).OrderByDescending(d=>d).Distinct().ToListAsync(),
+        //        Year = year,
+        //        CategoryTitle = category?.Title,
+        //        PageIndex = page ?? 1,
+        //        PageSize = SettingsManager.Article.FrontPageSize
+        //    };
+
+        //    if (year != null)
+        //    {
+        //        query = query.Where(d => d.Pubdate.Year == year);
+        //    }           
+
+        //    var list = await query.OrderByDescending(d => d.Pubdate)
+        //        .ThenByDescending(d => d.Id).Skip((vm.PageIndex - 1) * vm.PageSize)
+        //        .Take(vm.PageSize).ProjectTo<ArticleVM>(_mapper.ConfigurationProvider).ToListAsync();
+
+        //    vm.TotalCount = await query.CountAsync();
+        //    vm.Articles = new StaticPagedList<ArticleVM>(list, vm.PageIndex, vm.PageSize, vm.TotalCount);
+
+
+        //    var url = Request.RawUrl;
+        //    ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == url);
+
+        //    return View(vm);
+        //}
+
+
         //public ActionResult Search(string keyword, int? page)
         //{
 
@@ -124,16 +125,16 @@ namespace TZGCMS.SiteWeb.Controllers
         [HttpGet]
         public PartialViewResult ArtHeader()
         {
-            //var vm = _db.ArticleCategory.Where(d => d.Active)
-            //    .OrderByDescending(d => d.Importance)
-            //    .Select(d => new ArticleCategoryFVM
-            //    {
-            //        Id = d.Id,
-            //        Title = d.Title,
-            //        Alias = d.SeoName
-            //    }).ToList();
-            //return PartialView("_ArtHeader", vm);
-            return PartialView("_ArtHeader");
+            var vm = _db.ArticleCategories.Where(d => d.Active)
+                .OrderByDescending(d => d.Importance)
+                .Select(d => new ArticleCategoryFVM
+                {
+                    Id = d.Id,
+                    Title = d.Title,
+                    Alias = d.SeoName
+                }).ToList();
+            return PartialView("_ArtHeader", vm);
+         
         }
 
 
@@ -169,7 +170,7 @@ namespace TZGCMS.SiteWeb.Controllers
             _db.Entry(model).State = EntityState.Modified;
             await _db.SaveChangesAsync();
 
-            ViewBag.PageMeta = await _db.PageMetaSets.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.ARTICLE && d.ObjectId == id.ToString());
+            ViewBag.PageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.ARTICLE && d.ObjectId == id.ToString());
 
             var prev = _db.Articles.Where(s => s.Active==true && s.Id < id).OrderByDescending(s => s.Id).FirstOrDefault();
             if (prev != null)

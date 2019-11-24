@@ -1,8 +1,8 @@
 ﻿@model ProductListVM
 
 @{
-    ViewBag.PageTitle = "产品列表";
-    ViewBag.Title = ViewBag.PageTitle + "_内容";
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/_Layout2019.cshtml";
+    ViewBag.Title = EntityNames.Product;
 }
 
 @section Header{
@@ -15,30 +15,29 @@
 }
 
 
-<div class="panel panel-default sig-panel-tabs">
-    <header class="panel-heading">
-        <div class="row">
-            <div class="col-sm-8">
-                <form class="form-inline">
-                    <div class="form-group">
-                        <label for="Keyword">关键字</label>
-                        @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
-                        @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Categories, Labels.Category + "过滤", new { @class = "form-control" })
-                    </div>
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-search fa-fw"></i>查找</button>
-                </form>
+<div class="row mb-3">
+    <div class="col-sm">
+        @using (Html.BeginForm("Index", null, FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <div class="form-group">
+                <label class="sr-only" for="Keyword">关键字</label>
+                @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control mr-sm-2", placeholder = "关键字" })
+                @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Categories, Labels.Category + "过滤", new { @class = "form-control mr-sm-2" })
             </div>
-            <div class="col-sm-4 text-right">
-                <a href="@Url.Action("AddProduct")" class="btn btn-primary"><i class='fa fa-plus fa-fw'></i>添加产品</a>
-                <a class="btn btn-default createIndex" href="#" data-url="@Url.Action("CreateIndex")"><i class="fa fa-server"></i> @Buttons.CreateIndex</a>
-            </div>
-        </div>
-    </header>
+            <button type="submit" class="btn btn-primary"><i class="iconfont icon-search"></i> 查找</button>
+        }
+    </div>
+    <div class="col-sm-auto">
+        <a class="btn btn-primary" href="@Url.Action("Edit")"><i class="iconfont icon-edit"></i> @string.Format("{0}{1}", Buttons.Add, EntityNames.Product)</a>
+        @*<a class="btn btn-outline-secondary createIndex" href="#" data-url="@Url.Action("CreateIndex")"><i class="iconfont icon-securityscan"></i> @Buttons.CreateIndex</a>*@
+    </div>
 
+</div>
+
+<div class="table-responsive">
     <table class="table table-hover table-striped table-vmiddle">
         <thead>
             <tr>
-
                 <th>
                     缩略图
                 </th>
@@ -87,24 +86,27 @@
     </table>
 
 
-    <footer class="panel-footer">
-        <div class="row">
-            <div class="col-sm-7">
-                @Html.PagedListPager(Model.Products, page => Url.Action("Index", new { page = page, catId = Model.CategoryId, keyword = Model.Keyword }))
-            </div>
-            <div class="col-sm-5">
-                <div class="form-inline text-right">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
-                        @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
-                    </div>
-                </div>
-            </div>
+</div>
+
+<div class="container-fluid pt-3" style="background-color: #fff;">
+    <div class="row">
+        <div class="col">
+            @Html.PagedListPager(Model.Products, page => Url.Action("Index", new { page = page,  categoryId = Model.CategoryId, keyword = Model.Keyword }), new PagedListRenderOptions()
+            {
+                LiElementClasses = new List<string> { "page-item" }
+
+            })
         </div>
+        <div class="col-md-auto">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">总记录<strong>@Model.TotalCount</strong>条，分页</span>
+                </div>
+                @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "custom-select" })
+            </div>
 
-
-    </footer>
-
+        </div>
+    </div>
 
 </div>
 

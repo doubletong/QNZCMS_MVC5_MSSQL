@@ -1,15 +1,11 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using PagedList;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using TZGCMS.Data.Enums;
-using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Model;
 using TZGCMS.SiteWeb.Filters;
 

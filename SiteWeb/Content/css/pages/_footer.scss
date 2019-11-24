@@ -1,96 +1,32 @@
 
-.footer-bar {
-    text-align: center;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-
-    @include respond-above(sm) {
-        padding-bottom: 2rem;
-        padding-top: 2rem;
-    }
-
-    @include respond-above(md) {
-        padding-bottom: 3rem;
-        padding-top: 3rem;
-    }
-
-    @include respond-above(lg) {
-        padding-bottom: 4rem;
-        padding-top: 4rem;
-    }
-
-    @include respond-above(xlg) {
-        padding-bottom: 5rem;
-        padding-top: 5rem;
-    }
-
-    img {
-        width: 70%;
-
-        @include respond-above(sm) {
-            width: auto;
-        }
-    }
-}
 
 .site-footer {
-    background: $color-primary;
-    overflow: hidden;
-    text-align: center;
-    color: #fff;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
+    background: #fafafa;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
     font-size: 14px;
-
-    @include respond-above(sm) {
-        padding-bottom: 2rem;
-        padding-top: 2rem;
-        font-size: 1rem;
-    }
-
-    @include respond-above(md) {
-        padding-bottom: 3rem;
-        padding-top: 3rem;
-    }
-
-    @include respond-above(lg) {
-        padding-bottom: 4rem;
-        padding-top: 4rem;
-    }
-
-    @include respond-above(xlg) {
-        padding-bottom: 5rem;
-        padding-top: 5rem;
-    }
+    padding-left: 130px;
+    color:#999;
 
     a {
-        color: #fff;
         display: inline-block;
         position: relative;
-
-        &::after {
-            content: " ";
-            display: block;
-            border-top: transparent 1px dotted;
-        }
-
-        &:hover {
-            &::after {
-                border-top: #fff 1px dotted;
-            }
-        }
     }
 
-    nav {
-        a {
-            margin: 0 .8rem;
+
+    .botnav {
+        writing-mode: vertical-rl;
+        @include reset-list();
+
+        li {
+            border-left: 1px #d9d9d9 solid;
+            border-right: 1px #d9d9d9 solid;
+            margin-left: 42px;
         }
     }
 
     p {
-        span {
-            margin-left: .5rem
-        }
+        
     }
 }
 

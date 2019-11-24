@@ -7,18 +7,19 @@
     <title>@ViewBag.Title - @SettingsManager.Site.SiteName</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <!-- Place favicon.ico in the root directory -->
-    <!--开启对web app的支持-->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="icon.png">
+    <meta name="theme-color" content="#fafafa">
+
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="date=no">
     <meta name="format-detection" content="address=no">
     <meta name="format-detection" content="email=no">
-  
+
     @RenderSection("header", required: false)
     <link href="~/Content/fonts/iconfont.css" rel="stylesheet" />
-    <link href="~/Plugins/lightbox2/css/lightbox.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/plugins/wow/css/libs/animate.css">
     <link href="~/Content/css/styles.min.css" rel="stylesheet" />
     <script src="~/Scripts/compatibility/modernizr-2.8.3.min.js"></script>
 
@@ -35,7 +36,7 @@
 
 
     @Html.Partial("_Footer")
- 
+
     <!-- The Scripts -->
     <!--[if lte IE 8]>
     <script src="~/scripts/lib/jqueryForIE/jquery-1.11.3.min.js"></script>
@@ -43,8 +44,8 @@
     <!--[if gte IE 9]><!-->
     <script src="~/Scripts/lib/jquery/jquery-3.3.1.min.js"></script>
     <!--<![endif]-->
-    <script src="~/Plugins/lightbox2/js/lightbox.min.js"></script>
     @RenderSection("footer", required: false)
+    <script src="/plugins/wow/dist/wow.min.js"></script>
     <script src="~/Content/js/app.min.js"></script>
 
 

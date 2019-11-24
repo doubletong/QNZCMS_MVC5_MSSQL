@@ -1,7 +1,7 @@
-﻿@model IEnumerable<SimpleProductVM>
+﻿@model ProductListFVM
 @{
-    PageMeta pm = (PageMeta)ViewBag.PageMeta;
-    ViewBag.Title = pm != null ? pm.Title : "产品展示";
+    QNZ.Data.PageMeta pm = (QNZ.Data.PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : Model.Category.Title;
 }
 @section header{
     @if (pm != null)
@@ -11,22 +11,31 @@
     }
 }
 
-@Html.Action("SingleAd", "AD", new { code = "A1007" })
+<div class="banner banner-news" style="background-image:url('@Model.Category.ImageUrl')">
+    <div class="header-news">
+        <h3>@Model.Category.Title</h3>
+        <p>
+            @Model.Category.Description
+        </p>
+        <img src="@Model.Category.IconName" alt="@Model.Category.Title" />
+    </div>
+
+</div>
+
 
 <div class="page page-products">
-    <section class="container s1">
-        <h2 class="title title-section">产品中心</h2>
+    <section class="container s1">      
         <div class="productlist">
             <div class="row">
-                @foreach (var item in Model)
+                @foreach (var item in Model.Products)
                 {
-                    <div class="col-md-4">
+                    <div class="col-md-6 col-lg-4 px-4">
                         <a href="@Url.Action("Detail", new { id= item.Id})" class="item">
                             <div class="pic"><img src="@item.Thumbnail" alt="@item.ProductName" /></div>
                             <div class="text">
                                 <h3>@item.ProductName</h3>
                                 <p>@item.Summary</p>
-                                <div class="more">查看更多</div>
+                        
                             </div>
                         </a>
 
@@ -37,6 +46,6 @@
         </div>
     </section>
 
-    @Html.Action("Paragraph", "Pages", new { seoName = "training" })
+
 
 </div>

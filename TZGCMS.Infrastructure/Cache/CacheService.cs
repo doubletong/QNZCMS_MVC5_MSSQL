@@ -16,8 +16,10 @@ namespace TZGCMS.Infrastructure.Cache
 
         public void Set(string key, object data, int cacheTime)
         {
-            CacheItemPolicy policy = new CacheItemPolicy();
-            policy.AbsoluteExpiration = DateTime.Now + TimeSpan.FromMinutes(cacheTime);
+            CacheItemPolicy policy = new CacheItemPolicy
+            {
+                AbsoluteExpiration = DateTime.Now + TimeSpan.FromMinutes(cacheTime)
+            };
 
             Cache.Add(new CacheItem(key, data), policy);
         }

@@ -2,8 +2,8 @@
 @{
 
     Layout = "~/Areas/Admin/Views/Shared/Layouts/_Layout2019.cshtml";
-    ViewBag.Title = "编辑" + EntityNames.ArticleCategory;
-    ViewBag.PageTitle = ViewBag.Title + "_内容";
+    ViewBag.Title = Model.Id>0?  "编辑" + EntityNames.ArticleCategory :"添加" + EntityNames.ArticleCategory;
+   
 }
 
 
@@ -122,8 +122,8 @@
 
         </section>
         <footer class="card-footer text-center">
-            <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save fa-fw"></i>  @Buttons.Update </button>
-            <a href="@Url.Action("Index")" class="btn btn-secondary"><span class="fa fa-chevron-left fa-fw"></span> @Buttons.Back</a>
+            <button type="submit" class="btn btn-primary" id="btnSave"><i class="iconfont icon-save"></i>  @Buttons.Update </button>
+            <a href="@Url.Action("Index")" class="btn btn-secondary"><span class="iconfont icon-arrowleft"></span> @Buttons.Back</a>
         </footer>
 
     </div>
@@ -148,10 +148,11 @@
 
 
         function onBeginSave() {
-            $("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin");
+            $("#btnSave").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  提交中...');
+
         }
         function onCompleteSave() {
-            $("#btnSave i").removeClass("fa-spinner fa-spin").addClass("fa-save");
+            $("#btnSave").html('<i class="iconfont icon-save"></i> 保存');
         }
 
         function updateSuccess(data) {

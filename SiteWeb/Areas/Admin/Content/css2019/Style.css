@@ -131,22 +131,23 @@ input:-webkit-autofill:active {
 .wrapper {
   overflow: hidden;
   width: 100%; }
-
-.leftcol {
-  position: absolute;
-  width: 170px;
-  left: 0;
-  float: left;
-  margin: 0;
-  background-color: #333333;
-  min-height: 100%; }
-  .leftcol .logo {
-    text-align: center;
-    text-align: center;
-    padding: 15px;
-    border-bottom: 1px #222222 solid; }
-    .leftcol .logo img {
-      max-width: 100%; }
+  .wrapper .leftcol {
+    position: absolute;
+    width: 170px;
+    left: 0;
+    float: left;
+    margin: 0;
+    background-color: #333333;
+    min-height: 100%; }
+    .wrapper .leftcol .logo {
+      text-align: center;
+      text-align: center;
+      padding: 15px;
+      border-bottom: 1px #222222 solid; }
+      .wrapper .leftcol .logo img {
+        max-width: 100%; }
+  .wrapper.nonav .leftcol {
+    display: none; }
 
 .rightcol {
   margin: 0 0 0 170px;

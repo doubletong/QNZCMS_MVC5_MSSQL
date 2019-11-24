@@ -37,7 +37,7 @@
         <section class="card-body">
             <div class="row">
                 <div class="col-md">
-                    <div class="form-group row">
+                    <div class="form-group ">
                         @Html.LabelFor(model => model.Title )
                    
                             @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = Labels.Title })
@@ -45,7 +45,7 @@
                      
                     </div>
 
-                    <div class="form-group row">
+                    <div class="form-group ">
                         @Html.LabelFor(model => model.CategoryId )
                       
                             @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Categories, new { @class = "form-control" })
@@ -54,7 +54,7 @@
                     </div>
 
 
-                    <div class="form-group row">
+                    <div class="form-group ">
                         @Html.LabelFor(model => model.Body )
                       
                             @Html.TextAreaFor(model => model.Body, new { @class = "form-control", placeholder = "内容" })
@@ -99,8 +99,8 @@
 
         </section>
         <footer class="card-footer text-center">
-            <button type="submit" class="btn btn-primary" id="btnSave"><i class="fa fa-save fa-fw"></i>  @Buttons.Update </button>
-            <a href="@Url.Action("Index")" class="btn btn-secondary"><span class="fa fa-chevron-left fa-fw"></span> @Buttons.Back</a>
+            <button type="submit" class="btn btn-primary" id="btnSave"><i class="iconfont icon-save"></i>  @Buttons.Update </button>
+            <a href="@Url.Action("Index")" class="btn btn-secondary"><i class="iconfont icon-arrowleft"></i> @Buttons.Back</a>
         </footer>
 
     </div>
@@ -125,10 +125,11 @@
 
 
         function onBeginSave() {
-            $("#btnSave i").removeClass("fa-save").addClass("fa-spinner fa-spin");
+            $("#btnSave").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  提交中...');
+
         }
         function onCompleteSave() {
-            $("#btnSave i").removeClass("fa-spinner fa-spin").addClass("fa-save");
+            $("#btnSave").html('<i class="iconfont icon-save"></i> 保存');
         }
 
         function updateSuccess(data) {

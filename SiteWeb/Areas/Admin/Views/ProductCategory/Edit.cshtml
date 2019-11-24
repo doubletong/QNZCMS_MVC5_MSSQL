@@ -1,0 +1,219 @@
+﻿@model ProductCategoryIM
+@{
+
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/_Layout2019.cshtml";
+    ViewBag.Title = Model.Id>0?  "编辑" + EntityNames.Category :"添加" + EntityNames.Category;
+  
+}
+
+
+@section Header{
+
+    <link href="~/Plugins/datetimepicker/jquery.datetimepicker.css" rel="stylesheet" />
+}
+
+
+@using (Ajax.BeginForm("Edit", null, new AjaxOptions
+{
+
+    HttpMethod = "POST",
+    OnBegin = "onBeginSave",
+    OnComplete = "onCompleteSave",
+    OnSuccess = "updateSuccess"
+
+}, new { @class = "form-horizontal", role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+
+
+    <div class="card">
+        <header class="card-header">
+            <span class="glyphicon glyphicon-edit"></span> @ViewBag.Title
+        </header>
+
+        <section class="card-body">
+            <div class="row">
+                <div class="col-md">
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Title)
+
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = Labels.Title })
+                        @Html.ValidationMessageFor(model => model.Title)
+
+                    </div>
+
+
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.SeoName)
+
+                        @Html.TextBoxFor(model => model.SeoName, new { @class = "form-control", placeholder = Labels.SeoName })
+                        @Html.ValidationMessageFor(model => model.SeoName)
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ParentId)
+
+                        @Html.DropDownListFor(model => model.ParentId, (SelectList)ViewBag.ParentCategories, new { @class = "form-control", placeholder = Labels.ParentCategory })
+                        @Html.ValidationMessageFor(model => model.ParentId)
+
+                    </div>
+
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Importance)
+
+                        @Html.TextBoxFor(model => model.Importance, new { @class = "form-control", placeholder = Labels.Importance })
+                        @Html.ValidationMessageFor(model => model.Importance)
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description)
+
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "描述(SEO)" })
+                        @Html.ValidationMessageFor(model => model.Description)
+
+                    </div>
+
+                    <div class="form-group form-check">
+                        @Html.CheckBoxFor(model => model.Active, new { @class = "form-check-input" })
+                        <label class="form-check-label" for="Active">激活</label>
+                    </div>
+
+                </div>
+                <div class="col-md-auto">
+
+                    <div style="width:300px; text-align:center;" class="mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <img ID="iLogo" src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "holder.js/240x110?text=1840X720像素" : Model.ImageUrl )" class="img-fluid" />
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" id="btnImageUrl" class="btn btn-info btn-block"><i class="iconfont icon-image"></i> 背景图...</button>
+                                @Html.HiddenFor(model => model.ImageUrl)
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width:300px; text-align:center;" class="mb-3">
+                        <div class="card">
+                            <div class="card-body" style="background-color:#ccc;">
+                                <img ID="iLogo2" src="@(string.IsNullOrEmpty(Model.IconName) ? "holder.js/240x180?text=小图标" : Model.IconName )" class="img-fluid" />
+                            </div>
+                            <div class="card-footer text-center">
+                                <button type="button" id="btnIconName" class="btn btn-info"><i class="iconfont icon-image"></i> 小图标...</button>
+                                <button type="button" id="btnRemoveIconName" class="btn btn-outline-danger "><i class="iconfont icon-delete-fill"></i> 移除</button>
+                                @Html.HiddenFor(model => model.IconName)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="width:300px;" class="mb-3">
+                        <div class="card">
+                            <div class="card-header">
+                                SEO设置
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SEOTitle)
+
+                                    @Html.TextBoxFor(model => model.SEOTitle, new { @class = "form-control", placeholder = "标题(SEO)" })
+                                    @Html.ValidationMessageFor(model => model.SEOTitle)
+
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Keywords)
+
+                                    @Html.TextBoxFor(model => model.Keywords, new { @class = "form-control", placeholder = "关键字(SEO)" })
+
+                                    @Html.ValidationMessageFor(model => model.Keywords)
+
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SEODescription)
+
+                                    @Html.TextAreaFor(model => model.SEODescription, new { @class = "form-control", placeholder = "描述(SEO)" })
+                                    @Html.ValidationMessageFor(model => model.SEODescription)
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                    </div>
+        
+  
+
+        </section>
+        <footer class="card-footer text-center">
+            <button type="submit" class="btn btn-primary" id="btnSave"><i class="iconfont icon-save"></i>  @Buttons.Update </button>
+            <a href="@Url.Action("Index")" class="btn btn-secondary"><span class="iconfont icon-arrowleft"></span> @Buttons.Back</a>
+        </footer>
+
+    </div>
+}
+
+
+
+
+@section Footer {
+    @Scripts.Render("~/bundles/jqueryvalWithBootstrap")
+
+
+    <script src="~/Plugins/holderjs/holder.min.js"></script>
+    <script>
+
+         function SetImageUrl(fileUrl) {
+            $("#iLogo").attr("src", fileUrl);
+            $('#ImageUrl').val(fileUrl);
+        }
+        function SetThumbnail(fileUrl) {
+            $("#iLogo2").attr("src", fileUrl);
+            $('#IconName').val(fileUrl);
+        }
+
+
+        function onBeginSave() {
+            $("#btnSave").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  提交中...');
+
+        }
+        function onCompleteSave() {
+            $("#btnSave").html('<i class="iconfont icon-save"></i> 保存');
+        }
+
+        function updateSuccess(data) {
+            var title = '@ViewBag.Title';
+            Common.ShowBox(data.Status, data.Message, title);
+        }
+
+
+
+
+        $(function () {
+
+            $("#btnImageUrl").on("click", function() {
+                singleEelFinder.selectActionFunction = SetImageUrl;
+                singleEelFinder.open();
+            });
+            
+            $("#btnIconName").on("click", function() {
+                singleEelFinder.selectActionFunction = SetThumbnail;
+                singleEelFinder.open();
+            });
+
+             $("#btnRemoveIconName").on("click", function() {
+                $("#iLogo2").attr("src", 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22240%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16e9ccca437%20text%20%7B%20fill%3A%23AAAAAA%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A12pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16e9ccca437%22%3E%3Crect%20width%3D%22240%22%20height%3D%22180%22%20fill%3D%22%23EEEEEE%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2295.5%22%20y%3D%2295.1%22%3E%E5%B0%8F%E5%9B%BE%E6%A0%87%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+                $('#IconName').val("");
+            });
+        
+        })
+
+    </script>
+}
+
+
+
+

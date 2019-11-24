@@ -23,9 +23,22 @@
             {
                 <div class="item">
                     <h3 class="title">@item.Title</h3>
-
+                    <div class="intro">
+                        @Html.Raw(item.Body)
+                    </div>
                 </div>
             }
         </div>
     </div>
 </div>
+
+@section footer{
+    <script>
+        $(function (e) {
+            $(".labs-list .item .title").click(function (e) {
+                e.preventDefault();
+                $(this).next().slideToggle();
+            });
+        })
+    </script>
+    }

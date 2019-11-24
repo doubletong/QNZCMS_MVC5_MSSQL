@@ -15,7 +15,14 @@
             <div class="form-group">
                 <label class="sr-only" for="Keyword">关键字</label>
                 @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control mr-sm-2", placeholder = "关键字" })
+
+
             </div>
+            <div class="form-group">
+                <label class="sr-only" for="Keyword">研究所</label>
+                @Html.DropDownListFor(model => model.InstituteId, (SelectList)ViewBag.Institutes, Labels.Institute + "过滤", new { @class = "form-control" })
+            </div>
+          
             <button type="submit" class="btn btn-primary"><i class="iconfont icon-search"></i> 查找</button>
         }
     </div>
@@ -32,11 +39,13 @@
     <table class="table table-hover table-striped table-vmiddle">
         <thead>
             <tr>
-       
-                <th>
-                    主题
-                </th>
 
+                <th>
+                    实验室名称
+                </th>
+                <th>
+                    所属研究所
+                </th>
                 <th>
                     排序
                 </th>

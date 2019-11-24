@@ -1,0 +1,15 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    童柱港 -- 网页设计师/程序员 -- 13212847@qq.com
+
+# THANKS
+
+    深圳清华大学研究院
+
+# TECHNOLOGY COLOPHON
+
+    CSS3, HTML5, Asp.net mvc 5
+    IIS 7.5+, jQuery, Modernizr, Normalize.css

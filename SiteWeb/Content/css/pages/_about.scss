@@ -1,261 +1,172 @@
+﻿
+.banner-album {
+    .album-title {
+        text-align: center;
+      
 
-.page-about {
-
-
-    @include respond-above (md) {
-        font-size: rem(24);
-    }
-
-    .s1 {
-        margin-bottom: 1rem;
-        padding-bottom: 1rem;
-
-        @include respond-above (md) {
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
+        @include respond-above(md) {
+            padding-top: 6rem;
         }
 
-        figure {
-            display: block;
-            padding: 0;
-            margin: 1rem auto 0;
-            max-width: 627px;
-            text-align: center;
-
-            @include respond-above (md) {
-                margin: 2rem auto 0;
-            }
-
-            figcaption {
-                text-align: center;
-
-                @include respond-above (md) {
-                    font-size: rem(22);
-                    text-align: center;
-                }
-
-                @include respond-above (lg) {
-                    font-size: rem(34);
-                    text-align: left;
-                }
-            }
-        }
-
-        .txt {
-            @include respond-above (lg) {
-                padding-right: 3rem;
-            }
-        }
-
-        .txt1 {
-            @include respond-above (lg) {
-                padding-left: 3rem;
-            }
+        h1 {
+            font-size: rem(30);
+            font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            font-weight: normal;
+            margin-bottom:0;
         }
 
         p {
-            text-align: justify;
+            font-size: rem(14);
+            color: #808080;
+        }
+    }
+}
+.page-about {
+    padding-left: 65px;
+
+
+
+
+    .s1 {
+        width: 100%;
+        height: 100vh;
+        background: url(../img/about_bg.jpg) no-repeat center center;
+        background-size: cover;
+
+        .content {
+            writing-mode: vertical-rl;
+            margin: 0 auto;
+            position: relative;
+            @include vertical-align();
+
+            img {
+                position: absolute;
+                margin-top: -100px;
+                right: 0;
+                z-index: 100;
+            }
+
+            .title {
+                border-left: 1px #000 solid;
+                border-right: 1px #000 solid;
+                color: #000;
+                font-size: 36px;
+                display: inline-block;
+                margin-right: .6rem;
+                line-height: 2;
+                font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            }
+
+            p {
+                font-size: rem(24);
+                line-height: 2;
+                font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            }
         }
     }
 
     .s2 {
-        background: #f7f8f8 url('../img/logo_bg.png') no-repeat left center;
-        padding: 1rem 1rem;
-        margin-bottom: 1rem;
+        background: url(../img/about_01.png) no-repeat center top 2.5rem;
+        background-size: auto 150px;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+        padding-left: 65px;
 
-        @include respond-above (md) {
-            padding: 2rem 1rem;
-            margin-bottom: 2rem;
+        @include respond-above(xlg) {
+            background-size: auto auto;
         }
 
-        .txt {
-            max-width: 960px;
+        .title {
             margin: 0 auto;
-            text-align: center;
-
-            .item {
-                margin-bottom: 1rem;
-                margin-top: 1rem;
-            }
-
-            .num {
-                font-size: 32px;
-                font-weight: bold;
-
-                @include respond-above (md) {
-                    font-size: 56px;
-                }
-            }
-
-            p {
-                margin: 0;
-                font-size: 14px;
-
-                @include respond-above (md) {
-                    font-size: 16px;
-                }
-            }
-        }
-    }
-
-    .s3 {
-        padding: 1rem 15px 1rem;
-
-        @include respond-above (md) {
-            padding: 4rem 15px 5rem;
-        }
-
-        .txt {
-            text-align: justify;
-
-            @include respond-above (md) {
-                padding-right: 3rem;
-            }
-        }
-
-        .pic {
-            margin-top: 1rem;
-            text-align: center;
-
-            @include respond-above (md) {
-                margin-top: 2rem;
-            }
-        }
-    }
-
-    .s4 {
-        padding: 2rem 0;
-        background-color: #f7f8f8;
-
-        @include respond-above (md) {
-            padding: 3rem 0;
-        }
-    }
-
-    .s5 {
-        padding: 2rem 0;
-
-        @include respond-above (md) {
-            padding: 5rem 0;
-        }
-
-        .box {
+            writing-mode: vertical-rl;
+            font-size: rem(24);
+            border-left: 1px #b3b3b3 solid;
+            border-right: 1px #b3b3b3 solid;
+            line-height: 2;
             margin-bottom: 3rem;
-        }
+            font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
 
-        .item {
-            text-align: center;
-            margin-bottom: 2rem;
-
-            @include respond-above (md) {
-                margin-bottom: 1rem;
+            @include respond-above(md) {
             }
 
-            .icon {
-                margin-bottom: .6rem;
+            @include respond-above(xlg) {
+                font-size: rem(36);
+            }
+        }
 
-                @include respond-above (md) {
-                    margin-bottom: 2rem;
+        .albums {
+            .item {
+                margin-bottom: 2rem;
+                display: block;
+
+                .pic {
+                    overflow: hidden;
+                    margin-bottom: .7rem;
+
+                    img {
+                        display: block;
+                        transition: all .2s;
+                    }
                 }
 
-                img {
-                    width: 50%;
+                h4 {
+                    margin: 0;
+                    font-weight: normal;
 
-                    @include respond-above (md) {
-                        width: auto;
+                    @include respond-above(md) {
+                        font-size: rem(18);
+                    }
+                }
+
+                &:hover {
+                    .pic {
+                        img {
+                            transform: scale(1.1);
+                        }
+                    }
+
+                    h4 {
+                        color: $color-primary;
                     }
                 }
             }
-
-            h4 {
-                margin: 0;
-            }
-
-            p {
-                margin: 0;
-            }
-        }
-
-        .box2 {
-            max-width: 960px;
-            margin: 0 auto;
-
-            h4 {
-                text-align: left;
-
-                &::before {
-                    content: " ";
-                    height: 5px;
-                    width: 100px;
-                    background-color: $color-primary;
-                    display: block;
-                }
-            }
-
-            ul {
-                padding-left: 1.5rem;
-
-                li {
-                    text-align: left;
-                }
-            }
         }
     }
+}
 
-    .s6 {
+.page-album {
+    padding-left: 130px;
+
+    .photos {
         .item {
-            max-width: 624px;
-            border: 1px #eee solid;
-            margin-bottom: rem(60);
-
-
-
             .pic {
                 overflow: hidden;
+                margin-bottom: .7rem;
 
                 img {
                     display: block;
-                }
-
-                @include respond-above (lg) {
-                    height: 246px;
+                    transition: all .2s;
                 }
             }
 
-            .title {
-                background-color: $color-primary;
-                color: #fff;
-                padding: .5rem 1rem;
-            }
+            figure {
+                margin: 0 0 2rem;
+                font-weight: normal;
 
-            .des {
-
-
-                @include respond-above (md) {
-                    min-height: 250px;
+                @include respond-above(md) {
+                    font-size: rem(18);
                 }
             }
-        }
-    }
 
-    .s7 {
-        .item {
-            position: relative;
+            &:hover {
+                .pic {
+                    img {
+                        transform: scale(1.1);
+                    }
+                }
 
-            .txt {
-                position: absolute;
-                left: 0;
-                top: 0;
-                z-index: 10;
-                width: 100%;
-                height: 100%;
-
-                p {
-                    @include vertical-align();
-                    text-align: center;
-                    font-size: rem(34);
-                    font-weight: bold;
-                    margin: 0;
+                figure {
+                    color: $color-primary;
                 }
             }
         }

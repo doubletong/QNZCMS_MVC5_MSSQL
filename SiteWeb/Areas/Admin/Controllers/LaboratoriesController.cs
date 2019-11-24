@@ -27,23 +27,32 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         }
        
         // GET: Admin/Laboratories
-        public async Task<ActionResult> Index(int? page, string keyword)
+        public async Task<ActionResult> Index(int? page, int? instituteId, string keyword)
         {
-            LaboratoryListVM vm = await GetElementsAsync(page, keyword);
+            LaboratoryListVM vm = await GetElementsAsync(page, instituteId, keyword);
             ViewBag.PageSizes = new SelectList(Site.PageSizes());
+
+            var categoryList = await _db.Institutes.OrderByDescending(c => c.Importance).ToListAsync();
+            ViewBag.Institutes = new SelectList(categoryList, "Id", "Title");
+
             return View(vm);
 
         }
 
-        private async Task<LaboratoryListVM> GetElementsAsync(int? page, string keyword)
+        private async Task<LaboratoryListVM> GetElementsAsync(int? page, int? instituteId, string keyword)
         {
             var vm = new LaboratoryListVM()
             {
+                InstituteId = instituteId,
                 Keyword = keyword,
                 PageIndex = page ?? 1,
                 PageSize = 10
             };
-            var query = _db.Laboratories.AsQueryable();
+            var query = _db.Laboratories.Include(d=>d.Institute).AsQueryable();
+            if (instituteId > 0)
+            {
+                query = query.Where(d => d.InstituteId == instituteId);
+            }
             if (!string.IsNullOrEmpty(keyword))
             {
                 query = query.Where(d => d.Title.Contains(keyword));
