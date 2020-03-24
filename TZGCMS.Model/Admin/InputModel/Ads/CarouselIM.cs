@@ -25,7 +25,6 @@ namespace TZGCMS.Model.Admin.InputModel.Ads
         [RegularExpression(@"^-?\d*$", ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "InvalidFormat")]
         public int Importance { get; set; }
 
-
         [Display(ResourceType = typeof(Labels), Name = "Link")]
         [Required(ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "Required")]
         [MaxLength(150, ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "MaxLength")]
