@@ -87,19 +87,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 //自动添加通用操作
                 if (vMenu.CategoryId == SettingsManager.Menu.BackMenuCId && vMenu.MenuType == MenuType.PAGE)
                 {
-                    vMenu.ChildMenus.Add(new Menu
-                    {
-                        Title = "添加",
-                        Controller = vMenu.Controller,
-                        Action = "Add",
-                        Area = vMenu.Area,
-                        MenuType = MenuType.ACTION,
-                        CategoryId = vMenu.CategoryId,
-                        LayoutLevel = vMenu.LayoutLevel + 1,
-
-                        CreatedBy = Site.CurrentUserName,
-                        CreatedDate = DateTime.Now,
-                    });
+                   
 
 
                     vMenu.ChildMenus.Add(new Menu
@@ -108,7 +96,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                         Controller = vMenu.Controller,
                         Action = "Edit",
                         Area = vMenu.Area,
-                        MenuType = MenuType.ACTION,
+                        MenuType = MenuType.PAGE,
                         CategoryId = vMenu.CategoryId,
                         LayoutLevel = vMenu.LayoutLevel + 1,
 
@@ -272,7 +260,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 //  vMenu.Roles.Clear();
                 _menuService.Delete(vMenu);
                 //  _menuService.DeleteMenuWithRoles(id);
-                _menuService.ResetSort(vMenu.CategoryId);
+                // _menuService.ResetSort(vMenu.CategoryId);
 
                 _cacheService.Invalidate("Menu");
 

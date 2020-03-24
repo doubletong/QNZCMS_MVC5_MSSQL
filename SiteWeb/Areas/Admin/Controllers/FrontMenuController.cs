@@ -15,32 +15,38 @@ using TZGCMS.Model.Admin.ViewModel.Menus;
 using TZGCMS.Resources.Admin;
 using TZGCMS.Service.Identity;
 using TZGCMS.Service.PageMetas;
+using QNZ.Data;
+using TZGCMS.Model;
+using Menu = TZGCMS.Data.Entity.Identity.Menu;
+using System.Data.Entity;
+using TZGCMS.Infrastructure.Extensions;
+using System.Threading.Tasks;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
-    public class FrontMenuController : BaseController
+    public class FrontMenuController : QNZBaseController
     {
         // GET: Admin/FrontMenu
         private readonly IMenuCategoryServices _menuCategoryService;
         private readonly IMenuServices _menuService;
         private readonly IPageMetaServices _pageMetaService;
         private readonly IMapper _mapper;
+        private IQNZDbContext _db;
 
-       
-        public FrontMenuController(IMenuCategoryServices menuCategoryService, IMenuServices menuService, IPageMetaServices pageMetaService, IMapper mapper)
+        public FrontMenuController(IMenuCategoryServices menuCategoryService, IMenuServices menuService, IPageMetaServices pageMetaService, IMapper mapper, IQNZDbContext db)
         {
             _menuService = menuService;
             _menuCategoryService = menuCategoryService;
             _pageMetaService = pageMetaService;
             _mapper = mapper;
-
+            _db = db;
         }
         //
         // GET: /Admin/Menu/ 
         public ActionResult Index()
         {
-            IEnumerable<MenuCategory> menuCategories = _menuCategoryService.GetAll().Where(m=>m.Id!= SettingsManager.Menu.BackMenuCId);
+            IEnumerable<QNZ.Data.MenuCategory> menuCategories = _db.MenuCategories.Where(m=>m.Id!= SettingsManager.Menu.BackMenuCId);
             return View(menuCategories);
         }
 
@@ -68,13 +74,13 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 return Json(AR, JsonRequestBehavior.DenyGet);
             }
 
-            var newCategory = _mapper.Map<MenuCategoryIM, MenuCategory>(vm);
+            var newCategory = _mapper.Map<MenuCategoryIM, Data.Entity.Identity.MenuCategory>(vm);
 
             _menuCategoryService.Create(newCategory);
 
 
 
-            IEnumerable<MenuCategory> menuCategories = _menuCategoryService.GetAll().Where(m => m.Id != SettingsManager.Menu.BackMenuCId);
+            IEnumerable<Data.Entity.Identity.MenuCategory> menuCategories = _menuCategoryService.GetAll().Where(m => m.Id != SettingsManager.Menu.BackMenuCId);
         
             AR.Data = RenderPartialViewToString("_CategoryList", menuCategories);
 
@@ -114,7 +120,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 return Json(AR, JsonRequestBehavior.DenyGet);
             }
 
-            var newCategory = _mapper.Map<MenuCategoryIM, MenuCategory>(vm);
+            var newCategory = _mapper.Map<MenuCategoryIM, Data.Entity.Identity.MenuCategory>(vm);
 
             _menuCategoryService.Update(newCategory);
 
@@ -169,7 +175,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         public ActionResult GetMenus(int categoryId)
         {
             // var menus = _menuService.GetLevelMenusByCategoryId(categoryId);
-            var menus = _menuService.GetMenusByCategoryId(categoryId);
+            var menus =  _db.Menus.Where(d => d.CategoryId == categoryId).OrderBy(d => d.Importance).ToList();
             return PartialView("_MenuList", menus);
         }
 
@@ -177,26 +183,26 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
 
 
-        [HttpGet]
-        public ActionResult CreateMenu(int categoryId, int? parentId)
-        {
-            var vMenu = new Menu();
-            FrontMenuIM newDto = _mapper.Map<FrontMenuIM>(vMenu);
+        //[HttpGet]
+        //public ActionResult CreateMenu(int categoryId, int? parentId)
+        //{
+        //    var vMenu = new Menu();
+        //    FrontMenuIM newDto = _mapper.Map<FrontMenuIM>(vMenu);
 
-            newDto.CategoryId = (int)categoryId;
-            newDto.ParentId = parentId??null;
-            return PartialView("_MenuCreate", newDto);
-        }
+        //    newDto.CategoryId = (int)categoryId;
+        //    newDto.ParentId = parentId??null;
+        //    return PartialView("_MenuCreate", newDto);
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult CreateMenu(FrontMenuIM vm)
+        public async System.Threading.Tasks.Task<JsonResult> CreateMenu(FrontMenuIM vm)
         {
 
             if (ModelState.IsValid)
             {
                 vm.Url = vm.Url.ToLower();
-                var vMenu = _mapper.Map<Menu>(vm);
+                var vMenu = _mapper.Map<Data.Entity.Identity.Menu>(vm);
                 if (vm.ParentId != null)
                 {
                     var parentMenu = _menuService.GetById(vMenu.ParentId.Value);
@@ -212,29 +218,8 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 _menuService.Create(vMenu);
                 _menuService.ResetSort((vMenu.CategoryId));
 
-
-                if (!string.IsNullOrEmpty(vm.Url))
-                {
-                    var pageMeta = _pageMetaService.GetPageMeta(ModelType.MENU, vm.Url);
-                    pageMeta = pageMeta ?? new PageMeta();
-                    
-
-                    pageMeta.ObjectId = vm.Url;
-                    pageMeta.Title = string.IsNullOrEmpty(vm.SEOTitle) ? vm.Title : vm.SEOTitle;
-                    pageMeta.Keyword = vm.Keywords;
-                    pageMeta.Description = vm.SEODescription;
-                    pageMeta.ModelType = ModelType.MENU;
-
-                    if (pageMeta.Id > 0)
-                    {
-                        _pageMetaService.Update(pageMeta);
-                    }
-                    else
-                    {
-                        _pageMetaService.Create(pageMeta);
-                    }
-                  
-                }
+                await SetPageMetaAsync(_db, (short)ModelType.ARTICLECATEGORY, vm.Url, vm.Title, vm.SEOTitle, vm.Keywords, vm.SEODescription);
+               
 
                 var menus = _menuService.GetMenusByCategoryId(vMenu.CategoryId);
                 AR.Id = vm.CategoryId;
@@ -254,23 +239,36 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult EditMenu(int id)
+        public ActionResult EditMenu(int categoryId, int? parentId, int? id)
         {
-            var vMenu = _menuService.GetById(id);
-            FrontMenuIM dto = _mapper.Map<FrontMenuIM>(vMenu);
 
-            if (!string.IsNullOrEmpty(dto.Url))
+            if (id > 0)
             {
-                var pageMeta = _pageMetaService.GetPageMeta(ModelType.MENU, dto.Url);
-                if (pageMeta != null)
-                {
-                    dto.SEOTitle = pageMeta.Title;
-                    dto.Keywords = pageMeta.Keyword;
-                    dto.SEODescription = pageMeta.Description;
-                }
-            }           
+                var vMenu = _db.Menus.Find(id);
+                FrontMenuIM dto = _mapper.Map<FrontMenuIM>(vMenu);
 
-            return PartialView("_MenuEdit", dto);
+                if (!string.IsNullOrEmpty(dto.Url))
+                {
+                    var pageMeta = _db.PageMetas.FirstOrDefault(d=>d.ModelType == (short)ModelType.MENU && d.ObjectId == dto.Url);
+                    if (pageMeta != null)
+                    {
+                        dto.SEOTitle = pageMeta.Title;
+                        dto.Keywords = pageMeta.Keyword;
+                        dto.SEODescription = pageMeta.Description;
+                    }
+                }
+                return PartialView("_MenuEdit", dto);
+            }
+            else
+            {
+               
+                FrontMenuIM newDto = new FrontMenuIM {
+                    CategoryId = categoryId,
+                    ParentId = parentId
+                };
+
+                return PartialView("_MenuEdit", newDto);
+            }
 
         }
 
@@ -279,76 +277,104 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult EditMenu(FrontMenuIM vm)
+        public async System.Threading.Tasks.Task<JsonResult> EditMenu(FrontMenuIM vm)
         {
-
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var vMenu = _mapper.Map<Menu>(vm);
+                AR.Setfailure(GetModelErrorMessage());
+                return Json(AR, JsonRequestBehavior.DenyGet);
+            }
+            vm.Url = vm.Url.ToLower();
+            if (vm.Id > 0)
+            {
+                var orgMenu = await _db.Menus.FindAsync(vm.Id);
+                var pageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == orgMenu.Url);
 
-                var orgMenu = _menuService.GetById(vMenu.Id);
-
-                var pageMeta = _pageMetaService.GetPageMeta(ModelType.MENU, orgMenu.Url);
-
-                orgMenu.Title = vMenu.Title;
-                orgMenu.MenuType = vMenu.MenuType;
-                orgMenu.Active = vMenu.Active;
-                orgMenu.Action = vMenu.Action;
-                orgMenu.Area = vMenu.Area;
-                orgMenu.CategoryId = vMenu.CategoryId;
-                orgMenu.Controller = vMenu.Controller;
-                orgMenu.Iconfont = vMenu.Iconfont;
-                orgMenu.ParentId = vMenu.ParentId;
-                orgMenu.Url = string.IsNullOrEmpty(vMenu.Url)?string.Empty:vMenu.Url.ToLower();
+                orgMenu = _mapper.Map(vm, orgMenu);
                 orgMenu.UpdatedDate = DateTime.Now;
                 orgMenu.UpdatedBy = Site.CurrentUserName;
 
-                _menuService.Update(orgMenu);
-                
+                _db.Entry(orgMenu).State = EntityState.Modified;
+
+
+
+                //orgMenu.Title = vMenu.Title;
+                //orgMenu.MenuType = vMenu.MenuType;
+                //orgMenu.Active = vMenu.Active;
+                //orgMenu.Action = vMenu.Action;
+                //orgMenu.Area = vMenu.Area;
+                //orgMenu.CategoryId = vMenu.CategoryId;
+                //orgMenu.Controller = vMenu.Controller;
+                //orgMenu.Iconfont = vMenu.Iconfont;
+                //orgMenu.ParentId = vMenu.ParentId;
+                //orgMenu.Url = string.IsNullOrEmpty(vMenu.Url) ? string.Empty : vMenu.Url.ToLower();
+
+
+
+
                 if (string.IsNullOrEmpty(vm.Url))
                 {
                     if (pageMeta != null)
                     {
-                        _pageMetaService.Delete(pageMeta);
+                        _db.PageMetas.Remove(pageMeta);
                     }
 
-                }else
-                {
-                    pageMeta = pageMeta ?? new PageMeta();
-
-                   
-
-                    pageMeta.ObjectId = vm.Url;
-                    pageMeta.Title = string.IsNullOrEmpty(vm.SEOTitle) ? vm.Title : vm.SEOTitle;
-                    pageMeta.Keyword = vm.Keywords;
-                    pageMeta.Description = vm.SEODescription;
-                    pageMeta.ModelType = ModelType.MENU;
-
-                    if (pageMeta.Id > 0)
-                    {
-                        _pageMetaService.Update(pageMeta);
-                    }
-                    else
-                    {
-                        _pageMetaService.Create(pageMeta);
-                    }
-                   
                 }
-                
+                else
+                {
+                    await SetPageMetaAsync(_db, (short)ModelType.ARTICLECATEGORY, vm.Url, vm.Title, vm.SEOTitle, vm.Keywords, vm.SEODescription);
+
+                }
+
+                await _db.SaveChangesAsync();
 
                 // _menuService.ResetSort(orgMenu.CategoryId);
 
-                var menus = _menuService.GetMenusByCategoryId(vMenu.CategoryId);
-                AR.Id = vMenu.CategoryId;
+                var menus = await _db.Menus.Where(d => d.CategoryId == orgMenu.CategoryId).OrderBy(d => d.Importance).ToListAsync(); 
+                AR.Id = orgMenu.CategoryId;
                 AR.Data = RenderPartialViewToString("_MenuList", menus);
 
                 AR.SetSuccess("已成功保存菜单");
                 return Json(AR, JsonRequestBehavior.DenyGet);
 
+
+            }
+            else
+            {
+
+
+                var vMenu = _mapper.Map<QNZ.Data.Menu>(vm);
+                if (vm.ParentId != null)
+                {
+                    var parentMenu = _menuService.GetById(vMenu.ParentId.Value);
+                    vMenu.LayoutLevel = parentMenu.LayoutLevel + 1;
+                }
+                else
+                {
+                    vMenu.LayoutLevel = 0;
+                }
+                vMenu.CreatedDate = DateTime.Now;
+                vMenu.CreatedBy = Site.CurrentUserName;
+
+                _db.Menus.Add(vMenu);
+                await _db.SaveChangesAsync();
+
+                //  _menuService.ResetSort((vMenu.CategoryId));
+                List<QNZ.Data.Menu> menus = await RestSortMenus(vMenu.CategoryId);
+
+
+                await SetPageMetaAsync(_db, (short)ModelType.ARTICLECATEGORY, vm.Url, vm.Title, vm.SEOTitle, vm.Keywords, vm.SEODescription);
+                //var menus = await _db.Menus.Where(d => d.CategoryId == vMenu.CategoryId).OrderBy(d => d.Importance).ToListAsync();                    
+                //    _menuService.GetMenusByCategoryId(vMenu.CategoryId);
+                AR.Id = vm.CategoryId;
+                AR.Data = RenderPartialViewToString("_MenuList", menus.OrderBy(d => d.Importance).ToList());
+
+                AR.SetSuccess("已成功新增菜单");
+                return Json(AR, JsonRequestBehavior.DenyGet);
+
             }
 
-            AR.Setfailure("编辑菜单失败");
-            return Json(AR, JsonRequestBehavior.DenyGet);
+           
 
 
 
@@ -359,15 +385,15 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         // POST: Admin/User/Delete
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public async System.Threading.Tasks.Task<ActionResult> Delete(int id)
         {
 
-            var vMenu = _menuService.GetById(id);
+            var vMenu = await _db.Menus.Include(d=>d.Menus).FirstOrDefaultAsync(d=>d.Id == id);
 
             if (vMenu != null)
             {
                
-                if (vMenu.ChildMenus.Any())
+                if (vMenu.Menus.Any())
                 {
                     AR.Setfailure(string.Format(Messages.AlertDeleteFailureHasChild, EntityNames.Menu));
                     return Json(AR, JsonRequestBehavior.DenyGet);
@@ -376,16 +402,17 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
                 if (!string.IsNullOrEmpty(vMenu.Url))
                 {
-                    var pageMeta = _pageMetaService.GetPageMeta(ModelType.MENU, vMenu.Url.Trim());
+                    var pageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.MENU && d.ObjectId == vMenu.Url); ;
                     if (pageMeta != null)
                     {
-                        _pageMetaService.Delete(pageMeta);
+                        _db.PageMetas.Remove(pageMeta);                     
                     }
                 }
 
-               // vMenu.Roles.Clear();
-                _menuService.Delete(vMenu);
-                //_menuService.ResetSort(vMenu.CategoryId);
+              
+                _db.Menus.Remove(vMenu);
+                await _db.SaveChangesAsync();
+              
 
                 AR.SetSuccess(string.Format(Messages.AlertDeleteSuccess, EntityNames.Menu));
                 return Json(AR, JsonRequestBehavior.DenyGet);
@@ -396,12 +423,12 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UpDownMove(int id, bool isUp, int categoryId)
+        public async Task<ActionResult> UpDownMove(int id, bool isUp, int categoryId)
         {
 
             if (isUp)
             {
-                var result = _menuService.UpMoveMenu(id);
+                var result = await UpMoveMenuAsync(id);
 
                 if (result == 0)
                 {
@@ -411,7 +438,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             }
             else
             {
-                var result = _menuService.DownMoveMenu(id);
+                var result = await DownMoveMenuAsync(id);
 
                 if (result == 0)
                 {
@@ -421,7 +448,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
             }
 
-            var menus = _menuService.GetMenusByCategoryId(categoryId);
+            var menus = await _db.Menus.Where(d => d.CategoryId == categoryId).OrderBy(d => d.Importance).ToListAsync(); 
             AR.Id = categoryId;
             AR.Data = RenderPartialViewToString("_MenuList", menus);
 
@@ -435,13 +462,15 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public JsonResult IsExpand(int id)
+        public async Task<JsonResult> IsExpand(int id)
         {
-            var menu = _menuService.GetById(id);
+            var menu = await _db.Menus.FindAsync(id);
             if (menu != null)
             {
                 menu.IsExpand = !menu.IsExpand;
-                _menuService.Update(menu);
+
+                _db.Entry(menu).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
 
                 AR.SetSuccess(Messages.AlertActionSuccess);
                 return Json(AR, JsonRequestBehavior.DenyGet);
@@ -453,13 +482,15 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult IsActive(int id)
+        public async Task<JsonResult> IsActive(int id)
         {
-            var menu = _menuService.GetById(id);
+            var menu = await _db.Menus.FindAsync(id);
             if (menu != null)
             {
                 menu.Active = !menu.Active;
-                _menuService.Update(menu);
+
+                _db.Entry(menu).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
 
                 AR.SetSuccess(Messages.AlertActionSuccess);
                 return Json(AR, JsonRequestBehavior.DenyGet);
@@ -471,13 +502,14 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public  JsonResult ResetSort(int id)
+        public async Task<JsonResult> ResetSort(int id)
         {
             try
             {
-                _menuService.ResetSort(id);
+                // _menuService.ResetSort(id);
+                List<QNZ.Data.Menu> menus = await RestSortMenus(id);
 
-                var menus = _menuService.GetMenusByCategoryId(id);
+                menus = menus.OrderBy(d => d.Importance).ToList();
                 AR.Id = id;
                 AR.Data = RenderPartialViewToString("_MenuList", menus);
 
@@ -493,14 +525,33 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
         }
 
+        private async Task<List<QNZ.Data.Menu>> RestSortMenus(int id)
+        {
+            var menus = await _db.Menus.Where(d => d.CategoryId == id).OrderBy(d => d.Importance).ToListAsync();
+
+
+            var list = menus.Where(m => m.ParentId == null).OrderBy(m => m.Importance)
+                .SelectDeep<QNZ.Data.Menu>(m => m.Menus.OrderBy(g => g.Importance));
+
+            int i = 0;
+            foreach (var item in list)
+            {
+                item.Importance = i;
+                _db.Entry(item).State = EntityState.Modified;
+
+                i++;
+            }
+            await _db.SaveChangesAsync();
+            return menus;
+        }
 
         [HttpGet]
         // GET: Roles/Create
         public ActionResult MoveMenu(int id)
         {
-            var menu = _menuService.GetById(id);
-            var menus = _menuService.GetMenusByCategoryId(menu.CategoryId);
-            MoveMenuVM vm = new MoveMenuVM
+            var menu = _db.Menus.Find(id);
+            var menus =   _db.Menus.Where(d => d.CategoryId == menu.CategoryId).OrderBy(d => d.Importance).ToList(); ;
+            MoveFrontMenuVM vm = new MoveFrontMenuVM
             {
                 Id = id,
                 Menus = menus,//_mapper.Map<List<Menu>, List<MenuVM>>(menus),
@@ -512,21 +563,25 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult MoveMenu(int Id, int menuId)
+        public async System.Threading.Tasks.Task<ActionResult> MoveMenu(int Id, int menuId)
         {
 
             if (Id > 0 && menuId > 0)
             {
-                var parentMenu = _menuService.GetById(menuId);
-                var menu = _menuService.GetById(Id);
+                var parentMenu = await _db.Menus.FindAsync(menuId); 
+                var menu = await _db.Menus.FindAsync(Id); 
                 menu.ParentId = menuId;
                 menu.LayoutLevel = parentMenu.LayoutLevel + 1;
-                _menuService.Update(menu);
-                _menuService.ResetSort(menu.CategoryId);
 
-                var menus = _menuService.GetMenusByCategoryId(menu.CategoryId);
+                _db.Entry(menu).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
+
+                List<QNZ.Data.Menu> menus = await RestSortMenus(menu.CategoryId);
+             //   _menuService.ResetSort(menu.CategoryId);
+
+             //   var menus = _menuService.GetMenusByCategoryId(menu.CategoryId);
                 AR.Id = menu.CategoryId;
-                AR.Data = RenderPartialViewToString("_MenuList", menus);
+                AR.Data = RenderPartialViewToString("_MenuList", menus.OrderBy(d=>d.Importance).ToList());
 
                 return Json(AR, JsonRequestBehavior.DenyGet);
 
@@ -534,5 +589,72 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             AR.Setfailure("移动菜单失败");
             return Json(AR, JsonRequestBehavior.DenyGet);
         }
+
+
+        /// <summary>
+        /// 向上移动
+        /// </summary>
+        /// <param name = "id" ></ param >
+        /// < returns ></ returns >
+        private async Task<int> UpMoveMenuAsync(int id)
+        {
+            var vMenu = await _db.Menus.FindAsync(id);
+            var menuList = await _db.Menus.Where(d => d.CategoryId == vMenu.CategoryId).OrderBy(d => d.Importance).ToListAsync();
+
+            var prevMenu = menuList.Where(m => m.ParentId == vMenu.ParentId &&
+                m.Importance < vMenu.Importance).OrderByDescending(m => m.Importance).FirstOrDefault();
+
+            if (prevMenu == null)
+            {
+                // 已经在第一位
+                return 0;
+            }
+            var num = prevMenu.Importance - vMenu.Importance;
+            prevMenu.Importance = prevMenu.Importance - num;
+            vMenu.Importance = vMenu.Importance + num;
+
+      
+            _db.Entry(prevMenu).State = EntityState.Modified;
+            _db.Entry(vMenu).State = EntityState.Modified;
+
+            await _db.SaveChangesAsync();
+
+            
+            return 1;
+        }
+
+        /// <summary>
+        /// 向下移动
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private async Task<int> DownMoveMenuAsync(int id)
+        {
+            var vMenu = await _db.Menus.FindAsync(id);
+            var menuList = await _db.Menus.Where(d => d.CategoryId == vMenu.CategoryId).OrderBy(d => d.Importance).ToListAsync();
+
+            var nextMenu = menuList.Where(m => m.ParentId == vMenu.ParentId &&
+                m.Importance > vMenu.Importance).OrderBy(m => m.Importance).FirstOrDefault();
+
+
+            if (nextMenu == null)
+            {
+                // 已经在最后一位
+                return 0;
+            }
+
+
+            var num = nextMenu.Importance - vMenu.Importance;
+            nextMenu.Importance = nextMenu.Importance - num;
+            vMenu.Importance = vMenu.Importance + num;
+
+            _db.Entry(nextMenu).State = EntityState.Modified;
+            _db.Entry(vMenu).State = EntityState.Modified;
+
+            await _db.SaveChangesAsync();
+            // ResetSort(vMenu.CategoryId);
+            return 1;
+        }
+
     }
 }

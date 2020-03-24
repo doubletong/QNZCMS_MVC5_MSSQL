@@ -116,7 +116,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Body)
 
-                        @Html.TextAreaFor(model => model.Body, new { @class = "form-control", placeholder = Labels.Content })
+                        @Html.TextAreaFor(model => model.Body, new { @class = "form-control", placeholder = Labels.Content})
                         @Html.ValidationMessageFor(model => model.Body)
 
 
@@ -126,7 +126,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Introduction)
 
-                        @Html.TextAreaFor(model => model.Introduction, new { @class = "form-control", placeholder = Labels.Introduction })
+                        @Html.TextAreaFor(model => model.Introduction, new { @class = "form-control", placeholder = Labels.Introduction , rows = "5" })
                         @Html.ValidationMessageFor(model => model.Introduction)
 
                     </div>
@@ -135,7 +135,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Summary)
 
-                        @Html.TextAreaFor(model => model.Summary, new { @class = "form-control", placeholder = Labels.Summary })
+                        @Html.TextAreaFor(model => model.Summary, new { @class = "form-control", placeholder = Labels.Summary,rows = "3" })
                         @Html.ValidationMessageFor(model => model.Summary)
 
                     </div>
@@ -178,7 +178,32 @@
                     <div style="width:300px; text-align:center;" class="mb-3">
                         <div class="card">
                             <div class="card-body">
-                                <img ID="iLogo2" src="@(string.IsNullOrEmpty(Model.Cover) ? "holder.js/240x180?text=照片" : Model.Cover )" class="img-fluid" />
+                                <img ID="iLogo2" src="@(string.IsNullOrEmpty(Model.ViewImage) ? "holder.js/240x180?text=产品图" : Model.ViewImage )" class="img-fluid" />
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" id="btnViewImage" class="btn btn-info btn-block"><i class="iconfont icon-image"></i> 产品图...</button>
+                                @Html.HiddenFor(model => model.ViewImage)
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div style="width:300px; text-align:center;" class="mb-3">
+                        <div class="card">
+                            <div class="card-body" style="background-color:#ccc;">
+                                <img ID="iLogo3" src="@(string.IsNullOrEmpty(Model.Icon) ? "holder.js/240x120?text=图标" : Model.Icon )" class="img-fluid" />
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" id="btnIcon" class="btn btn-info btn-block"><i class="iconfont icon-image"></i> 图标...</button>
+                                @Html.HiddenFor(model => model.Icon)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="width:300px; text-align:center;" class="mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <img ID="iLogo4" src="@(string.IsNullOrEmpty(Model.Cover) ? "holder.js/240x180?text=1840x720像素" : Model.Cover )" class="img-fluid" />
                             </div>
                             <div class="card-footer">
                                 <button type="button" id="btnCover" class="btn btn-info btn-block"><i class="iconfont icon-image"></i> 背景横幅...</button>
@@ -347,8 +372,19 @@
 
         }
 
-        function SetCover(fileUrl) {
+        function SetViewImage(fileUrl) {
          $("#iLogo2").attr("src", fileUrl);
+            $('#ViewImage').val(fileUrl);
+
+        }
+
+        function SetIcon(fileUrl) {
+           $("#iLogo3").attr("src", fileUrl);
+            $('#Icon').val(fileUrl);
+
+        }
+           function SetCover(fileUrl) {
+         $("#iLogo4").attr("src", fileUrl);
             $('#Cover').val(fileUrl);
 
         }
@@ -402,15 +438,23 @@
 
     $(function () {
 
-           $("#btnThumbnail").on("click", function() {
-                singleEelFinder.selectActionFunction = SetThumbnail;
+        $("#btnThumbnail").on("click", function() {
+            singleEelFinder.selectActionFunction = SetThumbnail;
+            singleEelFinder.open();
+        });
+
+
+        $("#btnViewImage").on("click", function () {
+                singleEelFinder.selectActionFunction = SetViewImage;
                 singleEelFinder.open();
-            });
-
-
+        });
+        $("#btnIcon").on("click", function () {
+            singleEelFinder.selectActionFunction = SetIcon;
+            singleEelFinder.open();
+        });
         $("#btnCover").on("click", function () {
-                singleEelFinder.selectActionFunction = SetCover;
-                singleEelFinder.open();
+            singleEelFinder.selectActionFunction = SetCover;
+            singleEelFinder.open();
         });
 
 

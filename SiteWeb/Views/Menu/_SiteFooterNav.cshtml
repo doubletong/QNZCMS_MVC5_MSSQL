@@ -1,9 +1,9 @@
 ﻿
-@model IEnumerable<QNZ.Data.MenuSet>
+@model IEnumerable<QNZ.Data.Menu>
 <ul class="botnav">
     @foreach (var item in Model.Where(d => d.ParentId == null))
     {
-        <li class="col @(item.MenuSets.Any() ? "downav" : "") @(item.Url.Equals(Request.RawUrl) || (item.MenuSets.Any() && item.MenuSets.Select(m=>m.Url).Contains(Request.RawUrl)) ?"active":"")">
+        <li class="col @(item.Menus.Any() ? "downav" : "") @(item.Url.Equals(Request.RawUrl) || (item.Menus.Any() && item.Menus.Select(m=>m.Url).Contains(Request.RawUrl)) ?"active":"")">
 
             <a href="@(item.Url=="#"?"javascript:void(0);":item.Url)" class="node">
                 @item.Title               

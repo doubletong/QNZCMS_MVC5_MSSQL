@@ -14,65 +14,52 @@
 }
 
 
-@*@Html.Action("SingleAd", "AD", new { code = "A1007" })*@
-
-<div class="page page-product-detail">
-    <div class="container">
-        <div class="title title-section">
-            产品中心
-        </div>
-        <div class="showfull">
-            <h3 class="title-pro">@Model.ProductName</h3>
-            <div class="pic">
-                <img src="@Model.ImageUrl" alt="@Model.ProductName" />
+<div class="product-header" style="background-image:url('@Model.Cover')">
+    <div class="container intro">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="pic wow fadeInLeft">
+                    <img src="@Model.ViewImage" alt="@Model.ProductName" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="txt">
+                    <h2 class="title wow fadeInUp">
+                        @Model.ProductName
+                    </h2>
+                    <p class="wow fadeInUp"  data-wow-duration="2s" data-wow-delay="1s">
+                        @Model.Introduction
+                    </p>
+                    <img src="@Model.Icon" alt="@Model.ProductNo" class="wow fadeInUp"  data-wow-duration="2s" data-wow-delay="2s"/>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="contact_bar">
-        <div class="txt">
-            <div class="row align-items-center justify-content-md-center">
-                <div class="col-md-auto"> 想了解FRAMEMAC产品设备价格吗？</div>
-                <div class="col-md-auto"><a href="/contact">联系我们</a></div>
-            </div>
-
-        </div>
-    </div>
-    <section class="s3">
-        <div class="tab-header">
-            <div class="container">
-                <nav id="subnav">
-                    <a href="#" data-id="content01" class="active">产品概述</a>
-                    <a href="#" data-id="content02">产品参数</a>
-                    <a href="#" data-id="content03">产品细节</a>
-                    <a href="#" data-id="content04">产品控制</a>
-                    <a href="#" data-id="content05">产品视频</a>
-                </nav>
-            </div>
-        </div>
-
-        <div class="container" id="tab-content">
-            <div id="content01" class="content active">
-                @Html.Raw(Model.Body)
-            </div>
-
-         
-        </div>
+<div class="page-product-detail">
+    <section class="detail">
+        @Html.Raw(Model.Body)
     </section>
+
 </div>
 
 @section footer{
+
     <script>
-        $(function (e) {
-            $("#subnav a").click(function (e) {
-                e.preventDefault();
-                $(this).addClass("active").siblings().removeClass("active");
+        $(function () {
+          $("#progress").height("100%");         
+            $("#overly").fadeOut(1000);
 
-                var c = $(this).attr("data-id");
-                $("#" + c).addClass("active").siblings().removeClass("active");
-            });
+          if (Modernizr.mq('(max-width: 991px)')) {
+                $("#site-header").css({ "top": "0" });
+                setTimeout(function () {
+                    $("#progress").css({ "left": "-65px" });
+                }, 300);
+
+            } else {
+                    $("#site-header").css({ "left": "0" });
+            }
         })
-
     </script>
-    
-    }
+}

@@ -8,8 +8,6 @@ using TZGCMS.Data.Entity.Emails;
 using TZGCMS.Data.Entity.Identity;
 using TZGCMS.Data.Entity.Links;
 using TZGCMS.Data.Entity.Logs;
-using TZGCMS.Data.Entity.Pages;
-using TZGCMS.Data.Entity.Products;
 using TZGCMS.Data.Entity.Videos;
 using TZGCMS.Model;
 using TZGCMS.Model.Admin.InputModel.Ads;
@@ -20,7 +18,7 @@ using TZGCMS.Model.Admin.InputModel.Emails;
 using TZGCMS.Model.Admin.InputModel.Identity;
 using TZGCMS.Model.Admin.InputModel.Links;
 using TZGCMS.Model.Admin.InputModel.Menus;
-using TZGCMS.Model.Admin.InputModel.Pages;
+
 using TZGCMS.Model.Admin.InputModel.Teams;
 using TZGCMS.Model.Admin.InputModel.Videos;
 using TZGCMS.Model.Admin.ViewModel.Ads;
@@ -52,8 +50,8 @@ namespace TZGCMS.SiteWeb.Mappings
 
             CreateMap<Menu, MenuIM>();
             CreateMap<MenuIM, Menu>();
-            CreateMap<Menu, FrontMenuIM>();
-            CreateMap<FrontMenuIM, Menu>();
+            CreateMap<QNZ.Data.Menu, FrontMenuIM>();
+            CreateMap<FrontMenuIM, QNZ.Data.Menu>();
 
             CreateMap<MenuCategoryIM, MenuCategory>();
             CreateMap<MenuCategory, MenuCategoryIM>();
@@ -125,8 +123,9 @@ namespace TZGCMS.SiteWeb.Mappings
             CreateMap<VideoCategoryIM, VideoCategory>();
             CreateMap<VideoCategory, VideoCategoryIM>();
 
-            CreateMap<Page, PageIM>();
-            CreateMap<PageIM, Page>();
+            CreateMap<QNZ.Data.Page, PageVM>();
+            CreateMap<QNZ.Data.Page, PageIM>();
+            CreateMap<PageIM, QNZ.Data.Page>();
             CreateMap<DocumentCategoryIM, DocumentCategory>();
             CreateMap<DocumentCategory, DocumentCategoryIM>();
 
@@ -205,11 +204,7 @@ namespace TZGCMS.SiteWeb.Mappings
 
 
 
-            //CreateMap<PageVM, Page>();
-            //CreateMap<Page, PageVM>();
-            //CreateMap<PageIM, SIG.DAL.Dapper.Model.Page>();
-            //CreateMap<SIG.DAL.Dapper.Model.Page, PageIM>();
-
+          
             CreateMap<JobVM, QNZ.Data.Job>();
             //CreateMap<Job, JobVM>();
             CreateMap<JobIM, QNZ.Data.Job>();

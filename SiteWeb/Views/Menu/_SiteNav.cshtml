@@ -1,38 +1,67 @@
-﻿@model IEnumerable<QNZ.Data.MenuSet>
-<ul class="mainav" id="mainav">
-    @foreach (var item in Model.Where(d => d.ParentId == null))
-    {
-        <li class="@(item.MenuSets.Any() ? "downav" : "") @(item.Url.Equals(Request.RawUrl) || Request.RawUrl.Contains(item.Url) ?"active":"")">
+﻿@model IEnumerable<QNZ.Data.Menu>
+    <div class="mainav-container" id="mainav-container">
+        <div class="row no-gutters">
+            <div class="col-md">
 
-            <a href="@item.Url" class="">
-                @item.Title
-                @if (item.MenuSets.Any())
-                {
-                    <i class="iconfont icon-down"></i>
-                }
-            </a>
+                <ul class="mainav" id="mainav">
+                    @foreach (var item in Model.Where(d => d.ParentId == null))
+                    {
+                        <li class="@(item.Menus.Any() ? "downav" : "") ">
 
-            @if (item.MenuSets.Any())
-            {
+                            <a href="@item.Url" class="@(item.Url.Equals(Request.RawUrl) ?"active":"")" data-id="nav-@item.Id">
+                                <small>@item.TitleEn</small>
+                                @item.Title
+                                @if (item.Menus.Any())
+                                {
+                                    <i class="iconfont icon-yidiandiantubiao10"></i>
+                                }
+                            </a>
 
-                <div class="subnav">
-                    <dl>
-                        @foreach (var subItem in item.MenuSets)
-                        {
-                            <dd class="@(subItem.Url.Equals(Request.RawUrl)?"current":"")">
-                                <a href="@subItem.Url">
-                                    @subItem.Title
-                                </a>
-                            </dd>
+                            @if (item.Menus.Any())
+                            {
 
-                        }
-                    </dl>
+                                <div class="subnav">
+                                    <dl>
+                                        @foreach (var subItem in item.Menus.OrderBy(d => d.Importance))
+                                        {
+                                            <dd>
+                                                <a href="@subItem.Url" data-id="nav-@subItem.Id" class="@(subItem.Url.Equals(Request.RawUrl)?"active":"")">
+                                                    @subItem.Title
+                                                </a>
+                                            </dd>
+
+                                        }
+                                    </dl>
+                                </div>
+                            }
+                        </li>
+
+                    }
+
+                </ul>
+
+
+            </div>
+            <div class="col-md navbg-grid">
+                <div class="navbg-container">
+                    @foreach (var item in Model)
+                    {
+                        <div class="navbg @(item.Url.Equals(Request.RawUrl) ?"active":"")" id="nav-@item.Id">
+                            <img src="@item.Iconfont" alt="@item.Title" />
+                        </div>
+                    }
                 </div>
-            }
-        </li>
+            </div>
+        </div>
 
-    }
+        <div class="iconsocai">
 
-</ul>
-
-
+            <a href="#">
+                <i class="iconfont icon-cart2f"></i>
+            </a>
+            <a href="javascript:void(0);" class="wechat">
+                <i class="iconfont icon-wechat"></i>
+                <img src="@SettingsManager.Company.WeiXingCode" alt="" />
+            </a>
+        </div>
+    </div>

@@ -1,29 +1,54 @@
 ﻿
 .banner-album {
+
+
+    @include respond-above(md) {
+        height: 400px;
+    }
+
+    @include respond-above(lg) {
+        height: 550px;
+    }
+
+    @include respond-above(xlg) {
+        height: 720px;
+    }
+
     .album-title {
         text-align: center;
-      
+
 
         @include respond-above(md) {
             padding-top: 6rem;
         }
 
         h1 {
-            font-size: rem(30);
+            font-size: rem(22);
             font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
             font-weight: normal;
-            margin-bottom:0;
+            margin-bottom: 0;
+
+            @include respond-above(md) {
+                font-size: rem(30);
+            }
         }
 
         p {
-            font-size: rem(14);
+            font-size: rem(12);
             color: #808080;
+
+            @include respond-above(md) {
+                font-size: rem(14);
+            }
         }
     }
 }
 .page-about {
-    padding-left: 65px;
 
+
+    @include respond-above(md) {
+        padding-left: 65px;
+    }
 
 
 
@@ -38,29 +63,46 @@
             margin: 0 auto;
             position: relative;
             @include vertical-align();
+            color: #000;
 
             img {
                 position: absolute;
-                margin-top: -100px;
+                margin-top: -75px;
                 right: 0;
                 z-index: 100;
+                width: 68px;
+
+                @include respond-above(md) {
+                    margin-top: -100px;
+                    right: 0;
+                    width: 93px;
+                }
             }
 
             .title {
                 border-left: 1px #000 solid;
                 border-right: 1px #000 solid;
-                color: #000;
-                font-size: 36px;
+                font-size: 24px;
                 display: inline-block;
+                margin-left: .5rem;
                 margin-right: .6rem;
                 line-height: 2;
                 font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
+
+                @include respond-above(md) {
+                    font-size: 36px;
+                    margin-right: .6rem;
+                }
             }
 
             p {
-                font-size: rem(24);
+                font-size: rem(16);
                 line-height: 2;
                 font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
+
+                @include respond-above(md) {
+                    font-size: rem(24);
+                }
             }
         }
     }
@@ -70,7 +112,11 @@
         background-size: auto 150px;
         padding-top: 3rem;
         padding-bottom: 3rem;
-        padding-left: 65px;
+
+
+        @include respond-above(md) {
+            padding-left: 65px;
+        }
 
         @include respond-above(xlg) {
             background-size: auto auto;
@@ -95,6 +141,14 @@
         }
 
         .albums {
+            background-color: #f1f1f1;
+            padding-top: 1rem;
+
+            @include respond-above(md) {
+                padding-top: 0;
+                background-color: #fff;
+            }
+
             .item {
                 margin-bottom: 2rem;
                 display: block;
@@ -112,9 +166,11 @@
                 h4 {
                     margin: 0;
                     font-weight: normal;
+                    text-align: center;
 
                     @include respond-above(md) {
                         font-size: rem(18);
+                        text-align: left;
                     }
                 }
 
@@ -135,7 +191,12 @@
 }
 
 .page-album {
-    padding-left: 130px;
+    padding-top: 1rem;
+
+    @include respond-above(md) {
+        padding-left: 130px;
+        padding-top: 2rem;
+    }
 
     .photos {
         .item {
@@ -152,9 +213,11 @@
             figure {
                 margin: 0 0 2rem;
                 font-weight: normal;
+                text-align: center;
 
                 @include respond-above(md) {
                     font-size: rem(18);
+                    text-align: left;
                 }
             }
 

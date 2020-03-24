@@ -3,8 +3,8 @@
 
     PageMeta pm = (PageMeta)ViewBag.PageMeta;
     ViewBag.Title = pm != null ? pm.Title : SettingsManager.Site.SiteName;
-      ViewBag.HeaderClassName = "home_header";
-      ViewBag.HeaderClass = "home_body";
+
+
 }
 
 @section header{
@@ -13,48 +13,66 @@
         <meta name="description" content="@pm.Description" />
         <meta name="keywords" content="@pm.Keyword" />
     }
+    <link href="~/Plugins/swiper/css/swiper.min.css" rel="stylesheet" />
 
-   
 }
 
 
-@*@Html.Action("Carousels", "AD", new { code = "A1001" })*@
-
-<div class="banner-home">
-    @if (Model.Carousel != null)
-    {
-        <picture>
-            <source media="(orientation: landscape)" srcset="@Model.Carousel.ImageUrl">
-            <source media="(orientation: portrait)" srcset="@Model.Carousel.ImageUrlMobile">
-            <img src="@Model.Carousel.ImageUrl" alt="@Model.Carousel.Title">
-        </picture>
-    }
-
-</div>
-
-
-<div class="page-home">
-    <section class="s1 container" style="background-image:url('@(Model.Carousel2!=null ? Model.Carousel2.ImageUrl : "/content/img/1x/photo01-80.jpg")')">
-        @Html.Action("Paragraph", "Pages", new { seoName ="home_about" })
-
-    </section>
-
-    @Html.Action("RecentNews", "Article", new { count = 8 })
-
-</div>
-
-
-@*@Html.Action("RecentNews", "Article", new { count = 3 })*@
+@Html.Action("Carousels", "AD", new { code = "A1001" })
 
 
 
 
 
 @section footer{
-
-  
+    <script src="~/Plugins/waitforimages/jquery.waitforimages.min.js"></script>
     <script>
+  
+        $(document).ready(function () {
+            $('body').waitForImages().progress(function (loaded, count, success) {
+         
+               console.log(loaded + ' of ' + count + ' images has ' + (success ? 'loaded' : 'failed to load') +  '.');
+                // $(this).addClass('loaded');
+                var ph = loaded / count * 100;
 
+                $("#progress").height(ph + "%");
+                if (ph > 90) {
+                    $("#progress").height("100%");                  
+                    $(".logo1").addClass("show");
+
+                    if (Modernizr.mq('(max-width: 991px)')) {
+                        $("#site-header").css({ "top": "0" });
+                        setTimeout(function () {
+                            $("#progress").css({ "left": "-65px" });
+                        }, 1000);
+
+                    } else {
+                          $("#site-header").css({ "left": "0" });
+                    }
+
+                    setTimeout(function () {
+                        $("#shishow").addClass("show");
+                    },1000);
+                    setTimeout(function () {
+                        $(".imgfooter").addClass("show");
+                    }, 2000)
+
+                    setTimeout(function () {
+                        $("#overly").fadeOut(3000);
+                    },3000)
+                }
+            });
+
+        });
+    </script>
+    <script src="~/Plugins/swiper/js/swiper.min.js"></script>
+
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        });
         $(document).ready(function () {
 
 

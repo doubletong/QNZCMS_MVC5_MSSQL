@@ -1,9 +1,23 @@
-﻿<div class="progress"></div>
-<header class="site-header @ViewBag.HeaderClassName">
+﻿<div class="progress" id="progress"></div>
+<div class="overly" id="overly">
+    <div class="content">
+        <img src="/content/img/logo.png" alt="logo" class="logo1">
+        <p id="shishow">
+            居山林，润玉泉，<br/>
+            深耕百载，青叶密雨，<br />
+            云门匠制，手造天成。
+        </p>
+        <img src="/Content/img/icon_red.png" alt="Alternate Text" class="imgfooter"/>
+    </div>
+</div>
+<header class="site-header @ViewBag.HeaderClassName" id="site-header">
     <div class="topcol"></div>
     <div class="wrap">
-        <a href="/" class="logo">
-            <img src="/content/img/logo.png" alt="logo" />
+        <a href="/" class="logo">          
+            <picture>
+                <source srcset="/content/img/logo.png" media="(min-width: 992px)">
+                <img src="/content/img/logo_mobile.png" alt="logo">
+            </picture>
         </a>
 
         <div class="menu-button">
@@ -13,7 +27,7 @@
                 <div class="three"></div>
             </div>
         </div>
-        @Html.Action("SiteNav", "Menu", new { cid = 2 })
+
 
         <div class="iconsocai">
 
@@ -51,7 +65,7 @@
 
 
 </header>
-
+@Html.Action("SiteNav", "Menu", new { cid = 2 })
 
 
 

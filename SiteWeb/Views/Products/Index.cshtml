@@ -11,31 +11,31 @@
     }
 }
 
-<div class="banner banner-news" style="background-image:url('@Model.Category.ImageUrl')">
+<div class="banner banner-news banner-products" style="background-image:url('@Model.Category.ImageUrl')">
     <div class="header-news">
-        <h3>@Model.Category.Title</h3>
-        <p>
+        <h3 class="wow fadeInUp" data-wow-duration="2s">@Model.Category.Title</h3>
+        <p class="wow fadeInLeft" data-wow-duration="2s" data-wow-delay="1s">
             @Model.Category.Description
         </p>
-        <img src="@Model.Category.IconName" alt="@Model.Category.Title" />
+        <img src="@Model.Category.IconName" alt="@Model.Category.Title"  class="wow fadeInLeft" data-wow-duration="2s" data-wow-delay="2s"/>
     </div>
 
 </div>
 
 
 <div class="page page-products">
-    <section class="container s1">      
+    <section class="container s1">
         <div class="productlist">
             <div class="row">
                 @foreach (var item in Model.Products)
                 {
                     <div class="col-md-6 col-lg-4 px-4">
-                        <a href="@Url.Action("Detail", new { id= item.Id})" class="item">
+                        <a href="@Url.Action("Detail", new { id= item.Id})" class="item wow fadeInUp">
                             <div class="pic"><img src="@item.Thumbnail" alt="@item.ProductName" /></div>
                             <div class="text">
                                 <h3>@item.ProductName</h3>
                                 <p>@item.Summary</p>
-                        
+
                             </div>
                         </a>
 
@@ -49,3 +49,25 @@
 
 
 </div>
+
+@section footer{
+
+    <script>
+        $(function () {
+              
+            $("#progress").height("100%");         
+            $("#overly").fadeOut(1000);
+
+          if (Modernizr.mq('(max-width: 991px)')) {
+                $("#site-header").css({ "top": "0" });
+                setTimeout(function () {
+                    $("#progress").css({ "left": "-65px" });
+                }, 300);
+
+            } else {
+                    $("#site-header").css({ "left": "0" });
+            }
+
+        })
+    </script>
+}

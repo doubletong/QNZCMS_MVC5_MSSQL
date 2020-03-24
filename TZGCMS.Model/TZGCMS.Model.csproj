@@ -138,11 +138,9 @@
     <Compile Include="Admin\InputModel\Links\LinkIM.cs" />
     <Compile Include="Admin\InputModel\Links\LinkCategoryIM.cs" />
     <Compile Include="Admin\InputModel\LuceneSearch\SearchDataIM.cs" />
-    <Compile Include="Admin\InputModel\Menus\FrontMenuIM.cs" />
     <Compile Include="Admin\InputModel\Menus\MenuCategoryIM.cs" />
     <Compile Include="Admin\InputModel\Menus\MenuIM.cs" />
     <Compile Include="Admin\InputModel\ModuleSet.cs" />
-    <Compile Include="Admin\InputModel\Pages\PageIM.cs" />
     <Compile Include="Admin\InputModel\Teams\TeamIM.cs" />
     <Compile Include="Admin\InputModel\Videos\VideoCategoryIM.cs" />
     <Compile Include="Admin\InputModel\Videos\VideoIM.cs" />
@@ -171,8 +169,6 @@
     <Compile Include="Admin\ViewModel\Links\LinkListVM.cs" />
     <Compile Include="Admin\ViewModel\Links\LinkCategoryListVM.cs" />
     <Compile Include="Admin\ViewModel\Menus\MoveMenuVM.cs" />
-    <Compile Include="Admin\ViewModel\Pages\PageListVM.cs" />
-    <Compile Include="Admin\ViewModel\Pages\PageVM.cs" />
     <Compile Include="Admin\ViewModel\System\BakFileVM.cs" />
     <Compile Include="Admin\ViewModel\System\LogSearchVM.cs" />
     <Compile Include="Admin\ViewModel\System\LogVM.cs" />
@@ -206,7 +202,9 @@
     <Compile Include="Inputs\Articles\ArticleIM.cs" />
     <Compile Include="InstituteVM.cs" />
     <Compile Include="JobVM.cs" />
+    <Compile Include="MenuVM.cs" />
     <Compile Include="OutletVM.cs" />
+    <Compile Include="PageVM.cs" />
     <Compile Include="ProductVM.cs" />
     <Compile Include="Search\LuceneHelper.cs" />
     <Compile Include="Search\LuceneVM.cs" />

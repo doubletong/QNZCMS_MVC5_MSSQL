@@ -106,6 +106,15 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 背景 的本地化字符串。
+        /// </summary>
+        public static string Background {
+            get {
+                return ResourceManager.GetString("Background", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 百度统计代号 的本地化字符串。
         /// </summary>
         public static string BaiduSiteID {
@@ -988,6 +997,15 @@ namespace TZGCMS.Resources.Admin {
         }
         
         /// <summary>
+        ///   查找类似 产品图 的本地化字符串。
+        /// </summary>
+        public static string ProductImage {
+            get {
+                return ResourceManager.GetString("ProductImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 品名 的本地化字符串。
         /// </summary>
         public static string ProductName {
@@ -1317,6 +1335,15 @@ namespace TZGCMS.Resources.Admin {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 主题(英文) 的本地化字符串。
+        /// </summary>
+        public static string TitleEn {
+            get {
+                return ResourceManager.GetString("TitleEn", resourceCulture);
             }
         }
         

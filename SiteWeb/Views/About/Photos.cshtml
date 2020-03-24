@@ -16,10 +16,10 @@
         <div class="row photos">
             @foreach (var item in Model.Photos.OrderByDescending(d => d.Importance).ThenByDescending(d => d.CreatedDate))
             {
-            <a class="col-md-6 col-lg-4 px-md-4 item" href="@item.FullImageUrl" data-size="1024x683" data-author="@Model.Title" title="@item.Title">               
-                    <div class="pic"><img src="@item.Thumbnail" alt="@item.Title" /></div>             
-                <figure>@item.Title</figure>
-            </a>
+                <a class="col-md-6 col-lg-4 px-md-4 item" href="@item.FullImageUrl" data-size="1024x683" data-author="@Model.Title" title="@item.Title">
+                    <div class="pic"><img src="@item.Thumbnail" alt="@item.Title" /></div>
+                    <figure>@item.Title</figure>
+                </a>
             }
         </div>
     </div>
@@ -93,7 +93,30 @@
     <script src="~/Plugins/photoswipe/photoswipe.min.js"></script>
     <script src="~/Plugins/photoswipe/photoswipe-ui-default.min.js"></script>
     <script>
+
+
+         
+
+
+ 
+
+
+
        (function() {
+            
+            $("#progress").height("100%");         
+            $("#overly").fadeOut(1000);
+
+          if (Modernizr.mq('(max-width: 991px)')) {
+                $("#site-header").css({ "top": "0" });
+                setTimeout(function () {
+                    $("#progress").css({ "left": "-65px" });
+                }, 300);
+
+            } else {
+                    $("#site-header").css({ "left": "0" });
+            }
+
 
 		var initPhotoSwipeFromDOM = function(gallerySelector) {
 
@@ -110,7 +133,7 @@
 			    for(var i = 0; i < numNodes; i++) {
 			        el = thumbElements[i];
 
-			        // include only element nodes 
+			        // include only element nodes
 			        if(el.nodeType !== 1) {
 			          continue;
 			        }
@@ -187,8 +210,8 @@
 			        index;
 
 			    for (var i = 0; i < numChildNodes; i++) {
-			        if(childNodes[i].nodeType !== 1) { 
-			            continue; 
+			        if(childNodes[i].nodeType !== 1) {
+			            continue;
 			        }
 
 			        if(childNodes[i] === clickedListItem) {
@@ -217,10 +240,10 @@
 			        if(!vars[i]) {
 			            continue;
 			        }
-			        var pair = vars[i].split('=');  
+			        var pair = vars[i].split('=');
 			        if(pair.length < 2) {
 			            continue;
-			        }           
+			        }
 			        params[pair[0]] = pair[1];
 			    }
 
@@ -249,7 +272,7 @@
 			            var thumbnail = items[index].el.children[0],
 			                pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
                             rect = thumbnail.getBoundingClientRect();
-                    
+
 			            return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
 			        },
 
@@ -258,16 +281,16 @@
 							captionEl.children[0].innerText = '';
 							return false;
 						}
-						captionEl.children[0].innerHTML = item.title +  '<br/><small>图集：' + item.author + '</small>';
+						captionEl.children[0].innerHTML = item.title +  '<br /><small>图集：' + item.author + '</small>';
 						return true;
 			        },
-					
+
 			    };
 
 
 			    if(fromURL) {
 			    	if(options.galleryPIDs) {
-			    		// parse real index when custom PIDs are used 
+			    		// parse real index when custom PIDs are used
 			    		// https://photoswipe.com/documentation/faq.html#custom-pid-in-url
 			    		for(var j = 0; j < items.length; j++) {
 			    			if(items[j].pid == index) {
@@ -333,7 +356,7 @@
 				    		useLargeImages = true;
 				        	imageSrcWillChange = true;
 				    	}
-				        
+
 				    } else {
 				    	if(useLargeImages) {
 				    		useLargeImages = false;
@@ -354,15 +377,11 @@
 				});
 
 				gallery.listen('gettingData', function(index, item) {
-				    if( useLargeImages ) {
+				   
 				        item.src = item.o.src;
 				        item.w = item.o.w;
 				        item.h = item.o.h;
-				    } else {
-				        item.src = item.m.src;
-				        item.w = item.m.w;
-				        item.h = item.m.h;
-				    }
+				   
 				});
 
 			    gallery.init();

@@ -16,7 +16,7 @@ namespace TZGCMS.Data.Mapping
                 .HasColumnName("Id")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            this.ToTable("PageSet");
+            this.ToTable("Pages");
 
             this.Property(p => p.Title).HasMaxLength(100).IsRequired();
             this.Property(p => p.SeoName).HasMaxLength(100).IsRequired();

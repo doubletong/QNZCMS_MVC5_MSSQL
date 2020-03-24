@@ -25,7 +25,7 @@ namespace TZGCMS.SiteWeb.Controllers.Pages
         [SIGActionFilter]
         public ActionResult Index(string seoName)
         {
-            var page = _db.PageSets.FirstOrDefault(d => d.Active && d.SeoName == seoName);
+            var page = _db.Pages.FirstOrDefault(d => d.Active && d.SeoName == seoName);
             if (page == null)
                 return HttpNotFound();
 
@@ -35,7 +35,7 @@ namespace TZGCMS.SiteWeb.Controllers.Pages
 
         public ActionResult Paragraph(string seoName)
         {
-            var page = _db.PageSets.FirstOrDefault(d => d.Active && d.SeoName == seoName);
+            var page = _db.Pages.FirstOrDefault(d => d.Active && d.SeoName == seoName);
      
             return PartialView("_Paragraph", page);
         }

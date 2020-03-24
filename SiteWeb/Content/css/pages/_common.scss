@@ -38,9 +38,7 @@ body {
     width: 100%;
 
 
-    &.home_body {
-        padding-top: 100vh;
-    }
+
 }
 
 a {
@@ -129,25 +127,26 @@ input, textarea, button {
 }
 
 .banner {
-    height: 200px;
+    height: 450px;
     background-position: center top;
     background-repeat: no-repeat;
     background-size: cover;
-    padding-top: 2rem;
+    padding-top: 11rem;
     color: #fff;
 
     @include respond-above(sm) {
-        padding-top: 3rem;
-        height: 240px;
+        padding-top: 10rem;
+        height: 450px;
     }
 
     @include respond-above(md) {
-        height: 560px;
+        height: 520px;
+        padding-top: 7rem;
     }
 
     @include respond-above(lg) {
-        height: 660px;
-        padding-top:9rem;
+        height: 620px;
+        padding-top: 9rem;
     }
 
     @include respond-above(xlg) {
@@ -159,8 +158,14 @@ input, textarea, button {
 
     &.banner-news {
         background-image: url(../img/banner/news.jpg);
-        padding-left:65px;
+        padding-left: 0;
+
+        @include respond-above(md) {
+            padding-left: 65px;
+        }
     }
+
+   
 
     .header-news {
         writing-mode: vertical-rl;
@@ -173,9 +178,12 @@ input, textarea, button {
             border-right: 1px #fff solid;
             margin: 0;
             display: inline-block;
-         
             margin-left: 1.2rem;
             font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
+
+            @include respond-above(sm) {
+                font-size: rem(30);
+            }
 
             @include respond-above(md) {
                 font-size: rem(36);
@@ -183,14 +191,24 @@ input, textarea, button {
         }
 
         p {
-            font-size: rem(22);
+            font-size: rem(14);
             line-height: 2.3;
-            max-height:300px;
-           
+            max-height: 200px;
             font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
+
+            @include respond-above(sm) {
+                font-size: rem(18);
+            }
+
+            @include respond-above(md) {
+                font-size: rem(22);
+                max-height: 300px;
+            }
         }
-        img{display:block;
-            margin:auto auto 10px auto;
+
+        img {
+            display: block;
+            margin: auto auto 10px auto;
         }
     }
 }
@@ -259,205 +277,4 @@ input, textarea, button {
     text-align: center;
     color: $color-primary;
     font-size: rem(20);
-}
-
-.s6-links {
-    background: $color-primary url(../img/map_03.jpg) no-repeat center center;
-    background-size: cover;
-    color: #FFFFFF;
-    padding-bottom: 1rem;
-    padding-top: 3rem;
-
-    @include respond-above(sm) {
-        padding-bottom: 2rem;
-        padding-top: 4rem;
-    }
-
-    @include respond-above(md) {
-        padding-bottom: 3rem;
-        padding-top: 5rem;
-    }
-
-    @include respond-above(lg) {
-        padding-bottom: 4rem;
-        padding-top: 6rem;
-    }
-
-
-    .txt {
-        margin-bottom: 2rem;
-
-        @include respond-above(md) {
-            width: 450px;
-        }
-
-        h3 {
-            font-size: rem(28);
-            position: relative;
-            margin-top: 0;
-            padding-top: 1rem;
-            margin-bottom: 0;
-
-            @include respond-above(sm) {
-                font-size: rem(32);
-            }
-
-            @include respond-above(md) {
-                font-size: 36px;
-            }
-
-            &::before {
-                display: block;
-                content: " ";
-                position: absolute;
-                width: 20px;
-                height: 4px;
-                top: 0;
-                left: 0;
-                z-index: 100;
-                background-color: #fff;
-            }
-        }
-
-        p {
-            margin-top: .5rem;
-            font-size: rem(12);
-
-            @include respond-above(md) {
-                font-size: 1rem;
-            }
-        }
-    }
-
-    .links {
-        a {
-            display: block;
-            background-color: #fff;
-            border-radius: 3px;
-            margin-bottom: 30px;
-
-            img {
-                display: block;
-            }
-        }
-    }
-}
-
-.subnav {
-    text-align: center;
-    margin: 0 auto 3rem;
-    max-width: 880px;
-    border-bottom: 1px $color-primary solid;
-    padding-bottom: 1rem;
-
-    @include respond-above(sm) {
-        margin-bottom: 4rem;
-        padding-bottom: 0;
-    }
-
-    @include respond-above(md) {
-        margin-bottom: 5rem;
-    }
-
-    @include respond-above(lg) {
-        margin-bottom: 6rem;
-    }
-
-    nav {
-
-        a {
-            display: block;
-            padding: .2rem 1rem;
-            margin: 0 .2rem .4rem;
-            border-radius: 15px;
-            background-color: #eeeeee;
-            font-size: rem(14);
-
-            @include respond-above(sm) {
-                font-size: 20px;
-                height: 90px;
-                background-color: transparent;
-            }
-
-            &.active {
-                background-color: $color-primary;
-                color: #fff;
-
-                @include respond-above(sm) {
-                    background: url(../img/menu_active.png) no-repeat center bottom;
-                    color: $color-primary;
-                }
-            }
-
-            &:hover {
-                color: $color-primary;
-            }
-        }
-    }
-}
-
-
-.list-articles {
-    margin-bottom: 1rem;
-
-    @include respond-above(sm) {
-        margin-bottom: 2rem;
-    }
-
-    @include respond-above(md) {
-        margin-bottom: 3rem;
-    }
-
-    .item {
-        border-bottom: 1px #f7f7f7 solid;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-
-        .category {
-            color: #aaa;
-            font-size: rem(14);
-
-            @include respond-above(sm) {
-                margin-top: 0;
-            }
-        }
-
-        h3 {
-            font-size: 20px;
-            color: #222222;
-        }
-
-        p.summary {
-            color: #666;
-            text-align: justify;
-        }
-
-        .date {
-            color: #999;
-        }
-
-        .view {
-            color: $color-primary;
-            text-align: right;
-        }
-    }
-
-    .pic {
-        display: block;
-
-
-        @include respond-above(sm) {
-            width: 200px;
-        }
-
-        @include respond-above(md) {
-            width: 280px;
-            margin-right: 5rem;
-        }
-
-        img {
-            display: block;
-            width: 100%;
-        }
-    }
 }

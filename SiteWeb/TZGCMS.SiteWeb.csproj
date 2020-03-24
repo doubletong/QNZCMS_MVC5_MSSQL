@@ -277,6 +277,7 @@
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BrandController.cs" />
+    <Compile Include="Controllers\BusinessController.cs" />
     <Compile Include="Controllers\ChronicleController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\CooperationController.cs" />
@@ -1975,6 +1976,15 @@
     <Content Include="Plugins\elFinder\js\proxy\elFinderSupportVer1.js" />
     <Content Include="Plugins\elFinder\main.default.js" />
     <Content Include="Plugins\elFinder\sounds\rm.wav" />
+    <Content Include="Plugins\fullPage\fullpage.css" />
+    <Content Include="Plugins\fullPage\fullpage.extensions.min.js" />
+    <Content Include="Plugins\fullPage\fullpage.js" />
+    <Content Include="Plugins\fullPage\fullpage.min.css" />
+    <Content Include="Plugins\fullPage\fullpage.min.js" />
+    <Content Include="Plugins\fullPage\vendors\easings.js" />
+    <Content Include="Plugins\fullPage\vendors\easings.min.js" />
+    <Content Include="Plugins\fullPage\vendors\scrolloverflow.js" />
+    <Content Include="Plugins\fullPage\vendors\scrolloverflow.min.js" />
     <Content Include="Plugins\holderjs\gulpfile.js" />
     <Content Include="Plugins\holderjs\holder.js" />
     <Content Include="Plugins\holderjs\holder.min.js" />
@@ -3468,6 +3478,8 @@
     <Content Include="Plugins\toastr\toastr.js" />
     <Content Include="Plugins\toastr\toastr.min.css" />
     <Content Include="Plugins\toastr\toastr.min.js" />
+    <Content Include="Plugins\waitforimages\jquery.waitforimages.js" />
+    <Content Include="Plugins\waitforimages\jquery.waitforimages.min.js" />
     <Content Include="Plugins\webuploader\null4.jpg" />
     <Content Include="Plugins\webuploader\null\10a280c879e87dc04c7fe6071b058440.jpg" />
     <Content Include="Plugins\webuploader\null\19bd48817c301f378eb4b793e08b67b0.jpg" />
@@ -3492,6 +3504,19 @@
     <Content Include="Plugins\webuploader\webuploader.nolog.min.js" />
     <Content Include="Plugins\webuploader\webuploader.withoutimage.js" />
     <Content Include="Plugins\webuploader\webuploader.withoutimage.min.js" />
+    <Content Include="Plugins\wow\css\libs\animate.css" />
+    <Content Include="Plugins\wow\css\site.css" />
+    <Content Include="Plugins\wow\demo.html" />
+    <Content Include="Plugins\wow\dist\wow.js" />
+    <Content Include="Plugins\wow\dist\wow.min.js" />
+    <Content Include="Plugins\wow\Gruntfile.js" />
+    <Content Include="Plugins\wow\spec\javascripts\fixtures\custom.html" />
+    <Content Include="Plugins\wow\spec\javascripts\fixtures\simple.html" />
+    <Content Include="Plugins\wow\spec\javascripts\helpers\SpecHelper.js" />
+    <Content Include="Plugins\wow\spec\javascripts\libs\jasmine-jquery.js" />
+    <Content Include="Plugins\wow\spec\javascripts\libs\jquery.js" />
+    <Content Include="Plugins\wow\spec\javascripts\wow-spec.js" />
+    <Content Include="Plugins\wow\src\WOW.js" />
     <Content Include="Plugins\zoominout\bannerscollection_zoominout.css" />
     <Content Include="Plugins\zoominout\bannerscollection_zoominout.js" />
     <Content Include="Plugins\zoominout\jquery.ui.touch-punch.min.js" />
@@ -4021,6 +4046,21 @@
     <Content Include="Plugins\photoswipe\photoswipe.min.css.map" />
     <Content Include="Areas\Admin\Views\ProductCategory\Edit.cshtml" />
     <Content Include=".editorconfig" />
+    <Content Include="Plugins\fullPage\fullpage.min.css.map" />
+    <Content Include="Plugins\fullPage\fullpage.min.js.map" />
+    <Content Include="Plugins\fullPage\vendors\easings.min.js.map" />
+    <Content Include="Plugins\fullPage\vendors\scrolloverflow.min.js.map" />
+    <Content Include="Content\css\pages\_business.scss" />
+    <Content Include="Plugins\wow\.bower.json" />
+    <Content Include="Plugins\wow\bower.json" />
+    <Content Include="Plugins\wow\dist\wow.js.map" />
+    <Content Include="Plugins\wow\dist\wow.min.js.gz" />
+    <Content Include="Plugins\wow\LICENSE" />
+    <Content Include="Plugins\wow\package.json" />
+    <Content Include="Plugins\wow\README.md" />
+    <Content Include="Plugins\wow\spec\coffeescripts\helpers\SpecHelper.coffee" />
+    <Content Include="Plugins\wow\spec\coffeescripts\wow-spec.coffee" />
+    <Content Include="Areas\Admin\Views\Page\Edit.cshtml" />
     <None Include="Scripts\lib\jquery\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\lib\jquery\jquery-3.3.1.js" />
     <Content Include="Scripts\lib\jquery\jquery-3.3.1.min.js" />
@@ -4102,8 +4142,6 @@
     <Content Include="Config\imageprocessor\processing.config" />
     <Content Include="Config\imageprocessor\cache.config" />
     <Content Include="Areas\Admin\Views\Page\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Page\_Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Page\_Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Page\_PageItem.cshtml" />
     <Content Include="Areas\Admin\Views\Page\_PageList.cshtml" />
     <Content Include="Areas\Admin\Views\Menu\Index.cshtml" />
@@ -4131,7 +4169,6 @@
     <Content Include="Areas\Admin\Views\ArticleCategory\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ArticleCategory\_CategoryItem.cshtml" />
     <Content Include="Areas\Admin\Views\Article\Acquisition.cshtml" />
-    <Content Include="Areas\Admin\Views\Article\Add.cshtml" />
     <Content Include="Areas\Admin\Views\Article\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Article\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Article\_ArticleItem.cshtml" />
@@ -4174,7 +4211,6 @@
     <Content Include="Areas\Admin\Views\FrontMenu\_AddCategory.cshtml" />
     <Content Include="Areas\Admin\Views\FrontMenu\_CategoryList.cshtml" />
     <Content Include="Areas\Admin\Views\FrontMenu\_EditCategory.cshtml" />
-    <Content Include="Areas\Admin\Views\FrontMenu\_MenuCreate.cshtml" />
     <Content Include="Areas\Admin\Views\FrontMenu\_MenuEdit.cshtml" />
     <Content Include="Areas\Admin\Views\FrontMenu\_MenuList.cshtml" />
     <Content Include="Areas\Admin\Views\FrontMenu\_MoveMenu.cshtml" />
@@ -4718,7 +4754,6 @@
     <Content Include="Views\Services\Index.cshtml" />
     <Content Include="Views\Article\Detail.cshtml" />
     <Content Include="Views\Article\Index.cshtml" />
-    <Content Include="Views\Article\Search.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Contact\__Index.cshtml" />
     <Content Include="Views\Cases\Index.cshtml" />
@@ -4728,7 +4763,6 @@
     <Content Include="Views\Cases\_RecommendCases.cshtml" />
     <Content Include="Views\Article\_RecentNews.cshtml" />
     <Content Include="Views\Products\Detail.cshtml" />
-    <Content Include="Views\Products\Train.cshtml" />
     <Content Include="Views\Download\Index.cshtml" />
     <Content Include="Views\Download\_NewDocument.cshtml" />
     <Content Include="Views\Download\_BotDocument.cshtml" />
@@ -4740,7 +4774,6 @@
     <Content Include="Views\Join\Index.cshtml" />
     <Content Include="Views\Cooperation\Index.cshtml" />
     <Content Include="Views\Achievements\Index.cshtml" />
-    <Content Include="Views\Article\List.cshtml" />
     <Content Include="Views\Article\_ArtHeader.cshtml" />
     <Content Include="Views\Institute\Index.cshtml" />
     <Content Include="Views\Cooperation\_RecentNews.cshtml" />
@@ -4752,6 +4785,7 @@
     <Content Include="Views\Institute\Detail.cshtml" />
     <Content Include="Views\Menu\_SiteFooterNav - 复制.cshtml" />
     <Content Include="Views\About\Photos.cshtml" />
+    <Content Include="Views\Business\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Thumbnails\" />
@@ -4764,7 +4798,6 @@
     <Folder Include="Areas\Admin\Views\EmailAccount\Partials\" />
     <Folder Include="Areas\Admin\Views\Info\Partials\" />
     <Folder Include="Areas\Admin\Views\Link\Partials\" />
-    <Folder Include="Areas\Admin\Views\Page\Partials\" />
     <Folder Include="Areas\Admin\Views\QNZBase\" />
     <Folder Include="Areas\Tools\Models\" />
     <Folder Include="Areas\Tools\Views\TingMCE\" />

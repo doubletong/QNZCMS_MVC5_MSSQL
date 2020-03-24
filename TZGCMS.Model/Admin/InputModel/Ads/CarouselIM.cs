@@ -28,7 +28,7 @@ namespace TZGCMS.Model.Admin.InputModel.Ads
 
         [Display(ResourceType = typeof(Labels), Name = "Link")]
         [Required(ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "Required")]
-        [Url(ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "InvalidFormat",ErrorMessage = null)]
+        [MaxLength(150, ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "MaxLength")]
         public string WebLink { get; set; }
 
         [Display(ResourceType = typeof(Labels), Name = "Description")]

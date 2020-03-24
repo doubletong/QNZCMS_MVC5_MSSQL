@@ -23,14 +23,14 @@
     <section class="s1">
         <div class="container">
             <div class="title-section">
-                <h2 class="wow slideInUp">深圳云门茶叶有限公司</h2>
+                <h2 class="wow slideInUp">@SettingsManager.Company.CompanyName</h2>
                 <p class="wow slideInUp">
-                    地址：广东省深圳市南山区西丽街道留仙洞村留仙文化园4栋301A
+                    地址：@SettingsManager.Company.Address 
                 </p>
             </div>
             <div class="outlets">
                 <div class="row">
-                    @foreach(var item in Model)
+                    @foreach (var item in Model)
                     {
                         <div class="col-xl-6">
                             <div class="outlet wow slideInUp">
@@ -53,10 +53,10 @@
                     }
                 </div>
             </div>
-          
-            <div class="moreoutlet">
+
+            <div class="moreoutlet wow slideInUp">
                 <h4>更多店</h4>
-                <p>郑州，西安，长沙、杭州、东莞、重庆、<br/>成都等正在筹备中</p>
+                <p>郑州，西安，长沙、杭州、东莞、重庆、<br />成都等正在筹备中</p>
             </div>
         </div>
     </section>
@@ -66,41 +66,40 @@
 
 @section footer{
 
-    <script src="https://api.map.baidu.com/api?v=2.0&ak=G7h0sKsr60IFU3OrHRmKTRzD"></script>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=05f5bda4fee10ca031971be07a04911b"></script>
     <script>
+          $(document).ready(function () {
+             $("#progress").height("100%");         
+            $("#overly").fadeOut(1000);
 
-        // 百度地图API功能
-        var map = new BMap.Map("map_canvas");
+            if (Modernizr.mq('(max-width: 991px)')) {
+                $("#site-header").css({ "top": "0" });
+                setTimeout(function () {
+                    $("#progress").css({ "left": "-65px" });
+                }, 300);
 
+            } else {
+                $("#site-header").css({ "left": "0" });
+            }
 
-        map.addControl(new BMap.NavigationControl());
-        map.enableScrollWheelZoom(); //启用滚轮放大缩小，默认禁用
-        map.enableContinuousZoom(); //启用地图惯性拖拽，默认禁用
+          });
 
-        map.centerAndZoom(new BMap.Point(113.94924, 22.538721), 16);
-        var point = new BMap.Point(113.94924, 22.538721);
-
-        //var myIcon = new BMap.Icon("/Content/img/marker.png", new BMap.Size(132, 132));
-        //var marker1 = new BMap.Marker(point, { icon: myIcon });  // 创建标注
-        var marker1 = new BMap.Marker(point);
-
-        map.addOverlay(marker1); // 将标注添加到地图中
-        // marker1.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-        var sContent =
-            "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>深圳清华大学研究院</h4>" +
-            "<p>地址：深圳清华大学研究院大楼A402室<br/>" +
-            "电话：010-80716680</p>" +
-            "</div>";
-
-
-        //创建信息窗口
-        //var infoWindow1 = new BMap.InfoWindow(sContent);
-        //marker1.addEventListener("click", function () { this.openInfoWindow(infoWindow1); });
-        //marker1.openInfoWindow(infoWindow1);
-
-        $(document).ready(function () {
-
-
+        var map = new AMap.Map('map_canvas', {
+            resizeEnable: true,
+            zoom: 17,
+            center: [113.931679, 22.588017],
+            mapStyle: "amap://styles/whitesmoke"
         });
+
+        // 构造点标记
+        var marker = new AMap.Marker({
+            icon: "/content/img/marker.png",
+            position: [113.931679, 22.588017]
+        });
+
+        // 单独将点标记添加到地图上
+        map.add(marker);
+
+      
     </script>
 }

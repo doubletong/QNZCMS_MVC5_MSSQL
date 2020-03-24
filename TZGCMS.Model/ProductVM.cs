@@ -41,9 +41,15 @@ namespace TZGCMS.Model
         [MaxLength(150, ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "MaxLength")]
         public string Thumbnail { get; set; }
 
-        [Display(ResourceType = typeof(Labels), Name = "Package")]
+        [Display(ResourceType = typeof(Labels), Name = "Background")]
         [MaxLength(150, ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "MaxLength")]
         public string Cover { get; set; }
+        [Display(ResourceType = typeof(Labels), Name = "ProductImage")]
+        [MaxLength(150, ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "MaxLength")]
+        public string ViewImage { get; set; }
+        [Display(ResourceType = typeof(Labels), Name = "Icon")]
+        [MaxLength(150, ErrorMessageResourceType = typeof(Validations), ErrorMessageResourceName = "MaxLength")]
+        public string Icon { get; set; }
 
         [Display(ResourceType = typeof(Labels), Name = "ImageURL")]
         public string ImageUrl { get; set; }

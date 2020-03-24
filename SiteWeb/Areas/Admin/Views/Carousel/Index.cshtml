@@ -100,16 +100,16 @@
 
 
     <script>
-        function SetImageUrl() {
-            var fileUrl = $("#fileList .item.active").attr("data-file");
+        function SetImageUrl(fileUrl) {
+           // var fileUrl = $("#fileList .item.active").attr("data-file");
             $('#ImageUrl').val(fileUrl);
-            $('#fileManagerModal').modal('hide');
+           //   $('#fileManagerModal').modal('hide');
         }
 
-        function SetImageUrlMobile() {
-            var fileUrl = $("#fileList .item.active").attr("data-file");
+        function SetImageUrlMobile(fileUrl) {
+            //var fileUrl = $("#fileList .item.active").attr("data-file");
             $('#ImageUrlMobile').val(fileUrl);
-            $('#fileManagerModal').modal('hide');
+            //$('#fileManagerModal').modal('hide');
         }
 
         function OnSuccessLink(data) {
@@ -120,19 +120,23 @@
             $('#ModalEdit').modal();
 
             $(document).on("click", "#btnImageUrl", function () {
-                $('#fileManagerModal').modal();
-                $("#selectImage").unbind('click');
-                $("#selectImage").bind("click", function () {
-                    SetImageUrl();
-                });
+                 singleEelFinder.selectActionFunction = SetImageUrl;
+                singleEelFinder.open();
+                //$('#fileManagerModal').modal();
+                //$("#selectImage").unbind('click');
+                //$("#selectImage").bind("click", function () {
+                //    SetImageUrl();
+                //});
             });
 
             $(document).on("click", "#btnImageUrlMobile", function () {
-                $('#fileManagerModal').modal();
-                $("#selectImage").unbind('click');
-                $("#selectImage").bind("click", function () {
-                    SetImageUrlMobile();
-                });
+                  singleEelFinder.selectActionFunction = SetImageUrlMobile;
+                singleEelFinder.open();
+                //$('#fileManagerModal').modal();
+                //$("#selectImage").unbind('click');
+                //$("#selectImage").bind("click", function () {
+                //    SetImageUrlMobile();
+                //});
             });
         }
         function onBegin() {

@@ -4,6 +4,7 @@ using PagedList;
 using TZGCMS.SiteWeb.Filters;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,22 +19,23 @@ using TZGCMS.Model.Admin.ViewModel.Identity;
 using TZGCMS.Resources.Admin;
 using TZGCMS.Service.Identity;
 
+
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
     public class UserController : BaseController
     {
-
+        private new QNZ.Data.IQNZDbContext _db;
         private readonly IUserServices _userServices;
         private readonly IRoleServices _roleServices;
         private readonly IMapper _mapper;
 
-        public UserController(IUserServices userServices, IRoleServices roleServices , IMapper mapper)
+        public UserController(IUserServices userServices, IRoleServices roleServices , IMapper mapper, QNZ.Data.IQNZDbContext db)
         {
             _userServices = userServices;
             _roleServices = roleServices;
             _mapper = mapper;
-
+            _db = db;
         }
 
         // GET: User
@@ -269,7 +271,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public JsonResult SetRole(Guid UserId, int[] RoleId)
+        public async System.Threading.Tasks.Task<JsonResult> SetRole(Guid UserId, int[] RoleId)
         {
             try
             {
@@ -285,9 +287,36 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 //}
 
                 //_userServices.Update(user);
-                var user = _userServices.SetRole(UserId, RoleId);
+                // var user = _userServices.SetRole(UserId, RoleId);
+                var user = await  _db.Users.Include(d => d.Roles).FirstOrDefaultAsync();
+                var roles = await _db.Roles.Where(r => RoleId.Contains(r.Id)).ToListAsync();
 
-           
+                var founder = await _db.Roles.FindAsync(SettingsManager.Role.Founder);
+
+                if (user.Roles.Any(d=>d.Id == SettingsManager.Role.Founder))
+                {
+                    AddRolesToUser(user, roles);
+                    user.Roles.Add(founder);
+                }
+                else
+                {
+                    AddRolesToUser(user, roles);
+                }
+
+                //  var roles = _unitOfWork.RoleRepository.GetAll().Where(r => RoleId.Contains(r.Id)).ToList();
+
+                //user.Roles.Clear();
+                //foreach (Role r in roles)
+                //{
+                //    user.Roles.Add(r);
+                //}
+
+                //_unitOfWork.UserRepository.Update(user);
+
+                _db.Entry(user).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
+
+
                 if (User.UserId == UserId)
                 {
                     SetUserCookies(true, user);
@@ -308,8 +337,16 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
             }
         }
 
+        private static void AddRolesToUser(QNZ.Data.User user, List<QNZ.Data.Role> roles)
+        {
+            user.Roles.Clear();
+            foreach (QNZ.Data.Role r in roles)
+            {
+                user.Roles.Add(r);
+            }
+        }
 
-        public void SetUserCookies(bool isPersist, User user)
+        public static void SetUserCookies(bool isPersist, QNZ.Data.User user)
         {
             var roles = user.Roles.Select(m => m.RoleName).ToArray();
 

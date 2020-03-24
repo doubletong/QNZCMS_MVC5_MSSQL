@@ -1,25 +1,29 @@
-﻿@model IEnumerable<MenuCategory>
+﻿@model IEnumerable<QNZ.Data.MenuCategory>
 @{
+     Layout = "~/Areas/Admin/Views/Shared/Layouts/_Layout2019.cshtml";
     ViewBag.Title = EntityNames.Menu;
-    ViewBag.PageTitle = ViewBag.Title + "_组件";
+ 
 }
 
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-      
-            <div class="pull-right">
-                @Ajax.RawActionLink("<i class='fa fa-plus fa-fw'></i>" + string.Format("添加{0}", EntityNames.MenuCategory),
+<div class="card">
+    <div class="card-header">
+        <div class="row align-items-center">
+            <div class="col">
+                @EntityNames.MenuCategory
+            </div>
+            <div class="col-auto">
+
+                @Ajax.RawActionLink("<i class='iconfont icon-plus'></i>" + string.Format("添加{0}", EntityNames.MenuCategory),
                         "AddCategory", "FrontMenu",
                         new { },
                         new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
                         new { @class = "btn btn-primary" })
-            </div>
 
-            @EntityNames.MenuCategory
-      
+            </div>
+        </div>
     </div>
-    <div class="panel-body">
+    <div class="card-body">
         <div class="row" id="categoryList">
            @Html.Partial("_CategoryList",Model)
         </div>
@@ -81,9 +85,20 @@
 
             }
 
+              function SetBackground(fileUrl) {
+            //    $("#iLogo").attr("src", fileUrl);
+                $('#Iconfont').val(fileUrl);
+            }
+
             $(function () {
 
+                 $(document).on("click", '#btnBackground', function (e) {
+                    e.preventDefault();
 
+                    singleEelFinder.selectActionFunction = SetBackground;
+                    singleEelFinder.open();
+
+                });
 
                 //展开折叠菜单
                 $(document).on("click", '.expmenu', function (e) {

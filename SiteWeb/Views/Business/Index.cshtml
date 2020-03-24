@@ -1,0 +1,166 @@
+﻿
+@{
+    QNZ.Data.PageMeta pm = (QNZ.Data.PageMeta)ViewBag.PageMeta;
+    ViewBag.Title = pm != null ? pm.Title : "业务分类";
+}
+
+@section header{
+    @if (pm != null)
+    {
+        <meta name="description" content="@pm.Description" />
+        <meta name="keywords" content="@pm.Keyword" />
+    }
+
+    <link href="~/Plugins/fullPage/fullpage.min.css" rel="stylesheet" />
+}
+
+<div id="fullpage" class="page-business">
+    <section class="section">
+        <div class="row no-gutters" style="height:100%;">
+            <div class="col-lg"><div class="pic animated fadeInLeft" style="height:100%;background-color:#fff;background-image:url('/Content/img/bus_01.jpg');"></div></div>
+            <div class="col-lg">
+                <div class="txt-container" style="background-image:url('/Content/img/bus_02.jpg');">
+                    <div class="txt">
+                        <img src="~/Content/img/logo-min.png" alt="logo" class="minlogo animated fadeInDown" />
+                        <h3 class="title  animated fadeInUp">
+                            云门茶叶
+                        </h3>
+                        <p class="animated fadeInLeft">始创于2008年。多年来一直秉承“天成天养，遁道自然”的制茶理念。生产的普洱茶高端精品，在产品销售方面处于业内前列，是一家以种植管理、生产制作、销售产品为一体的实体公司。主营包括普洱在内的六大茶类的具体茶产品及茶类制品。公司总资产超过1亿元人民币，工作人员超过550人，年经济效益约2亿元。</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="section" id="s2">
+        <div class="row no-gutters" style="height:100%;">
+            <div class="col-lg" ><div class="pic" style="background-color:#fff;height:100%;background-image:url('/Content/img/bus_03.jpg');"></div></div>
+            <div class="col-lg">
+                <div class="txt-container" style="background-image:url('/Content/img/bus_04.png');">
+                    <div class="txt">
+                        <img src="~/Content/img/logo-min.png" alt="logo" class="minlogo" />
+                        <h3 class="title">
+                            易纯茶厂
+                        </h3>
+                        <p>主要负责云门茶叶有限公司以及其他公司的茶叶采收、加工、制作、包装、物流等一条龙配套服务，旗下有茶叶加工初制所11所，茶叶压制工厂2间，茶农、工人550人，茶农合作基地超过20家，年生产能力超过1000吨。</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="section" id="s3">
+        <div class="row no-gutters" style="height:100%;">
+            <div class="col-lg" ><div class="pic" style="background-color:#fff;height:100%;background-image:url('/Content/img/bus_05.jpg');"></div></div>
+            <div class="col-lg">
+                <div class="txt-container" style="background-image:url('/Content/img/bus_06.png');">
+                    <div class="txt">
+                        <img src="~/Content/img/logo-min.png" alt="logo" class="minlogo" />
+                        <h3 class="title">
+                            天成茶文化
+                        </h3>
+                        <p>是国家评茶员、评茶师指定考点。我们团队的茶文化教学，单在北京就做了七年，教学和课程体系成熟同时也一直在与时俱进和进一步完善。配有大型茶空间，多媒体茶室</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="section" id="s4">
+        <div class="row no-gutters">
+            <div class="col-lg"><div class="pic" style="background-color:#fff;height:100%;background-image:url('/Content/img/bus_07.jpg');"></div></div>
+            <div class="col-lg">
+                <div class="txt-container" style="background-image:url('/Content/img/bus_08.jpg');">
+                    <div class="txt">
+                        <img src="~/Content/img/logo-min.png" alt="logo" class="minlogo" />
+                        <h3 class="title">
+                            紫荆花酒店
+                        </h3>
+                        <p>位于易武镇高山村的茶主题旅游体验式酒店是茶生态旅游的配套项目。该酒店可提供27间豪华型房间产品，配套有茶席、宴客厅、主题餐厅、大型停车场等设施，可供游客面对面体验采茶炒茶制茶的工序，与普洱茶零接触，预计年接待能力接近1万人。</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+@section footer{
+
+    <script src="Plugins/fullpage/vendors/easings.min.js"></script>
+    <script src="Plugins/fullpage/vendors/scrolloverflow.min.js"></script>
+    <script src="Plugins/fullpage/fullpage.min.js"></script>
+    <script src="Plugins/fullpage/fullpage.extensions.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#progress").height("100%");         
+            $("#overly").fadeOut(1000);
+
+            if (Modernizr.mq('(max-width: 991px)')) {
+                $("#site-header").css({ "top": "0" });
+                setTimeout(function () {
+                    $("#progress").css({ "left": "-65px" });
+                }, 300);
+
+            } else {
+                $("#site-header").css({ "left": "0" });
+            }
+
+
+            $('#fullpage').fullpage({
+                //options here
+                licenseKey: "750A6298-E6DA42F7-9B37E662-7341082F",
+                autoScrolling: true,
+                scrollHorizontally: true,
+                navigation: true,
+                //slidesNavigation: true,
+                afterLoad: function (origin, destination, direction) {
+                    var loadedSection = this;
+                    console.log(loadedSection);
+                    //console.log(origin);
+                    //console.log(destination);
+                    //console.log(direction);
+                    //使用 index
+                    if (destination.index === 1) {
+                   
+                        $("#s2 .pic").addClass("animated fadeInLeft");
+                        $("#s2 .minlogo").addClass("animated fadeInDown");
+                        $("#s2 h3").addClass("animated fadeInUp");
+                        $("#s2 p").addClass("animated fadeInLeft");
+                    }
+                      if (destination.index === 2) {
+                   
+                        $("#s3 .pic").addClass("animated fadeInLeft");
+                        $("#s3 .minlogo").addClass("animated fadeInDown");
+                        $("#s3 h3").addClass("animated fadeInUp");
+                        $("#s3 p").addClass("animated fadeInLeft");
+                    }
+                      if (destination.index === 3) {
+                   
+                        $("#s4 .pic").addClass("animated fadeInLeft");
+                        $("#s4 .minlogo").addClass("animated fadeInDown");
+                        $("#s4 h3").addClass("animated fadeInUp");
+                        $("#s4 p").addClass("animated fadeInLeft");
+                    }
+                    //if (destination.index === 2) {
+                    //    $(".section3 .pic").addClass("animated fadeInRight");
+                    //    $(".section3 .text").addClass("animated fadeInLeft");
+                    //}
+                    //if (destination.index === 3) {
+                    //    $(".section4 .pic").addClass("animated fadeInLeft");
+                    //    $(".section4 .text").addClass("animated fadeInRight");
+                    //}
+                }
+            });
+
+            //methods
+            $.fn.fullpage.setAllowScrolling(true);
+
+
+
+        });
+
+
+    </script>
+}

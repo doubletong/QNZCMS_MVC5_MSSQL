@@ -22,19 +22,19 @@ namespace TZGCMS.SiteWeb.Controllers
 
         public PartialViewResult SiteNav(int cid)
         {
-            var vm = new List<MenuSet>();
+            var vm = new List<Menu>();
 
             string key = "Menus_Active_Category_" + cid.ToString();
             if (SettingsManager.Site.EnableCaching)
             {
                 if (_cacheService.IsSet(key))
                 {
-                    vm = (List<MenuSet>)_cacheService.Get(key);
+                    vm = (List<Menu>)_cacheService.Get(key);
 
                 }
                 else
                 {
-                    vm = _db.MenuSets.Include(d => d.MenuSets).AsNoTracking().Where(m => m.Active && m.CategoryId == cid)
+                    vm = _db.Menus.Include(d => d.Menus).AsNoTracking().Where(m => m.Active && m.CategoryId == cid)
                     .OrderBy(d => d.Importance).ToList();
 
                     _cacheService.Set(key, vm, SettingsManager.Site.CacheDuration);
@@ -42,7 +42,7 @@ namespace TZGCMS.SiteWeb.Controllers
             }
             else
             {
-                vm = _db.MenuSets.Include(d => d.MenuSets).AsNoTracking().Where(m => m.Active && m.CategoryId == cid)
+                vm = _db.Menus.Include(d => d.Menus).AsNoTracking().Where(m => m.Active && m.CategoryId == cid)
                   .OrderBy(d => d.Importance).ToList();
             }
 
@@ -51,27 +51,27 @@ namespace TZGCMS.SiteWeb.Controllers
      
         public PartialViewResult SiteFooterNav(int cid)
         {
-            var vm = new List<MenuSet>();
+            var vm = new List<Menu>();
             string key = "Menus_Active_Category_" + cid.ToString();
 
             if (SettingsManager.Site.EnableCaching)
             {
                 if (_cacheService.IsSet(key))
                 {
-                    vm = (List<MenuSet>)_cacheService.Get(key);
+                    vm = (List<Menu>)_cacheService.Get(key);
 
                 }
                 else
                 {
 
-                    vm = _db.MenuSets.Include(d => d.MenuSets).AsNoTracking().Where(m => m.Active && m.CategoryId == cid)
+                    vm = _db.Menus.Include(d => d.Menus).AsNoTracking().Where(m => m.Active && m.CategoryId == cid)
                   .OrderBy(d => d.Importance).ToList();
                     _cacheService.Set(key, vm, SettingsManager.Site.CacheDuration);
                 }
             }
             else
             {
-                vm = _db.MenuSets.Include(d => d.MenuSets).AsNoTracking().Where(m => m.Active && m.CategoryId == cid)
+                vm = _db.Menus.Include(d => d.Menus).AsNoTracking().Where(m => m.Active && m.CategoryId == cid)
                     .OrderBy(d => d.Importance).ToList();
               
             }            

@@ -5,8 +5,11 @@
     padding-bottom: 2rem;
     padding-top: 2rem;
     font-size: 14px;
-    padding-left: 130px;
-    color:#999;
+    color: #999;
+
+    @include respond-above(md) {
+        padding-left: 130px;
+    }
 
     a {
         display: inline-block;
@@ -14,19 +17,85 @@
     }
 
 
+    .iconsocai {
+        text-align: center;
+        border-bottom: 1px #eee solid;
+        padding-bottom:.6rem;
+
+        @include respond-above(md) {
+            display: none;
+        }
+
+
+        a {
+            color: #b3b3b3;
+            width: 26px;
+            display: inline-block;
+
+            .iconfont {
+                font-size: rem(20);
+            }
+
+            &.wechat {
+                position: relative;
+
+                img {
+                    display: block;
+                    position: absolute;
+                    left: 50%;
+                    top: -120px;
+                    max-width: none;
+                    z-index: 100;
+                    margin-left: -53px;
+                    opacity: 0;
+                    transition: all .2s;
+                    visibility: collapse;
+                }
+
+                &:hover {
+                    img {
+                        opacity: 1;
+                        top: -110px;
+                        visibility: visible;
+                    }
+                }
+            }
+        }
+    }
+
     .botnav {
-        writing-mode: vertical-rl;
-        @include reset-list();
+        display: none;
+
+
+        @include respond-above(md) {
+            display: block;
+            writing-mode: vertical-rl;
+            @include reset-list();
+        }
 
         li {
             border-left: 1px #d9d9d9 solid;
             border-right: 1px #d9d9d9 solid;
-            margin-left: 42px;
+            margin-left: 25px;
+
+            @include respond-above(lg) {
+                margin-left: 42px;
+            }
         }
     }
 
     p {
-        
+        font-size: rem(12);
+        text-align: center;
+
+        @include respond-above(md) {
+            font-size: rem(14);
+            text-align: left;
+        }
+
+        @include respond-above(lg) {
+            font-size: rem(16);
+        }
     }
 }
 

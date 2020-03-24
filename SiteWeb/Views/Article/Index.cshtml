@@ -11,13 +11,13 @@
         <meta name="description" content="@pm.Description" />
         <meta name="keywords" content="@pm.Keyword" />
     }
-    <link href="~/Plugins/swiper/css/swiper.min.css" rel="stylesheet" />
+
 }
 
 <div class="banner banner-news">
     <div class="header-news">
-        <h3>云门资讯</h3>
-        <p>
+        <h3  class="wow fadeInLeft" data-wow-duration="2s">云门资讯</h3>
+        <p  class="wow fadeInLeft" data-wow-duration="2s" data-wow-delay="1s">
             居山林，润玉泉，<br />
             深耕百载，青叶密林，<br />
             云门匠制，手造天成。
@@ -30,33 +30,33 @@
 <!-- BLOG ================================================== -->
 <section class="page page-news">
 
-    <div class="container">
-        <nav class="news-header">
+    <div class="container news-header">
+        <nav class="wow fadeInUp">
             @foreach (var item in Model.Categories)
             {
                 <a href="@Url.Action("Index","Article",new { alias = item.Alias  })">@item.Title</a>
             }
         </nav>
-  
+    </div>
 
-        <div class="newslist">
+        <div class="container newslist">
             <div class="row ">
                 @foreach (var item in Model.Articles)
                 {
                     <div class="col-md-6 col-lg-4 px-md-4">
-                        <div class="item">
+                    
 
-                            <a class="item" href="@Url.Action("Detail",new { id = item.Id})">
+                            <a class="item wow fadeInUp" href="@Url.Action("Detail",new { id = item.Id})">
                                 <div class="pic">
                                     <img src="@item.Thumbnail" alt="@item.Title" />
                                 </div>
                                 <div class="txt">
-                                 
-                                        <h3>@item.Title</h3>
-                                        <div class="pubdate">
-                                            @string.Format("{0:G} 发布", item.Pubdate)
-                                        </div>
-                         
+
+                                    <h3>@item.Title</h3>
+                                    <div class="pubdate">
+                                        @string.Format("{0:G} 发布", item.Pubdate)
+                                    </div>
+
 
                                     <div class="summary">
                                         @item.Summary
@@ -64,44 +64,47 @@
                                 </div>
 
                             </a>
-                        </div>
+                   
                     </div>
 
                 }
             </div>
-        </div>
-   
-      
-      
 
-    </div>
+            @if (Model.TotalCount > Model.PageSize)
+            {
+                <div>
+                    @Html.PagedListPager((IPagedList)Model.Articles, page => Url.Action("Index", new { page,  alias = Model.Alias }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                </div>
+            }
+
+        </div>
+
+
+
+
+
 
 
 
 </section>
 
-
 @section footer{
-    <script src="~/Plugins/swiper/js/swiper.min.js"></script>
-    <!-- Initialize Swiper -->
-    <script>
-        var galleryThumbs = new Swiper('.gallery-thumbs', {
-            spaceBetween: 10,
-            slidesPerView: 5,
-            freeMode: true,
-            watchSlidesVisibility: true,
-            watchSlidesProgress: true,
-        });
-        var galleryTop = new Swiper('.gallery-top', {
-            spaceBetween: 10,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            thumbs: {
-                swiper: galleryThumbs
-            }
-        });
-    </script>
 
+    <script>
+        $(function () {
+         $("#progress").height("100%");         
+            $("#overly").fadeOut(1000);
+
+          if (Modernizr.mq('(max-width: 991px)')) {
+                $("#site-header").css({ "top": "0" });
+                setTimeout(function () {
+                    $("#progress").css({ "left": "-65px" });
+                }, 300);
+
+            } else {
+                    $("#site-header").css({ "left": "0" });
+            }
+
+        })
+    </script>
 }

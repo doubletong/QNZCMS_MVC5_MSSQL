@@ -17,62 +17,68 @@
 }
 
 
-@Html.Action("ArtHeader", "Article")
+
 
 
 <!-- BLOG   ================================================== -->
 <section class="page page-news-detail">
-    <div class="container">
-        <div class=" article">
-            <div class="title title-section">
-                <h2>@Model.Title</h2>
-            </div>
+    <div class="detail-header" style="background-image:url('@Model.FullImage')">
+        <div class="title">
+            <h1 class="wow  fadeInUp">@Model.Title</h1>
+            <p class="wow  fadeInUp">@string.Format("{0:D} 发布", Model.Pubdate)</p>
+        </div>
+    </div>
+    <div class="container article">      
 
-
-            <div class="note">
-                <ul>
-                    <li>
-                        发布日期：  @string.Format("{0:D}", Model.Pubdate)
-                    </li>
-                    <li>
-                        分类： @Model.ArticleCategory.Title
-                    </li>
-                </ul>
-            </div>
-            <div class="content">
+            <div class="content wow fadeInUp">
                 @Html.Raw(Model.Body)
             </div>
 
-        </div>
-
-        <div class="nav-page">
-
-            @if (ViewBag.Prev != null)
-            {
-                <p>上一篇：  <a href="@Url.Action("Detail", new { id=prevArt.Id})">@prevArt.Title</a></p>
-            }
-
-
-            @if (ViewBag.Next != null)
-            {
-                <p>
-                    下一篇： <a href="@Url.Action("Detail", new { id=nextArt.Id})">@nextArt.Title</a>
-                </p>
-            }
-
-
-
-        </div>
     </div>
 
 
+    <div class="nav-page wow fadeInUp">
+        <div class="row no-gutters">
+            <div class="col prev">
+                @if (ViewBag.Prev != null)
+                {
+                    <a id="hlPrevious" href="@Url.Action("Detail", new { id = prevArt.Id })"><span class="t1">@prevArt.Title</span><span class="t2">上一篇</span></a>
+                }
+            </div>
+            <div class="back col-auto">
+                <a href="/article">
+                    <i class="iconfont icon-close1line"></i>
+                </a>
+            </div>
+            <div class="col next">
+                @if (ViewBag.Next != null)
+                {
+                <a id="hlNext" href="@Url.Action("Detail", new { id = nextArt.Id })"><span class="t1">@nextArt.Title</span><span class="t2">下一篇</span></a>
+                }
+            </div>
+
+        </div>
+    </div>
 </section>
 
 @section footer{
+
     <script>
         $(function () {
-          
+         $("#progress").height("100%");         
+            $("#overly").fadeOut(1000);
+
+          if (Modernizr.mq('(max-width: 991px)')) {
+                $("#site-header").css({ "top": "0" });
+                setTimeout(function () {
+                    $("#progress").css({ "left": "-65px" });
+                }, 300);
+
+            } else {
+                    $("#site-header").css({ "left": "0" });
+            }
+
+
         })
     </script>
-
 }

@@ -1,17 +1,32 @@
 ﻿
 
 .page-news {
-    padding-left: 65px;
+    padding-top: 0;
+    background-color: #f7f7f7;
+
+    @include respond-above(md) {
+        padding-left: 65px;
+    }
 
     .news-header {
-        margin-bottom: 3rem;
         text-align: center;
+        padding-top: 1.5rem;
+        padding-bottom: .5rem;
+
+        @include respond-above(md) {
+            padding-left: 65px;
+          
+        }
 
         a {
             display: inline-block;
             padding: 0 2rem;
             position: relative;
             font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
+
+            @include respond-above(sm) {
+                font-size: rem(18);
+            }
 
             &::before {
                 content: " ";
@@ -60,15 +75,32 @@
     }
 
     .newslist {
-        padding-left: 65px;
+        background-color: #f7f7f7;
+        padding-top: 1rem;
+
+        @include respond-above(md) {
+            padding-left: 65px;
+            
+        }
 
         .item {
             display: block;
             margin-bottom: 2rem;
+            background-color: #fff;
+
+            @include respond-above(sm) {
+                margin-left: -10px;
+                margin-right: -10px;
+            }
+
+         
 
             .pic {
+                overflow:hidden;
                 img {
+                    display:block;
                     max-width: none;
+                    transition:all .2s;
                     width: 100%;
                 }
             }
@@ -103,7 +135,11 @@
 
             &:hover {
                 text-decoration: none;
-                background-color: #f7f7f7;
+               .pic{
+                   img{
+                       transform:scale(1.1);
+                   }
+               }
             }
         }
 
@@ -136,105 +172,192 @@
 }
 .page-news-detail {
 
-    .article {
-        text-align: justify;
-        margin-bottom: 2rem;
 
-        @include respond-above(sm) {
-            margin-bottom: 3rem;
-        }
+    @include respond-above(md) {
+        padding: 0 0 0 65px;
+    }
+
+    .detail-header {
+        height: 400px;
+        padding-top: 11rem;
+        background-color: #999;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
 
         @include respond-above(md) {
-            margin-bottom:4rem;
+            padding-left: 65px;
         }
 
         @include respond-above(lg) {
-            margin-bottom: 5rem;
+            padding-top: 15rem;
+            height: 580px;
         }
 
-        .title-article {
-            margin-bottom: 1rem;
+        @include respond-above(xlg) {
+            padding-top: 19rem;
+            height: 720px;
+        }
 
-            @include respond-above(sm) {
-                margin-bottom: 2rem;
-            }
+        .title {
+            text-align: center;
+            color: #fff;
 
-            @include respond-above(md) {
-                margin-bottom: 3rem;
-            }
-
-            h2 {
-                font-size: 24px;
-                color: $color-primary;
-                margin-top: 0;
+            h1 {
+                font-size: rem(22);
+                font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
+                font-weight: normal;
+                margin-bottom: 0;
 
                 @include respond-above(sm) {
-                    font-size: 30px;
+                    font-size: rem(26);
                 }
 
                 @include respond-above(md) {
-                    line-height: 1;
-                    font-size: 36px;
+                    font-size: rem(30);
                 }
             }
-        }
 
-        .note {
-            font-size: rem(14);
-            border-bottom: #eee solid 1px;
-            padding-bottom: 2rem;
-            margin-bottom: 2rem;
-
-            ul {
-                @include reset-list;
-            }
-
-            li {
-                display: inline-block;
-                margin-right: 2rem;
-                color: #999;
+            p {
+                font-size: rem(14);
+                color: #808080;
             }
         }
     }
 
-    .box-arrow {
-        background-color: #f7f7f7;
-        padding: 1rem 1.5rem;
-        border-top: 3px $color-primary solid;
-        margin-bottom: 2rem;
+    .article {
+        .content {
+            text-align: justify;
+            margin-bottom: 2rem;
+
+
+            @include respond-above(sm) {
+                margin-bottom: 3rem;
+            }
+
+            @include respond-above(md) {
+                margin-bottom: 4rem;
+                padding: 2rem 1rem 2rem 65px;
+            }
+
+            @include respond-above(lg) {
+                margin-bottom: 5rem;
+            }
+        }
+    }
+
+    .nav-page {
+        position: relative;
+       
 
         @include respond-above(md) {
-            margin-left: 1.5rem;
-            margin-bottom: 3rem;
+            padding-left: 65px;
+        }
+    }
+
+    .nav-page a {
+        display: block;
+        height: 56px;
+        text-align: right;
+        background-color: #f7f7f7;
+        color: #666;
+        line-height: 56px;
+        text-decoration: none;
+        -moz-transition: all .3s ease-in-out 0s;
+        -o-transition: all .3s ease-in-out 0s;
+        -webkit-transition: all .3s ease-in-out 0s;
+        transition: all .3s ease-in-out 0s;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: rem(14);
+
+        @include respond-above(lg) {
+            font-size: 1rem;
         }
 
-        h3 {
-            font-size: rem(20);
-            position: relative;
-            padding-bottom: 1.3rem;
-            font-weight: bold;
+        .t1 {
+            display: none;
 
-            &::before {
+            @include respond-above(md) {
                 display: block;
-                content: " ";
-                position: absolute;
-                width: 20px;
-                height: 2px;
-                bottom: 0;
-                left: 0;
-                z-index: 100;
-                background-color: $color-primary;
             }
         }
 
-        .more {
-            color: $color-primary;
-            transition: all .25s;
-            display: block;
+        .t2 {
 
-            &:hover {
-                margin-right: 3rem;
+
+            @include respond-above(md) {
+                display: none;
             }
         }
+    }
+
+    .nav-page a:hover {
+        background-color: $color-primary;
+        color: #fff;
+    }
+
+    .nav-page div.prev a {
+        padding-right: 28px;
+    }
+
+    .nav-page div.prev a:hover {
+        padding-right: 25px;
+    }
+
+    @media only screen and (min-width: 768px) {
+        .nav-page div.prev a:hover {
+            padding-right: 55px;
+        }
+    }
+
+    .nav-page div.prev a:hover:after {
+        content: ' ';
+        display: inline-block;
+        border: 5px #fff solid;
+        border-color: transparent;
+        border-right-color: #fff;
+        position: absolute;
+        right: 28px;
+        top: 23px;
+        z-index: 50;
+    }
+
+    .nav-page div.next a {
+        text-align: left;
+        padding-left: 28px;
+    }
+
+    .nav-page div.next a:hover {
+        padding-left: 25px;
+    }
+
+    @media only screen and (min-width: 768px) {
+        .nav-page div.next a:hover {
+            padding-left: 55px;
+        }
+    }
+
+    .nav-page div.next a:hover:before {
+        content: ' ';
+        display: inline-block;
+        border: 5px #fff solid;
+        border-color: transparent;
+        border-left-color: #fff;
+        position: absolute;
+        left: 28px;
+        top: 23px;
+        z-index: 50;
+    }
+
+    .nav-page .back {
+    }
+
+    .nav-page .back a {
+        display: block;
+        width: 56px;
+        text-align: center;
+        background-color: #eee;
     }
 }

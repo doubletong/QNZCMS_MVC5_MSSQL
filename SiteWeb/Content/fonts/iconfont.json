@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2786",
+      "name": "天猫形象2",
+      "font_class": "tmall",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "356507",
+      "name": " plus ",
+      "font_class": "yidiandiantubiao10",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
       "icon_id": "494475",
       "name": "cart_2f",
       "font_class": "cart2f",
@@ -13,11 +27,32 @@
       "unicode_decimal": 58980
     },
     {
+      "icon_id": "879150",
+      "name": "sina",
+      "font_class": "sina",
+      "unicode": "e660",
+      "unicode_decimal": 58976
+    },
+    {
       "icon_id": "1049682",
       "name": "wechat",
       "font_class": "wechat",
       "unicode": "e63b",
       "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "1191839",
+      "name": "remove",
+      "font_class": "close1line",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "5322187",
+      "name": "支付-京东",
+      "font_class": "zhifu-jingdong",
+      "unicode": "e6a2",
+      "unicode_decimal": 59042
     }
   ]
 }

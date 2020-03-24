@@ -5,31 +5,33 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using System.Xml.Linq;
-using TZGCMS.Data.Entity.PageMetas;
-using TZGCMS.Data.Entity.Pages;
+
 using TZGCMS.Data.Enums;
 using TZGCMS.Infrastructure.Configs;
 using TZGCMS.Infrastructure.Helper;
-using TZGCMS.Model.Admin.InputModel.Pages;
 using TZGCMS.Model.Admin.ViewModel;
-using TZGCMS.Model.Admin.ViewModel.Pages;
 using TZGCMS.Resources.Admin;
 using TZGCMS.Model;
 using TZGCMS.Model.Search;
 using System.Data.Entity;
+using QNZ.Data;
+using AutoMapper.QueryableExtensions;
+using System.Threading.Tasks;
 
 namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 {
     [SIGAuth]
-    public class PageController : BaseController
+    public class PageController : QNZBaseController
     {
-   
+
+        private IQNZDbContext _db;
         private IMapper _mapper;
-        public PageController( IMapper mapper)
-        {         
+        public PageController(IMapper mapper, IQNZDbContext db)
+        {
+            _db = db;
             _mapper = mapper;
         }
-       
+
         // GET: Admin/Pages
         public async System.Threading.Tasks.Task<ActionResult> Index(int? page, string keyword)
         {
@@ -39,7 +41,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
         }
 
-        private async System.Threading.Tasks.Task<PageListVM> GetElementsAsync(int? page, string keyword)
+        private async Task<PageListVM> GetElementsAsync(int? page, string keyword)
         {
             var vm = new PageListVM()
             {
@@ -53,11 +55,12 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 query = query.Where(d => d.Title.Contains(keyword));
             }
 
-            var pagelist = await query.OrderByDescending(d => d.Id).Skip((vm.PageIndex - 1) * vm.PageSize).Take(vm.PageSize).ToListAsync();
+            var pagelist = await query.OrderByDescending(d => d.Id).Skip((vm.PageIndex - 1) * vm.PageSize)
+                .Take(vm.PageSize).ProjectTo<PageVM>().ToListAsync();
             
 
             vm.TotalCount = await query.CountAsync();
-            vm.Pages = new StaticPagedList<Page>(pagelist, vm.PageIndex, vm.PageSize, vm.TotalCount); ;
+            vm.Pages = new StaticPagedList<PageVM>(pagelist, vm.PageIndex, vm.PageSize, vm.TotalCount); ;
             return vm;
         }
         [HttpPost]
@@ -121,7 +124,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                         Title = string.IsNullOrEmpty(page.SEOTitle) ? page.Title : page.SEOTitle,
                         Keyword = string.IsNullOrEmpty(page.Keywords) ? page.Title : page.Keywords.Replace('，', ','),
                         Description = page.SEODescription,
-                        ModelType = ModelType.PAGE
+                        ModelType = (short)ModelType.PAGE
                     };
                     _db.PageMetas.Add(pageMeta);
                     _db.SaveChanges();
@@ -145,29 +148,37 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         }
 
         // GET: Admin/Pages/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-
-            var page = _db.Pages.Find(id);
-            if (page == null)
+            if (id == null)
             {
-                AR.Setfailure(Messages.HttpNotFound);
-                return Json(AR, JsonRequestBehavior.DenyGet);
-                // return HttpNotFound();
+                PageIM page = new PageIM()
+                {
+                    Active = true
+                };
+                return View(page);
             }
-
-            var editPage = _mapper.Map<Page, PageIM>(page);
-
-            var pageMeta = _db.PageMetas.FirstOrDefault(d => d.ModelType == ModelType.PAGE && d.ObjectId == editPage.Id.ToString());
-         
-            if (pageMeta != null)
+            else
             {
-                editPage.SEOTitle = pageMeta.Title;
-                editPage.Keywords = pageMeta.Keyword;
-                editPage.SEODescription = pageMeta.Description;
-            }
+                var page = _db.Pages.Find(id);
+                if (page == null)
+                {
+                    return HttpNotFound();
+                }
 
-            return PartialView("_Edit", editPage);
+                var editPage = _mapper.Map<Page, PageIM>(page);
+                var pageMeta = _db.PageMetas.FirstOrDefault(d => d.ModelType == (short)ModelType.PAGE && d.ObjectId == editPage.Id.ToString());
+
+                if (pageMeta != null)
+                {
+                    editPage.SEOTitle = pageMeta.Title;
+                    editPage.Keywords = pageMeta.Keyword;
+                    editPage.SEODescription = pageMeta.Description;
+                }
+
+                return View( editPage);
+            }
+          
 
         }
 
@@ -192,7 +203,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 _db.Entry(editPage).State = EntityState.Modified;
                 _db.SaveChanges();
 
-                var pageMeta = _db.PageMetas.FirstOrDefault(d => d.ModelType == ModelType.PAGE && d.ObjectId == editPage.Id.ToString());
+                var pageMeta = _db.PageMetas.FirstOrDefault(d => d.ModelType == (short)ModelType.PAGE && d.ObjectId == editPage.Id.ToString());
                 //_pageMetaServices.GetPageMeta(ModelType.PAGE, editPage.Id.ToString());
                 pageMeta = pageMeta ?? new PageMeta();
 
@@ -201,7 +212,7 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
                 pageMeta.Title = string.IsNullOrEmpty(page.SEOTitle) ? page.Title : page.SEOTitle;
                 pageMeta.Keyword = string.IsNullOrEmpty(page.Keywords) ? page.Title : page.Keywords.Replace('，', ',');
                 pageMeta.Description = page.SEODescription;
-                pageMeta.ModelType = ModelType.PAGE;
+                pageMeta.ModelType = (short)ModelType.PAGE;
 
                 if (pageMeta.Id > 0)
                 {

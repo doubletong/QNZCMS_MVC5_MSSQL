@@ -1,20 +1,20 @@
-﻿@model MoveMenuVM
+﻿@model MoveFrontMenuVM
 
-@helper ShowTree(IEnumerable<Menu> menus)
+@helper ShowTree(IEnumerable<QNZ.Data.Menu> menus)
 {
     <ul class="menuTree menuTreeRole list-unstyled">
         @foreach (var item in menus)
         {
-            if (item.MenuType == MenuType.PAGE || item.MenuType == MenuType.NOLINK)
+            if (item.MenuType == (short)MenuType.PAGE || item.MenuType == (short)MenuType.NOLINK)
             {
-                <li class="@(item.ChildMenus.Any() ? "hasMenus" : "")">
+                <li class="@(item.Menus.Any() ? "hasMenus" : "")">
                     <label class="@(item.Id==Model.Id ? "text-danger":"")">
                         <input type="radio" name="menuId" value="@item.Id" @(Model.CurrentParentId == item.Id ?"checked":"") @(item.Id==Model.Id ? "disabled" : "") />
                         @item.Title
                     </label>
-                    @if (item.ChildMenus.Any())
+                    @if (item.Menus.Any())
                     {
-                        @ShowTree(item.ChildMenus.OrderBy(c => c.Importance))
+                        @ShowTree(item.Menus.OrderBy(c => c.Importance))
                     }
                 </li>
             }

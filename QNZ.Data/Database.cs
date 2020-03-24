@@ -66,13 +66,13 @@ namespace QNZ.Data
         System.Data.Entity.DbSet<LinkCategorySet> LinkCategorySets { get; set; } // LinkCategorySet
         System.Data.Entity.DbSet<LinkSet> LinkSets { get; set; } // LinkSet
         System.Data.Entity.DbSet<Log> Logs { get; set; } // Logs
-        System.Data.Entity.DbSet<MenuCategorySet> MenuCategorySets { get; set; } // MenuCategorySet
-        System.Data.Entity.DbSet<MenuSet> MenuSets { get; set; } // MenuSet
+        System.Data.Entity.DbSet<Menu> Menus { get; set; } // Menus
+        System.Data.Entity.DbSet<MenuCategory> MenuCategories { get; set; } // MenuCategories
         System.Data.Entity.DbSet<OrderDetailSet> OrderDetailSets { get; set; } // OrderDetailSet
         System.Data.Entity.DbSet<OrderSet> OrderSets { get; set; } // OrderSet
         System.Data.Entity.DbSet<Outlet> Outlets { get; set; } // Outlets
+        System.Data.Entity.DbSet<Page> Pages { get; set; } // Pages
         System.Data.Entity.DbSet<PageMeta> PageMetas { get; set; } // PageMetas
-        System.Data.Entity.DbSet<PageSet> PageSets { get; set; } // PageSet
         System.Data.Entity.DbSet<Photo> Photos { get; set; } // Photos
         System.Data.Entity.DbSet<PositionSet> PositionSets { get; set; } // PositionSet
         System.Data.Entity.DbSet<PostCategorySet> PostCategorySets { get; set; } // PostCategorySet
@@ -149,13 +149,13 @@ namespace QNZ.Data
         public System.Data.Entity.DbSet<LinkCategorySet> LinkCategorySets { get; set; } // LinkCategorySet
         public System.Data.Entity.DbSet<LinkSet> LinkSets { get; set; } // LinkSet
         public System.Data.Entity.DbSet<Log> Logs { get; set; } // Logs
-        public System.Data.Entity.DbSet<MenuCategorySet> MenuCategorySets { get; set; } // MenuCategorySet
-        public System.Data.Entity.DbSet<MenuSet> MenuSets { get; set; } // MenuSet
+        public System.Data.Entity.DbSet<Menu> Menus { get; set; } // Menus
+        public System.Data.Entity.DbSet<MenuCategory> MenuCategories { get; set; } // MenuCategories
         public System.Data.Entity.DbSet<OrderDetailSet> OrderDetailSets { get; set; } // OrderDetailSet
         public System.Data.Entity.DbSet<OrderSet> OrderSets { get; set; } // OrderSet
         public System.Data.Entity.DbSet<Outlet> Outlets { get; set; } // Outlets
+        public System.Data.Entity.DbSet<Page> Pages { get; set; } // Pages
         public System.Data.Entity.DbSet<PageMeta> PageMetas { get; set; } // PageMetas
-        public System.Data.Entity.DbSet<PageSet> PageSets { get; set; } // PageSet
         public System.Data.Entity.DbSet<Photo> Photos { get; set; } // Photos
         public System.Data.Entity.DbSet<PositionSet> PositionSets { get; set; } // PositionSet
         public System.Data.Entity.DbSet<PostCategorySet> PostCategorySets { get; set; } // PostCategorySet
@@ -264,13 +264,13 @@ namespace QNZ.Data
             modelBuilder.Configurations.Add(new LinkCategorySetConfiguration());
             modelBuilder.Configurations.Add(new LinkSetConfiguration());
             modelBuilder.Configurations.Add(new LogConfiguration());
-            modelBuilder.Configurations.Add(new MenuCategorySetConfiguration());
-            modelBuilder.Configurations.Add(new MenuSetConfiguration());
+            modelBuilder.Configurations.Add(new MenuConfiguration());
+            modelBuilder.Configurations.Add(new MenuCategoryConfiguration());
             modelBuilder.Configurations.Add(new OrderDetailSetConfiguration());
             modelBuilder.Configurations.Add(new OrderSetConfiguration());
             modelBuilder.Configurations.Add(new OutletConfiguration());
+            modelBuilder.Configurations.Add(new PageConfiguration());
             modelBuilder.Configurations.Add(new PageMetaConfiguration());
-            modelBuilder.Configurations.Add(new PageSetConfiguration());
             modelBuilder.Configurations.Add(new PhotoConfiguration());
             modelBuilder.Configurations.Add(new PositionSetConfiguration());
             modelBuilder.Configurations.Add(new PostCategorySetConfiguration());
@@ -329,13 +329,13 @@ namespace QNZ.Data
             modelBuilder.Configurations.Add(new LinkCategorySetConfiguration(schema));
             modelBuilder.Configurations.Add(new LinkSetConfiguration(schema));
             modelBuilder.Configurations.Add(new LogConfiguration(schema));
-            modelBuilder.Configurations.Add(new MenuCategorySetConfiguration(schema));
-            modelBuilder.Configurations.Add(new MenuSetConfiguration(schema));
+            modelBuilder.Configurations.Add(new MenuConfiguration(schema));
+            modelBuilder.Configurations.Add(new MenuCategoryConfiguration(schema));
             modelBuilder.Configurations.Add(new OrderDetailSetConfiguration(schema));
             modelBuilder.Configurations.Add(new OrderSetConfiguration(schema));
             modelBuilder.Configurations.Add(new OutletConfiguration(schema));
+            modelBuilder.Configurations.Add(new PageConfiguration(schema));
             modelBuilder.Configurations.Add(new PageMetaConfiguration(schema));
-            modelBuilder.Configurations.Add(new PageSetConfiguration(schema));
             modelBuilder.Configurations.Add(new PhotoConfiguration(schema));
             modelBuilder.Configurations.Add(new PositionSetConfiguration(schema));
             modelBuilder.Configurations.Add(new PostCategorySetConfiguration(schema));
@@ -412,13 +412,13 @@ namespace QNZ.Data
         public System.Data.Entity.DbSet<LinkCategorySet> LinkCategorySets { get; set; }
         public System.Data.Entity.DbSet<LinkSet> LinkSets { get; set; }
         public System.Data.Entity.DbSet<Log> Logs { get; set; }
-        public System.Data.Entity.DbSet<MenuCategorySet> MenuCategorySets { get; set; }
-        public System.Data.Entity.DbSet<MenuSet> MenuSets { get; set; }
+        public System.Data.Entity.DbSet<Menu> Menus { get; set; }
+        public System.Data.Entity.DbSet<MenuCategory> MenuCategories { get; set; }
         public System.Data.Entity.DbSet<OrderDetailSet> OrderDetailSets { get; set; }
         public System.Data.Entity.DbSet<OrderSet> OrderSets { get; set; }
         public System.Data.Entity.DbSet<Outlet> Outlets { get; set; }
+        public System.Data.Entity.DbSet<Page> Pages { get; set; }
         public System.Data.Entity.DbSet<PageMeta> PageMetas { get; set; }
-        public System.Data.Entity.DbSet<PageSet> PageSets { get; set; }
         public System.Data.Entity.DbSet<Photo> Photos { get; set; }
         public System.Data.Entity.DbSet<PositionSet> PositionSets { get; set; }
         public System.Data.Entity.DbSet<PostCategorySet> PostCategorySets { get; set; }
@@ -480,13 +480,13 @@ namespace QNZ.Data
             LinkCategorySets = new FakeDbSet<LinkCategorySet>("Id");
             LinkSets = new FakeDbSet<LinkSet>("Id");
             Logs = new FakeDbSet<Log>("Id");
-            MenuCategorySets = new FakeDbSet<MenuCategorySet>("Id");
-            MenuSets = new FakeDbSet<MenuSet>("Id");
+            Menus = new FakeDbSet<Menu>("Id");
+            MenuCategories = new FakeDbSet<MenuCategory>("Id");
             OrderDetailSets = new FakeDbSet<OrderDetailSet>("Id");
             OrderSets = new FakeDbSet<OrderSet>("Id");
             Outlets = new FakeDbSet<Outlet>("Id");
+            Pages = new FakeDbSet<Page>("Id");
             PageMetas = new FakeDbSet<PageMeta>("Id");
-            PageSets = new FakeDbSet<PageSet>("Id");
             Photos = new FakeDbSet<Photo>("Id");
             PositionSets = new FakeDbSet<PositionSet>("Id");
             PostCategorySets = new FakeDbSet<PostCategorySet>("Id");
@@ -1525,44 +1525,18 @@ namespace QNZ.Data
         public string UserName { get; set; } // UserName (length: 50)
     }
 
-    // MenuCategorySet
+    // Menus
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class MenuCategorySet
+    public class Menu
     {
         public int Id { get; set; } // Id (Primary key)
         public string Title { get; set; } // Title (length: 50)
-        public int Importance { get; set; } // Importance
-        public bool IsSys { get; set; } // IsSys
-        public bool Active { get; set; } // Active
-        public System.DateTime CreatedDate { get; set; } // CreatedDate
-        public string CreatedBy { get; set; } // CreatedBy (length: 50)
-        public System.DateTime? UpdatedDate { get; set; } // UpdatedDate
-        public string UpdatedBy { get; set; } // UpdatedBy (length: 50)
-
-        // Reverse navigation
-
-        /// <summary>
-        /// Child MenuSets where [MenuSet].[CategoryId] point to this entity (FK_MenuSet_MenuCategorySet)
-        /// </summary>
-        public virtual System.Collections.Generic.ICollection<MenuSet> MenuSets { get; set; } // MenuSet.FK_MenuSet_MenuCategorySet
-
-        public MenuCategorySet()
-        {
-            MenuSets = new System.Collections.Generic.List<MenuSet>();
-        }
-    }
-
-    // MenuSet
-    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class MenuSet
-    {
-        public int Id { get; set; } // Id (Primary key)
-        public string Title { get; set; } // Title (length: 50)
+        public string TitleEn { get; set; } // TitleEn (length: 50)
         public string Url { get; set; } // Url (length: 150)
         public int Importance { get; set; } // Importance
         public bool? Hidden { get; set; } // Hidden
         public bool Active { get; set; } // Active
-        public string Iconfont { get; set; } // Iconfont (length: 50)
+        public string Iconfont { get; set; } // Iconfont (length: 150)
         public int? ParentId { get; set; } // ParentId
         public short? MenuType { get; set; } // MenuType
         public string Area { get; set; } // Area (length: 50)
@@ -1579,9 +1553,9 @@ namespace QNZ.Data
         // Reverse navigation
 
         /// <summary>
-        /// Child MenuSets where [MenuSet].[ParentId] point to this entity (FK_dbo.Menus_dbo.Menus_ParentId)
+        /// Child Menus where [Menus].[ParentId] point to this entity (FK_dbo.Menus_dbo.Menus_ParentId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<MenuSet> MenuSets { get; set; } // MenuSet.FK_dbo.Menus_dbo.Menus_ParentId
+        public virtual System.Collections.Generic.ICollection<Menu> Menus { get; set; } // Menus.FK_dbo.Menus_dbo.Menus_ParentId
         /// <summary>
         /// Child Roles (Many-to-Many) mapped by table [RoleMenus]
         /// </summary>
@@ -1590,22 +1564,49 @@ namespace QNZ.Data
         // Foreign keys
 
         /// <summary>
-        /// Parent MenuCategorySet pointed by [MenuSet].([CategoryId]) (FK_MenuSet_MenuCategorySet)
+        /// Parent Menu pointed by [Menus].([ParentId]) (FK_dbo.Menus_dbo.Menus_ParentId)
         /// </summary>
-        public virtual MenuCategorySet MenuCategorySet { get; set; } // FK_MenuSet_MenuCategorySet
+        public virtual Menu Parent { get; set; } // FK_dbo.Menus_dbo.Menus_ParentId
 
         /// <summary>
-        /// Parent MenuSet pointed by [MenuSet].([ParentId]) (FK_dbo.Menus_dbo.Menus_ParentId)
+        /// Parent MenuCategory pointed by [Menus].([CategoryId]) (FK_MenuSet_MenuCategorySet)
         /// </summary>
-        public virtual MenuSet Parent { get; set; } // FK_dbo.Menus_dbo.Menus_ParentId
+        public virtual MenuCategory MenuCategory { get; set; } // FK_MenuSet_MenuCategorySet
 
-        public MenuSet()
+        public Menu()
         {
             Active = true;
             MenuType = 1;
             IsExpand = true;
-            MenuSets = new System.Collections.Generic.List<MenuSet>();
+            Menus = new System.Collections.Generic.List<Menu>();
             Roles = new System.Collections.Generic.List<Role>();
+        }
+    }
+
+    // MenuCategories
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
+    public class MenuCategory
+    {
+        public int Id { get; set; } // Id (Primary key)
+        public string Title { get; set; } // Title (length: 50)
+        public int Importance { get; set; } // Importance
+        public bool IsSys { get; set; } // IsSys
+        public bool Active { get; set; } // Active
+        public System.DateTime CreatedDate { get; set; } // CreatedDate
+        public string CreatedBy { get; set; } // CreatedBy (length: 50)
+        public System.DateTime? UpdatedDate { get; set; } // UpdatedDate
+        public string UpdatedBy { get; set; } // UpdatedBy (length: 50)
+
+        // Reverse navigation
+
+        /// <summary>
+        /// Child Menus where [Menus].[CategoryId] point to this entity (FK_MenuSet_MenuCategorySet)
+        /// </summary>
+        public virtual System.Collections.Generic.ICollection<Menu> Menus { get; set; } // Menus.FK_MenuSet_MenuCategorySet
+
+        public MenuCategory()
+        {
+            Menus = new System.Collections.Generic.List<Menu>();
         }
     }
 
@@ -1676,21 +1677,9 @@ namespace QNZ.Data
         public string UpdatedBy { get; set; } // UpdatedBy (length: 50)
     }
 
-    // PageMetas
+    // Pages
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class PageMeta
-    {
-        public int Id { get; set; } // Id (Primary key)
-        public short ModelType { get; set; } // ModelType
-        public string ObjectId { get; set; } // ObjectId (length: 50)
-        public string Keyword { get; set; } // Keyword (length: 250)
-        public string Description { get; set; } // Description (length: 500)
-        public string Title { get; set; } // Title (length: 150)
-    }
-
-    // PageSet
-    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class PageSet
+    public class Page
     {
         public int Id { get; set; } // Id (Primary key)
         public string Title { get; set; } // Title (length: 100)
@@ -1705,6 +1694,18 @@ namespace QNZ.Data
         public string TemplateName { get; set; } // TemplateName (length: 50)
         public string HeadCode { get; set; } // HeadCode
         public string FooterCode { get; set; } // FooterCode
+    }
+
+    // PageMetas
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
+    public class PageMeta
+    {
+        public int Id { get; set; } // Id (Primary key)
+        public short ModelType { get; set; } // ModelType
+        public string ObjectId { get; set; } // ObjectId (length: 50)
+        public string Keyword { get; set; } // Keyword (length: 250)
+        public string Description { get; set; } // Description (length: 500)
+        public string Title { get; set; } // Title (length: 150)
     }
 
     // Photos
@@ -1827,8 +1828,17 @@ namespace QNZ.Data
         public string Introduction { get; set; } // Introduction (length: 500)
         public string Thumbnail { get; set; } // Thumbnail (length: 150)
         public string ImageUrl { get; set; } // ImageUrl
+
+        ///<summary>
+        /// 背景图
+        ///</summary>
         public string Cover { get; set; } // Cover (length: 150)
+
+        ///<summary>
+        /// 产品图
+        ///</summary>
         public string ViewImage { get; set; } // ViewImage (length: 150)
+        public string Icon { get; set; } // Icon (length: 150)
         public int Importance { get; set; } // Importance
         public bool Recommend { get; set; } // Recommend
         public bool Active { get; set; } // Active
@@ -2047,9 +2057,9 @@ namespace QNZ.Data
         // Reverse navigation
 
         /// <summary>
-        /// Child MenuSets (Many-to-Many) mapped by table [RoleMenus]
+        /// Child Menus (Many-to-Many) mapped by table [RoleMenus]
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<MenuSet> MenuSets { get; set; } // Many to many mapping
+        public virtual System.Collections.Generic.ICollection<Menu> Menus { get; set; } // Many to many mapping
         /// <summary>
         /// Child Users (Many-to-Many) mapped by table [UserRoles]
         /// </summary>
@@ -2059,7 +2069,7 @@ namespace QNZ.Data
         {
             Active = true;
             Users = new System.Collections.Generic.List<User>();
-            MenuSets = new System.Collections.Generic.List<MenuSet>();
+            Menus = new System.Collections.Generic.List<Menu>();
         }
     }
 
@@ -2553,7 +2563,7 @@ namespace QNZ.Data
             Property(x => x.UpdatedDate).HasColumnName(@"UpdatedDate").HasColumnType("datetime").IsOptional();
 
             // Foreign keys
-            HasRequired(a => a.ArticleCategory).WithMany(b => b.Articles).HasForeignKey(c => c.CategoryId).WillCascadeOnDelete(false); // FK_ArticleSet_ArticleCategorySet
+            HasRequired(a => a.ArticleCategory).WithMany(b => b.Articles).HasForeignKey(c => c.CategoryId); // FK_ArticleSet_ArticleCategorySet
         }
     }
 
@@ -3227,53 +3237,28 @@ namespace QNZ.Data
         }
     }
 
-    // MenuCategorySet
+    // Menus
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class MenuCategorySetConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<MenuCategorySet>
+    public class MenuConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<Menu>
     {
-        public MenuCategorySetConfiguration()
+        public MenuConfiguration()
             : this("dbo")
         {
         }
 
-        public MenuCategorySetConfiguration(string schema)
+        public MenuConfiguration(string schema)
         {
-            ToTable("MenuCategorySet", schema);
+            ToTable("Menus", schema);
             HasKey(x => x.Id);
 
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.Title).HasColumnName(@"Title").HasColumnType("nvarchar").IsRequired().HasMaxLength(50);
-            Property(x => x.Importance).HasColumnName(@"Importance").HasColumnType("int").IsRequired();
-            Property(x => x.IsSys).HasColumnName(@"IsSys").HasColumnType("bit").IsRequired();
-            Property(x => x.Active).HasColumnName(@"Active").HasColumnType("bit").IsRequired();
-            Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired();
-            Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
-            Property(x => x.UpdatedDate).HasColumnName(@"UpdatedDate").HasColumnType("datetime").IsOptional();
-            Property(x => x.UpdatedBy).HasColumnName(@"UpdatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
-        }
-    }
-
-    // MenuSet
-    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class MenuSetConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<MenuSet>
-    {
-        public MenuSetConfiguration()
-            : this("dbo")
-        {
-        }
-
-        public MenuSetConfiguration(string schema)
-        {
-            ToTable("MenuSet", schema);
-            HasKey(x => x.Id);
-
-            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
-            Property(x => x.Title).HasColumnName(@"Title").HasColumnType("nvarchar").IsRequired().HasMaxLength(50);
+            Property(x => x.TitleEn).HasColumnName(@"TitleEn").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
             Property(x => x.Url).HasColumnName(@"Url").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
             Property(x => x.Importance).HasColumnName(@"Importance").HasColumnType("int").IsRequired();
             Property(x => x.Hidden).HasColumnName(@"Hidden").HasColumnType("bit").IsOptional();
             Property(x => x.Active).HasColumnName(@"Active").HasColumnType("bit").IsRequired();
-            Property(x => x.Iconfont).HasColumnName(@"Iconfont").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
+            Property(x => x.Iconfont).HasColumnName(@"Iconfont").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
             Property(x => x.ParentId).HasColumnName(@"ParentId").HasColumnType("int").IsOptional();
             Property(x => x.MenuType).HasColumnName(@"MenuType").HasColumnType("smallint").IsOptional();
             Property(x => x.Area).HasColumnName(@"Area").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
@@ -3288,14 +3273,40 @@ namespace QNZ.Data
             Property(x => x.LayoutLevel).HasColumnName(@"LayoutLevel").HasColumnType("int").IsOptional();
 
             // Foreign keys
-            HasOptional(a => a.Parent).WithMany(b => b.MenuSets).HasForeignKey(c => c.ParentId).WillCascadeOnDelete(false); // FK_dbo.Menus_dbo.Menus_ParentId
-            HasRequired(a => a.MenuCategorySet).WithMany(b => b.MenuSets).HasForeignKey(c => c.CategoryId); // FK_MenuSet_MenuCategorySet
-            HasMany(t => t.Roles).WithMany(t => t.MenuSets).Map(m =>
+            HasOptional(a => a.Parent).WithMany(b => b.Menus).HasForeignKey(c => c.ParentId).WillCascadeOnDelete(false); // FK_dbo.Menus_dbo.Menus_ParentId
+            HasRequired(a => a.MenuCategory).WithMany(b => b.Menus).HasForeignKey(c => c.CategoryId); // FK_MenuSet_MenuCategorySet
+            HasMany(t => t.Roles).WithMany(t => t.Menus).Map(m =>
             {
                 m.ToTable("RoleMenus", "dbo");
                 m.MapLeftKey("MenuId");
                 m.MapRightKey("RoleId");
             });
+        }
+    }
+
+    // MenuCategories
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
+    public class MenuCategoryConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<MenuCategory>
+    {
+        public MenuCategoryConfiguration()
+            : this("dbo")
+        {
+        }
+
+        public MenuCategoryConfiguration(string schema)
+        {
+            ToTable("MenuCategories", schema);
+            HasKey(x => x.Id);
+
+            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            Property(x => x.Title).HasColumnName(@"Title").HasColumnType("nvarchar").IsRequired().HasMaxLength(50);
+            Property(x => x.Importance).HasColumnName(@"Importance").HasColumnType("int").IsRequired();
+            Property(x => x.IsSys).HasColumnName(@"IsSys").HasColumnType("bit").IsRequired();
+            Property(x => x.Active).HasColumnName(@"Active").HasColumnType("bit").IsRequired();
+            Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired();
+            Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
+            Property(x => x.UpdatedDate).HasColumnName(@"UpdatedDate").HasColumnType("datetime").IsOptional();
+            Property(x => x.UpdatedBy).HasColumnName(@"UpdatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
         }
     }
 
@@ -3383,6 +3394,36 @@ namespace QNZ.Data
         }
     }
 
+    // Pages
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
+    public class PageConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<Page>
+    {
+        public PageConfiguration()
+            : this("dbo")
+        {
+        }
+
+        public PageConfiguration(string schema)
+        {
+            ToTable("Pages", schema);
+            HasKey(x => x.Id);
+
+            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            Property(x => x.Title).HasColumnName(@"Title").HasColumnType("nvarchar").IsRequired().HasMaxLength(100);
+            Property(x => x.Body).HasColumnName(@"Body").HasColumnType("nvarchar(max)").IsRequired();
+            Property(x => x.SeoName).HasColumnName(@"SeoName").HasColumnType("nvarchar").IsRequired().HasMaxLength(100);
+            Property(x => x.ViewCount).HasColumnName(@"ViewCount").HasColumnType("int").IsOptional();
+            Property(x => x.Active).HasColumnName(@"Active").HasColumnType("bit").IsRequired();
+            Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired();
+            Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
+            Property(x => x.UpdatedDate).HasColumnName(@"UpdatedDate").HasColumnType("datetime").IsOptional();
+            Property(x => x.UpdatedBy).HasColumnName(@"UpdatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
+            Property(x => x.TemplateName).HasColumnName(@"TemplateName").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
+            Property(x => x.HeadCode).HasColumnName(@"HeadCode").HasColumnType("nvarchar(max)").IsOptional();
+            Property(x => x.FooterCode).HasColumnName(@"FooterCode").HasColumnType("nvarchar(max)").IsOptional();
+        }
+    }
+
     // PageMetas
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
     public class PageMetaConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<PageMeta>
@@ -3403,36 +3444,6 @@ namespace QNZ.Data
             Property(x => x.Keyword).HasColumnName(@"Keyword").HasColumnType("nvarchar").IsOptional().HasMaxLength(250);
             Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar").IsOptional().HasMaxLength(500);
             Property(x => x.Title).HasColumnName(@"Title").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
-        }
-    }
-
-    // PageSet
-    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.37.4.0")]
-    public class PageSetConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<PageSet>
-    {
-        public PageSetConfiguration()
-            : this("dbo")
-        {
-        }
-
-        public PageSetConfiguration(string schema)
-        {
-            ToTable("PageSet", schema);
-            HasKey(x => x.Id);
-
-            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
-            Property(x => x.Title).HasColumnName(@"Title").HasColumnType("nvarchar").IsRequired().HasMaxLength(100);
-            Property(x => x.Body).HasColumnName(@"Body").HasColumnType("nvarchar(max)").IsRequired();
-            Property(x => x.SeoName).HasColumnName(@"SeoName").HasColumnType("nvarchar").IsRequired().HasMaxLength(100);
-            Property(x => x.ViewCount).HasColumnName(@"ViewCount").HasColumnType("int").IsOptional();
-            Property(x => x.Active).HasColumnName(@"Active").HasColumnType("bit").IsRequired();
-            Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired();
-            Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
-            Property(x => x.UpdatedDate).HasColumnName(@"UpdatedDate").HasColumnType("datetime").IsOptional();
-            Property(x => x.UpdatedBy).HasColumnName(@"UpdatedBy").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
-            Property(x => x.TemplateName).HasColumnName(@"TemplateName").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
-            Property(x => x.HeadCode).HasColumnName(@"HeadCode").HasColumnType("nvarchar(max)").IsOptional();
-            Property(x => x.FooterCode).HasColumnName(@"FooterCode").HasColumnType("nvarchar(max)").IsOptional();
         }
     }
 
@@ -3578,6 +3589,7 @@ namespace QNZ.Data
             Property(x => x.ImageUrl).HasColumnName(@"ImageUrl").HasColumnType("nvarchar(max)").IsOptional();
             Property(x => x.Cover).HasColumnName(@"Cover").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
             Property(x => x.ViewImage).HasColumnName(@"ViewImage").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
+            Property(x => x.Icon).HasColumnName(@"Icon").HasColumnType("nvarchar").IsOptional().HasMaxLength(150);
             Property(x => x.Importance).HasColumnName(@"Importance").HasColumnType("int").IsRequired();
             Property(x => x.Recommend).HasColumnName(@"Recommend").HasColumnType("bit").IsRequired();
             Property(x => x.Active).HasColumnName(@"Active").HasColumnType("bit").IsRequired();

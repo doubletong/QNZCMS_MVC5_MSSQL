@@ -1,4 +1,4 @@
-﻿@model TZGCMS.Data.Entity.Pages.Page
+﻿@model PageVM
 <tr class="item-container" id="@string.Format("container{0}",Model.Id)">
 
     <td>
@@ -32,15 +32,11 @@
         }
     </td>
     <td>
-        @Ajax.RawActionLink("<i class='fa fa-edit fa-fw'></i>",
-                        "Edit", "Page",
-                        new { id = Model.Id },
-                        new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
-                        new { @class = "btn btn-primary btn-sm" })
-
-        <a href="#" data-url="@Url.Action("Delete", new {id = Model.Id})" class="delete-item btn btn-danger btn-sm" title="删除图片">
-            <i class="fa fa-trash-o fa-fw"></i
+        <a href="@Url.Action("Edit",new {id = Model.Id})" class="btn btn-primary btn-sm" title="@Buttons.Edit"><i class='iconfont icon-edit'></i></a>
+        <a href="#" data-url="@Url.Action("Delete", new {id = Model.Id})" class="btn btn-danger btn-sm delete-item" title="@Buttons.Delete">
+            <i class="iconfont icon-delete"></i>
         </a>
+
     </td>
 </tr>
 

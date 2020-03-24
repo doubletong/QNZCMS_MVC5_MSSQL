@@ -576,4 +576,13 @@
   <data name="Introduction" xml:space="preserve">
     <value>简介</value>
   </data>
+  <data name="Background" xml:space="preserve">
+    <value>背景</value>
+  </data>
+  <data name="ProductImage" xml:space="preserve">
+    <value>产品图</value>
+  </data>
+  <data name="TitleEn" xml:space="preserve">
+    <value>主题(英文)</value>
+  </data>
 </root>

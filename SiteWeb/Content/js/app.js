@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     $(".menu-toggle").on('click', function () {
         $(this).toggleClass("on");
-        $("#mainav").slideToggle();
+        $("#mainav-container").toggleClass("open");
     });
 
     //$(".subnav a").on("touchstart", function (e) {
@@ -36,13 +36,15 @@ $(document).ready(function() {
     //$("#btnSearch").click(function(e){
     //    $(".site-header").toggleClass("forSearch");
     //});
+     $(".mainav a").hover(function(e){      
+         var id = $(this).attr("data-id");
+         $("#" + id).addClass('active').siblings('.active').removeClass('active');
+    });
 
-
-    //$(".mainav li.down").hover(function(e){      
-    //    $(this).find("dl").stop().fadeIn();       
-    //},function(e){
-    //    $(this).find("dl").stop().fadeOut();
-    //});
+    $(".mainav li.downav>a").click(function (e) {
+        e.preventDefault();
+        $(this).next("div.subnav").slideToggle();       
+    });
 
     //$(".overmenu li.down>a").click(function (e) {
     //    e.preventDefault();

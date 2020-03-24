@@ -16,7 +16,6 @@ using TZGCMS.Model.Front.InputModel.Emails;
 using TZGCMS.Model.Front.ViewModel;
 using TZGCMS.Resources.Front;
 using TZGCMS.Service.Emails;
-using TZGCMS.Service.PageMetas;
 
 namespace TZGCMS.SiteWeb.Controllers
 {
@@ -24,21 +23,12 @@ namespace TZGCMS.SiteWeb.Controllers
     {
 
         TZGCMS.Infrastructure.Email.IEmailService _emailService;
-        private readonly IEmailTemplateServices _templateService;
-        private readonly IEmailServices _emailListService;
-        private readonly IEmailAccountServices _accountService;
         private readonly IQNZDbContext _db;
 
-        public ContactController(
-            IEmailTemplateServices templateService,
-            IEmailServices emailListService,
-            IEmailAccountServices accountService,
-            TZGCMS.Infrastructure.Email.IEmailService emailService, IQNZDbContext db)
+        public ContactController(TZGCMS.Infrastructure.Email.IEmailService emailService, IQNZDbContext db)
         {
             _emailService = emailService;
-            _templateService = templateService;
-            _emailListService = emailListService;
-            _accountService = accountService;
+
             _db = db;
         }
         // GET: Contact
@@ -54,7 +44,7 @@ namespace TZGCMS.SiteWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult SendEmail(EmailIM vm)
+        public async Task<JsonResult> SendEmail(EmailIM vm)
         {
 
             if (!ModelState.IsValid)
@@ -68,10 +58,11 @@ namespace TZGCMS.SiteWeb.Controllers
                 ModelState.AddModelError(string.Empty, "验证码不正确!");
                 AR.Setfailure(GetModelErrorMessage());
                 return Json(AR, JsonRequestBehavior.DenyGet);
-               // return View(model);
+                // return View(model);
             }
 
-            var template = _templateService.GetEmailTemplateByTemplateNo("T003");
+            var template = await _db.EmailTemplateSets.FirstOrDefaultAsync(d => d.TemplateNo == "T003");
+            // _templateService.GetEmailTemplateByTemplateNo("T003");
             if (template == null)
             {
                 AR.Setfailure(string.Format(Messages.NoEmailTemplate, "T003"));
@@ -80,22 +71,20 @@ namespace TZGCMS.SiteWeb.Controllers
 
 
             vm.Subject = SettingsManager.Site.SiteName + "联系邮件";
-            var emailBody = _templateService.ReplaceTemplate(template.Body);
+            var emailBody = ReplaceTemplate(template.Body);
             emailBody = emailBody.Replace("{Name}", vm.Name);
             emailBody = emailBody.Replace("{Phone}", vm.Phone);
             emailBody = emailBody.Replace("{Email}", vm.Email);
             emailBody = emailBody.Replace("{Message}", vm.Body);
 
-            var emailAccount = _accountService.GetById(template.EmailAccountId);
+            var emailAccount = await _db.EmailAccountSets.FindAsync(template.EmailAccountId);
+            //_accountService.GetById(template.EmailAccountId);
 
             try
             {
-                _emailService.SendMail(vm.Name, vm.Email, SettingsManager.Site.MailTo, string.Empty,
-                 vm.Subject, emailBody, emailAccount.Smtpserver, emailAccount.Email, SettingsManager.Site.SiteName,
-                 emailAccount.UserName, EncryptionHelper.Decrypt(emailAccount.Password), (int)emailAccount.Port, emailAccount.EnableSsl);
 
 
-                Email email = new Email
+                EmailSet email = new EmailSet
                 {
                     Body = emailBody,
                     Subject = vm.Subject,
@@ -106,7 +95,14 @@ namespace TZGCMS.SiteWeb.Controllers
                     CreatedDate = DateTime.Now
                 };
 
-                _emailListService.Create(email);
+                _db.EmailSets.Add(email);
+                await _db.SaveChangesAsync();
+                // _emailListService.Create(email);
+
+                _emailService.SendMail(vm.Name, vm.Email, SettingsManager.Site.MailTo, string.Empty,
+                  vm.Subject, emailBody, emailAccount.Smtpserver, emailAccount.Email, SettingsManager.Site.SiteName,
+                  emailAccount.UserName, EncryptionHelper.Decrypt(emailAccount.Password), (int)emailAccount.Port, emailAccount.EnableSsl);
+
 
                 AR.SetSuccess(Messages.EmailSentSuccess);
                 return Json(AR, JsonRequestBehavior.DenyGet);
@@ -117,6 +113,14 @@ namespace TZGCMS.SiteWeb.Controllers
                 return Json(AR, JsonRequestBehavior.DenyGet);
             }
 
+        }
+
+        public string ReplaceTemplate(string body)
+        {
+            body = body.Replace("{SiteName}", SettingsManager.Site.SiteName);
+            body = body.Replace("{SiteURL}", SettingsManager.Site.SiteDomainName);
+
+            return body;
         }
     }
 }

@@ -1,45 +1,40 @@
 ﻿@model PageListVM
 @{
-    ViewBag.Title = EntityNames.Page + "_内容";
+    Layout = "~/Areas/Admin/Views/Shared/Layouts/_Layout2019.cshtml";
+    ViewBag.Title = EntityNames.Page;
 }
 
 @section Header{
 
 }
 
-<div class="panel panel-default">
-    <header class="panel-heading">
-        <div class="row">
-            <div class="col-sm-8">
-                @using (Html.BeginForm("Index", "Page", FormMethod.Get, new { @class = "form-inline" }))
-                {
-                    <div class="form-group">
-                        @Html.EditorFor(model => model.Keyword, new { htmlAttributes = new { @class = "form-control", placeholder = Labels.KeyWords } })
-                    </div>
-
-                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> 搜索</button>
-                }
+<div class="row mb-3">
+    <div class="col-sm">
+        @using (Html.BeginForm("Index", "Page", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <div class="form-group">
+                <label class="sr-only" for="Keyword">关键字</label>
+                @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control mr-sm-2", placeholder = "关键字" })
             </div>
-            <div class="col-sm-4 text-right">
-                @Ajax.RawActionLink("<i class='fa fa-plus fa-fw'></i>新增",
-                         "Create", "Page",
-                         new { },
-                         new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "edit-container", OnComplete = "onAjaxComplete", OnSuccess = "OnSuccessLink" },
-                         new { title = "创建新页面", @class = "btn btn-primary" })
-                @*<a class="btn btn-default createIndex" href="#" data-url="@Url.Action("CreateIndex")"><i class="fa fa-server"></i> @Buttons.CreateIndex</a>*@
-            </div>
-        </div>
+            <button type="submit" class="btn btn-primary"><i class="iconfont icon-search"></i> 查找</button>
+        }
+    </div>
+    <div class="col-sm-auto">
+        <a class="btn btn-primary" href="@Url.Action("Edit")"><i class="iconfont icon-edit"></i> @string.Format("{0}{1}", Buttons.Add, ViewBag.Title)</a>
+        @*<a class="btn btn-outline-secondary createIndex" href="#" data-url="@Url.Action("CreateIndex")"><i class="iconfont icon-securityscan"></i> @Buttons.CreateIndex</a>*@
+    </div>
+</div>
 
-    </header>
 
-    <table class="table">
+<div class="table-responsive">
+    <table class="table table-hover table-striped table-vmiddle">
         <thead>
             <tr>
                 <th>
                     主题
                 </th>
                 <th>
-                   别名
+                    别名
                 </th>
                 <th>
                     查看
@@ -59,23 +54,34 @@
         </tbody>
 
     </table>
-    <footer class="panel-footer">
-        <div class="row">
-            <div class="col-sm-7">
-                @Html.PagedListPager(Model.Pages, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }))
-            </div>
-            <div class="col-sm-5">
-                <div class="form-inline text-right">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon3"> 总记录<strong>@Model.TotalCount</strong>条，分页</span>
-                        @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "form-control" })
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+
 
 </div>
+
+
+
+<div class="container-fluid pt-3" style="background-color: #fff;">
+    <div class="row">
+        <div class="col">
+            @Html.PagedListPager(Model.Pages, page => Url.Action("Index", new { page = page, keyword = Model.Keyword }), new PagedListRenderOptions()
+            {
+                LiElementClasses = new List<string> { "page-item" }
+
+            })
+        </div>
+        <div class="col-md-auto">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">总记录<strong>@Model.TotalCount</strong>条，分页</span>
+                </div>
+                @Html.DropDownListFor(m => Model.PageSize, (SelectList)ViewBag.PageSizes, "分页", new { @class = "custom-select" })
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
 
 <div id="edit-container">
 </div>
@@ -91,14 +97,14 @@
     <script src="~/Plugins/ace/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 
     <script>
-       
+
 
         function OnSuccessLink(data) {
             Common.ShowBox(data.Status, data.Message, "操作")
         }
 
         function onAjaxComplete() {
-            $('#ModalEdit').modal();          
+            $('#ModalEdit').modal();
 
             tinymce.init({
                 selector: '#Body',  // change this value according to your HTML

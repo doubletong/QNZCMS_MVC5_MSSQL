@@ -1,0 +1,184 @@
+﻿
+.page-business {
+    background-color:#f7f7f7;
+
+    .section {
+
+
+        @include respond-above (md) {
+            padding-left: 65px;
+        }
+
+        .col-lg {
+            height: 53vh;
+
+            &:last-child {
+                height: 47vh;
+            }
+
+            @include respond-above (md) {
+                height: 100vh;
+
+                &:last-child {
+                    height: 100vh;
+                }
+            }
+        }
+
+        .pic {
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0;
+        }
+
+        .txt-container {
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            background-size: 100% auto;
+            height: 100%;
+        }
+
+        .txt {
+            writing-mode: vertical-rl;
+            position: relative;
+            padding: 3rem 0;
+            margin: 0 auto;
+
+            @include respond-above (sm) {
+                height: 320px;
+                padding: 4rem 0 2rem;
+            }
+
+            @include respond-above (md) {
+                height: 350px;
+                @include vertical-align();
+                margin: 0 20% 0 auto;
+                top: 40%;
+            }
+
+            @include respond-above (lg) {
+                top: 30%;
+            }
+
+            @include respond-above (xlg) {
+                top: 38%;
+            }
+
+            .minlogo {
+                position: absolute;
+                margin-top: -75px;
+                margin-right: -8px;
+                opacity: 0;
+                width: 75px;
+
+                @include respond-above (sm) {
+                    width: 90px;
+                    margin-top: -95px;
+                }
+
+                @include respond-above (md) {
+                    margin-top: -80px;
+                    width: 75px;
+                }
+
+                @include respond-above(lg) {
+                    margin-top: -90px;
+                    margin-right: -8px;
+                    width: 82px;
+                }
+
+                @include respond-above(xlg) {
+                    margin-top: -110px;
+                    margin-right: -8px;
+                    width: 93px;
+                }
+            }
+
+            .title {
+                font-size: rem(22);
+                border-left: 1px #333 solid;
+                border-right: 1px #333 solid;
+                font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
+                display: inline-block;
+                padding-left: .6rem;
+                padding-right: .6rem;
+                margin-right: 0;
+                opacity: 0;
+
+                @include respond-above (sm) {
+                    font-size: rem(32);
+                }
+
+                @include respond-above (md) {
+                    font-size: rem(24);
+                }
+
+                @include respond-above(lg) {
+                    font-size: rem(28);
+                }
+
+                @include respond-above(xlg) {
+                    font-size: rem(32);
+                }
+            }
+
+            p {
+                font-size: rem(12);
+                font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
+                opacity: 0;
+                text-align: justify;
+
+                @include respond-above (sm) {
+                    font-size: rem(18);
+                }
+
+                @include respond-above (md) {
+                    font-size: rem(14);
+                }
+
+                @include respond-above(lg) {
+                    font-size: 1rem;
+                }
+
+                @include respond-above(xlg) {
+                    font-size: rem(18);
+                }
+            }
+        }
+    }
+}
+#fp-nav {
+    top: 36%;
+    display: none;
+
+    @include respond-above (md) {
+        display: block;
+    }
+
+    &::before {
+        display: block;
+        width: 1px;
+        height: 100vh;
+        content: " ";
+        background-color: #ddd;
+        position: absolute;
+        z-index: 0;
+        left: 16px;
+        top: -130px;
+    }
+}
+#fp-nav ul li {
+    width: 20px;
+    height: 20px;
+    border: 1px #ddd solid;
+    border-radius: 50%;
+    margin-bottom: 30px;
+    background-color:#fff;
+}
+#fp-nav ul li a.active span {
+    background-color: $color-primary;
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 -5px;
+}

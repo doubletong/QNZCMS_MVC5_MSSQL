@@ -38,6 +38,10 @@
     {
       "library": "select2@4.0.10",
       "destination": "Plugins/select2"
+    },
+    {
+      "library": "jquery.waitforimages@2.4.0",
+      "destination": "Plugins/waitforimages"
     }
   ]
 }

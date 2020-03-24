@@ -1,6 +1,9 @@
 ﻿.page-products {
-    padding-left: 130px;
+    background-color: #f7f7f7;
 
+    @include respond-above (md) {
+        padding-left: 130px;
+    }
 
     .s1 {
         padding-bottom: 1rem;
@@ -17,13 +20,14 @@
 
         .productlist {
             .item {
-                background-color: #fff;
                 display: block;
-                margin-bottom: 30px;              
+                margin-bottom: 30px;
                 padding-bottom: 2rem;
-                color:#666;
+                color: #666;
+
                 .pic {
                     border: 1px #fff solid;
+                    background-color: #fff;
 
                     img {
                         width: 100%;
@@ -34,217 +38,124 @@
                     padding: 0;
 
                     h3 {
-                        font-size: rem(24);
+                        font-size: rem(20);
                         font-weight: normal;
                         font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
-                        text-align:left;
-                        display:inline-block;
-                        border-bottom:1px #eee solid;
-                        padding-bottom:6px;
-                        margin-bottom:10px;
+                        text-align: left;
+                        display: inline-block;
+                        border-bottom: 1px #eee solid;
+                        padding-bottom: 6px;
+                        margin-bottom: 10px;
+
+                        @include respond-above (lg) {
+                            font-size: rem(24);
+                        }
                     }
 
                     p {
-                     
-                        padding: 0;                      
-                        margin:0;
-                    }
+                        padding: 0;
+                        margin: 0;
+                        font-size: rem(14);
 
-                   
+                        @include respond-above (lg) {
+                            font-size: 1rem;
+                        }
+                    }
                 }
 
                 &:hover {
-                    color:$color-primary;
+                    color: $color-primary;
+
                     .pic {
                         border: #eee 1px solid;
                     }
 
                     .text {
-                        h3{
-                            border-bottom-color:$color-primary;
+                        h3 {
+                            border-bottom-color: $color-primary;
                         }
                     }
                 }
             }
         }
     }
-
 }
-.page-product-detail {
-    .title-section {
-        text-align: center;
+
+.product-header {
+    height: 720px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    @include respond-above (md) {
+        padding-left: 130px;
     }
 
-    .showfull {
-        max-width: 820px;
-        background-color: #fff;
-        box-shadow: 0 0 20px rgba(0,0,0,.1);
-        padding: 2rem;
+    .pic {
         text-align: center;
-        margin: 3rem auto;
-
-        h3 {
-            font-size: 1.5rem;
-
-
-            @include respond-above (sm) {
-                font-size: 3rem;
-                font-weight: lighter;
-            }
-        }
-    }
-
-    .s3 {
-        padding-top: 2rem;
-
-        @include respond-above (sm) {
-            padding-top: 3rem;
-        }
+        padding: 8rem 4rem 0;
 
         @include respond-above (md) {
-            padding-top: 4rem;
-        }
-
-        @include respond-above (lg) {
-            padding-top: 5rem;
+            padding: 6rem 0 0;
         }
     }
 
-    .tab-header {
-        background-color: rgb(255, 255, 255);
-        box-shadow: 0px 4px 9.6px 0.4px rgba(255, 136, 60, 0.1);
-        padding: 15px;
-        text-align: center;
+    .txt {
+        writing-mode: vertical-rl;
+        color: #fff;
+        margin: 0 0 0 auto;
 
-        @include respond-above (sm) {
-            height: 60px;
-            padding: 0 15px;
+        @include respond-above (md) {
+            height: 400px;
+            margin: 0 10% 0 auto;
         }
 
-        nav {
-            a {
-                display: inline-block;
-                padding: .3rem 1rem;
+        .title {
+            color: #fff;
+            font-size: rem(24);
+            font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            border-left: 1px #fff solid;
+            border-right: 1px #fff solid;
+            display: inline-block;
 
-                @include respond-above (sm) {
-                    height: 60px;
-                    line-height: 60px;
-                    padding: 0 1rem;
-                }
-
-                &.active {
-                    background-color: $color-primary;
-                    color: #fff;
-
-                    @include respond-above (sm) {
-                        background-color: transparent;
-                        border-bottom: 1px $color-primary solid;
-                        color: $color-primary;
-                    }
-                }
+            @include respond-above (md) {
+                font-size: rem(36);
             }
         }
-    }
 
-    .content {
-        padding: 1rem 0;
-        display: none;
+        p {
+            font-size: 14px;
+            font-family: '华文中宋',"Microsoft YaHei", "PingFangSC-Regular","Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            line-height: 2.5;
+            max-height: 250px;
 
-        @include respond-above (sm) {
-            padding: 2rem 0;
+            @include respond-above (md) {
+                font-size: 18px;
+                max-height: none;
+            }
         }
 
-        &.active {
+        img {
+            display: block;
+            margin: auto auto 16px auto;
+        }
+    }
+}
+.page-product-detail {
+   
+
+    @include respond-above (md) {
+        padding-left: 130px;
+    }
+
+    section.detail {
+        max-width: 1050px;
+        margin: 0 auto;
+        padding: 0 1rem;
+
+        img {
             display: block;
         }
     }
 }
-.page-tran {
-    .title-section {
-        text-align: center;
-        margin-bottom: 1.5rem;
 
-        @include respond-above (sm) {
-            margin-bottom: 3rem;
-        }
-    }
-
-    .top {
-        text-align: center;
-        color: #fff;
-        background: #552c16 url('../img/train_bg.jpg') no-repeat center center;
-        padding: 1rem 2rem 2rem;
-        background-size: cover;
-
-        @include respond-above (sm) {
-            padding: 3rem 5rem 4rem;
-        }
-
-        h4 {
-            font-size: rem(24);
-        }
-
-        p {
-            font-size: rem(18);
-            text-align: justify;
-
-            @include respond-above (sm) {
-                font-size: rem(20);
-            }
-        }
-    }
-
-    .main {
-        padding-left: 1rem;
-
-        h3 {
-            text-align: center;
-            font-size: rem(24);
-            color: #333;
-        }
-
-        h4 {
-            font-size: rem(24);
-            color: #333;
-        }
-
-        ul {
-            list-style-image: url(../img/dot.png);
-            padding: 0;
-
-            dl {
-                dd {
-                    margin: 0;
-                }
-            }
-        }
-
-        .note {
-            font-size: rem(20);
-
-            @include respond-above (sm) {
-                font-size: rem(24);
-            }
-        }
-    }
-
-    .main-v1 {
-
-        h4 {
-            font-size: rem(20);
-            color: #333;
-
-            @include respond-above (sm) {
-                font-size: rem(24);
-            }
-        }
-
-        .tlist {
-            img {
-                display: block;
-                width: 100%;
-                margin-bottom: 30px;
-            }
-        }
-    }
-}

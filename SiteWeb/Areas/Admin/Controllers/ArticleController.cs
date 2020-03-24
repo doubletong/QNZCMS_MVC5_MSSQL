@@ -308,19 +308,19 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
 
        
 
-        public async System.Threading.Tasks.Task<ActionResult> Add()
-        {
-            var article = new ArticleIM {
-                Active = true,
-                Source = SettingsManager.Site.SiteName,
-                Pubdate = DateTime.Now };
+        //public async System.Threading.Tasks.Task<ActionResult> Add()
+        //{
+        //    var article = new ArticleIM {
+        //        Active = true,
+        //        Source = SettingsManager.Site.SiteName,
+        //        Pubdate = DateTime.Now };
 
-            var categoryList = await _db.ArticleCategories.OrderByDescending(c => c.Importance).ToListAsync();
-            ViewBag.Categories = new SelectList(categoryList, "Id", "Title");
+        //    var categoryList = await _db.ArticleCategories.OrderByDescending(c => c.Importance).ToListAsync();
+        //    ViewBag.Categories = new SelectList(categoryList, "Id", "Title");
 
 
-            return View(article);
-        }
+        //    return View(article);
+        //}
         
 
         [HttpPost]
@@ -362,29 +362,48 @@ namespace TZGCMS.SiteWeb.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Edit(int Id)
+        public async Task<ActionResult> Edit(int? id)
         {
-            var vArticle = await _db.Articles.FindAsync(Id);
-            if (vArticle == null)
-            {
-                AR.Setfailure(Messages.HttpNotFound);
-                return Json(AR, JsonRequestBehavior.AllowGet);
-            }
-            
-            var editArticle = _mapper.Map<Article, ArticleIM>(vArticle);
-
-            var pageMeta = await _db.PageMetas.FirstOrDefaultAsync(d=>d.ModelType == (short)ModelType.ARTICLE && d.ObjectId == editArticle.Id.ToString());
-            if (pageMeta != null)
-            {
-                editArticle.SEOTitle = pageMeta.Title;
-                editArticle.Keywords = pageMeta.Keyword;
-                editArticle.SEODescription = pageMeta.Description;
-            }
-
             var categoryList = await _db.ArticleCategories.OrderByDescending(c => c.Importance).ToListAsync();
             ViewBag.Categories = new SelectList(categoryList, "Id", "Title");
 
-            return View(editArticle);
+            if (id == null)
+            {
+                var article = new ArticleIM
+                {
+                    Active = true,
+                    Source = SettingsManager.Site.SiteName,
+                    Pubdate = DateTime.Now
+                };
+
+             
+
+                return View(article);
+            }
+            else
+            {
+                var vArticle = await _db.Articles.FindAsync(id);
+                if (vArticle == null)
+                {
+                    AR.Setfailure(Messages.HttpNotFound);
+                    return Json(AR, JsonRequestBehavior.AllowGet);
+                }
+
+                var editArticle = _mapper.Map<Article, ArticleIM>(vArticle);
+
+                var pageMeta = await _db.PageMetas.FirstOrDefaultAsync(d => d.ModelType == (short)ModelType.ARTICLE && d.ObjectId == editArticle.Id.ToString());
+                if (pageMeta != null)
+                {
+                    editArticle.SEOTitle = pageMeta.Title;
+                    editArticle.Keywords = pageMeta.Keyword;
+                    editArticle.SEODescription = pageMeta.Description;
+                }
+                            
+
+                return View(editArticle);
+            }
+
+            
 
 
         }
